@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#111c20" />
+    <title>Recent Trades</title>
+    <link rel="manifest" href="/game/manifest.webmanifest" />
+    <link rel="icon" href="/game/icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/game/styles.css" />
+  </head>
+  <body data-page="trades">
+    <main class="shell">
+      <section class="topbar">
+        <div><p class="eyebrow">Trading Academy</p><h1>Recent Trades</h1></div>
+        <nav class="app-nav" aria-label="Game navigation">
+          <a href="/game/">Market</a><a href="/game/intel.html">Intel</a><a class="active" href="/game/trades.html">Trades</a><a href="/game/news.html">News</a><a href="/game/portfolio.html">Portfolio</a><a href="/game/store.html">Store</a><a href="/game/auth.html">Account</a>
+        </nav>
+        <div class="page-clock">
+          <span>Next tick</span>
+          <strong id="pageClock">--s</strong>
+        </div>
+      </section>
+      <section class="panel page-panel">
+        <div class="panel-head"><div><p class="eyebrow">Tape</p><h2>Trade Tape</h2></div></div>
+        <div class="table-wrap compact">
+          <table>
+            <thead><tr><th>Trader</th><th>Symbol</th><th>Side</th><th>Qty</th><th>Price</th><th>Value</th></tr></thead>
+            <tbody id="recentTradesBody"></tbody>
+          </table>
+        </div>
+      </section>
+      <div class="status-line" id="pageStatus">Loading</div>
+    </main>
+    <script src="/game/pages.js"></script>
+  </body>
+</html>

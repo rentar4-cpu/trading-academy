@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#111c20" />
+    <title>Market Intel</title>
+    <link rel="manifest" href="/game/manifest.webmanifest" />
+    <link rel="icon" href="/game/icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/game/styles.css" />
+  </head>
+  <body data-page="intel">
+    <main class="shell">
+      <section class="topbar">
+        <div><p class="eyebrow">Trading Academy</p><h1>Market Intel</h1></div>
+        <nav class="app-nav" aria-label="Game navigation">
+          <a href="/game/">Market</a><a class="active" href="/game/intel.html">Intel</a><a href="/game/trades.html">Trades</a><a href="/game/news.html">News</a><a href="/game/portfolio.html">Portfolio</a><a href="/game/store.html">Store</a><a href="/game/auth.html">Account</a>
+        </nav>
+        <div class="page-clock">
+          <span>Next tick</span>
+          <strong id="pageClock">--s</strong>
+        </div>
+      </section>
+      <section class="panel page-panel intel-chart-section">
+        <div class="panel-head">
+          <div><p class="eyebrow">Market Chart</p><h2>Price Map</h2></div>
+          <div class="intel-market-state">
+            <span></span>
+            <strong>Market Open</strong>
+            <small>--</small>
+          </div>
+        </div>
+        <div class="intel-chart-toolbar">
+          <select id="intelChartSymbol" aria-label="Chart company"></select>
+          <div class="intel-range-tabs" id="intelRangeTabs" role="tablist" aria-label="Chart range">
+            <button type="button" data-range="1D">1D</button>
+            <button type="button" data-range="5D">5D</button>
+            <button type="button" data-range="1M">1M</button>
+            <button type="button" data-range="3M">3M</button>
+            <button type="button" data-range="6M">6M</button>
+            <button type="button" data-range="YTD">YTD</button>
+            <button type="button" data-range="1Y">1Y</button>
+            <button type="button" data-range="5Y">5Y</button>
+            <button type="button" data-range="ALL">All</button>
+          </div>
+        </div>
+        <div id="intelChartStats" class="intel-chart-stats"></div>
+        <canvas id="intelChart" width="1180" height="320"></canvas>
+      </section>
+      <section class="panel page-panel intel-signals-section">
+        <div class="panel-head"><div><p class="eyebrow">Signals</p><h2>Trading Signals</h2></div></div>
+        <div id="marketIntel" class="intel-list"></div>
+      </section>
+      <div class="status-line" id="pageStatus">Loading</div>
+    </main>
+    <script src="/game/pages.js"></script>
+  </body>
+</html>

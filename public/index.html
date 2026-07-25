@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#111c20" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Market Simulator" />
+    <title>Market Simulator</title>
+    <link rel="manifest" href="/game/manifest.webmanifest" />
+    <link rel="icon" href="/game/icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/game/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="topbar">
+        <div>
+          <p class="eyebrow" data-i18n="brand">Trading Academy</p>
+          <h1 data-i18n="title">Market Simulator</h1>
+        </div>
+        <nav class="app-nav" aria-label="Game navigation">
+          <a class="active" href="/game/" data-i18n="navMarket">Market</a>
+          <a href="/game/intel.html" data-i18n="navIntel">Intel</a>
+          <a href="/game/trades.html" data-i18n="navTrades">Trades</a>
+          <a href="/game/news.html" data-i18n="navNews">News</a>
+          <a href="/game/portfolio.html" data-i18n="navPortfolio">Portfolio</a>
+          <a href="/game/store.html" data-i18n="navStore">Store</a>
+          <a href="/game/auth.html" data-i18n="navAuth">Account</a>
+        </nav>
+        <label class="language-select">
+          <span data-i18n="language">Language</span>
+          <select id="languageSelect" aria-label="Language">
+            <option value="en">English</option>
+            <option value="ru">Русский</option>
+            <option value="he">עברית</option>
+            <option value="de">Deutsch</option>
+            <option value="fr">Français</option>
+          </select>
+        </label>
+        <div class="account-strip">
+          <a href="/game/auth.html" data-i18n="loginRegister">Login / Register</a>
+          <button id="logoutButton" type="button" data-i18n="logout">Log out</button>
+          <button id="createPlayerButton" type="button" data-i18n="playGuest">Play as Guest</button>
+        </div>
+      </section>
+
+      <section class="ticker" id="ticker"></section>
+
+      <section class="layout">
+        <section class="panel market-panel">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow" data-i18n="market">Market</p>
+              <h2 data-i18n="exchangeFloor">Exchange Floor</h2>
+            </div>
+            <div class="market-clock">
+              <span id="clockLabel" data-i18n="autoMarket">Auto market</span>
+              <strong id="clockCountdown">--s</strong>
+              <button id="tickButton" type="button" data-i18n="pulseNow">Pulse Now</button>
+            </div>
+          </div>
+          <div class="game-board">
+            <div class="board-glow"></div>
+            <div class="board-grid" id="companyBoard"></div>
+          </div>
+          <div class="market-chart-panel">
+            <div class="chart-head">
+              <span data-i18n="marketChart">Market Chart</span>
+              <strong id="boardSignal" data-i18n="marketOpen">Market open</strong>
+            </div>
+            <canvas id="marketCanvas" width="880" height="220"></canvas>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th data-i18n="symbol">Symbol</th>
+                  <th data-i18n="company">Company</th>
+                  <th data-i18n="sector">Sector</th>
+                  <th data-i18n="price">Price</th>
+                  <th data-i18n="change">Change</th>
+                </tr>
+              </thead>
+              <tbody id="companiesBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <aside class="panel trade-panel">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow" data-i18n="order">Order</p>
+              <h2 data-i18n="trade">Trade</h2>
+            </div>
+          </div>
+          <div class="selected-asset" id="selectedAsset">
+            <span data-i18n="selected">Selected</span>
+            <strong data-i18n="chooseCompany">Choose a company</strong>
+            <p data-i18n="chooseHint">Click a market tile to prepare an order.</p>
+          </div>
+          <div class="wallet-box" id="walletBox">
+            <span data-i18n="walletBalance">Wallet Balance</span>
+            <strong id="walletBalance">$0.00</strong>
+          </div>
+          <form id="orderForm" class="order-form">
+            <label>
+              <span data-i18n="symbol">Symbol</span>
+              <select id="orderSymbol"></select>
+            </label>
+            <label>
+              <span data-i18n="quantity">Quantity</span>
+              <input id="orderQuantity" type="number" min="0.01" step="0.01" value="5" />
+            </label>
+            <div class="segmented" role="group" aria-label="Order side">
+              <button class="active" id="buyButton" type="button" data-side="buy" data-i18n="buy">Buy</button>
+              <button id="sellButton" type="button" data-side="sell" data-i18n="sell">Sell</button>
+            </div>
+            <button class="primary" type="submit" data-i18n="placeOrder">Place Order</button>
+          </form>
+          <div class="event-box">
+            <p class="eyebrow" data-i18n="latestEvent">Latest Event</p>
+            <h3 id="eventTitle" data-i18n="noEvent">No event yet</h3>
+            <p id="eventDescription" data-i18n="eventHint">Run a market tick to move prices.</p>
+          </div>
+        </aside>
+      </section>
+
+      <div class="status-line" id="statusLine" data-i18n="ready">Ready</div>
+    </main>
+    <script src="/game/app.js"></script>
+  </body>
+</html>
