@@ -45,6 +45,9 @@ const PRICE_FLOOR_MULTIPLIER = 0.25;
 const PRICE_HARD_CEILING_MULTIPLIER = 6;
 const MIN_LIVE_TRADE_COUNT = 8;
 const MIN_TOTAL_TRADE_COUNT = 72;
+const FIRST_SESSION_REWARD_TOKENS = 25;
+const FIRST_SESSION_GUIDED_GAIN_PERCENT = 6;
+const RETURN_WINDOW_MS = 20 * 60 * 60 * 1000;
 
 @Injectable()
 export class MarketService implements OnModuleInit, OnModuleDestroy {
@@ -397,6 +400,7 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
       display_name: dto.display_name.trim(),
       cash_balance: 10000,
       premium_credits: 0,
+      first_session_started_at: new Date(),
     });
 
     return this.playersRepository.save(player);
@@ -473,16 +477,32 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
       throw new NotFoundException(`Company ${symbol} was not found`);
     }
 
+    const shouldGuideFirstTrade =
+      this.isFirstSessionHumanPlayer(player) &&
+      Number(player.first_session_trade_count || 0) === 0 &&
+      dto.side === 'buy';
+
     const trade = await this.executeTrade(
       player,
       company,
       dto.side as TradeSide,
       quantity,
     );
+    if (!trade) {
+      throw new BadRequestException('Trade could not be executed');
+    }
+
+    const firstSession = await this.recordFirstSessionTrade(
+      player,
+      company,
+      trade,
+      shouldGuideFirstTrade,
+    );
 
     return {
       trade,
       portfolio: await this.getPortfolio(player.id),
+      first_session: firstSession,
     };
   }
 
@@ -980,6 +1000,57 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
     };
   }
 
+  async getFirstSessionMetrics() {
+    const players = await this.playersRepository.find();
+    const startedPlayers = players.filter(
+      (player) => player.first_session_started_at,
+    );
+    const completedPlayers = startedPlayers.filter(
+      (player) => player.first_session_completed_at,
+    );
+    const secondTradePlayers = startedPlayers.filter(
+      (player) => Number(player.first_session_trade_count || 0) >= 2,
+    );
+    const returnedPlayers = completedPlayers.filter(
+      (player) => player.first_session_returned_at,
+    );
+    const durations = completedPlayers
+      .map((player) => {
+        const started = player.first_session_started_at?.getTime();
+        const completed = player.first_session_completed_at?.getTime();
+        return started && completed ? completed - started : 0;
+      })
+      .filter((duration) => duration > 0);
+
+    const averageDurationMs = durations.length
+      ? Math.round(
+          durations.reduce((total, duration) => total + duration, 0) /
+            durations.length,
+        )
+      : 0;
+
+    return {
+      started: startedPlayers.length,
+      completed: completedPlayers.length,
+      completion_percent: this.roundPercent(
+        startedPlayers.length
+          ? (completedPlayers.length / startedPlayers.length) * 100
+          : 0,
+      ),
+      second_trade_percent: this.roundPercent(
+        startedPlayers.length
+          ? (secondTradePlayers.length / startedPlayers.length) * 100
+          : 0,
+      ),
+      day_1_retention_percent: this.roundPercent(
+        completedPlayers.length
+          ? (returnedPlayers.length / completedPlayers.length) * 100
+          : 0,
+      ),
+      average_first_session_duration_ms: averageDurationMs,
+    };
+  }
+
   private async findPlayer(playerId: number) {
     if (!Number.isInteger(playerId)) {
       throw new BadRequestException('player_id must be a number');
@@ -990,7 +1061,109 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
       throw new NotFoundException('Player was not found');
     }
 
+    await this.markFirstSessionReturn(player);
     return player;
+  }
+
+  private isFirstSessionHumanPlayer(player: SimPlayer) {
+    if (player.display_name === 'Market Maker') return false;
+    return !MARKET_BOT_TRADERS.some((bot) => bot.name === player.display_name);
+  }
+
+  private async markFirstSessionReturn(player: SimPlayer) {
+    if (
+      !this.isFirstSessionHumanPlayer(player) ||
+      !player.first_session_completed_at ||
+      player.first_session_returned_at
+    ) {
+      return;
+    }
+
+    const elapsed = Date.now() - player.first_session_completed_at.getTime();
+    if (elapsed < RETURN_WINDOW_MS) return;
+
+    player.first_session_returned_at = new Date();
+    await this.playersRepository.save(player);
+  }
+
+  private async recordFirstSessionTrade(
+    player: SimPlayer,
+    company: SimCompany,
+    trade: Trade,
+    shouldGuideFirstTrade: boolean,
+  ) {
+    if (!this.isFirstSessionHumanPlayer(player)) return null;
+
+    const now = new Date();
+    if (!player.first_session_started_at) {
+      player.first_session_started_at = player.created_at || now;
+    }
+
+    player.first_session_trade_count =
+      Number(player.first_session_trade_count || 0) + 1;
+
+    if (
+      Number(player.first_session_trade_count) >= 2 &&
+      !player.first_session_second_trade_at
+    ) {
+      player.first_session_second_trade_at = now;
+    }
+
+    if (!shouldGuideFirstTrade || player.first_session_completed_at) {
+      await this.playersRepository.save(player);
+      return null;
+    }
+
+    const oldPrice = Number(company.price);
+    const boostedPrice = this.roundMoney(
+      Math.max(
+        oldPrice + 0.01,
+        oldPrice * (1 + FIRST_SESSION_GUIDED_GAIN_PERCENT / 100),
+      ),
+    );
+    company.previous_price = oldPrice;
+    company.price = boostedPrice;
+    await this.companiesRepository.save(company);
+
+    player.first_session_status = 'completed';
+    player.first_session_completed_at = now;
+    player.first_session_reward_tokens = this.roundMoney(
+      Number(player.first_session_reward_tokens || 0) +
+        FIRST_SESSION_REWARD_TOKENS,
+    );
+
+    let user: User | null = null;
+    if (player.user_id) {
+      user = await this.usersRepository.findOneBy({ id: player.user_id });
+      if (user?.email_verified) {
+        user.account_tokens = this.roundMoney(
+          Number(user.account_tokens || 0) + FIRST_SESSION_REWARD_TOKENS,
+        );
+        await this.usersRepository.save(user);
+      }
+    }
+
+    await this.playersRepository.save(player);
+
+    return {
+      status: 'completed',
+      reward_tokens: FIRST_SESSION_REWARD_TOKENS,
+      pending_registration: !user?.email_verified,
+      achievement_code: 'first_trade',
+      title: 'First profitable trade',
+      result_explanation:
+        'You bought after positive demand appeared. The market moved up and your position is already profitable.',
+      next_hook:
+        'A new market mission unlocks next: make a second trade after reading the next news signal.',
+      old_price: oldPrice,
+      new_price: boostedPrice,
+      unrealized_profit: this.roundMoney(
+        Number(trade.quantity) *
+          (boostedPrice - Number(trade.execution_price)) -
+          Number(trade.fee),
+      ),
+      account_tokens: Number(user?.account_tokens || 0),
+    };
   }
 
   private async ensureVerifiedAccountPlayer(player: SimPlayer) {

@@ -413,6 +413,8 @@ async function register(event) {
       display_name: document.querySelector('#registerName').value,
       email: document.querySelector('#registerEmail').value,
       password: document.querySelector('#registerPassword').value,
+      guest_player_id:
+        Number(localStorage.getItem('market_player_id')) || undefined,
     }),
   });
   if (result.mode === 'pending_verification') {

@@ -41,6 +41,9 @@ export class UsersService {
     const email = this.normalizeEmail(dto.email);
     const password = this.validatePassword(dto.password);
     const displayName = this.normalizeDisplayName(dto.display_name, email);
+    const guestRewardTokens = await this.getGuestPendingTokens(
+      dto.guest_player_id,
+    );
 
     const existing = await this.usersRepository.findOneBy({ email });
     if (existing) {
@@ -53,6 +56,7 @@ export class UsersService {
         display_name: displayName,
         password_hash: this.hashPassword(password),
         email_verified: false,
+        account_tokens: guestRewardTokens,
         email_verification_code: this.createVerificationCode(),
         email_verification_sent_at: new Date(),
       }),
@@ -175,6 +179,7 @@ export class UsersService {
         display_name: this.normalizeDisplayName(displayName, 'Guest Trader'),
         cash_balance: GUEST_STARTING_CASH,
         premium_credits: 0,
+        first_session_started_at: new Date(),
       }),
     );
 
@@ -255,6 +260,16 @@ export class UsersService {
     const normalized =
       displayName?.trim() || fallback.split('@')[0] || 'Trader';
     return normalized.slice(0, 24);
+  }
+
+  private async getGuestPendingTokens(guestPlayerId?: number) {
+    const playerId = Number(guestPlayerId);
+    if (!Number.isInteger(playerId)) return 0;
+
+    const guest = await this.playersRepository.findOneBy({ id: playerId });
+    if (!guest || guest.user_id) return 0;
+
+    return Number(guest.first_session_reward_tokens || 0);
   }
 
   private async applyDailyLoginReward(user: User) {

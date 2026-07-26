@@ -75,14 +75,37 @@ const translations = {
     until: 'Until',
     risk: 'Risk',
     supportScore: 'support score',
-    supportStrong: 'Strong support: downside is softened and regular ticks get a growth bias.',
-    supportModerate: 'Moderate support: smaller drawdowns and a light growth bias.',
+    supportStrong:
+      'Strong support: downside is softened and regular ticks get a growth bias.',
+    supportModerate:
+      'Moderate support: smaller drawdowns and a light growth bias.',
     supportLimited: 'Limited support: small stability bonus only.',
     noProtection: 'No price protection from the state.',
     installUnavailable: 'Install mode is unavailable in this browser',
     playerCreated: 'Player {name} created',
     marketEvent: 'Market event: {title}',
     selectedStatus: '{symbol} selected',
+    firstSessionTitle: 'Your first smart trade',
+    firstSessionText:
+      'Buy a small position after positive demand. This first session is guided.',
+    firstSessionAction: 'Make first trade',
+    firstRewardTitle: 'Nice trade',
+    firstRewardExplanation:
+      'You bought after positive demand appeared. The market moved up and your position is already profitable.',
+    firstRewardTokens: '+{amount} tokens',
+    firstRewardPending: 'Register to keep these tokens permanently.',
+    firstRewardAchievement: 'Achievement unlocked: First Trade',
+    firstRewardNext:
+      'Next: read the news signal and make a second trade tomorrow.',
+    firstRewardContinue: 'Continue',
+    firstRewardNews: 'Open News',
+    firstLessonTitle: 'What you just did',
+    firstLessonIntro: 'Congratulations. You just made a profit.',
+    firstLessonReality:
+      'But that was only the first step. The real market is much more complex.',
+    firstLessonList:
+      'Next trades will ask you to read news, analyze companies, follow events, and decide for yourself.',
+    firstLessonAction: 'Continue learning',
   },
   ru: {
     brand: 'Торговая академия',
@@ -149,7 +172,8 @@ const translations = {
     until: 'До',
     risk: 'Риск',
     supportScore: 'оценка поддержки',
-    supportStrong: 'Сильная поддержка: падение смягчается, а тики получают бонус роста.',
+    supportStrong:
+      'Сильная поддержка: падение смягчается, а тики получают бонус роста.',
     supportModerate: 'Средняя поддержка: меньше просадки и лёгкий бонус роста.',
     supportLimited: 'Ограниченная поддержка: небольшой бонус стабильности.',
     noProtection: 'Нет ценовой защиты от государства.',
@@ -157,6 +181,28 @@ const translations = {
     playerCreated: 'Игрок {name} создан',
     marketEvent: 'Событие рынка: {title}',
     selectedStatus: '{symbol} выбран',
+    firstSessionTitle: 'Первая умная сделка',
+    firstSessionText:
+      'Купите небольшую позицию после сигнала спроса. Первая сессия ведёт вас мягко.',
+    firstSessionAction: 'Сделать первую сделку',
+    firstRewardTitle: 'Отличная сделка',
+    firstRewardExplanation:
+      'Вы купили после появления спроса. Рынок пошёл вверх, и позиция уже в прибыли.',
+    firstRewardTokens: '+{amount} токенов',
+    firstRewardPending:
+      'Зарегистрируйтесь, чтобы сохранить эти токены навсегда.',
+    firstRewardAchievement: 'Достижение открыто: Первая сделка',
+    firstRewardNext:
+      'Дальше: прочитайте новость и сделайте вторую сделку завтра.',
+    firstRewardContinue: 'Продолжить',
+    firstRewardNews: 'Открыть новости',
+    firstLessonTitle: 'Что вы только что сделали',
+    firstLessonIntro: 'Поздравляем. Вы только что получили прибыль.',
+    firstLessonReality:
+      'Но это был только первый шаг. Настоящий рынок намного сложнее.',
+    firstLessonList:
+      'Дальше нужно читать новости, анализировать компании, учитывать события и решать самостоятельно.',
+    firstLessonAction: 'Продолжить обучение',
   },
   he: {
     brand: 'אקדמיית מסחר',
@@ -231,6 +277,26 @@ const translations = {
     playerCreated: 'השחקן {name} נוצר',
     marketEvent: 'אירוע שוק: {title}',
     selectedStatus: '{symbol} נבחר',
+    firstSessionTitle: 'העסקה החכמה הראשונה',
+    firstSessionText:
+      'קנה פוזיציה קטנה אחרי סימן ביקוש. הסשן הראשון מונחה בעדינות.',
+    firstSessionAction: 'בצע עסקה ראשונה',
+    firstRewardTitle: 'עסקה יפה',
+    firstRewardExplanation:
+      'קנית אחרי שהופיע ביקוש חיובי. השוק עלה והפוזיציה כבר ברווח.',
+    firstRewardTokens: '+{amount} טוקנים',
+    firstRewardPending: 'הירשם כדי לשמור את הטוקנים לצמיתות.',
+    firstRewardAchievement: 'הישג נפתח: עסקה ראשונה',
+    firstRewardNext: 'הבא: קרא חדשות ובצע עסקה שנייה מחר.',
+    firstRewardContinue: 'המשך',
+    firstRewardNews: 'פתח חדשות',
+    firstLessonTitle: 'מה עשית עכשיו',
+    firstLessonIntro: 'כל הכבוד. הרווחת בעסקה הראשונה.',
+    firstLessonReality:
+      'אבל זה היה רק הצעד הראשון. השוק האמיתי מורכב הרבה יותר.',
+    firstLessonList:
+      'בעסקאות הבאות תצטרך לקרוא חדשות, לנתח חברות, לעקוב אחרי אירועים ולהחליט לבד.',
+    firstLessonAction: 'המשך ללמוד',
   },
   de: {
     brand: 'Handelsakademie',
@@ -297,14 +363,39 @@ const translations = {
     until: 'Bis',
     risk: 'Risiko',
     supportScore: 'Support-Score',
-    supportStrong: 'Starke Unterstützung: Rückgänge werden gedämpft und Ticks erhalten Wachstumsbonus.',
-    supportModerate: 'Mittlere Unterstützung: kleinere Rückgänge und leichter Wachstumsbonus.',
+    supportStrong:
+      'Starke Unterstützung: Rückgänge werden gedämpft und Ticks erhalten Wachstumsbonus.',
+    supportModerate:
+      'Mittlere Unterstützung: kleinere Rückgänge und leichter Wachstumsbonus.',
     supportLimited: 'Begrenzte Unterstützung: nur kleiner Stabilitätsbonus.',
     noProtection: 'Kein staatlicher Preisschutz.',
-    installUnavailable: 'Installationsmodus ist in diesem Browser nicht verfügbar',
+    installUnavailable:
+      'Installationsmodus ist in diesem Browser nicht verfügbar',
     playerCreated: 'Spieler {name} erstellt',
     marketEvent: 'Marktereignis: {title}',
     selectedStatus: '{symbol} ausgewählt',
+    firstSessionTitle: 'Dein erster kluger Trade',
+    firstSessionText:
+      'Kaufe eine kleine Position nach positivem Kaufdruck. Die erste Sitzung ist geführt.',
+    firstSessionAction: 'Ersten Trade machen',
+    firstRewardTitle: 'Guter Trade',
+    firstRewardExplanation:
+      'Du hast nach positivem Kaufdruck gekauft. Der Markt stieg und die Position ist schon im Gewinn.',
+    firstRewardTokens: '+{amount} Token',
+    firstRewardPending:
+      'Registriere dich, um diese Token dauerhaft zu behalten.',
+    firstRewardAchievement: 'Erfolg freigeschaltet: Erster Trade',
+    firstRewardNext:
+      'Als Nächstes: Lies ein Nachrichtensignal und mache morgen den zweiten Trade.',
+    firstRewardContinue: 'Weiter',
+    firstRewardNews: 'Nachrichten öffnen',
+    firstLessonTitle: 'Was du gerade gemacht hast',
+    firstLessonIntro: 'Glückwunsch. Du hast gerade Gewinn gemacht.',
+    firstLessonReality:
+      'Aber das war nur der erste Schritt. Der echte Markt ist viel komplexer.',
+    firstLessonList:
+      'Bei den nächsten Trades musst du Nachrichten lesen, Firmen analysieren, Ereignisse beachten und selbst entscheiden.',
+    firstLessonAction: 'Weiter lernen',
   },
   fr: {
     brand: 'Académie de trading',
@@ -372,13 +463,35 @@ const translations = {
     risk: 'Risque',
     supportScore: 'score de soutien',
     supportStrong: 'Soutien fort : baisse amortie et biais de croissance.',
-    supportModerate: 'Soutien moyen : baisses réduites et léger biais de croissance.',
+    supportModerate:
+      'Soutien moyen : baisses réduites et léger biais de croissance.',
     supportLimited: 'Soutien limité : petit bonus de stabilité.',
     noProtection: 'Pas de protection de prix par l’État.',
     installUnavailable: 'Mode installation indisponible dans ce navigateur',
     playerCreated: 'Joueur {name} créé',
     marketEvent: 'Événement marché : {title}',
     selectedStatus: '{symbol} sélectionné',
+    firstSessionTitle: 'Votre premier bon trade',
+    firstSessionText:
+      'Achetez une petite position après un signal de demande. La première session est guidée.',
+    firstSessionAction: 'Faire le premier trade',
+    firstRewardTitle: 'Beau trade',
+    firstRewardExplanation:
+      'Vous avez acheté après un signal de demande. Le marché a monté et la position est déjà gagnante.',
+    firstRewardTokens: '+{amount} jetons',
+    firstRewardPending: 'Inscrivez-vous pour garder ces jetons définitivement.',
+    firstRewardAchievement: 'Succès débloqué : Premier trade',
+    firstRewardNext:
+      'Ensuite : lisez un signal d’actualité et faites un deuxième trade demain.',
+    firstRewardContinue: 'Continuer',
+    firstRewardNews: 'Ouvrir les infos',
+    firstLessonTitle: 'Ce que vous venez de faire',
+    firstLessonIntro: 'Félicitations. Vous venez de réaliser un profit.',
+    firstLessonReality:
+      'Mais ce n’était que la première étape. Le vrai marché est beaucoup plus complexe.',
+    firstLessonList:
+      'Les prochains trades demanderont de lire les infos, analyser les sociétés, suivre les événements et décider seul.',
+    firstLessonAction: 'Continuer la formation',
   },
 };
 
@@ -386,16 +499,56 @@ const gameText = {
   sectors: {
     AI: { ru: 'ИИ', he: 'בינה מלאכותית', de: 'KI', fr: 'IA' },
     Energy: { ru: 'Энергетика', he: 'אנרגיה', de: 'Energie', fr: 'Énergie' },
-    Healthcare: { ru: 'Здравоохранение', he: 'בריאות', de: 'Gesundheit', fr: 'Santé' },
+    Healthcare: {
+      ru: 'Здравоохранение',
+      he: 'בריאות',
+      de: 'Gesundheit',
+      fr: 'Santé',
+    },
     Gaming: { ru: 'Игры', he: 'משחקים', de: 'Gaming', fr: 'Jeux' },
-    Aerospace: { ru: 'Аэрокосмос', he: 'תעופה וחלל', de: 'Luft- und Raumfahrt', fr: 'Aérospatial' },
-    Agriculture: { ru: 'Сельское хозяйство', he: 'חקלאות', de: 'Landwirtschaft', fr: 'Agriculture' },
+    Aerospace: {
+      ru: 'Аэрокосмос',
+      he: 'תעופה וחלל',
+      de: 'Luft- und Raumfahrt',
+      fr: 'Aérospatial',
+    },
+    Agriculture: {
+      ru: 'Сельское хозяйство',
+      he: 'חקלאות',
+      de: 'Landwirtschaft',
+      fr: 'Agriculture',
+    },
     Fintech: { ru: 'Финтех', he: 'פינטק', de: 'Fintech', fr: 'Fintech' },
-    Education: { ru: 'Образование', he: 'חינוך', de: 'Bildung', fr: 'Éducation' },
-    Cybersecurity: { ru: 'Кибербезопасность', he: 'סייבר', de: 'Cybersicherheit', fr: 'Cybersécurité' },
-    Logistics: { ru: 'Логистика', he: 'לוגיסטיקה', de: 'Logistik', fr: 'Logistique' },
-    Manufacturing: { ru: 'Производство', he: 'ייצור', de: 'Produktion', fr: 'Industrie' },
-    Consumer: { ru: 'Потребительский сектор', he: 'צרכנות', de: 'Konsum', fr: 'Consommation' },
+    Education: {
+      ru: 'Образование',
+      he: 'חינוך',
+      de: 'Bildung',
+      fr: 'Éducation',
+    },
+    Cybersecurity: {
+      ru: 'Кибербезопасность',
+      he: 'סייבר',
+      de: 'Cybersicherheit',
+      fr: 'Cybersécurité',
+    },
+    Logistics: {
+      ru: 'Логистика',
+      he: 'לוגיסטיקה',
+      de: 'Logistik',
+      fr: 'Logistique',
+    },
+    Manufacturing: {
+      ru: 'Производство',
+      he: 'ייצור',
+      de: 'Produktion',
+      fr: 'Industrie',
+    },
+    Consumer: {
+      ru: 'Потребительский сектор',
+      he: 'צרכנות',
+      de: 'Konsum',
+      fr: 'Consommation',
+    },
   },
   descriptions: {
     NOVA: {
@@ -473,15 +626,60 @@ const gameText = {
   },
   supportTypes: {
     none: { ru: 'нет', he: 'אין', de: 'keine', fr: 'aucun' },
-    'R&D grant': { ru: 'Грант на исследования', he: 'מענק מו״פ', de: 'Forschungszuschuss', fr: 'Subvention R&D' },
-    'Green energy tax credit': { ru: 'Налоговая льгота на зелёную энергию', he: 'זיכוי מס לאנרגיה ירוקה', de: 'Steuergutschrift für grüne Energie', fr: 'Crédit d’impôt énergie verte' },
-    'Health innovation grant': { ru: 'Грант на медицинские инновации', he: 'מענק חדשנות בריאות', de: 'Zuschuss für Gesundheitsinnovation', fr: 'Subvention innovation santé' },
-    'Defense supplier credit line': { ru: 'Кредитная линия оборонного поставщика', he: 'קו אשראי לספק ביטחוני', de: 'Kreditlinie für Verteidigungslieferant', fr: 'Ligne de crédit fournisseur défense' },
-    'Food security subsidy': { ru: 'Субсидия продовольственной безопасности', he: 'סבסוד ביטחון מזון', de: 'Subvention für Ernährungssicherheit', fr: 'Subvention sécurité alimentaire' },
-    'Education modernization tender': { ru: 'Тендер модернизации образования', he: 'מכרז מודרניזציית חינוך', de: 'Ausschreibung Bildungsmodernisierung', fr: 'Appel d’offres modernisation éducation' },
-    'Critical infrastructure contract': { ru: 'Контракт критической инфраструктуры', he: 'חוזה תשתית קריטית', de: 'Vertrag für kritische Infrastruktur', fr: 'Contrat infrastructure critique' },
-    'Port logistics loan': { ru: 'Кредит на портовую логистику', he: 'הלוואת לוגיסטיקת נמלים', de: 'Kredit für Hafenlogistik', fr: 'Prêt logistique portuaire' },
-    'Manufacturing tax relief': { ru: 'Налоговая льгота для производства', he: 'הקלת מס לייצור', de: 'Steuererleichterung Produktion', fr: 'Allègement fiscal industriel' },
+    'R&D grant': {
+      ru: 'Грант на исследования',
+      he: 'מענק מו״פ',
+      de: 'Forschungszuschuss',
+      fr: 'Subvention R&D',
+    },
+    'Green energy tax credit': {
+      ru: 'Налоговая льгота на зелёную энергию',
+      he: 'זיכוי מס לאנרגיה ירוקה',
+      de: 'Steuergutschrift für grüne Energie',
+      fr: 'Crédit d’impôt énergie verte',
+    },
+    'Health innovation grant': {
+      ru: 'Грант на медицинские инновации',
+      he: 'מענק חדשנות בריאות',
+      de: 'Zuschuss für Gesundheitsinnovation',
+      fr: 'Subvention innovation santé',
+    },
+    'Defense supplier credit line': {
+      ru: 'Кредитная линия оборонного поставщика',
+      he: 'קו אשראי לספק ביטחוני',
+      de: 'Kreditlinie für Verteidigungslieferant',
+      fr: 'Ligne de crédit fournisseur défense',
+    },
+    'Food security subsidy': {
+      ru: 'Субсидия продовольственной безопасности',
+      he: 'סבסוד ביטחון מזון',
+      de: 'Subvention für Ernährungssicherheit',
+      fr: 'Subvention sécurité alimentaire',
+    },
+    'Education modernization tender': {
+      ru: 'Тендер модернизации образования',
+      he: 'מכרז מודרניזציית חינוך',
+      de: 'Ausschreibung Bildungsmodernisierung',
+      fr: 'Appel d’offres modernisation éducation',
+    },
+    'Critical infrastructure contract': {
+      ru: 'Контракт критической инфраструктуры',
+      he: 'חוזה תשתית קריטית',
+      de: 'Vertrag für kritische Infrastruktur',
+      fr: 'Contrat infrastructure critique',
+    },
+    'Port logistics loan': {
+      ru: 'Кредит на портовую логистику',
+      he: 'הלוואת לוגיסטיקת נמלים',
+      de: 'Kredit für Hafenlogistik',
+      fr: 'Prêt logistique portuaire',
+    },
+    'Manufacturing tax relief': {
+      ru: 'Налоговая льгота для производства',
+      he: 'הקלת מס לייצור',
+      de: 'Steuererleichterung Produktion',
+      fr: 'Allègement fiscal industriel',
+    },
   },
   risks: {
     none: { ru: 'нет', he: 'אין', de: 'kein', fr: 'aucun' },
@@ -490,43 +688,193 @@ const gameText = {
     high: { ru: 'высокий', he: 'גבוה', de: 'hoch', fr: 'élevé' },
   },
   signals: {
-    'Thin history': { ru: 'Мало истории', he: 'היסטוריה דקה', de: 'Dünne Historie', fr: 'Historique limité' },
+    'Thin history': {
+      ru: 'Мало истории',
+      he: 'היסטוריה דקה',
+      de: 'Dünne Historie',
+      fr: 'Historique limité',
+    },
     Momentum: { ru: 'Импульс', he: 'מומנטום', de: 'Momentum', fr: 'Momentum' },
     Caution: { ru: 'Осторожно', he: 'זהירות', de: 'Vorsicht', fr: 'Prudence' },
-    Accumulation: { ru: 'Накопление', he: 'צבירה', de: 'Akkumulation', fr: 'Accumulation' },
-    Distribution: { ru: 'Распределение', he: 'פיזור', de: 'Distribution', fr: 'Distribution' },
+    Accumulation: {
+      ru: 'Накопление',
+      he: 'צבירה',
+      de: 'Akkumulation',
+      fr: 'Accumulation',
+    },
+    Distribution: {
+      ru: 'Распределение',
+      he: 'פיזור',
+      de: 'Distribution',
+      fr: 'Distribution',
+    },
     Balanced: { ru: 'Баланс', he: 'מאוזן', de: 'Ausgewogen', fr: 'Équilibré' },
-    'State-backed': { ru: 'Поддержка государства', he: 'נתמך מדינה', de: 'Staatlich gestützt', fr: 'Soutenu par l’État' },
+    'State-backed': {
+      ru: 'Поддержка государства',
+      he: 'נתמך מדינה',
+      de: 'Staatlich gestützt',
+      fr: 'Soutenu par l’État',
+    },
   },
   events: {
-    'AI regulation relief': { ru: 'Смягчение регулирования ИИ', he: 'הקלה ברגולציית AI', de: 'Lockerung der KI-Regulierung', fr: 'Assouplissement de la régulation IA' },
-    'Energy storage shortage': { ru: 'Дефицит накопителей энергии', he: 'מחסור באגירת אנרגיה', de: 'Mangel an Energiespeichern', fr: 'Pénurie de stockage énergétique' },
-    'Clinical trial surprise': { ru: 'Сюрприз клинических испытаний', he: 'הפתעת ניסוי קליני', de: 'Überraschung in klinischer Studie', fr: 'Surprise d’essai clinique' },
-    'Streaming platform partnership': { ru: 'Партнёрство со стриминговой платформой', he: 'שותפות פלטפורמת סטרימינג', de: 'Streaming-Partnerschaft', fr: 'Partenariat avec plateforme streaming' },
-    'Market risk-off session': { ru: 'Рынок уходит от риска', he: 'שוק נמנע מסיכון', de: 'Risk-off-Sitzung', fr: 'Séance d’aversion au risque' },
-    'Drone inspection contracts': { ru: 'Контракты на инспекционные дроны', he: 'חוזי רחפני בדיקה', de: 'Drohnen-Inspektionsverträge', fr: 'Contrats de drones d’inspection' },
-    'Fresh food supply deal': { ru: 'Сделка по поставкам свежих продуктов', he: 'עסקת אספקת מזון טרי', de: 'Lieferdeal für Frischwaren', fr: 'Accord d’approvisionnement alimentaire' },
-    'Merchant fraud scare': { ru: 'Всплеск мошенничества у мерчантов', he: 'חשש מהונאות סוחרים', de: 'Betrugsangst bei Händlern', fr: 'Alerte fraude marchands' },
-    'School platform rollout': { ru: 'Запуск школьных платформ', he: 'השקת פלטפורמות לבתי ספר', de: 'Einführung von Schulplattformen', fr: 'Déploiement de plateformes scolaires' },
-    'Security breach cycle': { ru: 'Волна инцидентов безопасности', he: 'גל פרצות אבטחה', de: 'Welle von Sicherheitsvorfällen', fr: 'Cycle de failles de sécurité' },
-    'Port congestion easing': { ru: 'Снижение перегрузки портов', he: 'הקלה בעומסי נמלים', de: 'Nachlassende Hafenüberlastung', fr: 'Allègement de congestion portuaire' },
-    'Raw material price jump': { ru: 'Скачок цен на сырьё', he: 'קפיצה במחירי חומרי גלם', de: 'Sprung bei Rohstoffpreisen', fr: 'Hausse des matières premières' },
-    'Consumer demand pop': { ru: 'Всплеск потребительского спроса', he: 'זינוק בביקוש צרכני', de: 'Anstieg der Konsumnachfrage', fr: 'Hausse de demande consommateur' },
+    'AI regulation relief': {
+      ru: 'Смягчение регулирования ИИ',
+      he: 'הקלה ברגולציית AI',
+      de: 'Lockerung der KI-Regulierung',
+      fr: 'Assouplissement de la régulation IA',
+    },
+    'Energy storage shortage': {
+      ru: 'Дефицит накопителей энергии',
+      he: 'מחסור באגירת אנרגיה',
+      de: 'Mangel an Energiespeichern',
+      fr: 'Pénurie de stockage énergétique',
+    },
+    'Clinical trial surprise': {
+      ru: 'Сюрприз клинических испытаний',
+      he: 'הפתעת ניסוי קליני',
+      de: 'Überraschung in klinischer Studie',
+      fr: 'Surprise d’essai clinique',
+    },
+    'Streaming platform partnership': {
+      ru: 'Партнёрство со стриминговой платформой',
+      he: 'שותפות פלטפורמת סטרימינג',
+      de: 'Streaming-Partnerschaft',
+      fr: 'Partenariat avec plateforme streaming',
+    },
+    'Market risk-off session': {
+      ru: 'Рынок уходит от риска',
+      he: 'שוק נמנע מסיכון',
+      de: 'Risk-off-Sitzung',
+      fr: 'Séance d’aversion au risque',
+    },
+    'Drone inspection contracts': {
+      ru: 'Контракты на инспекционные дроны',
+      he: 'חוזי רחפני בדיקה',
+      de: 'Drohnen-Inspektionsverträge',
+      fr: 'Contrats de drones d’inspection',
+    },
+    'Fresh food supply deal': {
+      ru: 'Сделка по поставкам свежих продуктов',
+      he: 'עסקת אספקת מזון טרי',
+      de: 'Lieferdeal für Frischwaren',
+      fr: 'Accord d’approvisionnement alimentaire',
+    },
+    'Merchant fraud scare': {
+      ru: 'Всплеск мошенничества у мерчантов',
+      he: 'חשש מהונאות סוחרים',
+      de: 'Betrugsangst bei Händlern',
+      fr: 'Alerte fraude marchands',
+    },
+    'School platform rollout': {
+      ru: 'Запуск школьных платформ',
+      he: 'השקת פלטפורמות לבתי ספר',
+      de: 'Einführung von Schulplattformen',
+      fr: 'Déploiement de plateformes scolaires',
+    },
+    'Security breach cycle': {
+      ru: 'Волна инцидентов безопасности',
+      he: 'גל פרצות אבטחה',
+      de: 'Welle von Sicherheitsvorfällen',
+      fr: 'Cycle de failles de sécurité',
+    },
+    'Port congestion easing': {
+      ru: 'Снижение перегрузки портов',
+      he: 'הקלה בעומסי נמלים',
+      de: 'Nachlassende Hafenüberlastung',
+      fr: 'Allègement de congestion portuaire',
+    },
+    'Raw material price jump': {
+      ru: 'Скачок цен на сырьё',
+      he: 'קפיצה במחירי חומרי גלם',
+      de: 'Sprung bei Rohstoffpreisen',
+      fr: 'Hausse des matières premières',
+    },
+    'Consumer demand pop': {
+      ru: 'Всплеск потребительского спроса',
+      he: 'זינוק בביקוש צרכני',
+      de: 'Anstieg der Konsumnachfrage',
+      fr: 'Hausse de demande consommateur',
+    },
   },
   eventDescriptions: {
-    'Regulators delay strict AI licensing rules, lifting the AI sector.': { ru: 'Регуляторы откладывают строгие лицензии для ИИ, что поддерживает сектор.', he: 'הרגולטורים דוחים רישוי AI מחמיר והסקטור מתחזק.', de: 'Regulierer verschieben strenge KI-Lizenzen und stützen den Sektor.', fr: 'Les régulateurs reportent des licences IA strictes, ce qui soutient le secteur.' },
-    'Battery supply pressure hurts renewable energy margins.': { ru: 'Давление на поставки батарей снижает маржу зелёной энергетики.', he: 'לחץ באספקת סוללות פוגע בשולי הרווח של אנרגיה מתחדשת.', de: 'Druck bei Batterielieferungen belastet Margen erneuerbarer Energien.', fr: 'La pression sur les batteries pèse sur les marges des renouvelables.' },
-    'A healthcare trial result changes investor appetite overnight.': { ru: 'Результат медицинского испытания резко меняет интерес инвесторов.', he: 'תוצאת ניסוי בריאות משנה את תיאבון המשקיעים בן לילה.', de: 'Ein Studienergebnis verändert die Anlegernachfrage über Nacht.', fr: 'Un résultat clinique change l’appétit des investisseurs.' },
-    'A large distribution deal boosts gaming revenue expectations.': { ru: 'Крупная сделка по дистрибуции повышает ожидания выручки игр.', he: 'עסקת הפצה גדולה מעלה ציפיות הכנסות בגיימינג.', de: 'Ein großer Vertriebsdeal hebt Umsatzerwartungen im Gaming.', fr: 'Un grand accord de distribution relève les attentes de revenus jeux.' },
-    'Players rotate into cash after a simulated macro shock.': { ru: 'Игроки уходят в кэш после макрошока симуляции.', he: 'שחקנים עוברים למזומן אחרי זעזוע מאקרו מדומה.', de: 'Spieler rotieren nach einem Makroschock in Cash.', fr: 'Les joueurs passent au cash après un choc macro simulé.' },
-    'Infrastructure companies expand drone inspections across remote sites.': { ru: 'Инфраструктурные компании расширяют инспекции дронами на удалённых объектах.', he: 'חברות תשתית מרחיבות בדיקות רחפן באתרים מרוחקים.', de: 'Infrastrukturunternehmen erweitern Drohneninspektionen an entfernten Standorten.', fr: 'Les entreprises d’infrastructure étendent les inspections par drones.' },
-    'Retailers sign new local farming supply agreements.': { ru: 'Ритейлеры подписывают новые договоры поставок с локальными фермами.', he: 'קמעונאים חותמים על הסכמי אספקה חדשים עם חוות מקומיות.', de: 'Händler unterzeichnen neue Lieferverträge mit lokalen Farmen.', fr: 'Les détaillants signent de nouveaux accords avec des fermes locales.' },
-    'Payment providers face scrutiny after a simulated fraud wave.': { ru: 'Платёжные провайдеры попадают под проверку после волны мошенничества.', he: 'ספקי תשלום נבדקים אחרי גל הונאות מדומה.', de: 'Zahlungsanbieter geraten nach einer Betrugswelle unter Beobachtung.', fr: 'Les fournisseurs de paiement sont surveillés après une vague de fraude.' },
-    'Districts expand digital learning subscriptions for the next term.': { ru: 'Учебные округа расширяют подписки на цифровое обучение.', he: 'מחוזות חינוך מרחיבים מנויי למידה דיגיטלית.', de: 'Schulbezirke erweitern digitale Lernabos.', fr: 'Les districts scolaires étendent les abonnements d’apprentissage numérique.' },
-    'Companies increase security budgets after several fictional attacks.': { ru: 'Компании повышают бюджеты безопасности после нескольких вымышленных атак.', he: 'חברות מעלות תקציבי אבטחה אחרי כמה תקיפות מדומות.', de: 'Unternehmen erhöhen Sicherheitsbudgets nach mehreren fiktiven Angriffen.', fr: 'Les entreprises augmentent leurs budgets sécurité après plusieurs attaques fictives.' },
-    'Shipping schedules normalize and logistics margins improve.': { ru: 'Графики перевозок нормализуются, маржа логистики улучшается.', he: 'לוחות משלוח מתייצבים ושולי הרווח בלוגיסטיקה משתפרים.', de: 'Fahrpläne normalisieren sich und Logistikmargen verbessern sich.', fr: 'Les plannings de transport se normalisent et les marges logistiques s’améliorent.' },
-    'Manufacturing input costs rise and pressure near-term margins.': { ru: 'Производственные затраты растут и давят на краткосрочную маржу.', he: 'עלויות ייצור עולות ולוחצות על מרווחים בטווח הקצר.', de: 'Produktionskosten steigen und belasten kurzfristige Margen.', fr: 'Les coûts industriels augmentent et pèsent sur les marges proches.' },
-    'Premium retail demand improves after a strong simulated holiday cycle.': { ru: 'Спрос на премиальный ритейл растёт после сильного праздничного цикла.', he: 'הביקוש לקמעונאות פרימיום משתפר אחרי עונת חגים חזקה.', de: 'Premium-Einzelhandelsnachfrage steigt nach starker Feiertagssaison.', fr: 'La demande retail premium progresse après une forte période de fêtes.' },
+    'Regulators delay strict AI licensing rules, lifting the AI sector.': {
+      ru: 'Регуляторы откладывают строгие лицензии для ИИ, что поддерживает сектор.',
+      he: 'הרגולטורים דוחים רישוי AI מחמיר והסקטור מתחזק.',
+      de: 'Regulierer verschieben strenge KI-Lizenzen und stützen den Sektor.',
+      fr: 'Les régulateurs reportent des licences IA strictes, ce qui soutient le secteur.',
+    },
+    'Battery supply pressure hurts renewable energy margins.': {
+      ru: 'Давление на поставки батарей снижает маржу зелёной энергетики.',
+      he: 'לחץ באספקת סוללות פוגע בשולי הרווח של אנרגיה מתחדשת.',
+      de: 'Druck bei Batterielieferungen belastet Margen erneuerbarer Energien.',
+      fr: 'La pression sur les batteries pèse sur les marges des renouvelables.',
+    },
+    'A healthcare trial result changes investor appetite overnight.': {
+      ru: 'Результат медицинского испытания резко меняет интерес инвесторов.',
+      he: 'תוצאת ניסוי בריאות משנה את תיאבון המשקיעים בן לילה.',
+      de: 'Ein Studienergebnis verändert die Anlegernachfrage über Nacht.',
+      fr: 'Un résultat clinique change l’appétit des investisseurs.',
+    },
+    'A large distribution deal boosts gaming revenue expectations.': {
+      ru: 'Крупная сделка по дистрибуции повышает ожидания выручки игр.',
+      he: 'עסקת הפצה גדולה מעלה ציפיות הכנסות בגיימינג.',
+      de: 'Ein großer Vertriebsdeal hebt Umsatzerwartungen im Gaming.',
+      fr: 'Un grand accord de distribution relève les attentes de revenus jeux.',
+    },
+    'Players rotate into cash after a simulated macro shock.': {
+      ru: 'Игроки уходят в кэш после макрошока симуляции.',
+      he: 'שחקנים עוברים למזומן אחרי זעזוע מאקרו מדומה.',
+      de: 'Spieler rotieren nach einem Makroschock in Cash.',
+      fr: 'Les joueurs passent au cash après un choc macro simulé.',
+    },
+    'Infrastructure companies expand drone inspections across remote sites.': {
+      ru: 'Инфраструктурные компании расширяют инспекции дронами на удалённых объектах.',
+      he: 'חברות תשתית מרחיבות בדיקות רחפן באתרים מרוחקים.',
+      de: 'Infrastrukturunternehmen erweitern Drohneninspektionen an entfernten Standorten.',
+      fr: 'Les entreprises d’infrastructure étendent les inspections par drones.',
+    },
+    'Retailers sign new local farming supply agreements.': {
+      ru: 'Ритейлеры подписывают новые договоры поставок с локальными фермами.',
+      he: 'קמעונאים חותמים על הסכמי אספקה חדשים עם חוות מקומיות.',
+      de: 'Händler unterzeichnen neue Lieferverträge mit lokalen Farmen.',
+      fr: 'Les détaillants signent de nouveaux accords avec des fermes locales.',
+    },
+    'Payment providers face scrutiny after a simulated fraud wave.': {
+      ru: 'Платёжные провайдеры попадают под проверку после волны мошенничества.',
+      he: 'ספקי תשלום נבדקים אחרי גל הונאות מדומה.',
+      de: 'Zahlungsanbieter geraten nach einer Betrugswelle unter Beobachtung.',
+      fr: 'Les fournisseurs de paiement sont surveillés après une vague de fraude.',
+    },
+    'Districts expand digital learning subscriptions for the next term.': {
+      ru: 'Учебные округа расширяют подписки на цифровое обучение.',
+      he: 'מחוזות חינוך מרחיבים מנויי למידה דיגיטלית.',
+      de: 'Schulbezirke erweitern digitale Lernabos.',
+      fr: 'Les districts scolaires étendent les abonnements d’apprentissage numérique.',
+    },
+    'Companies increase security budgets after several fictional attacks.': {
+      ru: 'Компании повышают бюджеты безопасности после нескольких вымышленных атак.',
+      he: 'חברות מעלות תקציבי אבטחה אחרי כמה תקיפות מדומות.',
+      de: 'Unternehmen erhöhen Sicherheitsbudgets nach mehreren fiktiven Angriffen.',
+      fr: 'Les entreprises augmentent leurs budgets sécurité après plusieurs attaques fictives.',
+    },
+    'Shipping schedules normalize and logistics margins improve.': {
+      ru: 'Графики перевозок нормализуются, маржа логистики улучшается.',
+      he: 'לוחות משלוח מתייצבים ושולי הרווח בלוגיסטיקה משתפרים.',
+      de: 'Fahrpläne normalisieren sich und Logistikmargen verbessern sich.',
+      fr: 'Les plannings de transport se normalisent et les marges logistiques s’améliorent.',
+    },
+    'Manufacturing input costs rise and pressure near-term margins.': {
+      ru: 'Производственные затраты растут и давят на краткосрочную маржу.',
+      he: 'עלויות ייצור עולות ולוחצות על מרווחים בטווח הקצר.',
+      de: 'Produktionskosten steigen und belasten kurzfristige Margen.',
+      fr: 'Les coûts industriels augmentent et pèsent sur les marges proches.',
+    },
+    'Premium retail demand improves after a strong simulated holiday cycle.': {
+      ru: 'Спрос на премиальный ритейл растёт после сильного праздничного цикла.',
+      he: 'הביקוש לקמעונאות פרימיום משתפר אחרי עונת חגים חזקה.',
+      de: 'Premium-Einzelhandelsnachfrage steigt nach starker Feiertagssaison.',
+      fr: 'La demande retail premium progresse après une forte période de fêtes.',
+    },
   },
 };
 
@@ -539,7 +887,9 @@ function gameLabel(group, key) {
 }
 
 function translateEventText(text) {
-  return gameLabel('events', text) || gameLabel('eventDescriptions', text) || text;
+  return (
+    gameLabel('events', text) || gameLabel('eventDescriptions', text) || text
+  );
 }
 
 const money = new Intl.NumberFormat('en-US', {
@@ -571,6 +921,7 @@ const nodes = {
   selectedAsset: document.querySelector('#selectedAsset'),
   statusLine: document.querySelector('#statusLine'),
   canvas: document.querySelector('#marketCanvas'),
+  firstSessionCoach: document.querySelector('#firstSessionCoach'),
 };
 
 function t(key, values = {}) {
@@ -597,10 +948,13 @@ function applyLanguage() {
 }
 
 async function api(path, options = {}) {
-  const response = await fetch(window.marketApiUrl ? window.marketApiUrl(path) : path, {
-    headers: { 'Content-Type': 'application/json' },
-    ...options,
-  });
+  const response = await fetch(
+    window.marketApiUrl ? window.marketApiUrl(path) : path,
+    {
+      headers: { 'Content-Type': 'application/json' },
+      ...options,
+    },
+  );
 
   if (!response.ok) {
     const text = await response.text();
@@ -662,7 +1016,10 @@ function renderCompanies() {
     .join('');
 
   nodes.orderSymbol.innerHTML = state.companies
-    .map((company) => `<option value="${company.symbol}">${company.symbol}</option>`)
+    .map(
+      (company) =>
+        `<option value="${company.symbol}">${company.symbol}</option>`,
+    )
     .join('');
 
   nodes.orderSymbol.value = state.selectedSymbol;
@@ -694,11 +1051,15 @@ function renderCompanyBoard() {
 }
 
 function renderSelectedAsset() {
-  const company = state.companies.find((item) => item.symbol === state.selectedSymbol);
+  const company = state.companies.find(
+    (item) => item.symbol === state.selectedSymbol,
+  );
   if (!company) return;
 
   const change = changePercent(company);
-  const insight = state.marketHistory?.insights.find((item) => item.symbol === company.symbol);
+  const insight = state.marketHistory?.insights.find(
+    (item) => item.symbol === company.symbol,
+  );
   nodes.selectedAsset.innerHTML = `
     <span>${t('selected')}</span>
     <strong>${company.symbol} ${money.format(numberValue(company.price))}</strong>
@@ -732,7 +1093,9 @@ function renderSparkline(points) {
     })
     .join(' ');
 
-  const growth = prices[0] ? ((prices[prices.length - 1] - prices[0]) / prices[0]) * 100 : 0;
+  const growth = prices[0]
+    ? ((prices[prices.length - 1] - prices[0]) / prices[0]) * 100
+    : 0;
 
   return `
     <svg viewBox="0 0 100 48" preserveAspectRatio="none" aria-label="Price growth chart">
@@ -802,7 +1165,9 @@ function drawMarket() {
 
   if (state.companies.length === 0) return;
 
-  const maxPrice = Math.max(...state.companies.map((company) => numberValue(company.price)));
+  const maxPrice = Math.max(
+    ...state.companies.map((company) => numberValue(company.price)),
+  );
   const barWidth = width / state.companies.length;
 
   state.companies.forEach((company, index) => {
@@ -826,7 +1191,9 @@ function drawMarket() {
 
 async function loadCompanies() {
   state.companies = await api('/market/companies');
-  state.history.push(state.companies.map((company) => numberValue(company.price)));
+  state.history.push(
+    state.companies.map((company) => numberValue(company.price)),
+  );
   renderCompanies();
 }
 
@@ -848,6 +1215,98 @@ function renderWallet() {
   nodes.walletBox.classList.toggle('empty', !state.playerId);
 }
 
+function shouldShowFirstSessionCoach() {
+  return (
+    nodes.firstSessionCoach &&
+    !localStorage.getItem('market_first_session_completed') &&
+    !localStorage.getItem('market_first_session_dismissed')
+  );
+}
+
+function renderFirstSessionCoach() {
+  if (!shouldShowFirstSessionCoach()) return;
+
+  nodes.firstSessionCoach.classList.remove('hidden');
+  nodes.firstSessionCoach.innerHTML = `
+    <section class="coach-card">
+      <span class="coach-badge">01</span>
+      <h2>${t('firstSessionTitle')}</h2>
+      <p>${t('firstSessionText')}</p>
+      <div class="coach-actions">
+        <button class="primary" type="button" data-coach-action="trade">${t('firstSessionAction')}</button>
+        <button type="button" data-coach-action="dismiss">${t('firstRewardContinue')}</button>
+      </div>
+    </section>
+  `;
+}
+
+function hideFirstSessionCoach() {
+  nodes.firstSessionCoach?.classList.add('hidden');
+}
+
+async function startFirstSessionTrade() {
+  if (!state.playerId) {
+    await createPlayer();
+  }
+
+  const targetCompany =
+    state.companies.find((company) => company.symbol === 'NOVA') ||
+    state.companies[0];
+  if (!targetCompany) return;
+
+  state.selectedSymbol = targetCompany.symbol;
+  state.side = 'buy';
+  nodes.orderSymbol.value = targetCompany.symbol;
+  nodes.orderQuantity.value = '3';
+  nodes.buyButton.classList.add('active');
+  nodes.sellButton.classList.remove('active');
+  renderCompanyBoard();
+  renderSelectedAsset();
+  hideFirstSessionCoach();
+  nodes.orderForm.requestSubmit();
+}
+
+function showFirstSessionReward(firstSession) {
+  if (!nodes.firstSessionCoach || !firstSession) return;
+
+  localStorage.setItem('market_first_session_completed', '1');
+  nodes.firstSessionCoach.classList.remove('hidden');
+  nodes.firstSessionCoach.innerHTML = `
+    <section class="coach-card reward-card">
+      <span class="reward-pulse"></span>
+      <span class="coach-badge">${t('firstRewardTokens', { amount: firstSession.reward_tokens })}</span>
+      <h2>${t('firstRewardTitle')}</h2>
+      <p>${t('firstRewardExplanation')}</p>
+      <div class="achievement-pill">${t('firstRewardAchievement')}</div>
+      ${firstSession.pending_registration ? `<p class="coach-note">${t('firstRewardPending')}</p>` : ''}
+      <p class="coach-note">${t('firstRewardNext')}</p>
+      <div class="coach-actions">
+        <button class="primary" type="button" data-coach-action="lesson">${t('firstRewardContinue')}</button>
+        <button type="button" data-coach-action="news">${t('firstRewardNews')}</button>
+      </div>
+    </section>
+  `;
+}
+
+function showFirstSessionLesson() {
+  if (!nodes.firstSessionCoach) return;
+
+  nodes.firstSessionCoach.classList.remove('hidden');
+  nodes.firstSessionCoach.innerHTML = `
+    <section class="coach-card lesson-card">
+      <span class="coach-badge">02</span>
+      <h2>${t('firstLessonTitle')}</h2>
+      <p>${t('firstLessonIntro')}</p>
+      <p class="coach-note">${t('firstLessonReality')}</p>
+      <p class="coach-note">${t('firstLessonList')}</p>
+      <div class="coach-actions">
+        <button class="primary" type="button" data-coach-action="news">${t('firstLessonAction')}</button>
+        <button type="button" data-coach-action="dismiss">${t('firstRewardContinue')}</button>
+      </div>
+    </section>
+  `;
+}
+
 async function loadMarketHistory() {
   const history = await api('/market/history');
   renderMarketHistory(history);
@@ -859,7 +1318,9 @@ async function loadMarketClock() {
 }
 
 function renderMarketClock(clock) {
-  const nextTickTime = clock.next_tick_at ? new Date(clock.next_tick_at).getTime() : Date.now();
+  const nextTickTime = clock.next_tick_at
+    ? new Date(clock.next_tick_at).getTime()
+    : Date.now();
   const seconds = Math.max(0, Math.ceil((nextTickTime - Date.now()) / 1000));
   nodes.clockLabel.textContent = t('autoMarket');
   nodes.clockCountdown.textContent = `${seconds}s`;
@@ -873,7 +1334,8 @@ async function refreshLiveMarket() {
 }
 
 async function createPlayer() {
-  const displayName = localStorage.getItem('market_player_name') || t('guestTraderName');
+  const displayName =
+    localStorage.getItem('market_player_name') || t('guestTraderName');
   const result = await api('/users/guest', {
     method: 'POST',
     body: JSON.stringify({ display_name: displayName }),
@@ -894,7 +1356,9 @@ function renderAccountStatus() {
   const playerName = localStorage.getItem('market_player_name');
   const name = user?.display_name || playerName;
   if (nodes.accountStatus) {
-    nodes.accountStatus.textContent = name ? t('accountReady', { name }) : t('guestMode');
+    nodes.accountStatus.textContent = name
+      ? t('accountReady', { name })
+      : t('guestMode');
   }
 }
 
@@ -932,17 +1396,27 @@ async function placeOrder(event) {
     }),
   });
 
-  setStatus(`${result.trade.side.toUpperCase()} ${result.trade.quantity} ${result.trade.symbol}`);
+  setStatus(
+    `${result.trade.side.toUpperCase()} ${result.trade.quantity} ${result.trade.symbol}`,
+  );
   await loadMarketHistory();
+  await loadCompanies();
   await loadPortfolio();
+  if (result.first_session?.status === 'completed') {
+    showFirstSessionReward(result.first_session);
+  }
 }
 
 async function marketTick() {
   const result = await api('/market/tick', { method: 'POST' });
   nodes.eventTitle.textContent = translateEventText(result.event.title);
-  nodes.eventDescription.textContent = translateEventText(result.event.description);
+  nodes.eventDescription.textContent = translateEventText(
+    result.event.description,
+  );
   nodes.boardSignal.textContent = translateEventText(result.event.title);
-  setStatus(t('marketEvent', { title: translateEventText(result.event.title) }));
+  setStatus(
+    t('marketEvent', { title: translateEventText(result.event.title) }),
+  );
   await loadCompanies();
   await loadMarketHistory();
 }
@@ -958,10 +1432,16 @@ function startAutoRefresh() {
 }
 
 function bindEvents() {
-  nodes.createPlayerButton.addEventListener('click', () => createPlayer().catch(showError));
+  nodes.createPlayerButton.addEventListener('click', () =>
+    createPlayer().catch(showError),
+  );
   nodes.logoutButton.addEventListener('click', logout);
-  nodes.orderForm.addEventListener('submit', (event) => placeOrder(event).catch(showError));
-  nodes.tickButton.addEventListener('click', () => marketTick().catch(showError));
+  nodes.orderForm.addEventListener('submit', (event) =>
+    placeOrder(event).catch(showError),
+  );
+  nodes.tickButton.addEventListener('click', () =>
+    marketTick().catch(showError),
+  );
   nodes.companyBoard.addEventListener('click', (event) => {
     const tile = event.target.closest('[data-symbol]');
     if (!tile) return;
@@ -980,6 +1460,30 @@ function bindEvents() {
     state.language = nodes.languageSelect.value;
     localStorage.setItem('market_language', state.language);
     applyLanguage();
+    renderFirstSessionCoach();
+  });
+
+  nodes.firstSessionCoach?.addEventListener('click', (event) => {
+    const button = event.target.closest('[data-coach-action]');
+    if (!button) return;
+    const action = button.dataset.coachAction;
+
+    if (action === 'trade') {
+      startFirstSessionTrade().catch(showError);
+    }
+
+    if (action === 'news') {
+      window.location.href = './news.html';
+    }
+
+    if (action === 'lesson') {
+      showFirstSessionLesson();
+    }
+
+    if (action === 'dismiss') {
+      localStorage.setItem('market_first_session_dismissed', '1');
+      hideFirstSessionCoach();
+    }
   });
 
   [nodes.buyButton, nodes.sellButton].forEach((button) => {
@@ -989,7 +1493,6 @@ function bindEvents() {
       nodes.sellButton.classList.toggle('active', state.side === 'sell');
     });
   });
-
 }
 
 function showError(error) {
@@ -1003,6 +1506,8 @@ async function boot() {
   await loadCompanies();
   await loadMarketHistory();
   await loadMarketClock();
+  await loadPortfolio();
+  renderFirstSessionCoach();
   startAutoRefresh();
 }
 
@@ -1013,7 +1518,9 @@ function registerAppShell() {
     return;
   }
 
-  navigator.serviceWorker.register('/game/sw.js', { scope: '/game/' }).catch(() => {
-    setStatus(t('installUnavailable'));
-  });
+  navigator.serviceWorker
+    .register('/game/sw.js', { scope: '/game/' })
+    .catch(() => {
+      setStatus(t('installUnavailable'));
+    });
 }

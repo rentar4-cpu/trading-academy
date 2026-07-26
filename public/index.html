@@ -40,8 +40,12 @@
         </label>
         <div class="account-strip">
           <a href="./auth.html" data-i18n="loginRegister">Login / Register</a>
-          <button id="logoutButton" type="button" data-i18n="logout">Log out</button>
-          <button id="createPlayerButton" type="button" data-i18n="playGuest">Play as Guest</button>
+          <button id="logoutButton" type="button" data-i18n="logout">
+            Log out
+          </button>
+          <button id="createPlayerButton" type="button" data-i18n="playGuest">
+            Play as Guest
+          </button>
         </div>
       </section>
 
@@ -57,7 +61,9 @@
             <div class="market-clock">
               <span id="clockLabel" data-i18n="autoMarket">Auto market</span>
               <strong id="clockCountdown">--s</strong>
-              <button id="tickButton" type="button" data-i18n="pulseNow">Pulse Now</button>
+              <button id="tickButton" type="button" data-i18n="pulseNow">
+                Pulse Now
+              </button>
             </div>
           </div>
           <div class="game-board">
@@ -67,7 +73,9 @@
           <div class="market-chart-panel">
             <div class="chart-head">
               <span data-i18n="marketChart">Market Chart</span>
-              <strong id="boardSignal" data-i18n="marketOpen">Market open</strong>
+              <strong id="boardSignal" data-i18n="marketOpen"
+                >Market open</strong
+              >
             </div>
             <canvas id="marketCanvas" width="880" height="220"></canvas>
           </div>
@@ -97,7 +105,9 @@
           <div class="selected-asset" id="selectedAsset">
             <span data-i18n="selected">Selected</span>
             <strong data-i18n="chooseCompany">Choose a company</strong>
-            <p data-i18n="chooseHint">Click a market tile to prepare an order.</p>
+            <p data-i18n="chooseHint">
+              Click a market tile to prepare an order.
+            </p>
           </div>
           <div class="wallet-box" id="walletBox">
             <span data-i18n="walletBalance">Wallet Balance</span>
@@ -110,23 +120,53 @@
             </label>
             <label>
               <span data-i18n="quantity">Quantity</span>
-              <input id="orderQuantity" type="number" min="0.01" step="0.01" value="5" />
+              <input
+                id="orderQuantity"
+                type="number"
+                min="0.01"
+                step="0.01"
+                value="5"
+              />
             </label>
             <div class="segmented" role="group" aria-label="Order side">
-              <button class="active" id="buyButton" type="button" data-side="buy" data-i18n="buy">Buy</button>
-              <button id="sellButton" type="button" data-side="sell" data-i18n="sell">Sell</button>
+              <button
+                class="active"
+                id="buyButton"
+                type="button"
+                data-side="buy"
+                data-i18n="buy"
+              >
+                Buy
+              </button>
+              <button
+                id="sellButton"
+                type="button"
+                data-side="sell"
+                data-i18n="sell"
+              >
+                Sell
+              </button>
             </div>
-            <button class="primary" type="submit" data-i18n="placeOrder">Place Order</button>
+            <button class="primary" type="submit" data-i18n="placeOrder">
+              Place Order
+            </button>
           </form>
           <div class="event-box">
             <p class="eyebrow" data-i18n="latestEvent">Latest Event</p>
             <h3 id="eventTitle" data-i18n="noEvent">No event yet</h3>
-            <p id="eventDescription" data-i18n="eventHint">Run a market tick to move prices.</p>
+            <p id="eventDescription" data-i18n="eventHint">
+              Run a market tick to move prices.
+            </p>
           </div>
         </aside>
       </section>
 
       <div class="status-line" id="statusLine" data-i18n="ready">Ready</div>
+      <div
+        class="first-session-coach hidden"
+        id="firstSessionCoach"
+        aria-live="polite"
+      ></div>
     </main>
     <script src="./runtime-config.js"></script>
     <script src="./app.js"></script>

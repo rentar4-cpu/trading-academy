@@ -84,4 +84,9 @@ export class MarketController {
   getProgression(@Param('id', ParseIntPipe) id: number) {
     return this.marketService.getProgression(id);
   }
+
+  @Get('analytics/first-session')
+  getFirstSessionMetrics() {
+    return this.marketService.getFirstSessionMetrics();
+  }
 }
