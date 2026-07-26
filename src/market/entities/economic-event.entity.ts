@@ -1,4 +1,9 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 export type EconomicEventScope = 'global' | 'sector' | 'company';
 
@@ -13,6 +18,9 @@ export class EconomicEvent {
   @Column()
   description: string;
 
+  @Column({ default: 'Economy' })
+  category: string;
+
   @Column()
   scope: EconomicEventScope;
 
@@ -24,6 +32,9 @@ export class EconomicEvent {
 
   @Column({ type: 'numeric', precision: 7, scale: 4 })
   price_impact_percent: number;
+
+  @Column({ type: 'jsonb', nullable: true })
+  impact_profile?: Record<string, number>;
 
   @Column({ default: 1 })
   duration_ticks: number;

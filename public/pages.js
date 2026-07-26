@@ -11,6 +11,7 @@ let lastIntelInsights = [];
 let selectedIntelSymbol = localStorage.getItem('market_intel_symbol') || '';
 let selectedIntelRange = localStorage.getItem('market_intel_range') || '1D';
 let intelInteractionsBound = false;
+let isPageRefreshRunning = false;
 
 const pageTranslations = {
   en: {
@@ -36,21 +37,24 @@ const pageTranslations = {
     closesIn: 'Closes in',
     tape: 'Tape',
     tradeTape: 'Trade Tape',
+    noHistory: 'No trades yet. Bot traders are warming up the market.',
     offers: 'Offers',
-    currency: 'Currency',
-    customCash: 'Custom Cash',
+    currency: 'Tokens',
+    customCash: 'Session cash',
     gameCash: 'Game cash',
-    buyCash: 'Buy Cash',
-    customCashNote: 'Simulated purchase. Real payments can be connected later.',
-    cashPurchaseRecorded: 'Purchased simulated cash: {amount}',
+    buyCash: 'Start session',
+    customCashNote:
+      'Game cash belongs only to one session and is not sold directly.',
+    cashPurchaseRecorded: 'Session started with cash: {amount}',
     noPositions: 'No positions yet',
+    noPlayer: 'No player',
     createPlayerFirst: 'Create a player on the Market page first',
     verifiedAccountRequired: 'Register and verify email before buying currency',
     portfolioUpdated: 'Portfolio updated',
     marketIntelUpdated: 'Market intel updated',
     tradeTapeUpdated: 'Trade tape updated',
     storeLoaded: 'Store loaded',
-    purchaseRecorded: 'Purchase recorded: {sku}',
+    purchaseRecorded: 'Tokens added: {amount}',
     buyPressure: 'Buy pressure',
     support: 'Support',
     companyProfile: 'Company Profile',
@@ -76,275 +80,295 @@ const pageTranslations = {
     pnl: 'PnL',
     cash: 'Cash',
     positions: 'Positions',
-    credits: 'Credits',
+    credits: 'Tokens',
     netWorth: 'Net Worth',
     nextTick: 'Next tick',
   },
   ru: {
-    language: 'Язык',
-    navMarket: 'Рынок',
-    navIntel: 'Аналитика',
-    navTrades: 'Сделки',
-    navNews: 'Новости',
-    navPortfolio: 'Портфель',
-    navStore: 'Магазин',
-    navAuth: 'Аккаунт',
-    brand: 'Торговая академия',
-    intelTitle: 'Аналитика рынка',
-    tradesTitle: 'Последние сделки',
-    portfolioTitle: 'Портфель',
-    storeTitle: 'Магазин',
-    signals: 'Сигналы',
-    tradingSignals: 'Торговые сигналы',
-    marketChart: 'График рынка',
-    priceMap: 'Карта цен',
-    chartChange: 'Изменение %',
-    marketOpen: 'Рынок открыт',
-    closesIn: 'Закрытие через',
-    tape: 'Лента',
-    tradeTape: 'Лента сделок',
-    offers: 'Предложения',
-    currency: 'Валюта',
-    customCash: 'Своя сумма',
-    gameCash: 'Игровые деньги',
-    buyCash: 'Купить валюту',
-    customCashNote: 'Симуляция покупки. Реальные платежи можно подключить позже.',
-    cashPurchaseRecorded: 'Куплена игровая валюта: {amount}',
-    noPositions: 'Позиций пока нет',
-    createPlayerFirst: 'Сначала создайте игрока на странице рынка',
-    verifiedAccountRequired: 'Перед покупкой валюты зарегистрируйтесь и подтвердите email',
-    portfolioUpdated: 'Портфель обновлён',
-    marketIntelUpdated: 'Аналитика обновлена',
-    tradeTapeUpdated: 'Лента сделок обновлена',
-    storeLoaded: 'Магазин загружен',
-    purchaseRecorded: 'Покупка записана: {sku}',
-    buyPressure: 'Давление покупок',
-    support: 'Поддержка',
-    companyProfile: 'Профиль компании',
-    sector: 'Сектор',
-    owner: 'Владелец',
-    workers: 'Работники',
-    opened: 'Открыта',
-    governmentSupport: 'Господдержка',
-    noSupport: 'Нет активной поддержки',
-    amount: 'Сумма',
-    tax: 'Налог',
-    loan: 'Кредит',
-    until: 'До',
-    risk: 'Риск',
-    tokens: 'токенов',
-    symbol: 'Тикер',
-    trader: 'Трейдер',
-    side: 'Сторона',
-    qty: 'Кол-во',
-    price: 'Цена',
-    value: 'Сумма',
-    avg: 'Средняя',
-    pnl: 'PnL',
-    cash: 'Кэш',
-    positions: 'Позиции',
-    credits: 'Кредиты',
-    netWorth: 'Капитал',
-    nextTick: 'След. тик',
+    language: 'Ð¯Ð·Ñ‹Ðº',
+    navMarket: 'Ð Ñ‹Ð½Ð¾Ðº',
+    navIntel: 'ÐÐ½Ð°Ð»Ð¸Ñ‚Ð¸ÐºÐ°',
+    navTrades: 'Ð¡Ð´ÐµÐ»ÐºÐ¸',
+    navNews: 'ÐÐ¾Ð²Ð¾ÑÑ‚Ð¸',
+    navPortfolio: 'ÐŸÐ¾Ñ€Ñ‚Ñ„ÐµÐ»ÑŒ',
+    navStore: 'ÐœÐ°Ð³Ð°Ð·Ð¸Ð½',
+    navAuth: 'ÐÐºÐºÐ°ÑƒÐ½Ñ‚',
+    brand: 'Ð¢Ð¾Ñ€Ð³Ð¾Ð²Ð°Ñ Ð°ÐºÐ°Ð´ÐµÐ¼Ð¸Ñ',
+    intelTitle: 'ÐÐ½Ð°Ð»Ð¸Ñ‚Ð¸ÐºÐ° Ñ€Ñ‹Ð½ÐºÐ°',
+    tradesTitle: 'ÐŸÐ¾ÑÐ»ÐµÐ´Ð½Ð¸Ðµ ÑÐ´ÐµÐ»ÐºÐ¸',
+    portfolioTitle: 'ÐŸÐ¾Ñ€Ñ‚Ñ„ÐµÐ»ÑŒ',
+    storeTitle: 'ÐœÐ°Ð³Ð°Ð·Ð¸Ð½',
+    signals: 'Ð¡Ð¸Ð³Ð½Ð°Ð»Ñ‹',
+    tradingSignals: 'Ð¢Ð¾Ñ€Ð³Ð¾Ð²Ñ‹Ðµ ÑÐ¸Ð³Ð½Ð°Ð»Ñ‹',
+    marketChart: 'Ð“Ñ€Ð°Ñ„Ð¸Ðº Ñ€Ñ‹Ð½ÐºÐ°',
+    priceMap: 'ÐšÐ°Ñ€Ñ‚Ð° Ñ†ÐµÐ½',
+    chartChange: 'Ð˜Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸Ðµ %',
+    marketOpen: 'Ð Ñ‹Ð½Ð¾Ðº Ð¾Ñ‚ÐºÑ€Ñ‹Ñ‚',
+    closesIn: 'Ð—Ð°ÐºÑ€Ñ‹Ñ‚Ð¸Ðµ Ñ‡ÐµÑ€ÐµÐ·',
+    tape: 'Ð›ÐµÐ½Ñ‚Ð°',
+    tradeTape: 'Ð›ÐµÐ½Ñ‚Ð° ÑÐ´ÐµÐ»Ð¾Ðº',
+    noHistory:
+      'Ð¡Ð´ÐµÐ»Ð¾Ðº Ð¿Ð¾ÐºÐ° Ð½ÐµÑ‚. Ð‘Ð¾Ñ‚Ñ‹ Ñ€Ð°Ð·Ð¾Ð³Ñ€ÐµÐ²Ð°ÑŽÑ‚ Ñ€Ñ‹Ð½Ð¾Ðº.',
+    offers: 'ÐŸÑ€ÐµÐ´Ð»Ð¾Ð¶ÐµÐ½Ð¸Ñ',
+    currency: 'Ð¢Ð¾ÐºÐµÐ½Ñ‹',
+    customCash: 'Ð”ÐµÐ½ÑŒÐ³Ð¸ ÑÐµÑÑÐ¸Ð¸',
+    gameCash: 'Ð˜Ð³Ñ€Ð¾Ð²Ñ‹Ðµ Ð´ÐµÐ½ÑŒÐ³Ð¸',
+    buyCash: 'ÐÐ°Ñ‡Ð°Ñ‚ÑŒ ÑÐµÑÑÐ¸ÑŽ',
+    customCashNote:
+      'Ð˜Ð³Ñ€Ð¾Ð²Ñ‹Ðµ Ð´ÐµÐ½ÑŒÐ³Ð¸ Ð¿Ñ€Ð¸Ð½Ð°Ð´Ð»ÐµÐ¶Ð°Ñ‚ Ñ‚Ð¾Ð»ÑŒÐºÐ¾ Ð¾Ð´Ð½Ð¾Ð¹ ÑÐµÑÑÐ¸Ð¸ Ð¸ Ð½Ðµ Ð¿Ñ€Ð¾Ð´Ð°ÑŽÑ‚ÑÑ Ð½Ð°Ð¿Ñ€ÑÐ¼ÑƒÑŽ.',
+    cashPurchaseRecorded: 'Ð¡ÐµÑÑÐ¸Ñ Ð½Ð°Ñ‡Ð°Ñ‚Ð° Ñ Ð±Ð°Ð»Ð°Ð½ÑÐ¾Ð¼: {amount}',
+    noPositions: 'ÐŸÐ¾Ð·Ð¸Ñ†Ð¸Ð¹ Ð¿Ð¾ÐºÐ° Ð½ÐµÑ‚',
+    noPlayer: 'Ð˜Ð³Ñ€Ð¾Ðº Ð½Ðµ Ð²Ñ‹Ð±Ñ€Ð°Ð½',
+    createPlayerFirst:
+      'Ð¡Ð½Ð°Ñ‡Ð°Ð»Ð° ÑÐ¾Ð·Ð´Ð°Ð¹Ñ‚Ðµ Ð¸Ð³Ñ€Ð¾ÐºÐ° Ð½Ð° ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ðµ Ñ€Ñ‹Ð½ÐºÐ°',
+    verifiedAccountRequired:
+      'ÐŸÐµÑ€ÐµÐ´ Ð¿Ð¾ÐºÑƒÐ¿ÐºÐ¾Ð¹ Ð²Ð°Ð»ÑŽÑ‚Ñ‹ Ð·Ð°Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€Ð¸Ñ€ÑƒÐ¹Ñ‚ÐµÑÑŒ Ð¸ Ð¿Ð¾Ð´Ñ‚Ð²ÐµÑ€Ð´Ð¸Ñ‚Ðµ email',
+    portfolioUpdated: 'ÐŸÐ¾Ñ€Ñ‚Ñ„ÐµÐ»ÑŒ Ð¾Ð±Ð½Ð¾Ð²Ð»Ñ‘Ð½',
+    marketIntelUpdated: 'ÐÐ½Ð°Ð»Ð¸Ñ‚Ð¸ÐºÐ° Ð¾Ð±Ð½Ð¾Ð²Ð»ÐµÐ½Ð°',
+    tradeTapeUpdated: 'Ð›ÐµÐ½Ñ‚Ð° ÑÐ´ÐµÐ»Ð¾Ðº Ð¾Ð±Ð½Ð¾Ð²Ð»ÐµÐ½Ð°',
+    storeLoaded: 'ÐœÐ°Ð³Ð°Ð·Ð¸Ð½ Ð·Ð°Ð³Ñ€ÑƒÐ¶ÐµÐ½',
+    purchaseRecorded: 'Ð¢Ð¾ÐºÐµÐ½Ñ‹ Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ñ‹: {amount}',
+    buyPressure: 'Ð”Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ Ð¿Ð¾ÐºÑƒÐ¿Ð¾Ðº',
+    support: 'ÐŸÐ¾Ð´Ð´ÐµÑ€Ð¶ÐºÐ°',
+    companyProfile: 'ÐŸÑ€Ð¾Ñ„Ð¸Ð»ÑŒ ÐºÐ¾Ð¼Ð¿Ð°Ð½Ð¸Ð¸',
+    sector: 'Ð¡ÐµÐºÑ‚Ð¾Ñ€',
+    owner: 'Ð’Ð»Ð°Ð´ÐµÐ»ÐµÑ†',
+    workers: 'Ð Ð°Ð±Ð¾Ñ‚Ð½Ð¸ÐºÐ¸',
+    opened: 'ÐžÑ‚ÐºÑ€Ñ‹Ñ‚Ð°',
+    governmentSupport: 'Ð“Ð¾ÑÐ¿Ð¾Ð´Ð´ÐµÑ€Ð¶ÐºÐ°',
+    noSupport: 'ÐÐµÑ‚ Ð°ÐºÑ‚Ð¸Ð²Ð½Ð¾Ð¹ Ð¿Ð¾Ð´Ð´ÐµÑ€Ð¶ÐºÐ¸',
+    amount: 'Ð¡ÑƒÐ¼Ð¼Ð°',
+    tax: 'ÐÐ°Ð»Ð¾Ð³',
+    loan: 'ÐšÑ€ÐµÐ´Ð¸Ñ‚',
+    until: 'Ð”Ð¾',
+    risk: 'Ð Ð¸ÑÐº',
+    tokens: 'Ñ‚Ð¾ÐºÐµÐ½Ð¾Ð²',
+    symbol: 'Ð¢Ð¸ÐºÐµÑ€',
+    trader: 'Ð¢Ñ€ÐµÐ¹Ð´ÐµÑ€',
+    side: 'Ð¡Ñ‚Ð¾Ñ€Ð¾Ð½Ð°',
+    qty: 'ÐšÐ¾Ð»-Ð²Ð¾',
+    price: 'Ð¦ÐµÐ½Ð°',
+    value: 'Ð¡ÑƒÐ¼Ð¼Ð°',
+    avg: 'Ð¡Ñ€ÐµÐ´Ð½ÑÑ',
+    pnl: 'ÐŸÑ€Ð¸Ð±./ÑƒÐ±Ñ‹Ñ‚Ð¾Ðº',
+    cash: 'ÐšÑÑˆ',
+    positions: 'ÐŸÐ¾Ð·Ð¸Ñ†Ð¸Ð¸',
+    credits: 'Ð¢Ð¾ÐºÐµÐ½Ñ‹',
+    netWorth: 'ÐšÐ°Ð¿Ð¸Ñ‚Ð°Ð»',
+    nextTick: 'Ð¡Ð»ÐµÐ´. Ñ‚Ð¸Ðº',
   },
   he: {
-    language: 'שפה',
-    navMarket: 'שוק',
-    navIntel: 'מודיעין',
-    navTrades: 'עסקאות',
-    navNews: 'חדשות',
-    navPortfolio: 'תיק',
-    navStore: 'חנות',
-    navAuth: 'חשבון',
-    brand: 'אקדמיית מסחר',
-    intelTitle: 'מודיעין שוק',
-    tradesTitle: 'עסקאות אחרונות',
-    portfolioTitle: 'תיק',
-    storeTitle: 'חנות',
-    signals: 'אותות',
-    tradingSignals: 'אותות מסחר',
-    marketChart: 'גרף שוק',
-    priceMap: 'מפת מחירים',
-    chartChange: 'שינוי %',
-    marketOpen: 'השוק פתוח',
-    closesIn: 'נסגר בעוד',
-    tape: 'רצועה',
-    tradeTape: 'רצועת עסקאות',
-    offers: 'הצעות',
-    currency: 'מטבע',
-    customCash: 'סכום מותאם',
-    gameCash: 'כסף משחק',
-    buyCash: 'קנה כסף',
-    customCashNote: 'רכישה מדומה. ניתן לחבר תשלומים אמיתיים בהמשך.',
-    cashPurchaseRecorded: 'נרכש כסף משחק: {amount}',
-    noPositions: 'אין עדיין פוזיציות',
-    createPlayerFirst: 'צור שחקן בעמוד השוק תחילה',
-    verifiedAccountRequired: 'יש להירשם ולאמת אימייל לפני קניית מטבע',
-    portfolioUpdated: 'התיק עודכן',
-    marketIntelUpdated: 'מודיעין השוק עודכן',
-    tradeTapeUpdated: 'רצועת העסקאות עודכנה',
-    storeLoaded: 'החנות נטענה',
-    purchaseRecorded: 'רכישה נרשמה: {sku}',
-    buyPressure: 'לחץ קנייה',
-    support: 'תמיכה',
-    companyProfile: 'פרופיל חברה',
-    sector: 'סקטור',
-    owner: 'בעלים',
-    workers: 'עובדים',
-    opened: 'נפתחה',
-    governmentSupport: 'תמיכת מדינה',
-    noSupport: 'אין תמיכה פעילה',
-    amount: 'סכום',
-    tax: 'מס',
-    loan: 'הלוואה',
-    until: 'עד',
-    risk: 'סיכון',
-    tokens: 'טוקנים',
-    symbol: 'סימול',
-    trader: 'סוחר',
-    side: 'צד',
-    qty: 'כמות',
-    price: 'מחיר',
-    value: 'שווי',
-    avg: 'ממוצע',
-    pnl: 'רווח/הפסד',
-    cash: 'מזומן',
-    positions: 'פוזיציות',
-    credits: 'קרדיטים',
-    netWorth: 'שווי כולל',
-    nextTick: 'טיק הבא',
+    language: '×©×¤×”',
+    navMarket: '×©×•×§',
+    navIntel: '×ž×•×“×™×¢×™×Ÿ',
+    navTrades: '×¢×¡×§××•×ª',
+    navNews: '×—×“×©×•×ª',
+    navPortfolio: '×ª×™×§',
+    navStore: '×—× ×•×ª',
+    navAuth: '×—×©×‘×•×Ÿ',
+    brand: '××§×“×ž×™×™×ª ×ž×¡×—×¨',
+    intelTitle: '×ž×•×“×™×¢×™×Ÿ ×©×•×§',
+    tradesTitle: '×¢×¡×§××•×ª ××—×¨×•× ×•×ª',
+    portfolioTitle: '×ª×™×§',
+    storeTitle: '×—× ×•×ª',
+    signals: '××•×ª×•×ª',
+    tradingSignals: '××•×ª×•×ª ×ž×¡×—×¨',
+    marketChart: '×’×¨×£ ×©×•×§',
+    priceMap: '×ž×¤×ª ×ž×—×™×¨×™×',
+    chartChange: '×©×™× ×•×™ %',
+    marketOpen: '×”×©×•×§ ×¤×ª×•×—',
+    closesIn: '× ×¡×’×¨ ×‘×¢×•×“',
+    tape: '×¨×¦×•×¢×”',
+    tradeTape: '×¨×¦×•×¢×ª ×¢×¡×§××•×ª',
+    noHistory:
+      '×¢×“×™×™×Ÿ ××™×Ÿ ×¢×¡×§××•×ª. ×”×‘×•×˜×™× ×ž×—×ž×ž×™× ××ª ×”×©×•×§.',
+    offers: '×”×¦×¢×•×ª',
+    currency: '×ž×˜×‘×¢',
+    customCash: '×¡×›×•× ×ž×•×ª××',
+    gameCash: '×›×¡×£ ×ž×©×—×§',
+    buyCash: '×§× ×” ×›×¡×£',
+    customCashNote:
+      '×¨×›×™×©×” ×ž×“×•×ž×”. × ×™×ª×Ÿ ×œ×—×‘×¨ ×ª×©×œ×•×ž×™× ××ž×™×ª×™×™× ×‘×”×ž×©×š.',
+    cashPurchaseRecorded: '× ×¨×›×© ×›×¡×£ ×ž×©×—×§: {amount}',
+    noPositions: '××™×Ÿ ×¢×“×™×™×Ÿ ×¤×•×–×™×¦×™×•×ª',
+    noPlayer: '××™×Ÿ ×©×—×§×Ÿ',
+    createPlayerFirst: '×¦×•×¨ ×©×—×§×Ÿ ×‘×¢×ž×•×“ ×”×©×•×§ ×ª×—×™×œ×”',
+    verifiedAccountRequired:
+      '×™×© ×œ×”×™×¨×©× ×•×œ××ž×ª ××™×ž×™×™×œ ×œ×¤× ×™ ×§× ×™×™×ª ×ž×˜×‘×¢',
+    portfolioUpdated: '×”×ª×™×§ ×¢×•×“×›×Ÿ',
+    marketIntelUpdated: '×ž×•×“×™×¢×™×Ÿ ×”×©×•×§ ×¢×•×“×›×Ÿ',
+    tradeTapeUpdated: '×¨×¦×•×¢×ª ×”×¢×¡×§××•×ª ×¢×•×“×›× ×”',
+    storeLoaded: '×”×—× ×•×ª × ×˜×¢× ×”',
+    purchaseRecorded: '× ×•×¡×¤×• ×˜×•×§× ×™×: {amount}',
+    buyPressure: '×œ×—×¥ ×§× ×™×™×”',
+    support: '×ª×ž×™×›×”',
+    companyProfile: '×¤×¨×•×¤×™×œ ×—×‘×¨×”',
+    sector: '×¡×§×˜×•×¨',
+    owner: '×‘×¢×œ×™×',
+    workers: '×¢×•×‘×“×™×',
+    opened: '× ×¤×ª×—×”',
+    governmentSupport: '×ª×ž×™×›×ª ×ž×“×™× ×”',
+    noSupport: '××™×Ÿ ×ª×ž×™×›×” ×¤×¢×™×œ×”',
+    amount: '×¡×›×•×',
+    tax: '×ž×¡',
+    loan: '×”×œ×•×•××”',
+    until: '×¢×“',
+    risk: '×¡×™×›×•×Ÿ',
+    tokens: '×˜×•×§× ×™×',
+    symbol: '×¡×™×ž×•×œ',
+    trader: '×¡×•×—×¨',
+    side: '×¦×“',
+    qty: '×›×ž×•×ª',
+    price: '×ž×—×™×¨',
+    value: '×©×•×•×™',
+    avg: '×ž×ž×•×¦×¢',
+    pnl: '×¨×•×•×—/×”×¤×¡×“',
+    cash: '×ž×–×•×ž×Ÿ',
+    positions: '×¤×•×–×™×¦×™×•×ª',
+    credits: '×˜×•×§× ×™×',
+    netWorth: '×©×•×•×™ ×›×•×œ×œ',
+    nextTick: '×˜×™×§ ×”×‘×',
   },
   de: {
     language: 'Sprache',
     navMarket: 'Markt',
     navIntel: 'Analyse',
-    navTrades: 'Trades',
-    navNews: 'News',
-    navPortfolio: 'Portfolio',
+    navTrades: 'Transaktionen',
+    navNews: 'Nachrichten',
+    navPortfolio: 'Depot',
     navStore: 'Shop',
     navAuth: 'Konto',
-    brand: 'Trading Academy',
+    brand: 'Handelsakademie',
     intelTitle: 'Marktanalyse',
     tradesTitle: 'Letzte Trades',
-    portfolioTitle: 'Portfolio',
+    portfolioTitle: 'Depot',
     storeTitle: 'Shop',
     signals: 'Signale',
     tradingSignals: 'Trading-Signale',
     marketChart: 'Marktchart',
     priceMap: 'Preiskarte',
-    chartChange: 'Änderung %',
+    chartChange: 'Ã„nderung %',
     marketOpen: 'Markt offen',
-    closesIn: 'Schließt in',
+    closesIn: 'SchlieÃŸt in',
     tape: 'Band',
     tradeTape: 'Trade-Band',
+    noHistory: 'Noch keine Transaktionen. Bot-HÃ¤ndler starten den Markt.',
     offers: 'Angebote',
-    currency: 'Währung',
+    currency: 'WÃ¤hrung',
     customCash: 'Eigener Betrag',
     gameCash: 'Spielgeld',
     buyCash: 'Geld kaufen',
-    customCashNote: 'Simulierter Kauf. Echte Zahlungen können später verbunden werden.',
+    customCashNote:
+      'Simulierter Kauf. Echte Zahlungen kÃ¶nnen spÃ¤ter verbunden werden.',
     cashPurchaseRecorded: 'Simuliertes Geld gekauft: {amount}',
     noPositions: 'Noch keine Positionen',
+    noPlayer: 'Kein Spieler',
     createPlayerFirst: 'Erstelle zuerst einen Spieler auf der Marktseite',
-    verifiedAccountRequired: 'Registriere dich und bestätige die E-Mail vor dem Währungskauf',
+    verifiedAccountRequired:
+      'Registriere dich und bestÃ¤tige die E-Mail vor dem WÃ¤hrungskauf',
     portfolioUpdated: 'Portfolio aktualisiert',
     marketIntelUpdated: 'Marktanalyse aktualisiert',
     tradeTapeUpdated: 'Trade-Band aktualisiert',
     storeLoaded: 'Shop geladen',
-    purchaseRecorded: 'Kauf erfasst: {sku}',
+    purchaseRecorded: 'Token hinzugefÃ¼gt: {amount}',
     buyPressure: 'Kaufdruck',
-    support: 'Support',
+    support: 'UnterstÃ¼tzung',
     companyProfile: 'Firmenprofil',
     sector: 'Sektor',
-    owner: 'Eigentümer',
+    owner: 'EigentÃ¼mer',
     workers: 'Mitarbeiter',
-    opened: 'Gegründet',
-    governmentSupport: 'Staatliche Unterstützung',
-    noSupport: 'Keine aktive Unterstützung',
+    opened: 'GegrÃ¼ndet',
+    governmentSupport: 'Staatliche UnterstÃ¼tzung',
+    noSupport: 'Keine aktive UnterstÃ¼tzung',
     amount: 'Betrag',
     tax: 'Steuer',
     loan: 'Kredit',
     until: 'Bis',
     risk: 'Risiko',
     tokens: 'Token',
-    symbol: 'Symbol',
-    trader: 'Trader',
+    symbol: 'Ticker',
+    trader: 'HÃ¤ndler',
     side: 'Seite',
     qty: 'Menge',
     price: 'Preis',
     value: 'Wert',
     avg: 'Durchschn.',
-    pnl: 'PnL',
-    cash: 'Cash',
+    pnl: 'Gewinn/Verlust',
+    cash: 'Bargeld',
     positions: 'Positionen',
-    credits: 'Credits',
-    netWorth: 'Nettovermögen',
-    nextTick: 'Nächster Tick',
+    credits: 'Token',
+    netWorth: 'NettovermÃ¶gen',
+    nextTick: 'NÃ¤chster Tick',
   },
   fr: {
     language: 'Langue',
-    navMarket: 'Marché',
+    navMarket: 'MarchÃ©',
     navIntel: 'Analyse',
-    navTrades: 'Trades',
+    navTrades: 'Transactions',
     navNews: 'Infos',
     navPortfolio: 'Portefeuille',
     navStore: 'Boutique',
     navAuth: 'Compte',
-    brand: 'Académie de trading',
-    intelTitle: 'Analyse du marché',
-    tradesTitle: 'Trades récents',
+    brand: 'AcadÃ©mie de trading',
+    intelTitle: 'Analyse du marchÃ©',
+    tradesTitle: 'Trades rÃ©cents',
     portfolioTitle: 'Portefeuille',
     storeTitle: 'Boutique',
     signals: 'Signaux',
     tradingSignals: 'Signaux de trading',
-    marketChart: 'Graphique du marché',
+    marketChart: 'Graphique du marchÃ©',
     priceMap: 'Carte des prix',
     chartChange: 'Variation %',
-    marketOpen: 'Marché ouvert',
+    marketOpen: 'MarchÃ© ouvert',
     closesIn: 'Ferme dans',
     tape: 'Ruban',
     tradeTape: 'Ruban des trades',
+    noHistory:
+      'Aucune transaction pour le moment. Les bots animent le marchÃ©.',
     offers: 'Offres',
     currency: 'Devise',
     customCash: 'Montant libre',
     gameCash: 'Argent du jeu',
     buyCash: 'Acheter',
-    customCashNote: 'Achat simulé. Les vrais paiements peuvent être connectés plus tard.',
-    cashPurchaseRecorded: 'Argent de jeu acheté : {amount}',
+    customCashNote:
+      'Achat simulÃ©. Les vrais paiements peuvent Ãªtre connectÃ©s plus tard.',
+    cashPurchaseRecorded: 'Argent de jeu achetÃ© : {amount}',
     noPositions: 'Aucune position',
-    createPlayerFirst: 'Créez d’abord un joueur sur la page Marché',
-    verifiedAccountRequired: 'Inscrivez-vous et confirmez l’email avant d’acheter de la monnaie',
-    portfolioUpdated: 'Portefeuille mis à jour',
-    marketIntelUpdated: 'Analyse mise à jour',
-    tradeTapeUpdated: 'Ruban des trades mis à jour',
-    storeLoaded: 'Boutique chargée',
-    purchaseRecorded: 'Achat enregistré : {sku}',
+    noPlayer: 'Aucun joueur',
+    createPlayerFirst: 'CrÃ©ez dâ€™abord un joueur sur la page MarchÃ©',
+    verifiedAccountRequired:
+      'Inscrivez-vous et confirmez lâ€™email avant dâ€™acheter de la monnaie',
+    portfolioUpdated: 'Portefeuille mis Ã  jour',
+    marketIntelUpdated: 'Analyse mise Ã  jour',
+    tradeTapeUpdated: 'Ruban des trades mis Ã  jour',
+    storeLoaded: 'Boutique chargÃ©e',
+    purchaseRecorded: 'Jetons ajoutÃ©s : {amount}',
     buyPressure: 'Pression acheteuse',
     support: 'Soutien',
-    companyProfile: 'Profil société',
+    companyProfile: 'Profil sociÃ©tÃ©',
     sector: 'Secteur',
-    owner: 'Propriétaire',
-    workers: 'Employés',
-    opened: 'Créée',
+    owner: 'PropriÃ©taire',
+    workers: 'EmployÃ©s',
+    opened: 'CrÃ©Ã©e',
     governmentSupport: 'Soutien public',
     noSupport: 'Aucun soutien actif',
     amount: 'Montant',
-    tax: 'Impôt',
-    loan: 'Crédit',
-    until: 'Jusqu’à',
+    tax: 'ImpÃ´t',
+    loan: 'CrÃ©dit',
+    until: 'Jusquâ€™Ã ',
     risk: 'Risque',
     tokens: 'jetons',
     symbol: 'Symbole',
-    trader: 'Trader',
-    side: 'Côté',
-    qty: 'Qté',
+    trader: 'OpÃ©rateur',
+    side: 'CÃ´tÃ©',
+    qty: 'QtÃ©',
     price: 'Prix',
     value: 'Valeur',
     avg: 'Moy.',
-    pnl: 'PnL',
-    cash: 'Cash',
-    positions: 'Positions',
-    credits: 'Crédits',
+    pnl: 'Gain/perte',
+    cash: 'LiquiditÃ©s',
+    positions: 'Lignes',
+    credits: 'Jetons',
     netWorth: 'Valeur nette',
     nextTick: 'Prochain tick',
   },
@@ -352,55 +376,234 @@ const pageTranslations = {
 
 const pageDataText = {
   signals: {
-    'Thin history': { ru: 'Мало истории', he: 'היסטוריה דקה', de: 'Dünne Historie', fr: 'Historique limité' },
-    Momentum: { ru: 'Импульс', he: 'מומנטום', de: 'Momentum', fr: 'Momentum' },
-    Caution: { ru: 'Осторожно', he: 'זהירות', de: 'Vorsicht', fr: 'Prudence' },
-    Accumulation: { ru: 'Накопление', he: 'צבירה', de: 'Akkumulation', fr: 'Accumulation' },
-    Distribution: { ru: 'Распределение', he: 'פיזור', de: 'Distribution', fr: 'Distribution' },
-    Balanced: { ru: 'Баланс', he: 'מאוזן', de: 'Ausgewogen', fr: 'Équilibré' },
-    'State-backed': { ru: 'Поддержка государства', he: 'נתמך מדינה', de: 'Staatlich gestützt', fr: 'Soutenu par l’État' },
+    'Thin history': {
+      ru: 'ÐœÐ°Ð»Ð¾ Ð¸ÑÑ‚Ð¾Ñ€Ð¸Ð¸',
+      he: '×”×™×¡×˜×•×¨×™×” ×“×§×”',
+      de: 'DÃ¼nne Historie',
+      fr: 'Historique limitÃ©',
+    },
+    Momentum: {
+      ru: 'Ð˜Ð¼Ð¿ÑƒÐ»ÑŒÑ',
+      he: '×ž×•×ž× ×˜×•×',
+      de: 'Momentum',
+      fr: 'Momentum',
+    },
+    Caution: {
+      ru: 'ÐžÑÑ‚Ð¾Ñ€Ð¾Ð¶Ð½Ð¾',
+      he: '×–×”×™×¨×•×ª',
+      de: 'Vorsicht',
+      fr: 'Prudence',
+    },
+    Accumulation: {
+      ru: 'ÐÐ°ÐºÐ¾Ð¿Ð»ÐµÐ½Ð¸Ðµ',
+      he: '×¦×‘×™×¨×”',
+      de: 'Akkumulation',
+      fr: 'Accumulation',
+    },
+    Distribution: {
+      ru: 'Ð Ð°ÑÐ¿Ñ€ÐµÐ´ÐµÐ»ÐµÐ½Ð¸Ðµ',
+      he: '×¤×™×–×•×¨',
+      de: 'Distribution',
+      fr: 'Distribution',
+    },
+    Balanced: {
+      ru: 'Ð‘Ð°Ð»Ð°Ð½Ñ',
+      he: '×ž××•×–×Ÿ',
+      de: 'Ausgewogen',
+      fr: 'Ã‰quilibrÃ©',
+    },
+    'State-backed': {
+      ru: 'ÐŸÐ¾Ð´Ð´ÐµÑ€Ð¶ÐºÐ° Ð³Ð¾ÑÑƒÐ´Ð°Ñ€ÑÑ‚Ð²Ð°',
+      he: '× ×ª×ž×š ×ž×“×™× ×”',
+      de: 'Staatlich gestÃ¼tzt',
+      fr: 'Soutenu par lâ€™Ã‰tat',
+    },
   },
   offers: {
-    'Starter Cash Boost': { ru: 'Стартовый денежный бонус', he: 'בונוס מזומן התחלתי', de: 'Startkapital-Bonus', fr: 'Bonus de départ' },
-    'Adds simulated cash for faster early experimentation.': { ru: 'Добавляет игровые деньги для быстрых первых экспериментов.', he: 'מוסיף מזומן מדומה לניסוי מהיר בתחילת המשחק.', de: 'Fügt Spielgeld für schnelle Experimente hinzu.', fr: 'Ajoute du cash simulé pour expérimenter plus vite.' },
-    '100 Premium Credits': { ru: '100 премиум-кредитов', he: '100 קרדיטי פרימיום', de: '100 Premium-Credits', fr: '100 crédits premium' },
-    'Credits for optional cosmetics, boosts, and season features.': { ru: 'Кредиты для косметики, бустов и сезонных возможностей.', he: 'קרדיטים לקוסמטיקה, בוסטים ותכונות עונתיות.', de: 'Credits für Kosmetik, Boosts und Saisonfunktionen.', fr: 'Crédits pour cosmétiques, boosts et fonctions saisonnières.' },
+    'Starter Pack': {
+      ru: '????????? ?????',
+      he: '????? ?????',
+      de: 'Starter-Paket',
+      fr: 'Pack de départ',
+    },
+    'Adds 250 permanent tokens to the verified account.': {
+      ru: '????????? 250 ?????????? ??????? ?? ?????????????? ???????.',
+      he: '????? 250 ?????? ?????? ?????? ?????.',
+      de: 'Fügt dem bestätigten Konto 250 dauerhafte Token hinzu.',
+      fr: 'Ajoute 250 jetons permanents au compte vérifié.',
+    },
+    'Trader Pack': {
+      ru: '????? ????????',
+      he: '????? ????',
+      de: 'Trader-Paket',
+      fr: 'Pack trader',
+    },
+    'Adds 800 permanent tokens for sessions, modes, and future features.': {
+      ru: '????????? 800 ?????????? ??????? ??? ??????, ??????? ? ??????? ???????.',
+      he: '????? 800 ?????? ?????? ??????, ????? ??????? ???????.',
+      de: 'Fügt 800 dauerhafte Token für Sitzungen, Modi und künftige Funktionen hinzu.',
+      fr: 'Ajoute 800 jetons permanents pour les sessions, modes et futures fonctions.',
+    },
+    'Investor Pack': {
+      ru: '????? ?????????',
+      he: '????? ?????',
+      de: 'Investor-Paket',
+      fr: 'Pack investisseur',
+    },
+    'Adds 2,200 permanent tokens for premium progression.': {
+      ru: '????????? 2 200 ?????????? ??????? ??? ???????????? ?????????.',
+      he: '????? 2,200 ?????? ?????? ???????? ???????.',
+      de: 'Fügt 2.200 dauerhafte Token für Premium-Fortschritt hinzu.',
+      fr: 'Ajoute 2 200 jetons permanents pour la progression premium.',
+    },
   },
   sides: {
-    buy: { en: 'BUY', ru: 'Купить', he: 'קנייה', de: 'Kauf', fr: 'Achat' },
-    sell: { en: 'SELL', ru: 'Продать', he: 'מכירה', de: 'Verkauf', fr: 'Vente' },
+    buy: {
+      en: 'BUY',
+      ru: 'ÐšÑƒÐ¿Ð¸Ñ‚ÑŒ',
+      he: '×§× ×™×™×”',
+      de: 'Kauf',
+      fr: 'Achat',
+    },
+    sell: {
+      en: 'SELL',
+      ru: 'ÐŸÑ€Ð¾Ð´Ð°Ñ‚ÑŒ',
+      he: '×ž×›×™×¨×”',
+      de: 'Verkauf',
+      fr: 'Vente',
+    },
   },
   sectors: {
-    AI: { ru: 'ИИ', he: 'בינה מלאכותית', de: 'KI', fr: 'IA' },
-    Energy: { ru: 'Энергетика', he: 'אנרגיה', de: 'Energie', fr: 'Énergie' },
-    Healthcare: { ru: 'Здравоохранение', he: 'בריאות', de: 'Gesundheit', fr: 'Santé' },
-    Gaming: { ru: 'Игры', he: 'משחקים', de: 'Gaming', fr: 'Jeux' },
-    Aerospace: { ru: 'Аэрокосмос', he: 'תעופה וחלל', de: 'Luft- und Raumfahrt', fr: 'Aérospatial' },
-    Agriculture: { ru: 'Сельское хозяйство', he: 'חקלאות', de: 'Landwirtschaft', fr: 'Agriculture' },
-    Fintech: { ru: 'Финтех', he: 'פינטק', de: 'Fintech', fr: 'Fintech' },
-    Education: { ru: 'Образование', he: 'חינוך', de: 'Bildung', fr: 'Éducation' },
-    Cybersecurity: { ru: 'Кибербезопасность', he: 'סייבר', de: 'Cybersicherheit', fr: 'Cybersécurité' },
-    Logistics: { ru: 'Логистика', he: 'לוגיסטיקה', de: 'Logistik', fr: 'Logistique' },
-    Manufacturing: { ru: 'Производство', he: 'ייצור', de: 'Produktion', fr: 'Industrie' },
-    Consumer: { ru: 'Потребительский сектор', he: 'צרכנות', de: 'Konsum', fr: 'Consommation' },
+    AI: { ru: 'Ð˜Ð˜', he: '×‘×™× ×” ×ž×œ××›×•×ª×™×ª', de: 'KI', fr: 'IA' },
+    Energy: {
+      ru: 'Ð­Ð½ÐµÑ€Ð³ÐµÑ‚Ð¸ÐºÐ°',
+      he: '×× ×¨×’×™×”',
+      de: 'Energie',
+      fr: 'Ã‰nergie',
+    },
+    Healthcare: {
+      ru: 'Ð—Ð´Ñ€Ð°Ð²Ð¾Ð¾Ñ…Ñ€Ð°Ð½ÐµÐ½Ð¸Ðµ',
+      he: '×‘×¨×™××•×ª',
+      de: 'Gesundheit',
+      fr: 'SantÃ©',
+    },
+    Gaming: { ru: 'Ð˜Ð³Ñ€Ñ‹', he: '×ž×©×—×§×™×', de: 'Gaming', fr: 'Jeux' },
+    Aerospace: {
+      ru: 'ÐÑÑ€Ð¾ÐºÐ¾ÑÐ¼Ð¾Ñ',
+      he: '×ª×¢×•×¤×” ×•×—×œ×œ',
+      de: 'Luft- und Raumfahrt',
+      fr: 'AÃ©rospatial',
+    },
+    Agriculture: {
+      ru: 'Ð¡ÐµÐ»ÑŒÑÐºÐ¾Ðµ Ñ…Ð¾Ð·ÑÐ¹ÑÑ‚Ð²Ð¾',
+      he: '×—×§×œ××•×ª',
+      de: 'Landwirtschaft',
+      fr: 'Agriculture',
+    },
+    Fintech: {
+      ru: 'Ð¤Ð¸Ð½Ñ‚ÐµÑ…',
+      he: '×¤×™× ×˜×§',
+      de: 'Fintech',
+      fr: 'Fintech',
+    },
+    Education: {
+      ru: 'ÐžÐ±Ñ€Ð°Ð·Ð¾Ð²Ð°Ð½Ð¸Ðµ',
+      he: '×—×™× ×•×š',
+      de: 'Bildung',
+      fr: 'Ã‰ducation',
+    },
+    Cybersecurity: {
+      ru: 'ÐšÐ¸Ð±ÐµÑ€Ð±ÐµÐ·Ð¾Ð¿Ð°ÑÐ½Ð¾ÑÑ‚ÑŒ',
+      he: '×¡×™×™×‘×¨',
+      de: 'Cybersicherheit',
+      fr: 'CybersÃ©curitÃ©',
+    },
+    Logistics: {
+      ru: 'Ð›Ð¾Ð³Ð¸ÑÑ‚Ð¸ÐºÐ°',
+      he: '×œ×•×’×™×¡×˜×™×§×”',
+      de: 'Logistik',
+      fr: 'Logistique',
+    },
+    Manufacturing: {
+      ru: 'ÐŸÑ€Ð¾Ð¸Ð·Ð²Ð¾Ð´ÑÑ‚Ð²Ð¾',
+      he: '×™×™×¦×•×¨',
+      de: 'Produktion',
+      fr: 'Industrie',
+    },
+    Consumer: {
+      ru: 'ÐŸÐ¾Ñ‚Ñ€ÐµÐ±Ð¸Ñ‚ÐµÐ»ÑŒÑÐºÐ¸Ð¹ ÑÐµÐºÑ‚Ð¾Ñ€',
+      he: '×¦×¨×›× ×•×ª',
+      de: 'Konsum',
+      fr: 'Consommation',
+    },
   },
   supportTypes: {
-    none: { ru: 'нет', he: 'אין', de: 'keine', fr: 'aucun' },
-    'R&D grant': { ru: 'Грант на исследования', he: 'מענק מו"פ', de: 'Forschungszuschuss', fr: 'Subvention R&D' },
-    'Green energy tax credit': { ru: 'Налоговая льгота на зелёную энергию', he: 'זיכוי מס לאנרגיה ירוקה', de: 'Steuergutschrift für grüne Energie', fr: 'Crédit d’impôt énergie verte' },
-    'Health innovation grant': { ru: 'Грант на медицинские инновации', he: 'מענק חדשנות בריאות', de: 'Zuschuss für Gesundheitsinnovation', fr: 'Subvention innovation santé' },
-    'Defense supplier credit line': { ru: 'Кредитная линия оборонного поставщика', he: 'קו אשראי לספק ביטחוני', de: 'Kreditlinie für Verteidigungslieferant', fr: 'Ligne de crédit fournisseur défense' },
-    'Food security subsidy': { ru: 'Субсидия продовольственной безопасности', he: 'סבסוד ביטחון מזון', de: 'Subvention für Ernährungssicherheit', fr: 'Subvention sécurité alimentaire' },
-    'Education modernization tender': { ru: 'Тендер модернизации образования', he: 'מכרז מודרניזציית חינוך', de: 'Ausschreibung Bildungsmodernisierung', fr: 'Appel d’offres modernisation éducation' },
-    'Critical infrastructure contract': { ru: 'Контракт критической инфраструктуры', he: 'חוזה תשתית קריטית', de: 'Vertrag für kritische Infrastruktur', fr: 'Contrat infrastructure critique' },
-    'Port logistics loan': { ru: 'Кредит на портовую логистику', he: 'הלוואת לוגיסטיקת נמלים', de: 'Kredit für Hafenlogistik', fr: 'Prêt logistique portuaire' },
-    'Manufacturing tax relief': { ru: 'Налоговая льгота для производства', he: 'הקלת מס לייצור', de: 'Steuererleichterung Produktion', fr: 'Allègement fiscal industriel' },
+    none: { ru: 'Ð½ÐµÑ‚', he: '××™×Ÿ', de: 'keine', fr: 'aucun' },
+    'R&D grant': {
+      ru: 'Ð“Ñ€Ð°Ð½Ñ‚ Ð½Ð° Ð¸ÑÑÐ»ÐµÐ´Ð¾Ð²Ð°Ð½Ð¸Ñ',
+      he: '×ž×¢× ×§ ×ž×•"×¤',
+      de: 'Forschungszuschuss',
+      fr: 'Subvention R&D',
+    },
+    'Green energy tax credit': {
+      ru: 'ÐÐ°Ð»Ð¾Ð³Ð¾Ð²Ð°Ñ Ð»ÑŒÐ³Ð¾Ñ‚Ð° Ð½Ð° Ð·ÐµÐ»Ñ‘Ð½ÑƒÑŽ ÑÐ½ÐµÑ€Ð³Ð¸ÑŽ',
+      he: '×–×™×›×•×™ ×ž×¡ ×œ×× ×¨×’×™×” ×™×¨×•×§×”',
+      de: 'Steuergutschrift fÃ¼r grÃ¼ne Energie',
+      fr: 'CrÃ©dit dâ€™impÃ´t Ã©nergie verte',
+    },
+    'Health innovation grant': {
+      ru: 'Ð“Ñ€Ð°Ð½Ñ‚ Ð½Ð° Ð¼ÐµÐ´Ð¸Ñ†Ð¸Ð½ÑÐºÐ¸Ðµ Ð¸Ð½Ð½Ð¾Ð²Ð°Ñ†Ð¸Ð¸',
+      he: '×ž×¢× ×§ ×—×“×©× ×•×ª ×‘×¨×™××•×ª',
+      de: 'Zuschuss fÃ¼r Gesundheitsinnovation',
+      fr: 'Subvention innovation santÃ©',
+    },
+    'Defense supplier credit line': {
+      ru: 'ÐšÑ€ÐµÐ´Ð¸Ñ‚Ð½Ð°Ñ Ð»Ð¸Ð½Ð¸Ñ Ð¾Ð±Ð¾Ñ€Ð¾Ð½Ð½Ð¾Ð³Ð¾ Ð¿Ð¾ÑÑ‚Ð°Ð²Ñ‰Ð¸ÐºÐ°',
+      he: '×§×• ××©×¨××™ ×œ×¡×¤×§ ×‘×™×˜×—×•× ×™',
+      de: 'Kreditlinie fÃ¼r Verteidigungslieferant',
+      fr: 'Ligne de crÃ©dit fournisseur dÃ©fense',
+    },
+    'Food security subsidy': {
+      ru: 'Ð¡ÑƒÐ±ÑÐ¸Ð´Ð¸Ñ Ð¿Ñ€Ð¾Ð´Ð¾Ð²Ð¾Ð»ÑŒÑÑ‚Ð²ÐµÐ½Ð½Ð¾Ð¹ Ð±ÐµÐ·Ð¾Ð¿Ð°ÑÐ½Ð¾ÑÑ‚Ð¸',
+      he: '×¡×‘×¡×•×“ ×‘×™×˜×—×•×Ÿ ×ž×–×•×Ÿ',
+      de: 'Subvention fÃ¼r ErnÃ¤hrungssicherheit',
+      fr: 'Subvention sÃ©curitÃ© alimentaire',
+    },
+    'Education modernization tender': {
+      ru: 'Ð¢ÐµÐ½Ð´ÐµÑ€ Ð¼Ð¾Ð´ÐµÑ€Ð½Ð¸Ð·Ð°Ñ†Ð¸Ð¸ Ð¾Ð±Ñ€Ð°Ð·Ð¾Ð²Ð°Ð½Ð¸Ñ',
+      he: '×ž×›×¨×– ×ž×•×“×¨× ×™×–×¦×™×™×ª ×—×™× ×•×š',
+      de: 'Ausschreibung Bildungsmodernisierung',
+      fr: 'Appel dâ€™offres modernisation Ã©ducation',
+    },
+    'Critical infrastructure contract': {
+      ru: 'ÐšÐ¾Ð½Ñ‚Ñ€Ð°ÐºÑ‚ ÐºÑ€Ð¸Ñ‚Ð¸Ñ‡ÐµÑÐºÐ¾Ð¹ Ð¸Ð½Ñ„Ñ€Ð°ÑÑ‚Ñ€ÑƒÐºÑ‚ÑƒÑ€Ñ‹',
+      he: '×—×•×–×” ×ª×©×ª×™×ª ×§×¨×™×˜×™×ª',
+      de: 'Vertrag fÃ¼r kritische Infrastruktur',
+      fr: 'Contrat infrastructure critique',
+    },
+    'Port logistics loan': {
+      ru: 'ÐšÑ€ÐµÐ´Ð¸Ñ‚ Ð½Ð° Ð¿Ð¾Ñ€Ñ‚Ð¾Ð²ÑƒÑŽ Ð»Ð¾Ð³Ð¸ÑÑ‚Ð¸ÐºÑƒ',
+      he: '×”×œ×•×•××ª ×œ×•×’×™×¡×˜×™×§×ª × ×ž×œ×™×',
+      de: 'Kredit fÃ¼r Hafenlogistik',
+      fr: 'PrÃªt logistique portuaire',
+    },
+    'Manufacturing tax relief': {
+      ru: 'ÐÐ°Ð»Ð¾Ð³Ð¾Ð²Ð°Ñ Ð»ÑŒÐ³Ð¾Ñ‚Ð° Ð´Ð»Ñ Ð¿Ñ€Ð¾Ð¸Ð·Ð²Ð¾Ð´ÑÑ‚Ð²Ð°',
+      he: '×”×§×œ×ª ×ž×¡ ×œ×™×™×¦×•×¨',
+      de: 'Steuererleichterung Produktion',
+      fr: 'AllÃ¨gement fiscal industriel',
+    },
   },
   risks: {
-    none: { ru: 'нет', he: 'אין', de: 'kein', fr: 'aucun' },
-    low: { ru: 'низкий', he: 'נמוך', de: 'niedrig', fr: 'faible' },
-    medium: { ru: 'средний', he: 'בינוני', de: 'mittel', fr: 'moyen' },
-    high: { ru: 'высокий', he: 'גבוה', de: 'hoch', fr: 'élevé' },
+    none: { ru: 'Ð½ÐµÑ‚', he: '××™×Ÿ', de: 'kein', fr: 'aucun' },
+    low: { ru: 'Ð½Ð¸Ð·ÐºÐ¸Ð¹', he: '× ×ž×•×š', de: 'niedrig', fr: 'faible' },
+    medium: {
+      ru: 'ÑÑ€ÐµÐ´Ð½Ð¸Ð¹',
+      he: '×‘×™× ×•× ×™',
+      de: 'mittel',
+      fr: 'moyen',
+    },
+    high: { ru: 'Ð²Ñ‹ÑÐ¾ÐºÐ¸Ð¹', he: '×’×‘×•×”', de: 'hoch', fr: 'Ã©levÃ©' },
   },
 };
 
@@ -419,10 +622,13 @@ function tr(key, values = {}) {
 }
 
 async function api(path, options = {}) {
-  const response = await fetch(path, {
-    headers: { 'Content-Type': 'application/json' },
-    ...options,
-  });
+  const response = await fetch(
+    window.marketApiUrl ? window.marketApiUrl(path) : path,
+    {
+      headers: { 'Content-Type': 'application/json' },
+      ...options,
+    },
+  );
 
   if (!response.ok) {
     const text = await response.text();
@@ -446,10 +652,10 @@ function addLanguageSelect() {
     <span>${tr('language')}</span>
     <select id="pageLanguageSelect" aria-label="Language">
       <option value="en">English</option>
-      <option value="ru">Русский</option>
-      <option value="he">עברית</option>
+      <option value="ru">Ð ÑƒÑÑÐºÐ¸Ð¹</option>
+      <option value="he">×¢×‘×¨×™×ª</option>
       <option value="de">Deutsch</option>
-      <option value="fr">Français</option>
+      <option value="fr">FranÃ§ais</option>
     </select>
   `;
   topbar.appendChild(label);
@@ -473,12 +679,27 @@ function applyLanguage() {
 
   const navLabels = {
     '/game/': 'navMarket',
+    '/game/index.html': 'navMarket',
+    './index.html': 'navMarket',
+    'index.html': 'navMarket',
     '/game/intel.html': 'navIntel',
+    './intel.html': 'navIntel',
+    'intel.html': 'navIntel',
     '/game/trades.html': 'navTrades',
+    './trades.html': 'navTrades',
+    'trades.html': 'navTrades',
     '/game/news.html': 'navNews',
+    './news.html': 'navNews',
+    'news.html': 'navNews',
     '/game/portfolio.html': 'navPortfolio',
+    './portfolio.html': 'navPortfolio',
+    'portfolio.html': 'navPortfolio',
     '/game/store.html': 'navStore',
+    './store.html': 'navStore',
+    'store.html': 'navStore',
     '/game/auth.html': 'navAuth',
+    './auth.html': 'navAuth',
+    'auth.html': 'navAuth',
   };
 
   document.querySelectorAll('.app-nav a').forEach((link) => {
@@ -550,9 +771,11 @@ function translateTables() {
 
   if (page === 'portfolio') {
     const statKeys = ['cash', 'positions', 'credits'];
-    document.querySelectorAll('.portfolio-stats span').forEach((element, index) => {
-      element.textContent = tr(statKeys[index]);
-    });
+    document
+      .querySelectorAll('.portfolio-stats span')
+      .forEach((element, index) => {
+        element.textContent = tr(statKeys[index]);
+      });
     const netWorth = document.querySelector('.metric span');
     if (netWorth) netWorth.textContent = tr('netWorth');
   }
@@ -571,9 +794,9 @@ function readJson(key) {
 }
 
 function formatCount(value) {
-  return new Intl.NumberFormat(currentLanguage === 'ru' ? 'ru-RU' : 'en-US').format(
-    numberValue(value),
-  );
+  return new Intl.NumberFormat(
+    currentLanguage === 'ru' ? 'ru-RU' : 'en-US',
+  ).format(numberValue(value));
 }
 
 function getRangeStart(points) {
@@ -604,7 +827,9 @@ function getSelectedInsight(insights) {
     localStorage.setItem('market_intel_symbol', selectedIntelSymbol);
   }
 
-  return insights.find((item) => item.symbol === selectedIntelSymbol) || insights[0];
+  return (
+    insights.find((item) => item.symbol === selectedIntelSymbol) || insights[0]
+  );
 }
 
 function getChartPoints(item) {
@@ -616,12 +841,16 @@ function getChartPoints(item) {
       created_at: point.created_at,
     }))
     .filter((point) => Number.isFinite(point.price) && point.created_at)
-    .sort((first, second) => new Date(first.created_at) - new Date(second.created_at));
+    .sort(
+      (first, second) =>
+        new Date(first.created_at) - new Date(second.created_at),
+    );
 
   if (!points.length && item) {
     points.push(
       {
-        price: numberValue(item.previous_price) || numberValue(item.current_price),
+        price:
+          numberValue(item.previous_price) || numberValue(item.current_price),
         quantity: 0,
         side: 'sell',
         created_at: new Date(Date.now() - 60 * 60 * 1000).toISOString(),
@@ -636,13 +865,17 @@ function getChartPoints(item) {
   }
 
   const rangeStart = getRangeStart(points);
-  const ranged = points.filter((point) => new Date(point.created_at).getTime() >= rangeStart);
+  const ranged = points.filter(
+    (point) => new Date(point.created_at).getTime() >= rangeStart,
+  );
   const visible = ranged.length >= 2 ? ranged : points;
   const maxPoints = 96;
   if (visible.length <= maxPoints) return visible;
 
   const step = Math.ceil(visible.length / maxPoints);
-  return visible.filter((_, index) => index % step === 0 || index === visible.length - 1);
+  return visible.filter(
+    (_, index) => index % step === 0 || index === visible.length - 1,
+  );
 }
 
 function buildCandles(points) {
@@ -651,7 +884,10 @@ function buildCandles(points) {
     const close = point.price;
     const open = previous;
     const seed = ((index * 17) % 9) / 1000;
-    const wick = Math.max(Math.abs(close - open) * 0.55, close * (0.0025 + seed));
+    const wick = Math.max(
+      Math.abs(close - open) * 0.55,
+      close * (0.0025 + seed),
+    );
     return {
       ...point,
       open,
@@ -666,7 +902,12 @@ function buildCandles(points) {
 function formatChartTime(value, showDate = false) {
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return '';
-  const locale = currentLanguage === 'ru' ? 'ru-RU' : currentLanguage === 'he' ? 'he-IL' : 'en-US';
+  const locale =
+    currentLanguage === 'ru'
+      ? 'ru-RU'
+      : currentLanguage === 'he'
+        ? 'he-IL'
+        : 'en-US';
   return new Intl.DateTimeFormat(locale, {
     month: showDate ? 'short' : undefined,
     day: showDate ? 'numeric' : undefined,
@@ -685,13 +926,19 @@ function renderIntelChartControls(insights) {
   }
 
   document.querySelectorAll('#intelRangeTabs button').forEach((button) => {
-    button.classList.toggle('active', button.dataset.range === selectedIntelRange);
+    button.classList.toggle(
+      'active',
+      button.dataset.range === selectedIntelRange,
+    );
   });
 
   const state = document.querySelector('.intel-market-state');
   if (state) {
     state.querySelector('strong').textContent = tr('marketOpen');
-    if (!state.querySelector('small').textContent || state.querySelector('small').textContent === '--') {
+    if (
+      !state.querySelector('small').textContent ||
+      state.querySelector('small').textContent === '--'
+    ) {
       state.querySelector('small').textContent = `${tr('closesIn')} --`;
     }
   }
@@ -753,7 +1000,9 @@ function renderIntelChart(insights = []) {
 
   const padding = { top: 20, right: 62, bottom: 34, left: 18 };
   const chartWidth = width - padding.left - padding.right;
-  const priceHeight = Math.round((height - padding.top - padding.bottom) * 0.74);
+  const priceHeight = Math.round(
+    (height - padding.top - padding.bottom) * 0.74,
+  );
   const volumeTop = padding.top + priceHeight + 10;
   const volumeHeight = height - volumeTop - padding.bottom;
   const minPrice = Math.min(...candles.map((candle) => candle.low));
@@ -762,7 +1011,8 @@ function renderIntelChart(insights = []) {
   const maxVolume = Math.max(...candles.map((candle) => candle.volume), 1);
   const step = chartWidth / candles.length;
   const bodyWidth = Math.max(4, Math.min(12, step * 0.58));
-  const priceY = (price) => padding.top + ((maxPrice - price) / priceRange) * priceHeight;
+  const priceY = (price) =>
+    padding.top + ((maxPrice - price) / priceRange) * priceHeight;
 
   ctx.strokeStyle = 'rgba(255,255,255,0.08)';
   ctx.lineWidth = 1;
@@ -790,7 +1040,10 @@ function renderIntelChart(insights = []) {
     const lowY = priceY(candle.low);
     const bodyTop = Math.min(openY, closeY);
     const bodyHeight = Math.max(2, Math.abs(closeY - openY));
-    const volumeHeightValue = Math.max(2, (candle.volume / maxVolume) * volumeHeight);
+    const volumeHeightValue = Math.max(
+      2,
+      (candle.volume / maxVolume) * volumeHeight,
+    );
 
     ctx.strokeStyle = color;
     ctx.fillStyle = color;
@@ -843,7 +1096,11 @@ function renderIntelChart(insights = []) {
     ctx.fillStyle = '#9aa8a4';
     ctx.font = '700 11px Inter, Arial, sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText(formatChartTime(candle.created_at, selectedIntelRange !== '1D'), x, height - 10);
+    ctx.fillText(
+      formatChartTime(candle.created_at, selectedIntelRange !== '1D'),
+      x,
+      height - 10,
+    );
   });
 
   ctx.fillStyle = '#9aa8a4';
@@ -901,7 +1158,10 @@ function renderIntel(history) {
 
 function syncIntelCards() {
   document.querySelectorAll('.intel-card[data-symbol]').forEach((card) => {
-    card.classList.toggle('active', card.dataset.symbol === selectedIntelSymbol);
+    card.classList.toggle(
+      'active',
+      card.dataset.symbol === selectedIntelSymbol,
+    );
   });
 }
 
@@ -917,34 +1177,45 @@ function setupIntelInteractions() {
   if (page !== 'intel' || intelInteractionsBound) return;
   intelInteractionsBound = true;
 
-  document.querySelector('#intelChartSymbol')?.addEventListener('change', (event) => {
-    selectIntelSymbol(event.target.value);
-  });
+  document
+    .querySelector('#intelChartSymbol')
+    ?.addEventListener('change', (event) => {
+      selectIntelSymbol(event.target.value);
+    });
 
-  document.querySelector('#intelRangeTabs')?.addEventListener('click', (event) => {
-    const button = event.target.closest('[data-range]');
-    if (!button) return;
-    selectedIntelRange = button.dataset.range;
-    localStorage.setItem('market_intel_range', selectedIntelRange);
-    renderIntelChart(lastIntelInsights);
-  });
+  document
+    .querySelector('#intelRangeTabs')
+    ?.addEventListener('click', (event) => {
+      const button = event.target.closest('[data-range]');
+      if (!button) return;
+      selectedIntelRange = button.dataset.range;
+      localStorage.setItem('market_intel_range', selectedIntelRange);
+      renderIntelChart(lastIntelInsights);
+    });
 
   document.querySelector('#marketIntel')?.addEventListener('click', (event) => {
     const card = event.target.closest('.intel-card[data-symbol]');
     if (card) selectIntelSymbol(card.dataset.symbol);
   });
 
-  document.querySelector('#marketIntel')?.addEventListener('keydown', (event) => {
-    if (!['Enter', ' '].includes(event.key)) return;
-    const card = event.target.closest('.intel-card[data-symbol]');
-    if (!card) return;
-    event.preventDefault();
-    selectIntelSymbol(card.dataset.symbol);
-  });
+  document
+    .querySelector('#marketIntel')
+    ?.addEventListener('keydown', (event) => {
+      if (!['Enter', ' '].includes(event.key)) return;
+      const card = event.target.closest('.intel-card[data-symbol]');
+      if (!card) return;
+      event.preventDefault();
+      selectIntelSymbol(card.dataset.symbol);
+    });
 }
 
 function renderTrades(history) {
   const root = document.querySelector('#recentTradesBody');
+  if (!history.trades?.length) {
+    root.innerHTML = `<tr><td colspan="6">${tr('noHistory')}</td></tr>`;
+    return;
+  }
+
   root.innerHTML = history.trades
     .map(
       (trade) => `
@@ -962,8 +1233,11 @@ function renderTrades(history) {
 }
 
 function renderPortfolio(portfolio) {
-  document.querySelector('#portfolioTitle').textContent = portfolio.player.display_name;
-  document.querySelector('#netWorth').textContent = money.format(numberValue(portfolio.net_worth));
+  document.querySelector('#portfolioTitle').textContent =
+    portfolio.player.display_name;
+  document.querySelector('#netWorth').textContent = money.format(
+    numberValue(portfolio.net_worth),
+  );
   document.querySelector('#cashBalance').textContent = money.format(
     numberValue(portfolio.cash_balance),
   );
@@ -971,7 +1245,7 @@ function renderPortfolio(portfolio) {
     numberValue(portfolio.positions_value),
   );
   document.querySelector('#creditsValue').textContent = numberValue(
-    portfolio.player.premium_credits,
+    portfolio.account_tokens,
   ).toFixed(0);
 
   const body = document.querySelector('#positionsBody');
@@ -1015,6 +1289,8 @@ function renderOffers(offers) {
 async function loadPortfolioPage() {
   const playerId = Number(localStorage.getItem('market_player_id'));
   if (!playerId) {
+    const title = document.querySelector('#portfolioTitle');
+    if (title) title.textContent = tr('noPlayer');
     setStatus(tr('createPlayerFirst'));
     return;
   }
@@ -1030,33 +1306,34 @@ async function purchaseOffer(offerId) {
     method: 'POST',
     body: JSON.stringify({ player_id: playerId, offer_id: Number(offerId) }),
   });
-  setStatus(tr('purchaseRecorded', { sku: result.purchase.sku }));
+  if (result.user)
+    localStorage.setItem('market_user', JSON.stringify(result.user));
+  setStatus(
+    tr('purchaseRecorded', {
+      amount: numberValue(result.token_reward).toFixed(0),
+    }),
+  );
 }
 
 async function ensureStorePlayer() {
   const playerId = Number(localStorage.getItem('market_player_id'));
   const user = readJson('market_user');
-  if (playerId && localStorage.getItem('market_auth_mode') === 'account' && user?.email_verified) {
+  if (
+    playerId &&
+    localStorage.getItem('market_auth_mode') === 'account' &&
+    user?.email_verified
+  ) {
     return playerId;
   }
 
   throw new Error(tr('verifiedAccountRequired'));
 }
 
-async function purchaseCustomCash(event) {
-  event.preventDefault();
-  const playerId = await ensureStorePlayer();
-  const cashAmount = Number(document.querySelector('#customCashAmount').value);
-  const result = await api('/market/monetization/cash', {
-    method: 'POST',
-    body: JSON.stringify({ player_id: playerId, cash_amount: cashAmount }),
-  });
-  setStatus(tr('cashPurchaseRecorded', { amount: money.format(numberValue(result.cash_reward)) }));
-}
-
 function registerAppShell() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/game/sw.js', { scope: '/game/' }).catch(() => undefined);
+    navigator.serviceWorker
+      .register('/game/sw.js', { scope: '/game/' })
+      .catch(() => undefined);
   }
 }
 
@@ -1064,7 +1341,9 @@ async function loadClock() {
   if (!clockNode) return;
 
   const clock = await api('/market/clock');
-  const nextTick = clock.next_tick_at ? new Date(clock.next_tick_at).getTime() : Date.now();
+  const nextTick = clock.next_tick_at
+    ? new Date(clock.next_tick_at).getTime()
+    : Date.now();
   const seconds = Math.max(0, Math.ceil((nextTick - Date.now()) / 1000));
   clockNode.textContent = `${seconds}s`;
 
@@ -1081,41 +1360,59 @@ function startClock() {
   }, 1000);
 }
 
+function startLiveRefresh() {
+  if (!['intel', 'trades'].includes(page)) return;
+
+  setInterval(() => {
+    refreshPage({ quiet: true }).catch((error) => setStatus(error.message));
+  }, 5000);
+}
+
 async function boot() {
   registerAppShell();
   addLanguageSelect();
   applyLanguage();
   setupIntelInteractions();
   startClock();
+  startLiveRefresh();
 
   await refreshPage();
 }
 
-async function refreshPage() {
-  if (page === 'intel') {
-    renderIntel(await api('/market/history'));
-    setStatus(tr('marketIntelUpdated'));
-  }
+async function refreshPage(options = {}) {
+  if (isPageRefreshRunning) return;
+  isPageRefreshRunning = true;
 
-  if (page === 'trades') {
-    renderTrades(await api('/market/history'));
-    setStatus(tr('tradeTapeUpdated'));
-  }
+  try {
+    if (page === 'intel') {
+      renderIntel(await api('/market/history'));
+      if (!options.quiet) setStatus(tr('marketIntelUpdated'));
+    }
 
-  if (page === 'portfolio') {
-    await loadPortfolioPage();
-  }
+    if (page === 'trades') {
+      renderTrades(await api('/market/history'));
+      if (!options.quiet) setStatus(tr('tradeTapeUpdated'));
+    }
 
-  if (page === 'store') {
-    renderOffers(await api('/market/monetization/offers'));
-    document.querySelector('#offersList').addEventListener('click', (event) => {
-      const button = event.target.closest('[data-offer-id]');
-      if (button) purchaseOffer(button.dataset.offerId).catch((error) => setStatus(error.message));
-    });
-    document.querySelector('#customCashForm')?.addEventListener('submit', (event) => {
-      purchaseCustomCash(event).catch((error) => setStatus(error.message));
-    });
-    setStatus(tr('storeLoaded'));
+    if (page === 'portfolio') {
+      await loadPortfolioPage();
+    }
+
+    if (page === 'store') {
+      renderOffers(await api('/market/monetization/offers'));
+      document
+        .querySelector('#offersList')
+        .addEventListener('click', (event) => {
+          const button = event.target.closest('[data-offer-id]');
+          if (button)
+            purchaseOffer(button.dataset.offerId).catch((error) =>
+              setStatus(error.message),
+            );
+        });
+      setStatus(tr('storeLoaded'));
+    }
+  } finally {
+    isPageRefreshRunning = false;
   }
 }
 

@@ -11,6 +11,20 @@ import { CreatePlayerDto } from './dto/create-player.dto';
 import { PlaceOrderDto } from './dto/place-order.dto';
 import { PurchaseOfferDto } from './dto/purchase-offer.dto';
 import { User } from '../users/user.entity';
+import {
+  ACHIEVEMENT_DEFINITIONS,
+  BOT_TRADERS as MARKET_BOT_TRADERS,
+  DAILY_QUEST_DEFINITIONS,
+  EVENT_TEMPLATES as MARKET_EVENT_TEMPLATES,
+  MARKET_COMPANIES,
+  NEWS_TEMPLATES as MARKET_NEWS_TEMPLATES,
+  SECTOR_CONFIG,
+  SESSION_STARTERS,
+  STARTER_OFFERS as TOKEN_OFFERS,
+  type CompanySeed,
+} from './market.data';
+import { AchievementProgress } from './entities/achievement-progress.entity';
+import { DailyQuestProgress } from './entities/daily-quest-progress.entity';
 import { EconomicEvent } from './entities/economic-event.entity';
 import { Holding } from './entities/holding.entity';
 import { MarketNews } from './entities/market-news.entity';
@@ -20,251 +34,8 @@ import { SimCompany } from './entities/sim-company.entity';
 import { SimPlayer } from './entities/sim-player.entity';
 import { Trade, TradeSide } from './entities/trade.entity';
 
-const STARTER_COMPANIES = [
-  {
-    symbol: 'NOVA',
-    name: 'Nova Robotics',
-    sector: 'AI',
-    description:
-      'Builds autonomous warehouse robots and machine-vision systems for logistics companies.',
-    owner_name: 'Maya Levin',
-    employee_count: 1240,
-    founded_year: 2017,
-    government_support_type: 'R&D grant',
-    government_support_amount: 18000000,
-    tax_benefit_percent: 8,
-    state_loan_rate_percent: 0,
-    support_expires_year: 2029,
-    support_risk_level: 'medium',
-    price: 42,
-    previous_price: 42,
-    market_cap: 420000000,
-    volatility: 4.5,
-  },
-  {
-    symbol: 'SOLR',
-    name: 'Solara Grid',
-    sector: 'Energy',
-    description:
-      'Operates smart solar microgrids and battery balancing software for midsize cities.',
-    owner_name: 'Daniel Cross',
-    employee_count: 860,
-    founded_year: 2014,
-    government_support_type: 'Green energy tax credit',
-    government_support_amount: 24000000,
-    tax_benefit_percent: 14,
-    state_loan_rate_percent: 2.1,
-    support_expires_year: 2031,
-    support_risk_level: 'low',
-    price: 26,
-    previous_price: 26,
-    market_cap: 260000000,
-    volatility: 3.25,
-  },
-  {
-    symbol: 'MEDX',
-    name: 'Medix Labs',
-    sector: 'Healthcare',
-    description:
-      'Develops diagnostic lab tools and AI-assisted screening kits for clinics.',
-    owner_name: 'Dr. Elena Mor',
-    employee_count: 530,
-    founded_year: 2019,
-    government_support_type: 'Health innovation grant',
-    government_support_amount: 9000000,
-    tax_benefit_percent: 5,
-    state_loan_rate_percent: 0,
-    support_expires_year: 2028,
-    support_risk_level: 'medium',
-    price: 18,
-    previous_price: 18,
-    market_cap: 180000000,
-    volatility: 5.1,
-  },
-  {
-    symbol: 'BYTE',
-    name: 'ByteForge Games',
-    sector: 'Gaming',
-    description:
-      'Publishes competitive mobile games and live-service economies for esports fans.',
-    owner_name: 'Noam Adler',
-    employee_count: 410,
-    founded_year: 2021,
-    government_support_type: 'none',
-    government_support_amount: 0,
-    tax_benefit_percent: 0,
-    state_loan_rate_percent: 0,
-    support_expires_year: 0,
-    support_risk_level: 'none',
-    price: 12,
-    previous_price: 12,
-    market_cap: 120000000,
-    volatility: 6,
-  },
-  {
-    symbol: 'AERO',
-    name: 'AeroVista Drones',
-    sector: 'Aerospace',
-    description:
-      'Makes inspection drones for ports, farms, and construction sites with long-range sensors.',
-    owner_name: 'Sofia Grant',
-    employee_count: 720,
-    founded_year: 2016,
-    government_support_type: 'Defense supplier credit line',
-    government_support_amount: 32000000,
-    tax_benefit_percent: 6,
-    state_loan_rate_percent: 1.8,
-    support_expires_year: 2030,
-    support_risk_level: 'medium',
-    price: 31,
-    previous_price: 31,
-    market_cap: 310000000,
-    volatility: 4.8,
-  },
-  {
-    symbol: 'FARM',
-    name: 'FarmPulse Foods',
-    sector: 'Agriculture',
-    description:
-      'Runs vertical farms and crop analytics for supermarkets seeking local produce supply.',
-    owner_name: 'Ilan Becker',
-    employee_count: 640,
-    founded_year: 2015,
-    government_support_type: 'Food security subsidy',
-    government_support_amount: 14000000,
-    tax_benefit_percent: 10,
-    state_loan_rate_percent: 2.4,
-    support_expires_year: 2027,
-    support_risk_level: 'high',
-    price: 15,
-    previous_price: 15,
-    market_cap: 150000000,
-    volatility: 3.9,
-  },
-  {
-    symbol: 'FINX',
-    name: 'FinAxis Pay',
-    sector: 'Fintech',
-    description:
-      'Provides simulated payment rails, fraud scoring, and merchant settlement tools.',
-    owner_name: 'Ari Stone',
-    employee_count: 1180,
-    founded_year: 2013,
-    government_support_type: 'none',
-    government_support_amount: 0,
-    tax_benefit_percent: 0,
-    state_loan_rate_percent: 0,
-    support_expires_year: 0,
-    support_risk_level: 'none',
-    price: 38,
-    previous_price: 38,
-    market_cap: 380000000,
-    volatility: 5.4,
-  },
-  {
-    symbol: 'EDU',
-    name: 'EduCore Cloud',
-    sector: 'Education',
-    description:
-      'Sells learning platforms, exams, and analytics dashboards to schools and bootcamps.',
-    owner_name: 'Rachel Kim',
-    employee_count: 350,
-    founded_year: 2018,
-    government_support_type: 'Education modernization tender',
-    government_support_amount: 7000000,
-    tax_benefit_percent: 4,
-    state_loan_rate_percent: 0,
-    support_expires_year: 2028,
-    support_risk_level: 'low',
-    price: 11,
-    previous_price: 11,
-    market_cap: 110000000,
-    volatility: 4.1,
-  },
-  {
-    symbol: 'CYBR',
-    name: 'CipherWall Security',
-    sector: 'Cybersecurity',
-    description:
-      'Protects small businesses with endpoint defense, password audits, and incident response.',
-    owner_name: 'Victor Hale',
-    employee_count: 970,
-    founded_year: 2012,
-    government_support_type: 'Critical infrastructure contract',
-    government_support_amount: 21000000,
-    tax_benefit_percent: 3,
-    state_loan_rate_percent: 1.5,
-    support_expires_year: 2029,
-    support_risk_level: 'medium',
-    price: 47,
-    previous_price: 47,
-    market_cap: 470000000,
-    volatility: 5.7,
-  },
-  {
-    symbol: 'OCEA',
-    name: 'OceanArc Shipping',
-    sector: 'Logistics',
-    description:
-      'Coordinates container routes, port scheduling, and fuel optimization for regional fleets.',
-    owner_name: 'Lina Torres',
-    employee_count: 1540,
-    founded_year: 2009,
-    government_support_type: 'Port logistics loan',
-    government_support_amount: 26000000,
-    tax_benefit_percent: 2,
-    state_loan_rate_percent: 2.8,
-    support_expires_year: 2032,
-    support_risk_level: 'low',
-    price: 21,
-    previous_price: 21,
-    market_cap: 210000000,
-    volatility: 3.6,
-  },
-  {
-    symbol: 'FOAM',
-    name: 'FoamLite Materials',
-    sector: 'Manufacturing',
-    description:
-      'Produces lightweight insulation panels and recyclable packaging materials.',
-    owner_name: 'Peter Novak',
-    employee_count: 780,
-    founded_year: 2011,
-    government_support_type: 'Manufacturing tax relief',
-    government_support_amount: 11000000,
-    tax_benefit_percent: 9,
-    state_loan_rate_percent: 0,
-    support_expires_year: 2026,
-    support_risk_level: 'high',
-    price: 17,
-    previous_price: 17,
-    market_cap: 170000000,
-    volatility: 4.4,
-  },
-  {
-    symbol: 'LUX',
-    name: 'Luxora Retail',
-    sector: 'Consumer',
-    description:
-      'Runs premium lifestyle stores and a direct-to-consumer brand marketplace.',
-    owner_name: 'Nadia Wells',
-    employee_count: 1320,
-    founded_year: 2010,
-    government_support_type: 'none',
-    government_support_amount: 0,
-    tax_benefit_percent: 0,
-    state_loan_rate_percent: 0,
-    support_expires_year: 0,
-    support_risk_level: 'none',
-    price: 24,
-    previous_price: 24,
-    market_cap: 240000000,
-    volatility: 4.9,
-  },
-];
-
 const STARTER_COMPANY_BY_SYMBOL = new Map(
-  STARTER_COMPANIES.map((company) => [company.symbol, company]),
+  MARKET_COMPANIES.map((company) => [company.symbol, company]),
 );
 const EVENT_IMPACT_TICK_SCALE = 0.18;
 const DEMAND_IMPACT_MAX_PERCENT = 1.35;
@@ -272,232 +43,14 @@ const MAX_TICK_GAIN_PERCENT = 2.2;
 const MAX_TICK_DROP_PERCENT = -3.5;
 const PRICE_FLOOR_MULTIPLIER = 0.25;
 const PRICE_HARD_CEILING_MULTIPLIER = 6;
-
-const BOT_TRADERS = [
-  { name: 'Atlas Quant', cash_balance: 180000, style: 'momentum' },
-  { name: 'Harbor Fund', cash_balance: 160000, style: 'value' },
-  { name: 'Nova Desk', cash_balance: 140000, style: 'support' },
-  { name: 'Pulse Capital', cash_balance: 150000, style: 'active' },
-  { name: 'Cedar Algo', cash_balance: 130000, style: 'balanced' },
-  { name: 'Orion Market', cash_balance: 170000, style: 'contrarian' },
-];
-
-const EVENT_TEMPLATES = [
-  {
-    title: 'AI regulation relief',
-    description: 'Regulators delay strict AI licensing rules, lifting the AI sector.',
-    scope: 'sector' as const,
-    target_sector: 'AI',
-    price_impact_percent: 7,
-  },
-  {
-    title: 'Energy storage shortage',
-    description: 'Battery supply pressure hurts renewable energy margins.',
-    scope: 'sector' as const,
-    target_sector: 'Energy',
-    price_impact_percent: -5,
-  },
-  {
-    title: 'Clinical trial surprise',
-    description: 'A healthcare trial result changes investor appetite overnight.',
-    scope: 'sector' as const,
-    target_sector: 'Healthcare',
-    price_impact_percent: 6,
-  },
-  {
-    title: 'Streaming platform partnership',
-    description: 'A large distribution deal boosts gaming revenue expectations.',
-    scope: 'sector' as const,
-    target_sector: 'Gaming',
-    price_impact_percent: 8,
-  },
-  {
-    title: 'Market risk-off session',
-    description: 'Players rotate into cash after a simulated macro shock.',
-    scope: 'global' as const,
-    price_impact_percent: -3,
-  },
-  {
-    title: 'Drone inspection contracts',
-    description: 'Infrastructure companies expand drone inspections across remote sites.',
-    scope: 'sector' as const,
-    target_sector: 'Aerospace',
-    price_impact_percent: 6,
-  },
-  {
-    title: 'Fresh food supply deal',
-    description: 'Retailers sign new local farming supply agreements.',
-    scope: 'sector' as const,
-    target_sector: 'Agriculture',
-    price_impact_percent: 4,
-  },
-  {
-    title: 'Merchant fraud scare',
-    description: 'Payment providers face scrutiny after a simulated fraud wave.',
-    scope: 'sector' as const,
-    target_sector: 'Fintech',
-    price_impact_percent: -6,
-  },
-  {
-    title: 'School platform rollout',
-    description: 'Districts expand digital learning subscriptions for the next term.',
-    scope: 'sector' as const,
-    target_sector: 'Education',
-    price_impact_percent: 5,
-  },
-  {
-    title: 'Security breach cycle',
-    description: 'Companies increase security budgets after several fictional attacks.',
-    scope: 'sector' as const,
-    target_sector: 'Cybersecurity',
-    price_impact_percent: 7,
-  },
-  {
-    title: 'Port congestion easing',
-    description: 'Shipping schedules normalize and logistics margins improve.',
-    scope: 'sector' as const,
-    target_sector: 'Logistics',
-    price_impact_percent: 4,
-  },
-  {
-    title: 'Raw material price jump',
-    description: 'Manufacturing input costs rise and pressure near-term margins.',
-    scope: 'sector' as const,
-    target_sector: 'Manufacturing',
-    price_impact_percent: -4,
-  },
-  {
-    title: 'Consumer demand pop',
-    description: 'Premium retail demand improves after a strong simulated holiday cycle.',
-    scope: 'sector' as const,
-    target_sector: 'Consumer',
-    price_impact_percent: 5,
-  },
-];
-
-const STARTER_OFFERS = [
-  {
-    sku: 'starter_cash_5k',
-    title: 'Starter Cash Boost',
-    description: 'Adds simulated cash for faster early experimentation.',
-    type: 'starter_cash' as const,
-    price_usd: 2.99,
-    cash_reward: 5000,
-    premium_credit_reward: 0,
-  },
-  {
-    sku: 'premium_credits_100',
-    title: '100 Premium Credits',
-    description: 'Credits for optional cosmetics, boosts, and season features.',
-    type: 'premium_credits' as const,
-    price_usd: 4.99,
-    cash_reward: 0,
-    premium_credit_reward: 100,
-  },
-];
-
-const NEWS_TEMPLATES = [
-  {
-    slug: 'border-war-risk',
-    title: 'Border war risk rises near energy corridor',
-    summary:
-      'Military tension around a key transit route could raise fuel costs and pressure logistics companies. Defense and cybersecurity names may attract defensive buying.',
-    category: 'War',
-    target_sector: 'Logistics',
-    expected_impact_percent: -7,
-    probability_percent: 62,
-    severity: 'high',
-    days_from_now: 1,
-  },
-  {
-    slug: 'regional-defense-alliance',
-    title: 'Regional defense alliance expected to sign drone procurement pact',
-    summary:
-      'Several governments are discussing a joint inspection-drone program. AeroVista Drones is seen as a likely supplier if the pact is signed.',
-    category: 'State Alliance',
-    target_symbol: 'AERO',
-    expected_impact_percent: 9,
-    probability_percent: 71,
-    severity: 'high',
-    days_from_now: 2,
-  },
-  {
-    slug: 'drought-warning',
-    title: 'Drought warning threatens traditional agriculture supply',
-    summary:
-      'Weather agencies warn that a dry season may hurt open-field supply. Vertical farming companies could benefit while food costs rise.',
-    category: 'Drought',
-    target_sector: 'Agriculture',
-    expected_impact_percent: 6,
-    probability_percent: 67,
-    severity: 'medium',
-    days_from_now: 3,
-  },
-  {
-    slug: 'education-tax-plan',
-    title: 'Education tax plan heads to committee vote',
-    summary:
-      'A proposed digital-learning tax credit may increase school software spending next quarter.',
-    category: 'Tax Policy',
-    target_sector: 'Education',
-    expected_impact_percent: 5,
-    probability_percent: 58,
-    severity: 'medium',
-    days_from_now: 4,
-  },
-  {
-    slug: 'cyber-attack-wave',
-    title: 'Cyber attack wave prompts emergency security budgets',
-    summary:
-      'A series of fictional attacks on utilities may push companies toward endpoint protection and incident response vendors.',
-    category: 'Security',
-    target_sector: 'Cybersecurity',
-    expected_impact_percent: 8,
-    probability_percent: 76,
-    severity: 'high',
-    days_from_now: 1,
-  },
-  {
-    slug: 'green-subsidy-review',
-    title: 'Green subsidy review may extend solar credits',
-    summary:
-      'Lawmakers are reviewing a longer subsidy window for microgrid and battery projects. Solara Grid would benefit from longer support.',
-    category: 'Government Support',
-    target_symbol: 'SOLR',
-    expected_impact_percent: 7,
-    probability_percent: 64,
-    severity: 'medium',
-    days_from_now: 5,
-  },
-  {
-    slug: 'chip-shortage',
-    title: 'Sensor chip shortage may delay robotics shipments',
-    summary:
-      'Component suppliers warn of limited machine-vision chip inventory. Robotics firms could face margin pressure if supply does not improve.',
-    category: 'Supply Chain',
-    target_sector: 'AI',
-    expected_impact_percent: -5,
-    probability_percent: 55,
-    severity: 'medium',
-    days_from_now: 2,
-  },
-  {
-    slug: 'consumer-alliance',
-    title: 'Consumer brands form retail data alliance',
-    summary:
-      'A coalition of premium brands plans shared customer analytics. Retail marketplaces may gain better targeting and lower acquisition costs.',
-    category: 'Business Alliance',
-    target_sector: 'Consumer',
-    expected_impact_percent: 4,
-    probability_percent: 52,
-    severity: 'low',
-    days_from_now: 6,
-  },
-];
+const MIN_LIVE_TRADE_COUNT = 8;
+const MIN_TOTAL_TRADE_COUNT = 72;
 
 @Injectable()
 export class MarketService implements OnModuleInit, OnModuleDestroy {
-  private readonly autoTickIntervalMs = Number(process.env.MARKET_TICK_MS ?? 20000);
+  private readonly autoTickIntervalMs = Number(
+    process.env.MARKET_TICK_MS ?? 20000,
+  );
   private autoTickTimer?: NodeJS.Timeout;
   private isAutoTickRunning = false;
   private lastAutoTickAt?: Date;
@@ -522,10 +75,15 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
     private readonly offersRepository: Repository<MonetizationOffer>,
     @InjectRepository(Purchase)
     private readonly purchasesRepository: Repository<Purchase>,
+    @InjectRepository(AchievementProgress)
+    private readonly achievementsRepository: Repository<AchievementProgress>,
+    @InjectRepository(DailyQuestProgress)
+    private readonly dailyQuestsRepository: Repository<DailyQuestProgress>,
   ) {}
 
   async onModuleInit() {
     await this.seedGameData();
+    await this.ensureLiveBotActivity({ force: true });
     this.startAutoTicks();
   }
 
@@ -539,12 +97,7 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
     await this.seedCompanies();
     await this.seedBotTraders();
 
-    const offersCount = await this.offersRepository.count();
-    if (offersCount === 0) {
-      await this.offersRepository.save(
-        STARTER_OFFERS.map((offer) => this.offersRepository.create(offer)),
-      );
-    }
+    await this.seedTokenOffers();
 
     await this.seedMarketHistory();
     await this.seedMarketNews();
@@ -558,13 +111,15 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
   }
 
   private async seedCompanies() {
-    for (const companySeed of STARTER_COMPANIES) {
+    for (const companySeed of MARKET_COMPANIES) {
       const existing = await this.companiesRepository.findOne({
         where: { symbol: companySeed.symbol },
       });
 
       if (!existing) {
-        await this.companiesRepository.save(this.companiesRepository.create(companySeed));
+        await this.companiesRepository.save(
+          this.companiesRepository.create(companySeed),
+        );
         continue;
       }
 
@@ -585,20 +140,60 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
         support_risk_level: companySeed.support_risk_level,
         market_cap: companySeed.market_cap,
         volatility: companySeed.volatility,
+        event_sensitivity: companySeed.event_sensitivity,
         price: normalizedPrice.price,
         previous_price: normalizedPrice.previous_price,
       });
     }
   }
 
+  private async seedTokenOffers() {
+    const tokenSkus = TOKEN_OFFERS.map((offer) => offer.sku);
+
+    for (const offerSeed of TOKEN_OFFERS) {
+      const existing = await this.offersRepository.findOne({
+        where: { sku: offerSeed.sku },
+      });
+
+      const payload = {
+        ...offerSeed,
+        cash_reward: 0,
+        premium_credit_reward: 0,
+        is_active: true,
+      };
+
+      if (!existing) {
+        await this.offersRepository.save(this.offersRepository.create(payload));
+        continue;
+      }
+
+      await this.offersRepository.save({
+        ...existing,
+        ...payload,
+      });
+    }
+
+    const allOffers = await this.offersRepository.find();
+    const legacyOffers = allOffers.filter(
+      (offer) => !tokenSkus.includes(offer.sku),
+    );
+    for (const offer of legacyOffers) {
+      if (!offer.is_active) continue;
+      offer.is_active = false;
+      await this.offersRepository.save(offer);
+    }
+  }
+
   private async seedMarketNews() {
     const now = Date.now();
 
-    for (const newsSeed of NEWS_TEMPLATES) {
+    for (const newsSeed of MARKET_NEWS_TEMPLATES) {
       const existing = await this.newsRepository.findOne({
         where: { slug: newsSeed.slug },
       });
-      const scheduledAt = new Date(now + newsSeed.days_from_now * 24 * 60 * 60 * 1000);
+      const scheduledAt = new Date(
+        now + newsSeed.days_from_now * 24 * 60 * 60 * 1000,
+      );
       const payload = {
         slug: newsSeed.slug,
         title: newsSeed.title,
@@ -626,7 +221,7 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
   }
 
   private async seedBotTraders() {
-    for (const bot of BOT_TRADERS) {
+    for (const bot of MARKET_BOT_TRADERS) {
       const existing = await this.playersRepository.findOne({
         where: { display_name: bot.name },
       });
@@ -657,7 +252,10 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
   }
 
   getEvents() {
-    return this.eventsRepository.find({ order: { created_at: 'DESC' }, take: 25 });
+    return this.eventsRepository.find({
+      order: { created_at: 'DESC' },
+      take: 25,
+    });
   }
 
   getMarketNews() {
@@ -677,8 +275,13 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
   }
 
   async getMarketHistory() {
+    await this.ensureLiveBotActivity();
+
     const [companies, trades] = await Promise.all([
-      this.companiesRepository.find({ where: { is_active: true }, order: { symbol: 'ASC' } }),
+      this.companiesRepository.find({
+        where: { is_active: true },
+        order: { symbol: 'ASC' },
+      }),
       this.tradesRepository.find({ order: { created_at: 'DESC' }, take: 2000 }),
     ]);
     const playerIds = [...new Set(trades.map((trade) => trade.player_id))];
@@ -690,7 +293,9 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
     );
 
     const insights = companies.map((company) => {
-      const companyTrades = trades.filter((trade) => trade.symbol === company.symbol);
+      const companyTrades = trades.filter(
+        (trade) => trade.symbol === company.symbol,
+      );
       const buyTrades = companyTrades.filter((trade) => trade.side === 'buy');
       const sellTrades = companyTrades.filter((trade) => trade.side === 'sell');
       const volume = companyTrades.reduce(
@@ -713,7 +318,10 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
         ? tradedValue / volume
         : currentPrice;
       const priceHistory = [...companyTrades]
-        .sort((first, second) => first.created_at.getTime() - second.created_at.getTime())
+        .sort(
+          (first, second) =>
+            first.created_at.getTime() - second.created_at.getTime(),
+        )
         .map((trade) => ({
           price: Number(trade.execution_price),
           quantity: Number(trade.quantity),
@@ -796,7 +404,12 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
 
   async getPortfolio(playerId: number) {
     const player = await this.findPlayer(playerId);
-    const holdings = await this.holdingsRepository.find({ where: { player_id: playerId } });
+    const user = player.user_id
+      ? await this.usersRepository.findOneBy({ id: player.user_id })
+      : null;
+    const holdings = await this.holdingsRepository.find({
+      where: { player_id: playerId },
+    });
     const companies = holdings.length
       ? await this.companiesRepository.find({
           where: { id: In(holdings.map((holding) => holding.company_id)) },
@@ -828,6 +441,7 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
     return {
       player,
       cash_balance: Number(player.cash_balance),
+      account_tokens: Number(user?.account_tokens || 0),
       positions,
       positions_value: positionsValue,
       net_worth: this.roundMoney(Number(player.cash_balance) + positionsValue),
@@ -859,7 +473,12 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
       throw new NotFoundException(`Company ${symbol} was not found`);
     }
 
-    const trade = await this.executeTrade(player, company, dto.side as TradeSide, quantity);
+    const trade = await this.executeTrade(
+      player,
+      company,
+      dto.side as TradeSide,
+      quantity,
+    );
 
     return {
       trade,
@@ -893,7 +512,9 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
       holding.average_cost = this.roundMoney(
         (currentCost + grossValue) / Number(holding.quantity),
       );
-      player.cash_balance = this.roundMoney(Number(player.cash_balance) - totalCost);
+      player.cash_balance = this.roundMoney(
+        Number(player.cash_balance) - totalCost,
+      );
     } else {
       if (Number(holding.quantity) < quantity) {
         if (!strict) return null;
@@ -901,7 +522,9 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
       }
 
       holding.quantity = Number(holding.quantity) - quantity;
-      player.cash_balance = this.roundMoney(Number(player.cash_balance) + grossValue - fee);
+      player.cash_balance = this.roundMoney(
+        Number(player.cash_balance) + grossValue - fee,
+      );
       if (Number(holding.quantity) === 0) {
         holding.average_cost = 0;
       }
@@ -910,7 +533,7 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
     await this.playersRepository.save(player);
     await this.holdingsRepository.save(holding);
 
-    return this.tradesRepository.save(
+    const trade = await this.tradesRepository.save(
       this.tradesRepository.create({
         player_id: player.id,
         company_id: company.id,
@@ -923,26 +546,36 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
         created_at: options.created_at,
       }),
     );
+
+    await this.updateProgressAfterTrade(player, company, trade);
+    return trade;
   }
 
   async runMarketTick() {
-    const companies = await this.companiesRepository.find({ where: { is_active: true } });
+    const companies = await this.companiesRepository.find({
+      where: { is_active: true },
+    });
     if (companies.length === 0) {
-      throw new BadRequestException('Seed companies before running a market tick');
+      throw new BadRequestException(
+        'Seed companies before running a market tick',
+      );
     }
 
     const botTrades = await this.runBotTradingRound(companies);
     const demandTrades = await this.getRecentDemandTrades(botTrades);
     const eventTemplate = this.pickEventTemplate();
+    const { sector_impacts: sectorImpacts, ...eventPayload } = eventTemplate;
     const event = await this.eventsRepository.save(
       this.eventsRepository.create({
-        ...eventTemplate,
+        ...eventPayload,
+        impact_profile: sectorImpacts,
         duration_ticks: 1,
       }),
     );
 
     const updatedCompanies = companies.map((company) => {
-      const eventImpact = this.getEventImpact(company, event) * EVENT_IMPACT_TICK_SCALE;
+      const eventImpact =
+        this.getEventImpact(company, event) * EVENT_IMPACT_TICK_SCALE;
       const demandImpact = this.getDemandImpactPercent(company, demandTrades);
       const supportEffect = this.getSupportPriceEffect(company, eventImpact);
       const noise = this.randomBetween(
@@ -951,7 +584,11 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
       );
       const priceDrift = this.getPriceDriftPercent(company);
       const rawImpactPercent =
-        eventImpact + demandImpact + noise + supportEffect.growthBias + priceDrift;
+        eventImpact +
+        demandImpact +
+        noise +
+        supportEffect.growthBias +
+        priceDrift;
       const totalImpactPercent = this.clamp(
         rawImpactPercent,
         supportEffect.maxDropPercent,
@@ -976,7 +613,9 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
         name: company.name,
         previous_price: Number(company.previous_price),
         price: Number(company.price),
-        demand_impact_percent: this.roundPercent(this.getDemandImpactPercent(company, demandTrades)),
+        demand_impact_percent: this.roundPercent(
+          this.getDemandImpactPercent(company, demandTrades),
+        ),
         support_score: this.getSupportScore(company),
         change_percent: this.roundPercent(
           ((Number(company.price) - Number(company.previous_price)) /
@@ -1003,7 +642,10 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
     const ordersCount = Math.floor(this.randomBetween(4, 10));
 
     for (let index = 0; index < ordersCount; index += 1) {
-      const botConfig = BOT_TRADERS[Math.floor(Math.random() * BOT_TRADERS.length)];
+      const botConfig =
+        MARKET_BOT_TRADERS[
+          Math.floor(Math.random() * MARKET_BOT_TRADERS.length)
+        ];
       const bot = bots.find((player) => player.display_name === botConfig.name);
       if (!bot) continue;
 
@@ -1027,7 +669,7 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
 
   private async getBotPlayers() {
     return this.playersRepository.find({
-      where: BOT_TRADERS.map((bot) => ({ display_name: bot.name })),
+      where: MARKET_BOT_TRADERS.map((bot) => ({ display_name: bot.name })),
     });
   }
 
@@ -1038,18 +680,33 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
       const firstRatio = Number(first.price) / this.getFairPrice(first);
       const secondRatio = Number(second.price) / this.getFairPrice(second);
 
-      if (style === 'momentum') return secondChange - firstChange;
-      if (style === 'value') return firstRatio - secondRatio;
-      if (style === 'support') return this.getSupportScore(second) - this.getSupportScore(first);
-      if (style === 'contrarian') return firstChange - secondChange;
+      if (style === 'momentum' || style === 'scalper')
+        return secondChange - firstChange;
+      if (style === 'value' || style === 'investor')
+        return firstRatio - secondRatio;
+      if (style === 'support')
+        return this.getSupportScore(second) - this.getSupportScore(first);
+      if (style === 'contrarian' || style === 'panic')
+        return firstChange - secondChange;
+      if (style === 'aggressive')
+        return Number(second.volatility) - Number(first.volatility);
+      if (style === 'market_maker')
+        return Math.abs(firstChange) - Math.abs(secondChange);
       return Math.random() - 0.5;
     });
 
     const preferredPool = sorted.slice(0, Math.min(5, sorted.length));
-    return preferredPool[Math.floor(Math.random() * preferredPool.length)] || companies[0];
+    return (
+      preferredPool[Math.floor(Math.random() * preferredPool.length)] ||
+      companies[0]
+    );
   }
 
-  private async pickBotSide(bot: SimPlayer, company: SimCompany, style: string): Promise<TradeSide> {
+  private async pickBotSide(
+    bot: SimPlayer,
+    company: SimCompany,
+    style: string,
+  ): Promise<TradeSide> {
     const holding = await this.holdingsRepository.findOne({
       where: { player_id: bot.id, company_id: company.id },
     });
@@ -1060,10 +717,19 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
     let buyProbability = 0.54;
 
     if (style === 'momentum') buyProbability += change > 0 ? 0.18 : -0.1;
-    if (style === 'value') buyProbability += ratio < 0.95 ? 0.24 : ratio > 1.18 ? -0.24 : 0;
+    if (style === 'scalper') buyProbability += change > 0 ? 0.1 : -0.08;
+    if (style === 'investor') buyProbability += ratio < 1.08 ? 0.16 : -0.08;
+    if (style === 'value')
+      buyProbability += ratio < 0.95 ? 0.24 : ratio > 1.18 ? -0.24 : 0;
     if (style === 'support') buyProbability += supportScore / 520;
-    if (style === 'contrarian') buyProbability += change < -0.5 ? 0.24 : change > 1.1 ? -0.18 : 0;
-    if (style === 'active') buyProbability += this.randomBetween(-0.16, 0.16);
+    if (style === 'contrarian')
+      buyProbability += change < -0.5 ? 0.24 : change > 1.1 ? -0.18 : 0;
+    if (style === 'panic') buyProbability += change < 0 ? -0.28 : 0.08;
+    if (style === 'aggressive') buyProbability += 0.2;
+    if (style === 'market_maker')
+      buyProbability = 0.5 + this.randomBetween(-0.08, 0.08);
+    if (style === 'active' || style === 'random')
+      buyProbability += this.randomBetween(-0.16, 0.16);
 
     buyProbability = this.clamp(buyProbability, 0.22, 0.82);
     if (!hasInventory) {
@@ -1073,7 +739,11 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
     return Math.random() < buyProbability ? 'buy' : 'sell';
   }
 
-  private async getBotQuantity(bot: SimPlayer, company: SimCompany, side: TradeSide) {
+  private async getBotQuantity(
+    bot: SimPlayer,
+    company: SimCompany,
+    side: TradeSide,
+  ) {
     const price = Number(company.price);
     if (!price || !Number.isFinite(price)) {
       return 0;
@@ -1084,15 +754,22 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
         where: { player_id: bot.id, company_id: company.id },
       });
       const inventory = Number(holding?.quantity || 0);
-      return this.roundQuantity(Math.min(inventory, inventory * this.randomBetween(0.18, 0.55)));
+      return this.roundQuantity(
+        Math.min(inventory, inventory * this.randomBetween(0.18, 0.55)),
+      );
     }
 
-    const spend = Math.min(Number(bot.cash_balance) * 0.08, this.randomBetween(450, 3200));
+    const spend = Math.min(
+      Number(bot.cash_balance) * 0.08,
+      this.randomBetween(450, 3200),
+    );
     return this.roundQuantity(this.clamp(spend / price, 0.1, 42));
   }
 
   private async getRecentDemandTrades(botTrades: Trade[]) {
-    const since = new Date(Date.now() - Math.max(this.autoTickIntervalMs * 2, 45000));
+    const since = new Date(
+      Date.now() - Math.max(this.autoTickIntervalMs * 2, 45000),
+    );
     const recentTrades = await this.tradesRepository.find({
       where: { created_at: MoreThan(since) },
       order: { created_at: 'DESC' },
@@ -1107,7 +784,9 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
   }
 
   private getDemandImpactPercent(company: SimCompany, trades: Trade[]) {
-    const companyTrades = trades.filter((trade) => trade.symbol === company.symbol);
+    const companyTrades = trades.filter(
+      (trade) => trade.symbol === company.symbol,
+    );
     if (!companyTrades.length) {
       return 0;
     }
@@ -1124,7 +803,10 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
     }
 
     const imbalance = (buyValue - sellValue) / totalValue;
-    const activityBoost = Math.min(1, totalValue / Math.max(5000, Number(company.market_cap) / 100000));
+    const activityBoost = Math.min(
+      1,
+      totalValue / Math.max(5000, Number(company.market_cap) / 100000),
+    );
     return this.clamp(
       imbalance * activityBoost * DEMAND_IMPACT_MAX_PERCENT,
       -DEMAND_IMPACT_MAX_PERCENT,
@@ -1162,6 +844,29 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
     }
   }
 
+  private async ensureLiveBotActivity(options: { force?: boolean } = {}) {
+    const recentWindowMs = Math.max(this.autoTickIntervalMs * 2, 60000);
+    const recentSince = new Date(Date.now() - recentWindowMs);
+    const [totalTrades, recentTrades] = await Promise.all([
+      this.tradesRepository.count(),
+      this.tradesRepository.count({
+        where: { created_at: MoreThan(recentSince) },
+      }),
+    ]);
+
+    const needsWarmup = totalTrades < MIN_TOTAL_TRADE_COUNT;
+    const needsRecentActivity = recentTrades < MIN_LIVE_TRADE_COUNT;
+
+    if (!options.force && !needsWarmup && !needsRecentActivity) {
+      return;
+    }
+
+    const tickCount = needsWarmup ? 3 : 1;
+    for (let tick = 0; tick < tickCount; tick += 1) {
+      await this.runAutomaticTick();
+    }
+  }
+
   getMonetizationOffers() {
     return this.offersRepository.find({
       where: { is_active: true },
@@ -1171,7 +876,7 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
 
   async purchaseOffer(dto: PurchaseOfferDto) {
     const player = await this.findPlayer(Number(dto.player_id));
-    await this.ensureVerifiedAccountPlayer(player);
+    const user = await this.ensureVerifiedAccountPlayer(player);
     const offer = await this.offersRepository.findOne({
       where: { id: Number(dto.offer_id), is_active: true },
     });
@@ -1180,13 +885,16 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
       throw new NotFoundException('Offer was not found');
     }
 
-    player.cash_balance = this.roundMoney(
-      Number(player.cash_balance) + Number(offer.cash_reward),
+    if (offer.type !== 'token_pack') {
+      throw new BadRequestException(
+        'Only token packs can be purchased in the store',
+      );
+    }
+
+    user.account_tokens = this.roundMoney(
+      Number(user.account_tokens) + Number(offer.token_reward),
     );
-    player.premium_credits = this.roundMoney(
-      Number(player.premium_credits) + Number(offer.premium_credit_reward),
-    );
-    await this.playersRepository.save(player);
+    await this.usersRepository.save(user);
 
     const purchase = await this.purchasesRepository.save(
       this.purchasesRepository.create({
@@ -1201,44 +909,74 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
     return {
       purchase,
       player,
+      user: this.publicUser(user),
+      token_reward: Number(offer.token_reward),
       note: 'This is a simulated purchase record. Connect a payment provider before charging real money.',
     };
   }
 
-  async purchaseCustomCash(dto: { player_id: number; cash_amount: number }) {
+  async startSessionWithTokens(dto: {
+    player_id: number;
+    starter_sku?: string;
+  }) {
     const player = await this.findPlayer(Number(dto.player_id));
-    await this.ensureVerifiedAccountPlayer(player);
-    const cashAmount = Number(dto.cash_amount);
+    const user = await this.ensureVerifiedAccountPlayer(player);
+    const starter =
+      SESSION_STARTERS.find((item) => item.sku === dto.starter_sku) ||
+      SESSION_STARTERS[0];
 
-    if (!Number.isFinite(cashAmount) || cashAmount < 1000) {
-      throw new BadRequestException('cash_amount must be at least 1000');
+    if (Number(user.account_tokens || 0) < starter.token_cost) {
+      throw new BadRequestException(
+        'Not enough account tokens for this session starter',
+      );
     }
 
-    if (cashAmount > 100000000) {
-      throw new BadRequestException('cash_amount is too large for one purchase');
-    }
-
-    const roundedCash = this.roundMoney(cashAmount);
-    const priceUsd = this.roundMoney(Math.max(0.99, roundedCash * 0.0006));
-
-    player.cash_balance = this.roundMoney(Number(player.cash_balance) + roundedCash);
+    user.account_tokens = this.roundMoney(
+      Number(user.account_tokens || 0) - starter.token_cost,
+    );
+    player.cash_balance = starter.cash;
+    player.premium_credits = 0;
+    await this.holdingsRepository.delete({ player_id: player.id });
+    await this.usersRepository.save(user);
     await this.playersRepository.save(player);
 
-    const purchase = await this.purchasesRepository.save(
-      this.purchasesRepository.create({
-        player_id: player.id,
-        offer_id: 0,
-        sku: `custom_cash_${Math.round(roundedCash)}`,
-        price_usd: priceUsd,
-        status: 'simulated',
+    return {
+      starter,
+      user: this.publicUser(user),
+      portfolio: await this.getPortfolio(player.id),
+    };
+  }
+
+  async getProgression(playerId: number) {
+    const player = await this.findPlayer(Number(playerId));
+    const user = await this.ensureVerifiedAccountPlayer(player);
+    const today = this.todayKey();
+    const [achievements, dailyQuests] = await Promise.all([
+      this.achievementsRepository.find({ where: { user_id: user.id } }),
+      this.dailyQuestsRepository.find({
+        where: { user_id: user.id, quest_date: today },
       }),
+    ]);
+
+    const achievementByCode = new Map(
+      achievements.map((item) => [item.code, item]),
     );
+    const questByCode = new Map(dailyQuests.map((item) => [item.code, item]));
 
     return {
-      purchase,
-      player,
-      cash_reward: roundedCash,
-      note: 'This is a simulated currency purchase. Connect a payment provider before charging real money.',
+      user: this.publicUser(user),
+      session_starters: SESSION_STARTERS,
+      achievements: ACHIEVEMENT_DEFINITIONS.map((definition) => ({
+        ...definition,
+        progress: Number(achievementByCode.get(definition.code)?.progress || 0),
+        completed: achievementByCode.get(definition.code)?.completed || false,
+      })),
+      daily_quests: DAILY_QUEST_DEFINITIONS.map((definition) => ({
+        ...definition,
+        quest_date: today,
+        progress: Number(questByCode.get(definition.code)?.progress || 0),
+        completed: questByCode.get(definition.code)?.completed || false,
+      })),
     };
   }
 
@@ -1257,13 +995,138 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
 
   private async ensureVerifiedAccountPlayer(player: SimPlayer) {
     if (!player.user_id) {
-      throw new BadRequestException('Register and verify email before buying currency');
+      throw new BadRequestException(
+        'Register and verify email before buying currency',
+      );
     }
 
     const user = await this.usersRepository.findOneBy({ id: player.user_id });
     if (!user?.email_verified) {
       throw new BadRequestException('Verify email before buying currency');
     }
+
+    return user;
+  }
+
+  private async updateProgressAfterTrade(
+    player: SimPlayer,
+    company: SimCompany,
+    trade: Trade,
+  ) {
+    if (!player.user_id) return;
+
+    const user = await this.usersRepository.findOneBy({ id: player.user_id });
+    if (!user?.email_verified) return;
+
+    await this.incrementAchievementMetric(user, 'total_trades', 1);
+    await this.incrementDailyQuestMetric(user, 'total_trades', 1);
+
+    if (trade.side === 'buy') {
+      await this.incrementDailyQuestMetric(
+        user,
+        `buy_sector:${company.sector}`,
+        1,
+      );
+    }
+  }
+
+  private async incrementAchievementMetric(
+    user: User,
+    metric: string,
+    amount: number,
+  ) {
+    const definitions = ACHIEVEMENT_DEFINITIONS.filter(
+      (definition) => definition.metric === metric,
+    );
+
+    for (const definition of definitions) {
+      let progress = await this.achievementsRepository.findOne({
+        where: { user_id: user.id, code: definition.code },
+      });
+
+      if (!progress) {
+        progress = this.achievementsRepository.create({
+          user_id: user.id,
+          code: definition.code,
+          progress: 0,
+          completed: false,
+        });
+      }
+
+      if (progress.completed) continue;
+
+      progress.progress = this.roundQuantity(
+        Number(progress.progress) + amount,
+      );
+      if (Number(progress.progress) >= definition.target) {
+        progress.completed = true;
+        progress.completed_at = new Date();
+        user.account_tokens = this.roundMoney(
+          Number(user.account_tokens || 0) + definition.token_reward,
+        );
+        await this.usersRepository.save(user);
+      }
+
+      await this.achievementsRepository.save(progress);
+    }
+  }
+
+  private async incrementDailyQuestMetric(
+    user: User,
+    metric: string,
+    amount: number,
+  ) {
+    const today = this.todayKey();
+    const definitions = DAILY_QUEST_DEFINITIONS.filter(
+      (definition) => definition.metric === metric,
+    );
+
+    for (const definition of definitions) {
+      let progress = await this.dailyQuestsRepository.findOne({
+        where: { user_id: user.id, quest_date: today, code: definition.code },
+      });
+
+      if (!progress) {
+        progress = this.dailyQuestsRepository.create({
+          user_id: user.id,
+          quest_date: today,
+          code: definition.code,
+          progress: 0,
+          completed: false,
+        });
+      }
+
+      if (progress.completed) continue;
+
+      progress.progress = this.roundQuantity(
+        Number(progress.progress) + amount,
+      );
+      if (Number(progress.progress) >= definition.target) {
+        progress.completed = true;
+        progress.completed_at = new Date();
+        user.account_tokens = this.roundMoney(
+          Number(user.account_tokens || 0) + definition.token_reward,
+        );
+        await this.usersRepository.save(user);
+      }
+
+      await this.dailyQuestsRepository.save(progress);
+    }
+  }
+
+  private todayKey() {
+    return new Date().toISOString().slice(0, 10);
+  }
+
+  private publicUser(user: User) {
+    return {
+      id: user.id,
+      email: user.email,
+      display_name: user.display_name,
+      email_verified: user.email_verified,
+      account_tokens: Number(user.account_tokens),
+      login_streak: user.login_streak,
+    };
   }
 
   private async getOrCreateHolding(playerId: number, companyId: number) {
@@ -1284,18 +1147,29 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
   }
 
   private async seedMarketHistory() {
-    const companies = await this.companiesRepository.find({ where: { is_active: true } });
+    const companies = await this.companiesRepository.find({
+      where: { is_active: true },
+    });
     if (companies.length === 0) {
       return;
     }
 
-    const bot = await this.playersRepository.save(
-      this.playersRepository.create({
-        display_name: 'Market Maker',
-        cash_balance: 100000,
-        premium_credits: 0,
-      }),
-    );
+    let bot = await this.playersRepository.findOne({
+      where: { display_name: 'Market Maker' },
+    });
+
+    if (!bot) {
+      bot = await this.playersRepository.save(
+        this.playersRepository.create({
+          display_name: 'Market Maker',
+          cash_balance: 100000,
+          premium_credits: 0,
+        }),
+      );
+    } else if (Number(bot.cash_balance) < 25000) {
+      bot.cash_balance = 100000;
+      bot = await this.playersRepository.save(bot);
+    }
 
     const trades: Trade[] = [];
 
@@ -1322,7 +1196,9 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
           execution_price: price,
           gross_value: grossValue,
           fee: this.roundMoney(Math.max(1, grossValue * 0.0025)),
-          created_at: new Date(Date.now() - (index + company.id * 7) * 60 * 60 * 1000),
+          created_at: new Date(
+            Date.now() - (index + company.id * 7) * 60 * 60 * 1000,
+          ),
         });
         trades.push(trade);
       });
@@ -1411,7 +1287,10 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
   private getSupportScore(company: SimCompany) {
     let score = 0;
 
-    if (company.government_support_type && company.government_support_type !== 'none') {
+    if (
+      company.government_support_type &&
+      company.government_support_type !== 'none'
+    ) {
       score += 30;
     }
 
@@ -1431,29 +1310,53 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
   }
 
   private pickEventTemplate() {
-    return EVENT_TEMPLATES[Math.floor(Math.random() * EVENT_TEMPLATES.length)];
+    return MARKET_EVENT_TEMPLATES[
+      Math.floor(Math.random() * MARKET_EVENT_TEMPLATES.length)
+    ];
   }
 
   private getEventImpact(company: SimCompany, event: EconomicEvent) {
+    const sectorImpact = event.impact_profile?.[company.sector];
+    if (typeof sectorImpact === 'number') {
+      return sectorImpact * Number(company.event_sensitivity || 1);
+    }
+
     if (event.scope === 'global') {
-      return Number(event.price_impact_percent);
+      return (
+        Number(event.price_impact_percent) *
+        this.getSectorSensitivity(company, event.category) *
+        Number(company.event_sensitivity || 1)
+      );
     }
 
     if (event.scope === 'sector' && event.target_sector === company.sector) {
-      return Number(event.price_impact_percent);
+      return (
+        Number(event.price_impact_percent) *
+        Number(company.event_sensitivity || 1)
+      );
     }
 
     if (event.scope === 'company' && event.target_symbol === company.symbol) {
-      return Number(event.price_impact_percent);
+      return (
+        Number(event.price_impact_percent) *
+        Number(company.event_sensitivity || 1)
+      );
     }
 
     return 0;
   }
 
-  private normalizeSeedPrice(
-    existing: SimCompany,
-    companySeed: (typeof STARTER_COMPANIES)[number],
-  ) {
+  private getSectorSensitivity(company: SimCompany, category: string) {
+    const config = SECTOR_CONFIG[company.sector as keyof typeof SECTOR_CONFIG];
+    if (!config) return 1;
+
+    if (category === 'Interest Rates') return config.rateSensitivity;
+    if (category === 'War') return config.warSensitivity;
+    if (category === 'Technology') return config.techSensitivity;
+    return 1;
+  }
+
+  private normalizeSeedPrice(existing: SimCompany, companySeed: CompanySeed) {
     const fairPrice = Number(companySeed.price);
     const currentPrice = Number(existing.price);
     const previousPrice = Number(existing.previous_price);
@@ -1498,7 +1401,11 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
   private getCompanyChangePercent(company: SimCompany) {
     const previousPrice = Number(company.previous_price);
     const currentPrice = Number(company.price);
-    if (!previousPrice || !Number.isFinite(previousPrice) || !Number.isFinite(currentPrice)) {
+    if (
+      !previousPrice ||
+      !Number.isFinite(previousPrice) ||
+      !Number.isFinite(currentPrice)
+    ) {
       return 0;
     }
 
@@ -1519,7 +1426,11 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
   }
 
   private getFairPrice(company: SimCompany) {
-    return Number(STARTER_COMPANY_BY_SYMBOL.get(company.symbol)?.price || company.price || 0);
+    return Number(
+      STARTER_COMPANY_BY_SYMBOL.get(company.symbol)?.price ||
+        company.price ||
+        0,
+    );
   }
 
   private randomBetween(min: number, max: number) {

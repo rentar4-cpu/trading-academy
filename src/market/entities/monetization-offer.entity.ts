@@ -1,6 +1,10 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-export type MonetizationOfferType = 'starter_cash' | 'premium_credits' | 'cosmetic_badge';
+export type MonetizationOfferType =
+  | 'token_pack'
+  | 'session_starter'
+  | 'special_mode'
+  | 'cosmetic_badge';
 
 @Entity()
 export class MonetizationOffer {
@@ -27,6 +31,9 @@ export class MonetizationOffer {
 
   @Column({ type: 'numeric', precision: 14, scale: 2, default: 0 })
   premium_credit_reward: number;
+
+  @Column({ type: 'numeric', precision: 14, scale: 2, default: 0 })
+  token_reward: number;
 
   @Column({ default: true })
   is_active: boolean;

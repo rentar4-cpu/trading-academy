@@ -1,4 +1,4 @@
-const CACHE_NAME = 'market-simulator-v26';
+const CACHE_NAME = 'market-simulator-v30';
 const APP_SHELL = [
   '/game/',
   '/game/index.html',
@@ -9,6 +9,7 @@ const APP_SHELL = [
   '/game/news.html',
   '/game/auth.html',
   '/game/styles.css',
+  '/game/runtime-config.js',
   '/game/app.js',
   '/game/pages.js',
   '/game/news.js',
@@ -18,7 +19,9 @@ const APP_SHELL = [
 ];
 
 self.addEventListener('install', (event) => {
-  event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL)));
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL)),
+  );
   self.skipWaiting();
 });
 
@@ -27,7 +30,11 @@ self.addEventListener('activate', (event) => {
     caches
       .keys()
       .then((keys) =>
-        Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))),
+        Promise.all(
+          keys
+            .filter((key) => key !== CACHE_NAME)
+            .map((key) => caches.delete(key)),
+        ),
       ),
   );
   self.clients.claim();

@@ -16,7 +16,8 @@ const authText = {
     navAuth: 'Account',
     secureAccess: 'Player Access',
     heroTitle: 'Save your portfolio and keep trading later',
-    heroText: 'Start as a guest with $1,000, try a few trades, then register for a clean verified account.',
+    heroText:
+      'Start as a guest with $1,000, try a few trades, then register for a clean verified account.',
     currentPlayer: 'Current player',
     continueGuest: 'Continue as Guest',
     returning: 'Returning Player',
@@ -28,16 +29,27 @@ const authText = {
     displayName: 'Player name',
     loginAction: 'Login',
     registerAction: 'Create Account',
-    registerNote: 'Guest progress stays separate. A new verified account starts clean.',
+    registerNote:
+      'Guest progress stays separate. A new verified account starts clean.',
     verifyEyebrow: 'Email Check',
     verifyTitle: 'Confirm Email',
     verificationCode: 'Verification code',
     verifyAction: 'Confirm Email',
-    verificationNote: 'Local demo shows the code here. In production it should be sent by email.',
+    verificationNote:
+      'Local demo shows the code here. In production it should be sent by email.',
     adRewardAction: 'Watch Ad Bonus',
+    apiServer: 'Server URL',
+    saveApiServer: 'Save Server',
+    testApiServer: 'Test Server',
+    apiSaved: 'Server URL saved',
+    apiTesting: 'Testing server...',
+    apiTestOk: 'Server connected: {count} companies loaded',
+    apiTestFailed: 'Server test failed: {message}',
+    guestTraderName: 'Guest Trader',
     pendingVerification: 'Verification code for {email}: {code}',
     verified: 'Email confirmed. Clean account created for {name}',
-    adRewarded: 'Ad reward added: ${amount}. Remaining rewards: {remaining}',
+    adRewarded:
+      'Ad reward added: {amount} tokens. Remaining rewards: {remaining}',
     ready: 'Ready',
     guestCreated: 'Guest player is ready',
     loggedIn: 'Logged in as {name}',
@@ -57,28 +69,40 @@ const authText = {
     navAuth: 'Аккаунт',
     secureAccess: 'Доступ игрока',
     heroTitle: 'Сохрани портфель и продолжай торговлю позже',
-    heroText: 'Начни гостем с $1,000, попробуй пару сделок, потом зарегистрируй чистый подтверждённый аккаунт.',
+    heroText:
+      'Начни гостем с $1,000, попробуй пару сделок, потом зарегистрируй чистый подтверждённый аккаунт.',
     currentPlayer: 'Текущий игрок',
     continueGuest: 'Продолжить гостем',
     returning: 'Уже есть аккаунт',
     loginTitle: 'Вход',
     newPlayer: 'Новый игрок',
     registerTitle: 'Регистрация',
-    email: 'Email',
+    email: 'Courriel',
     password: 'Пароль',
     displayName: 'Имя игрока',
     loginAction: 'Войти',
     registerAction: 'Создать аккаунт',
-    registerNote: 'Гостевой прогресс остаётся отдельно. Новый подтверждённый аккаунт стартует чистым.',
+    registerNote:
+      'Гостевой прогресс остаётся отдельно. Новый подтверждённый аккаунт стартует чистым.',
     verifyEyebrow: 'Проверка email',
     verifyTitle: 'Подтвердить email',
     verificationCode: 'Код подтверждения',
     verifyAction: 'Подтвердить email',
-    verificationNote: 'В локальной демо-версии код показан здесь. В продакшене он должен приходить на почту.',
+    verificationNote:
+      'В локальной демо-версии код показан здесь. В продакшене он должен приходить на почту.',
     adRewardAction: 'Бонус за рекламу',
+    apiServer: 'Адрес сервера',
+    saveApiServer: 'Сохранить сервер',
+    testApiServer: 'Проверить сервер',
+    apiSaved: 'Адрес сервера сохранён',
+    apiTesting: 'Проверка сервера...',
+    apiTestOk: 'Сервер подключён: компаний загружено {count}',
+    apiTestFailed: 'Ошибка проверки сервера: {message}',
+    guestTraderName: 'Гость',
     pendingVerification: 'Код подтверждения для {email}: {code}',
     verified: 'Email подтверждён. Чистый аккаунт создан: {name}',
-    adRewarded: 'Бонус за рекламу начислен: ${amount}. Осталось бонусов: {remaining}',
+    adRewarded:
+      'Бонус за рекламу начислен: {amount} токенов. Осталось бонусов: {remaining}',
     ready: 'Готово',
     guestCreated: 'Гостевой игрок готов',
     loggedIn: 'Вход выполнен: {name}',
@@ -98,7 +122,8 @@ const authText = {
     navAuth: 'חשבון',
     secureAccess: 'כניסת שחקן',
     heroTitle: 'שמור את התיק והמשך לסחור מאוחר יותר',
-    heroText: 'התחל כאורח עם $1,000, נסה כמה עסקאות ואז הירשם לחשבון נקי ומאומת.',
+    heroText:
+      'התחל כאורח עם $1,000, נסה כמה עסקאות ואז הירשם לחשבון נקי ומאומת.',
     currentPlayer: 'שחקן נוכחי',
     continueGuest: 'המשך כאורח',
     returning: 'שחקן חוזר',
@@ -115,11 +140,21 @@ const authText = {
     verifyTitle: 'אישור אימייל',
     verificationCode: 'קוד אימות',
     verifyAction: 'אשר אימייל',
-    verificationNote: 'בדמו המקומי הקוד מוצג כאן. בפרודקשן הוא צריך להישלח באימייל.',
+    verificationNote:
+      'בדמו המקומי הקוד מוצג כאן. בפרודקשן הוא צריך להישלח באימייל.',
     adRewardAction: 'בונוס פרסומת',
+    apiServer: 'כתובת שרת',
+    saveApiServer: 'שמור שרת',
+    testApiServer: 'בדוק שרת',
+    apiSaved: 'כתובת השרת נשמרה',
+    apiTesting: 'בודק שרת...',
+    apiTestOk: 'השרת מחובר: נטענו {count} חברות',
+    apiTestFailed: 'בדיקת השרת נכשלה: {message}',
+    guestTraderName: 'אורח',
     pendingVerification: 'קוד אימות עבור {email}: {code}',
     verified: 'האימייל אומת. נוצר חשבון נקי עבור {name}',
-    adRewarded: 'בונוס פרסומת נוסף: ${amount}. נותרו בונוסים: {remaining}',
+    adRewarded:
+      'בונוס פרסומת נוסף: {amount} טוקנים. נותרו בונוסים: {remaining}',
     ready: 'מוכן',
     guestCreated: 'שחקן אורח מוכן',
     loggedIn: 'נכנסת בתור {name}',
@@ -127,23 +162,24 @@ const authText = {
     guest: 'אורח',
   },
   de: {
-    brand: 'Trading Academy',
+    brand: 'Handelsakademie',
     title: 'Konto',
     language: 'Sprache',
     navMarket: 'Markt',
     navIntel: 'Analyse',
-    navTrades: 'Trades',
-    navNews: 'News',
-    navPortfolio: 'Portfolio',
+    navTrades: 'Transaktionen',
+    navNews: 'Nachrichten',
+    navPortfolio: 'Depot',
     navStore: 'Shop',
     navAuth: 'Konto',
     secureAccess: 'Spielerzugang',
     heroTitle: 'Speichere dein Portfolio und handle später weiter',
-    heroText: 'Starte als Gast mit $1,000, teste ein paar Trades und registriere dann ein sauberes verifiziertes Konto.',
+    heroText:
+      'Starte als Gast mit $1,000, teste ein paar Trades und registriere dann ein sauberes verifiziertes Konto.',
     currentPlayer: 'Aktueller Spieler',
     continueGuest: 'Als Gast fortfahren',
     returning: 'Bestehender Spieler',
-    loginTitle: 'Login',
+    loginTitle: 'Anmelden',
     newPlayer: 'Neuer Spieler',
     registerTitle: 'Registrieren',
     email: 'E-Mail',
@@ -151,16 +187,27 @@ const authText = {
     displayName: 'Spielername',
     loginAction: 'Einloggen',
     registerAction: 'Konto erstellen',
-    registerNote: 'Gastfortschritt bleibt getrennt. Ein neues verifiziertes Konto startet sauber.',
+    registerNote:
+      'Gastfortschritt bleibt getrennt. Ein neues verifiziertes Konto startet sauber.',
     verifyEyebrow: 'E-Mail-Prüfung',
     verifyTitle: 'E-Mail bestätigen',
     verificationCode: 'Bestätigungscode',
     verifyAction: 'E-Mail bestätigen',
-    verificationNote: 'Die lokale Demo zeigt den Code hier. In Produktion sollte er per E-Mail gesendet werden.',
+    verificationNote:
+      'Die lokale Demo zeigt den Code hier. In Produktion sollte er per E-Mail gesendet werden.',
     adRewardAction: 'Werbebonus ansehen',
+    apiServer: 'Server-URL',
+    saveApiServer: 'Server speichern',
+    testApiServer: 'Server testen',
+    apiSaved: 'Server-URL gespeichert',
+    apiTesting: 'Server wird getestet...',
+    apiTestOk: 'Server verbunden: {count} Firmen geladen',
+    apiTestFailed: 'Serverprüfung fehlgeschlagen: {message}',
+    guestTraderName: 'Gast',
     pendingVerification: 'Bestätigungscode für {email}: {code}',
     verified: 'E-Mail bestätigt. Sauberes Konto erstellt für {name}',
-    adRewarded: 'Werbebonus hinzugefügt: ${amount}. Verbleibende Boni: {remaining}',
+    adRewarded:
+      'Werbebonus hinzugefügt: {amount} Token. Verbleibende Boni: {remaining}',
     ready: 'Bereit',
     guestCreated: 'Gastspieler ist bereit',
     loggedIn: 'Eingeloggt als {name}',
@@ -173,35 +220,47 @@ const authText = {
     language: 'Langue',
     navMarket: 'Marché',
     navIntel: 'Analyse',
-    navTrades: 'Trades',
+    navTrades: 'Transactions',
     navNews: 'Infos',
     navPortfolio: 'Portefeuille',
     navStore: 'Boutique',
     navAuth: 'Compte',
     secureAccess: 'Accès joueur',
     heroTitle: 'Sauvegardez votre portefeuille et continuez plus tard',
-    heroText: 'Commencez invité avec 1 000 $, testez quelques trades, puis créez un compte vérifié propre.',
+    heroText:
+      'Commencez invité avec 1 000 $, testez quelques trades, puis créez un compte vérifié propre.',
     currentPlayer: 'Joueur actuel',
     continueGuest: 'Continuer invité',
     returning: 'Joueur existant',
     loginTitle: 'Connexion',
     newPlayer: 'Nouveau joueur',
     registerTitle: 'Inscription',
-    email: 'Email',
+    email: 'Courriel',
     password: 'Mot de passe',
     displayName: 'Nom du joueur',
     loginAction: 'Connexion',
     registerAction: 'Créer un compte',
-    registerNote: 'La progression invité reste séparée. Un nouveau compte vérifié démarre propre.',
+    registerNote:
+      'La progression invité reste séparée. Un nouveau compte vérifié démarre propre.',
     verifyEyebrow: 'Vérification email',
     verifyTitle: 'Confirmer email',
     verificationCode: 'Code de vérification',
     verifyAction: 'Confirmer email',
-    verificationNote: 'La démo locale affiche le code ici. En production il doit être envoyé par email.',
+    verificationNote:
+      'La démo locale affiche le code ici. En production il doit être envoyé par email.',
     adRewardAction: 'Bonus publicité',
+    apiServer: 'URL serveur',
+    saveApiServer: 'Enregistrer serveur',
+    testApiServer: 'Tester serveur',
+    apiSaved: 'URL serveur enregistrée',
+    apiTesting: 'Test du serveur...',
+    apiTestOk: 'Serveur connecté : {count} sociétés chargées',
+    apiTestFailed: 'Échec du test serveur : {message}',
+    guestTraderName: 'Invité',
     pendingVerification: 'Code de vérification pour {email} : {code}',
     verified: 'Email confirmé. Compte propre créé : {name}',
-    adRewarded: 'Bonus publicité ajouté : ${amount}. Bonus restants : {remaining}',
+    adRewarded:
+      'Bonus publicité ajouté : {amount} jetons. Bonus restants : {remaining}',
     ready: 'Prêt',
     guestCreated: 'Joueur invité prêt',
     loggedIn: 'Connecté : {name}',
@@ -214,6 +273,9 @@ const nodes = {
   language: document.querySelector('#authLanguageSelect'),
   status: document.querySelector('#authStatus'),
   currentPlayerName: document.querySelector('#currentPlayerName'),
+  apiBaseInput: document.querySelector('#apiBaseInput'),
+  saveApiButton: document.querySelector('#saveApiButton'),
+  testApiButton: document.querySelector('#testApiButton'),
   guestButton: document.querySelector('#guestButton'),
   adRewardButton: document.querySelector('#adRewardButton'),
   loginForm: document.querySelector('#loginForm'),
@@ -231,10 +293,13 @@ function t(key, values = {}) {
 }
 
 async function api(path, options = {}) {
-  const response = await fetch(path, {
-    headers: { 'Content-Type': 'application/json' },
-    ...options,
-  });
+  const response = await fetch(
+    window.marketApiUrl ? window.marketApiUrl(path) : path,
+    {
+      headers: { 'Content-Type': 'application/json' },
+      ...options,
+    },
+  );
 
   if (!response.ok) {
     const text = await response.text();
@@ -256,12 +321,14 @@ function applyLanguage() {
     element.textContent = t(element.dataset.authI18n);
   });
   renderCurrentPlayer();
+  nodes.apiBaseInput.value = localStorage.getItem('market_api_base_url') || '';
 }
 
 function renderCurrentPlayer() {
   const user = readJson('market_user');
   const playerName = localStorage.getItem('market_player_name');
-  nodes.currentPlayerName.textContent = user?.display_name || playerName || t('guest');
+  nodes.currentPlayerName.textContent =
+    user?.display_name || playerName || t('guest');
 }
 
 function readJson(key) {
@@ -289,14 +356,20 @@ function saveAuth(result) {
 function savePendingVerification(result) {
   localStorage.setItem('market_pending_email', result.user.email);
   if (result.dev_verification_code) {
-    localStorage.setItem('market_dev_verification_code', result.dev_verification_code);
+    localStorage.setItem(
+      'market_dev_verification_code',
+      result.dev_verification_code,
+    );
   }
   document.querySelector('#verifyEmail').value = result.user.email;
-  document.querySelector('#verifyCode').value = result.dev_verification_code || '';
-  setStatus(t('pendingVerification', {
-    email: result.user.email,
-    code: result.dev_verification_code || '------',
-  }));
+  document.querySelector('#verifyCode').value =
+    result.dev_verification_code || '';
+  setStatus(
+    t('pendingVerification', {
+      email: result.user.email,
+      code: result.dev_verification_code || '------',
+    }),
+  );
 }
 
 async function continueGuest() {
@@ -304,14 +377,14 @@ async function continueGuest() {
   if (!playerId || localStorage.getItem('market_auth_mode') === 'account') {
     const result = await api('/users/guest', {
       method: 'POST',
-      body: JSON.stringify({ display_name: 'Guest Trader' }),
+      body: JSON.stringify({ display_name: t('guestTraderName') }),
     });
     saveAuth(result);
   }
 
   setStatus(t('guestCreated'));
   renderCurrentPlayer();
-  window.location.href = '/game/';
+  window.location.href = './index.html';
 }
 
 async function login(event) {
@@ -329,7 +402,7 @@ async function login(event) {
   }
   saveAuth(result);
   setStatus(t('loggedIn', { name: result.user.display_name }));
-  window.location.href = '/game/';
+  window.location.href = './index.html';
 }
 
 async function register(event) {
@@ -376,11 +449,22 @@ async function claimAdReward() {
     body: JSON.stringify({ player_id: playerId }),
   });
   localStorage.setItem('market_player_name', result.player.display_name);
-  setStatus(t('adRewarded', {
-    amount: Number(result.reward_cash).toFixed(0),
-    remaining: result.remaining_claims,
-  }));
+  if (result.user) {
+    localStorage.setItem('market_user', JSON.stringify(result.user));
+  }
+  setStatus(
+    t('adRewarded', {
+      amount: Number(result.reward_tokens).toFixed(0),
+      remaining: result.remaining_claims,
+    }),
+  );
   renderCurrentPlayer();
+}
+
+async function testApiServer() {
+  setStatus(t('apiTesting'));
+  const companies = await api('/market/companies');
+  setStatus(t('apiTestOk', { count: companies.length }));
 }
 
 function showError(error) {
@@ -393,16 +477,42 @@ function bindEvents() {
     localStorage.setItem('market_language', authState.language);
     applyLanguage();
   });
-  nodes.guestButton.addEventListener('click', () => continueGuest().catch(showError));
-  nodes.adRewardButton.addEventListener('click', () => claimAdReward().catch(showError));
-  nodes.loginForm.addEventListener('submit', (event) => login(event).catch(showError));
-  nodes.registerForm.addEventListener('submit', (event) => register(event).catch(showError));
-  nodes.verifyForm.addEventListener('submit', (event) => verifyEmail(event).catch(showError));
+  nodes.guestButton.addEventListener('click', () =>
+    continueGuest().catch(showError),
+  );
+  nodes.saveApiButton.addEventListener('click', () => {
+    const value = nodes.apiBaseInput.value.trim().replace(/\/$/, '');
+    if (value) localStorage.setItem('market_api_base_url', value);
+    else localStorage.removeItem('market_api_base_url');
+    window.MARKET_API_BASE = value;
+    setStatus(t('apiSaved'));
+  });
+  nodes.testApiButton.addEventListener('click', () =>
+    testApiServer().catch((error) =>
+      setStatus(
+        t('apiTestFailed', { message: error.message.replace(/[{}"]/g, '') }),
+      ),
+    ),
+  );
+  nodes.adRewardButton.addEventListener('click', () =>
+    claimAdReward().catch(showError),
+  );
+  nodes.loginForm.addEventListener('submit', (event) =>
+    login(event).catch(showError),
+  );
+  nodes.registerForm.addEventListener('submit', (event) =>
+    register(event).catch(showError),
+  );
+  nodes.verifyForm.addEventListener('submit', (event) =>
+    verifyEmail(event).catch(showError),
+  );
 }
 
 function registerAppShell() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/game/sw.js', { scope: '/game/' }).catch(() => undefined);
+    navigator.serviceWorker
+      .register('/game/sw.js', { scope: '/game/' })
+      .catch(() => undefined);
   }
 }
 

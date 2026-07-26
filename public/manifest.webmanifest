@@ -2,15 +2,15 @@
   "name": "Trading Academy Market Simulator",
   "short_name": "Market Sim",
   "description": "A fictional stock trading game with company tokens, market events, and portfolio play.",
-  "start_url": "/game/index.html",
-  "scope": "/game/",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#eef2ea",
   "theme_color": "#111c20",
   "icons": [
     {
-      "src": "/game/icon.svg",
+      "src": "./icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"

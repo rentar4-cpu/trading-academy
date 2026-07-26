@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from '../users/user.entity';
+import { AchievementProgress } from './entities/achievement-progress.entity';
+import { DailyQuestProgress } from './entities/daily-quest-progress.entity';
 import { EconomicEvent } from './entities/economic-event.entity';
 import { Holding } from './entities/holding.entity';
 import { MarketNews } from './entities/market-news.entity';
@@ -16,6 +18,8 @@ import { MarketService } from './market.service';
   imports: [
     TypeOrmModule.forFeature([
       EconomicEvent,
+      AchievementProgress,
+      DailyQuestProgress,
       Holding,
       MarketNews,
       MonetizationOffer,

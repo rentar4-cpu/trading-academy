@@ -25,6 +25,7 @@ const translations = {
     create: 'Create',
     playGuest: 'Play as Guest',
     guestMode: 'Guest mode',
+    guestTraderName: 'Guest Trader',
     loginRegister: 'Login / Register',
     logout: 'Log out',
     accountReady: 'Playing as {name}',
@@ -98,6 +99,7 @@ const translations = {
     create: 'Создать',
     playGuest: 'Играть гостем',
     guestMode: 'Гостевой режим',
+    guestTraderName: 'Гость',
     loginRegister: 'Вход / регистрация',
     logout: 'Выйти',
     accountReady: 'Игрок: {name}',
@@ -171,6 +173,7 @@ const translations = {
     create: 'צור',
     playGuest: 'שחק כאורח',
     guestMode: 'מצב אורח',
+    guestTraderName: 'אורח',
     loginRegister: 'כניסה / הרשמה',
     logout: 'יציאה',
     accountReady: 'משחק בתור {name}',
@@ -230,20 +233,21 @@ const translations = {
     selectedStatus: '{symbol} נבחר',
   },
   de: {
-    brand: 'Trading Academy',
+    brand: 'Handelsakademie',
     title: 'Marktsimulator',
     language: 'Sprache',
     navMarket: 'Markt',
     navIntel: 'Analyse',
-    navTrades: 'Trades',
-    navNews: 'News',
-    navPortfolio: 'Portfolio',
+    navTrades: 'Transaktionen',
+    navNews: 'Nachrichten',
+    navPortfolio: 'Depot',
     navStore: 'Shop',
     navAuth: 'Konto',
     player: 'Spieler',
     create: 'Erstellen',
     playGuest: 'Als Gast spielen',
     guestMode: 'Gastmodus',
+    guestTraderName: 'Gast',
     loginRegister: 'Login / Registrieren',
     logout: 'Abmelden',
     accountReady: 'Spieler: {name}',
@@ -255,12 +259,12 @@ const translations = {
     pulseNow: 'Tick jetzt',
     liveSimulation: 'Live-Simulation',
     marketOpen: 'Markt offen',
-    symbol: 'Symbol',
+    symbol: 'Ticker',
     company: 'Firma',
     sector: 'Sektor',
     price: 'Preis',
     change: 'Änderung',
-    order: 'Order',
+    order: 'Auftrag',
     trade: 'Handel',
     walletBalance: 'Wallet-Guthaben',
     selected: 'Ausgewählt',
@@ -308,7 +312,7 @@ const translations = {
     language: 'Langue',
     navMarket: 'Marché',
     navIntel: 'Analyse',
-    navTrades: 'Trades',
+    navTrades: 'Transactions',
     navNews: 'Infos',
     navPortfolio: 'Portefeuille',
     navStore: 'Boutique',
@@ -317,6 +321,7 @@ const translations = {
     create: 'Créer',
     playGuest: 'Jouer invité',
     guestMode: 'Mode invité',
+    guestTraderName: 'Invité',
     loginRegister: 'Connexion / inscription',
     logout: 'Déconnexion',
     accountReady: 'Joueur : {name}',
@@ -592,7 +597,7 @@ function applyLanguage() {
 }
 
 async function api(path, options = {}) {
-  const response = await fetch(path, {
+  const response = await fetch(window.marketApiUrl ? window.marketApiUrl(path) : path, {
     headers: { 'Content-Type': 'application/json' },
     ...options,
   });
@@ -868,7 +873,7 @@ async function refreshLiveMarket() {
 }
 
 async function createPlayer() {
-  const displayName = localStorage.getItem('market_player_name') || 'Guest Trader';
+  const displayName = localStorage.getItem('market_player_name') || t('guestTraderName');
   const result = await api('/users/guest', {
     method: 'POST',
     body: JSON.stringify({ display_name: displayName }),

@@ -1,0 +1,17 @@
+{
+  "appId": "com.tradingacademy.market",
+  "appName": "Trading Academy",
+  "webDir": "public",
+  "android": {
+    "allowMixedContent": true
+  },
+  "plugins": {
+    "CapacitorHttp": {
+      "enabled": true
+    }
+  },
+  "server": {
+    "androidScheme": "http",
+    "cleartext": true
+  }
+}

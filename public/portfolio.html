@@ -5,16 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#111c20" />
     <title>Portfolio</title>
-    <link rel="manifest" href="/game/manifest.webmanifest" />
-    <link rel="icon" href="/game/icon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="/game/styles.css" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
   </head>
   <body data-page="portfolio">
     <main class="shell">
       <section class="topbar">
-        <div><p class="eyebrow">Trading Academy</p><h1>Portfolio</h1></div>
+        <div>
+          <p class="eyebrow">Trading Academy</p>
+          <h1>Portfolio</h1>
+        </div>
         <nav class="app-nav" aria-label="Game navigation">
-          <a href="/game/">Market</a><a href="/game/intel.html">Intel</a><a href="/game/trades.html">Trades</a><a href="/game/news.html">News</a><a class="active" href="/game/portfolio.html">Portfolio</a><a href="/game/store.html">Store</a><a href="/game/auth.html">Account</a>
+          <a href="./index.html">Market</a><a href="./intel.html">Intel</a
+          ><a href="./trades.html">Trades</a><a href="./news.html">News</a
+          ><a class="active" href="./portfolio.html">Portfolio</a
+          ><a href="./store.html">Store</a><a href="./auth.html">Account</a>
         </nav>
         <div class="page-clock">
           <span>Next tick</span>
@@ -23,23 +29,39 @@
       </section>
       <section class="panel page-panel">
         <div class="panel-head">
-          <div><p class="eyebrow">Portfolio</p><h2 id="portfolioTitle">No player</h2></div>
-          <div class="metric"><span>Net Worth</span><strong id="netWorth">$0.00</strong></div>
+          <div>
+            <p class="eyebrow">Portfolio</p>
+            <h2 id="portfolioTitle">No player</h2>
+          </div>
+          <div class="metric">
+            <span>Net Worth</span><strong id="netWorth">$0.00</strong>
+          </div>
         </div>
         <div class="portfolio-stats">
           <div><span>Cash</span><strong id="cashBalance">$0.00</strong></div>
-          <div><span>Positions</span><strong id="positionsValue">$0.00</strong></div>
-          <div><span>Credits</span><strong id="creditsValue">0</strong></div>
+          <div>
+            <span>Positions</span><strong id="positionsValue">$0.00</strong>
+          </div>
+          <div><span>Tokens</span><strong id="creditsValue">0</strong></div>
         </div>
         <div class="table-wrap compact">
           <table>
-            <thead><tr><th>Symbol</th><th>Qty</th><th>Avg</th><th>Value</th><th>PnL</th></tr></thead>
+            <thead>
+              <tr>
+                <th>Symbol</th>
+                <th>Qty</th>
+                <th>Avg</th>
+                <th>Value</th>
+                <th>PnL</th>
+              </tr>
+            </thead>
             <tbody id="positionsBody"></tbody>
           </table>
         </div>
       </section>
       <div class="status-line" id="pageStatus">Loading</div>
     </main>
-    <script src="/game/pages.js"></script>
+    <script src="./runtime-config.js"></script>
+    <script src="./pages.js"></script>
   </body>
 </html>

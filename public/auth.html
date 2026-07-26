@@ -8,9 +8,9 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="Market Simulator" />
     <title>Account</title>
-    <link rel="manifest" href="/game/manifest.webmanifest" />
-    <link rel="icon" href="/game/icon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="/game/styles.css" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
     <main class="shell">
@@ -20,13 +20,13 @@
           <h1 data-auth-i18n="title">Account</h1>
         </div>
         <nav class="app-nav" aria-label="Game navigation">
-          <a href="/game/" data-auth-i18n="navMarket">Market</a>
-          <a href="/game/intel.html" data-auth-i18n="navIntel">Intel</a>
-          <a href="/game/trades.html" data-auth-i18n="navTrades">Trades</a>
-          <a href="/game/news.html" data-auth-i18n="navNews">News</a>
-          <a href="/game/portfolio.html" data-auth-i18n="navPortfolio">Portfolio</a>
-          <a href="/game/store.html" data-auth-i18n="navStore">Store</a>
-          <a class="active" href="/game/auth.html" data-auth-i18n="navAuth">Account</a>
+          <a href="./index.html" data-auth-i18n="navMarket">Market</a>
+          <a href="./intel.html" data-auth-i18n="navIntel">Intel</a>
+          <a href="./trades.html" data-auth-i18n="navTrades">Trades</a>
+          <a href="./news.html" data-auth-i18n="navNews">News</a>
+          <a href="./portfolio.html" data-auth-i18n="navPortfolio">Portfolio</a>
+          <a href="./store.html" data-auth-i18n="navStore">Store</a>
+          <a class="active" href="./auth.html" data-auth-i18n="navAuth">Account</a>
         </nav>
         <label class="language-select">
           <span data-auth-i18n="language">Language</span>
@@ -53,6 +53,12 @@
           <strong id="currentPlayerName">Guest</strong>
           <button id="guestButton" type="button" data-auth-i18n="continueGuest">Continue as Guest</button>
           <button id="adRewardButton" type="button" data-auth-i18n="adRewardAction">Watch Ad Bonus</button>
+          <label class="api-settings">
+            <span data-auth-i18n="apiServer">Server URL</span>
+            <input id="apiBaseInput" type="url" placeholder="http://192.168.1.25:3000" />
+          </label>
+          <button id="saveApiButton" type="button" data-auth-i18n="saveApiServer">Save Server</button>
+          <button id="testApiButton" type="button" data-auth-i18n="testApiServer">Test Server</button>
         </div>
       </section>
 
@@ -124,6 +130,7 @@
 
       <div class="status-line" id="authStatus" data-auth-i18n="ready">Ready</div>
     </main>
-    <script src="/game/auth.js"></script>
+    <script src="./runtime-config.js"></script>
+    <script src="./auth.js"></script>
   </body>
 </html>

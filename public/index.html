@@ -8,9 +8,9 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="Market Simulator" />
     <title>Market Simulator</title>
-    <link rel="manifest" href="/game/manifest.webmanifest" />
-    <link rel="icon" href="/game/icon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="/game/styles.css" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
     <main class="shell">
@@ -20,13 +20,13 @@
           <h1 data-i18n="title">Market Simulator</h1>
         </div>
         <nav class="app-nav" aria-label="Game navigation">
-          <a class="active" href="/game/" data-i18n="navMarket">Market</a>
-          <a href="/game/intel.html" data-i18n="navIntel">Intel</a>
-          <a href="/game/trades.html" data-i18n="navTrades">Trades</a>
-          <a href="/game/news.html" data-i18n="navNews">News</a>
-          <a href="/game/portfolio.html" data-i18n="navPortfolio">Portfolio</a>
-          <a href="/game/store.html" data-i18n="navStore">Store</a>
-          <a href="/game/auth.html" data-i18n="navAuth">Account</a>
+          <a class="active" href="./index.html" data-i18n="navMarket">Market</a>
+          <a href="./intel.html" data-i18n="navIntel">Intel</a>
+          <a href="./trades.html" data-i18n="navTrades">Trades</a>
+          <a href="./news.html" data-i18n="navNews">News</a>
+          <a href="./portfolio.html" data-i18n="navPortfolio">Portfolio</a>
+          <a href="./store.html" data-i18n="navStore">Store</a>
+          <a href="./auth.html" data-i18n="navAuth">Account</a>
         </nav>
         <label class="language-select">
           <span data-i18n="language">Language</span>
@@ -39,7 +39,7 @@
           </select>
         </label>
         <div class="account-strip">
-          <a href="/game/auth.html" data-i18n="loginRegister">Login / Register</a>
+          <a href="./auth.html" data-i18n="loginRegister">Login / Register</a>
           <button id="logoutButton" type="button" data-i18n="logout">Log out</button>
           <button id="createPlayerButton" type="button" data-i18n="playGuest">Play as Guest</button>
         </div>
@@ -128,6 +128,7 @@
 
       <div class="status-line" id="statusLine" data-i18n="ready">Ready</div>
     </main>
-    <script src="/game/app.js"></script>
+    <script src="./runtime-config.js"></script>
+    <script src="./app.js"></script>
   </body>
 </html>

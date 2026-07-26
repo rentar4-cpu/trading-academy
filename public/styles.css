@@ -1188,6 +1188,18 @@ td {
   min-height: 42px;
 }
 
+.api-settings {
+  display: grid;
+  gap: 6px;
+}
+
+.api-settings span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
 .status-line {
   min-height: 28px;
   margin-top: 12px;
@@ -1969,5 +1981,327 @@ td {
 @media (max-width: 1020px) {
   .trade-panel {
     position: static;
+  }
+}
+
+@media (max-width: 760px) {
+  body {
+    background: #0b0f10;
+  }
+
+  .shell {
+    width: 100%;
+    padding: 10px 10px calc(84px + env(safe-area-inset-bottom));
+  }
+
+  .topbar {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 10px;
+    padding: 12px;
+    border-radius: 10px;
+  }
+
+  .topbar h1 {
+    font-size: 25px;
+    line-height: 1.08;
+  }
+
+  .topbar .eyebrow {
+    font-size: 10px;
+  }
+
+  .language-select,
+  .account-strip {
+    width: 100%;
+  }
+
+  .language-select {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .account-strip {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .account-strip a {
+    grid-column: 1 / -1;
+  }
+
+  .app-nav {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 3px;
+    padding: 7px 6px calc(7px + env(safe-area-inset-bottom));
+    border-top: 1px solid var(--line);
+    background: rgba(11, 15, 16, 0.98);
+    box-shadow: 0 -12px 32px rgba(0, 0, 0, 0.45);
+  }
+
+  .app-nav a {
+    display: flex;
+    min-width: 0;
+    min-height: 48px;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 2px;
+    border: 0;
+    border-radius: 8px;
+    font-size: 10px;
+    line-height: 1.05;
+    text-align: center;
+    white-space: normal;
+  }
+
+  .ticker {
+    min-height: 54px;
+    margin-top: 10px;
+    border-radius: 10px;
+  }
+
+  .ticker-item {
+    flex-basis: 138px;
+    min-height: 54px;
+    padding: 10px 12px;
+  }
+
+  .ticker-item strong {
+    font-size: 13px;
+  }
+
+  .layout,
+  .news-layout,
+  .auth-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .panel {
+    padding: 12px;
+    border-radius: 10px;
+  }
+
+  .panel-head {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .market-clock {
+    grid-template-columns: 1fr 58px;
+  }
+
+  .market-clock button {
+    grid-column: 1 / -1;
+  }
+
+  .game-board {
+    padding: 8px;
+    border-radius: 10px;
+  }
+
+  .board-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    padding: 0;
+  }
+
+  .company-tile {
+    min-height: 116px;
+    padding: 12px;
+    border-radius: 8px;
+  }
+
+  .tile-symbol {
+    font-size: 20px;
+  }
+
+  .tile-sector {
+    max-width: 82px;
+    font-size: 9px;
+  }
+
+  .tile-name {
+    min-height: 16px;
+    margin: 10px 0 14px;
+    overflow: hidden;
+    font-size: 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .tile-price {
+    font-size: 15px;
+  }
+
+  .tile-change {
+    font-size: 12px;
+  }
+
+  .market-chart-panel {
+    margin-top: 10px;
+    padding: 10px;
+  }
+
+  .market-chart-panel canvas {
+    height: 180px;
+  }
+
+  .table-wrap {
+    display: none;
+  }
+
+  .trade-panel {
+    position: static;
+  }
+
+  .selected-asset strong,
+  .wallet-box strong {
+    font-size: 22px;
+  }
+
+  .order-form {
+    gap: 9px;
+  }
+
+  .segmented button,
+  .order-form .primary,
+  .custom-cash-form button,
+  .auth-panel button {
+    min-height: 46px;
+  }
+
+  .news-hero {
+    grid-template-columns: 1fr;
+    padding: 16px;
+  }
+
+  .news-hero h2 {
+    font-size: 26px;
+  }
+
+  .news-metrics,
+  .intel-list,
+  .portfolio-stats,
+  .intel-meta,
+  .intel-profile {
+    grid-template-columns: 1fr;
+  }
+
+  .intel-chart-toolbar,
+  .custom-cash-form {
+    grid-template-columns: 1fr;
+  }
+
+  .intel-range-tabs {
+    overflow-x: auto;
+  }
+
+  .intel-range-tabs button {
+    flex: 0 0 54px;
+  }
+
+  .intel-chart-section canvas {
+    height: 290px;
+  }
+
+  .intel-chart-stats {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .offer {
+    grid-template-columns: 1fr;
+  }
+
+  .offer button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 390px) {
+  .board-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .app-nav a {
+    font-size: 9px;
+  }
+}
+
+/* Final mobile guardrails for the Android shell and narrow phone browsers. */
+@media (max-width: 760px) {
+  html,
+  body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .shell,
+  .topbar,
+  .panel,
+  .layout,
+  .market-panel,
+  .trade-panel,
+  .game-board,
+  .board-grid,
+  .company-tile,
+  .market-chart-panel,
+  .selected-asset,
+  .wallet-box,
+  .event-box,
+  .news-layout,
+  .auth-grid {
+    box-sizing: border-box;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .layout,
+  .news-layout,
+  .auth-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+  }
+
+  .market-panel,
+  .trade-panel,
+  .game-board,
+  .market-chart-panel {
+    width: 100%;
+  }
+
+  .board-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+  }
+
+  .company-tile {
+    width: auto;
+  }
+}
+
+@media (max-width: 390px) {
+  .board-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .company-tile {
+    min-height: 106px;
+    padding: 10px;
+  }
+
+  .tile-symbol {
+    font-size: 18px;
+  }
+
+  .tile-sector {
+    max-width: 68px;
   }
 }

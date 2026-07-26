@@ -1,4 +1,11 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+} from '@nestjs/common';
 import { CreatePlayerDto } from './dto/create-player.dto';
 import { PlaceOrderDto } from './dto/place-order.dto';
 import { PurchaseOfferDto } from './dto/purchase-offer.dto';
@@ -68,8 +75,13 @@ export class MarketController {
     return this.marketService.purchaseOffer(body);
   }
 
-  @Post('monetization/cash')
-  purchaseCustomCash(@Body() body: { player_id: number; cash_amount: number }) {
-    return this.marketService.purchaseCustomCash(body);
+  @Post('sessions/start')
+  startSession(@Body() body: { player_id: number; starter_sku?: string }) {
+    return this.marketService.startSessionWithTokens(body);
+  }
+
+  @Get('players/:id/progression')
+  getProgression(@Param('id', ParseIntPipe) id: number) {
+    return this.marketService.getProgression(id);
   }
 }

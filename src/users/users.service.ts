@@ -1,4 +1,9 @@
-import { BadRequestException, ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { randomBytes, pbkdf2Sync, timingSafeEqual } from 'crypto';
 import { Repository } from 'typeorm';
@@ -7,7 +12,8 @@ import { User } from './user.entity';
 
 const GUEST_STARTING_CASH = 1000;
 const ACCOUNT_STARTING_CASH = 0;
-const AD_REWARD_AMOUNT = 1000;
+const AD_TOKEN_REWARD = 150;
+const DAILY_LOGIN_TOKEN_REWARD = 25;
 const MAX_AD_REWARD_CLAIMS = 2;
 
 type AuthDto = {
@@ -84,6 +90,7 @@ export class UsersService {
       );
     }
 
+    await this.applyDailyLoginReward(user);
     return this.authResponse(user, player, 'account');
   }
 
@@ -99,9 +106,12 @@ export class UsersService {
     user.email_verified = true;
     user.email_verified_at = new Date();
     user.email_verification_code = null;
+    await this.applyDailyLoginReward(user);
     const savedUser = await this.usersRepository.save(user);
 
-    const existingPlayer = await this.playersRepository.findOneBy({ user_id: savedUser.id });
+    const existingPlayer = await this.playersRepository.findOneBy({
+      user_id: savedUser.id,
+    });
     const player =
       existingPlayer ||
       (await this.playersRepository.save(
@@ -127,7 +137,9 @@ export class UsersService {
     }
 
     if (!player.user_id) {
-      throw new BadRequestException('Register and verify email before claiming ad rewards');
+      throw new BadRequestException(
+        'Register and verify email before claiming ad rewards',
+      );
     }
 
     const user = await this.usersRepository.findOneBy({ id: player.user_id });
@@ -136,17 +148,24 @@ export class UsersService {
     }
 
     if (player.ad_reward_claims >= MAX_AD_REWARD_CLAIMS) {
-      throw new BadRequestException('All starter ad rewards are already claimed');
+      throw new BadRequestException(
+        'All starter ad rewards are already claimed',
+      );
     }
 
     player.ad_reward_claims += 1;
-    player.cash_balance = Number(player.cash_balance) + AD_REWARD_AMOUNT;
     const savedPlayer = await this.playersRepository.save(player);
+    user.account_tokens = Number(user.account_tokens) + AD_TOKEN_REWARD;
+    const savedUser = await this.usersRepository.save(user);
 
     return {
       player: savedPlayer,
-      reward_cash: AD_REWARD_AMOUNT,
-      remaining_claims: Math.max(0, MAX_AD_REWARD_CLAIMS - savedPlayer.ad_reward_claims),
+      user: this.publicUser(savedUser),
+      reward_tokens: AD_TOKEN_REWARD,
+      remaining_claims: Math.max(
+        0,
+        MAX_AD_REWARD_CLAIMS - savedPlayer.ad_reward_claims,
+      ),
     };
   }
 
@@ -173,6 +192,8 @@ export class UsersService {
         email: true,
         display_name: true,
         email_verified: true,
+        account_tokens: true,
+        login_streak: true,
         created_at: true,
         updated_at: true,
       },
@@ -182,12 +203,7 @@ export class UsersService {
   private authResponse(user: User, player: SimPlayer, mode: 'account') {
     return {
       mode,
-      user: {
-        id: user.id,
-        email: user.email,
-        display_name: user.display_name,
-        email_verified: user.email_verified,
-      },
+      user: this.publicUser(user),
       player,
     };
   }
@@ -200,8 +216,11 @@ export class UsersService {
         email: user.email,
         display_name: user.display_name,
         email_verified: false,
+        account_tokens: Number(user.account_tokens || 0),
+        login_streak: user.login_streak || 0,
       },
-      message: 'Verification code was generated. In production this code should be emailed.',
+      message:
+        'Verification code was generated. In production this code should be emailed.',
       dev_verification_code: user.email_verification_code,
     };
   }
@@ -229,14 +248,49 @@ export class UsersService {
     return normalized;
   }
 
-  private normalizeDisplayName(displayName: string | undefined, fallback: string) {
-    const normalized = displayName?.trim() || fallback.split('@')[0] || 'Trader';
+  private normalizeDisplayName(
+    displayName: string | undefined,
+    fallback: string,
+  ) {
+    const normalized =
+      displayName?.trim() || fallback.split('@')[0] || 'Trader';
     return normalized.slice(0, 24);
+  }
+
+  private async applyDailyLoginReward(user: User) {
+    const today = new Date().toISOString().slice(0, 10);
+    const lastLoginDay = user.last_daily_login_at?.toISOString().slice(0, 10);
+    if (lastLoginDay === today) {
+      return;
+    }
+
+    const yesterday = new Date(Date.now() - 24 * 60 * 60 * 1000)
+      .toISOString()
+      .slice(0, 10);
+    user.login_streak =
+      lastLoginDay === yesterday ? Number(user.login_streak || 0) + 1 : 1;
+    user.last_daily_login_at = new Date();
+    user.account_tokens =
+      Number(user.account_tokens || 0) + DAILY_LOGIN_TOKEN_REWARD;
+    await this.usersRepository.save(user);
+  }
+
+  private publicUser(user: User) {
+    return {
+      id: user.id,
+      email: user.email,
+      display_name: user.display_name,
+      email_verified: user.email_verified,
+      account_tokens: Number(user.account_tokens || 0),
+      login_streak: user.login_streak || 0,
+    };
   }
 
   private hashPassword(password: string) {
     const salt = randomBytes(16).toString('hex');
-    const hash = pbkdf2Sync(password, salt, 120000, 32, 'sha256').toString('hex');
+    const hash = pbkdf2Sync(password, salt, 120000, 32, 'sha256').toString(
+      'hex',
+    );
     return `pbkdf2:${salt}:${hash}`;
   }
 
@@ -250,6 +304,9 @@ export class UsersService {
 
     const candidate = pbkdf2Sync(password, salt, 120000, 32, 'sha256');
     const expected = Buffer.from(hash, 'hex');
-    return expected.length === candidate.length && timingSafeEqual(candidate, expected);
+    return (
+      expected.length === candidate.length &&
+      timingSafeEqual(candidate, expected)
+    );
   }
 }

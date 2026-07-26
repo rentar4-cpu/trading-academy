@@ -62,6 +62,9 @@ export class SimCompany {
   @Column({ type: 'numeric', precision: 6, scale: 2, default: 0 })
   volatility: number;
 
+  @Column({ type: 'numeric', precision: 6, scale: 2, default: 1 })
+  event_sensitivity: number;
+
   @Column({ default: true })
   is_active: boolean;
 

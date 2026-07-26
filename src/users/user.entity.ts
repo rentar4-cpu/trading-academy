@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity()
 export class User {
@@ -16,6 +22,15 @@ export class User {
 
   @Column({ default: false })
   email_verified: boolean;
+
+  @Column({ type: 'numeric', precision: 14, scale: 2, default: 0 })
+  account_tokens: number;
+
+  @Column({ type: 'timestamp', nullable: true })
+  last_daily_login_at?: Date;
+
+  @Column({ default: 0 })
+  login_streak: number;
 
   @Column({ type: 'varchar', nullable: true })
   email_verification_code?: string | null;

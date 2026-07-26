@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Trading Academy</string>
+    <string name="title_activity_main">Trading Academy</string>
+    <string name="package_name">com.tradingacademy.market</string>
+    <string name="custom_url_scheme">com.tradingacademy.market</string>
+</resources>

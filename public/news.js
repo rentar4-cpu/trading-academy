@@ -102,7 +102,7 @@ const newsTranslations = {
     navIntel: 'Analyse',
     navTrades: 'Handel',
     navNews: 'Nachrichten',
-    navPortfolio: 'Portfolio',
+    navPortfolio: 'Depot',
     navStore: 'Laden',
     navAuth: 'Konto',
     forwardSignals: 'Zukunftssignale',
@@ -145,7 +145,7 @@ const newsTranslations = {
     watchlist: 'Liste de suivi',
     target: 'Cible',
     probability: 'Probabilité',
-    impact: 'Impact',
+    impact: 'Effet',
     globalMarket: 'Marché global',
     upcomingEvent: 'événement à venir',
     upcomingEvents: 'événements à venir',
@@ -236,7 +236,7 @@ function formatNewsDate(value) {
 }
 
 async function api(path) {
-  const response = await fetch(path);
+  const response = await fetch(window.marketApiUrl ? window.marketApiUrl(path) : path);
   if (!response.ok) {
     throw new Error(`Request failed: ${response.status}`);
   }
@@ -284,12 +284,27 @@ function applyLanguage() {
 
   const navLabels = {
     '/game/': 'navMarket',
+    '/game/index.html': 'navMarket',
+    './index.html': 'navMarket',
+    'index.html': 'navMarket',
     '/game/intel.html': 'navIntel',
+    './intel.html': 'navIntel',
+    'intel.html': 'navIntel',
     '/game/trades.html': 'navTrades',
+    './trades.html': 'navTrades',
+    'trades.html': 'navTrades',
     '/game/news.html': 'navNews',
+    './news.html': 'navNews',
+    'news.html': 'navNews',
     '/game/portfolio.html': 'navPortfolio',
+    './portfolio.html': 'navPortfolio',
+    'portfolio.html': 'navPortfolio',
     '/game/store.html': 'navStore',
+    './store.html': 'navStore',
+    'store.html': 'navStore',
     '/game/auth.html': 'navAuth',
+    './auth.html': 'navAuth',
+    'auth.html': 'navAuth',
   };
 
   document.querySelectorAll('.app-nav a').forEach((link) => {
