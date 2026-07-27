@@ -255,6 +255,204 @@ select {
   margin-top: 16px;
 }
 
+.ai-mentor-section {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(360px, 0.78fr);
+  gap: 18px;
+  margin-top: 18px;
+  padding: 22px;
+  border: 1px solid rgba(16, 163, 127, 0.28);
+  border-radius: 10px;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(16, 163, 127, 0.2), transparent 34%),
+    linear-gradient(145deg, rgba(10, 22, 24, 0.98), rgba(13, 31, 34, 0.96));
+  box-shadow: 0 24px 70px rgba(17, 28, 32, 0.2);
+  color: #edf7f3;
+}
+
+.ai-copy {
+  display: grid;
+  align-content: start;
+  gap: 16px;
+}
+
+.ai-mentor-section .eyebrow {
+  color: rgba(142, 224, 202, 0.88);
+}
+
+.ai-mentor-section h2 {
+  max-width: 720px;
+  margin: 0;
+  font-size: clamp(28px, 4vw, 52px);
+  line-height: 0.98;
+}
+
+.ai-lead {
+  max-width: 760px;
+  margin: 0;
+  color: rgba(237, 247, 243, 0.76);
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+.ai-feature-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.ai-feature-card {
+  min-height: 154px;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.ai-card-icon,
+.ai-orb {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  background: rgba(16, 163, 127, 0.16);
+  color: #8ee0ca;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.ai-feature-card h3 {
+  margin: 14px 0 7px;
+  color: #ffffff;
+}
+
+.ai-feature-card p {
+  margin: 0;
+  color: rgba(237, 247, 243, 0.68);
+  line-height: 1.45;
+}
+
+.ai-chat-panel {
+  min-height: 100%;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 10px;
+  background: rgba(4, 13, 17, 0.72);
+}
+
+.ai-chat-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ai-chat-head strong,
+.ai-chat-head small {
+  display: block;
+}
+
+.ai-chat-head small {
+  margin-top: 2px;
+  color: rgba(237, 247, 243, 0.62);
+}
+
+.ai-chat-stream {
+  display: grid;
+  gap: 10px;
+  padding: 14px 0;
+}
+
+.chat-message {
+  width: min(92%, 420px);
+  padding: 11px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 9px;
+  opacity: 0;
+  animation: chatReveal 0.48s ease-out forwards;
+}
+
+.chat-message:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.chat-message:nth-child(2) {
+  animation-delay: 0.34s;
+}
+
+.chat-message:nth-child(3) {
+  animation-delay: 0.58s;
+}
+
+.chat-message:nth-child(4) {
+  animation-delay: 0.82s;
+}
+
+.chat-message:nth-child(5) {
+  animation-delay: 1.06s;
+}
+
+.chat-message:nth-child(6) {
+  animation-delay: 1.3s;
+}
+
+.chat-message.user {
+  justify-self: end;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.chat-message.assistant {
+  justify-self: start;
+  background: rgba(16, 163, 127, 0.13);
+  border-color: rgba(16, 163, 127, 0.24);
+}
+
+.chat-message span {
+  display: block;
+  margin-bottom: 5px;
+  color: rgba(142, 224, 202, 0.8);
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.chat-message p {
+  margin: 0;
+  color: rgba(237, 247, 243, 0.78);
+  line-height: 1.45;
+}
+
+.chat-message.score strong {
+  display: block;
+  margin-bottom: 7px;
+  color: #ffffff;
+  font-size: 24px;
+}
+
+.ai-safety-note {
+  margin: 0;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(237, 247, 243, 0.58);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+@keyframes chatReveal {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .bottom-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 420px;
@@ -1505,6 +1703,7 @@ td {
 
 @media (max-width: 1020px) {
   .layout,
+  .ai-mentor-section,
   .intel-grid,
   .news-layout,
   .auth-hero,
@@ -1539,6 +1738,10 @@ td {
   .intel-range-tabs button {
     flex: 0 0 56px;
   }
+
+  .ai-mentor-section {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 680px) {
@@ -1566,6 +1769,31 @@ td {
 
   .account-strip {
     grid-template-columns: 1fr;
+  }
+
+  .ai-mentor-section {
+    padding: 14px;
+  }
+
+  .ai-mentor-section h2 {
+    font-size: 30px;
+    line-height: 1.05;
+  }
+
+  .ai-lead {
+    font-size: 15px;
+  }
+
+  .ai-feature-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ai-chat-panel {
+    padding: 12px;
+  }
+
+  .chat-message {
+    width: 100%;
   }
 
   .app-nav {
@@ -2401,6 +2629,9 @@ td {
   .topbar,
   .panel,
   .layout,
+  .ai-mentor-section,
+  .ai-chat-panel,
+  .ai-feature-card,
   .market-panel,
   .trade-panel,
   .game-board,
@@ -2418,6 +2649,7 @@ td {
   }
 
   .layout,
+  .ai-mentor-section,
   .news-layout,
   .auth-grid {
     display: grid;

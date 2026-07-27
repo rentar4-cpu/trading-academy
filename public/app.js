@@ -106,6 +106,37 @@ const translations = {
     firstLessonList:
       'Next trades will ask you to read news, analyze companies, follow events, and decide for yourself.',
     firstLessonAction: 'Continue learning',
+    aiEyebrow: 'Learn. Think. Improve.',
+    aiTitle: 'Meet Your AI Trading Mentor',
+    aiSubtitle:
+      'Artificial Intelligence helps you become a better trader, not by making decisions for you, but by teaching you how to make better ones.',
+    aiTradeAnalysisTitle: 'Trade Analysis',
+    aiTradeAnalysisText:
+      'After each trade, AI explains timing, risk, mistakes, and what worked well.',
+    aiMarketExplanationTitle: 'Market Explanation',
+    aiMarketExplanationText:
+      'Understand why prices moved, which news mattered, and what changed today.',
+    aiCoachTitle: 'Personal Coach',
+    aiCoachText:
+      'AI studies your trading style and highlights repeated habits after each session.',
+    aiLearningTitle: 'Smart Learning',
+    aiLearningText:
+      'Get recommendations for skills, topics, and decisions to improve next.',
+    aiChatTitle: 'AI Mentor',
+    aiChatStatus: 'Session review active',
+    aiChatUser: 'User',
+    aiChatAi: 'AI',
+    aiUserQuestionLoss: 'Why did I lose this trade?',
+    aiAnswerLoss:
+      'You entered after a strong upward move. Volume was decreasing while momentum slowed. Waiting for confirmation could have reduced your risk.',
+    aiUserQuestionImprove: 'What should I improve?',
+    aiAnswerImprove:
+      'Your biggest weakness today was exiting profitable trades too early. You closed 7 winning positions before the trend completed.',
+    aiUserQuestionRate: "Rate today's performance.",
+    aiAnswerRate:
+      'Strong discipline. Good risk management. Needs improvement in trade timing.',
+    aiSafetyNote:
+      'AI explains and teaches. It does not promise profit or make decisions for you.',
   },
   ru: {
     brand: 'Торговая академия',
@@ -203,6 +234,37 @@ const translations = {
     firstLessonList:
       'Дальше нужно читать новости, анализировать компании, учитывать события и решать самостоятельно.',
     firstLessonAction: 'Продолжить обучение',
+    aiEyebrow: 'Учись. Думай. Улучшайся.',
+    aiTitle: 'Ваш AI-наставник по торговле',
+    aiSubtitle:
+      'Искусственный интеллект помогает становиться лучше не тем, что принимает решения за вас, а тем, что учит принимать их осознаннее.',
+    aiTradeAnalysisTitle: 'Анализ сделок',
+    aiTradeAnalysisText:
+      'После каждой сделки AI объясняет момент входа, риск, ошибки и то, что получилось хорошо.',
+    aiMarketExplanationTitle: 'Объяснение рынка',
+    aiMarketExplanationText:
+      'Понимайте, почему двигались цены, какие новости повлияли и что изменилось сегодня.',
+    aiCoachTitle: 'Личный тренер',
+    aiCoachText:
+      'AI изучает стиль торговли и показывает повторяющиеся привычки после каждой сессии.',
+    aiLearningTitle: 'Умное обучение',
+    aiLearningText:
+      'Получайте рекомендации по навыкам, темам и решениям, которые стоит улучшить.',
+    aiChatTitle: 'AI-наставник',
+    aiChatStatus: 'Разбор сессии активен',
+    aiChatUser: 'Игрок',
+    aiChatAi: 'AI',
+    aiUserQuestionLoss: 'Почему я потерял деньги в этой сделке?',
+    aiAnswerLoss:
+      'Вы вошли после сильного движения вверх. Объём снижался, а импульс замедлялся. Ожидание подтверждения могло снизить риск.',
+    aiUserQuestionImprove: 'Что мне улучшить?',
+    aiAnswerImprove:
+      'Главная слабость сегодня — слишком ранняя фиксация прибыли. Вы закрыли 7 прибыльных позиций до завершения тренда.',
+    aiUserQuestionRate: 'Оцени сегодняшнюю сессию.',
+    aiAnswerRate:
+      'Сильная дисциплина. Хороший контроль риска. Нужно улучшить выбор момента входа.',
+    aiSafetyNote:
+      'AI объясняет и обучает. Он не обещает прибыль и не принимает решения за вас.',
   },
   he: {
     brand: 'אקדמיית מסחר',
@@ -297,6 +359,37 @@ const translations = {
     firstLessonList:
       'בעסקאות הבאות תצטרך לקרוא חדשות, לנתח חברות, לעקוב אחרי אירועים ולהחליט לבד.',
     firstLessonAction: 'המשך ללמוד',
+    aiEyebrow: 'למד. חשוב. השתפר.',
+    aiTitle: 'הכירו את מנטור המסחר ב-AI',
+    aiSubtitle:
+      'בינה מלאכותית עוזרת לך להפוך לסוחר טוב יותר לא על ידי קבלת החלטות במקומך, אלא על ידי לימוד החלטות טובות יותר.',
+    aiTradeAnalysisTitle: 'ניתוח עסקאות',
+    aiTradeAnalysisText:
+      'אחרי כל עסקה ה-AI מסביר תזמון, סיכון, טעויות ומה עבד היטב.',
+    aiMarketExplanationTitle: 'הסבר שוק',
+    aiMarketExplanationText:
+      'הבן למה המחירים זזו, אילו חדשות השפיעו ומה השתנה היום.',
+    aiCoachTitle: 'מאמן אישי',
+    aiCoachText:
+      'ה-AI לומד את סגנון המסחר שלך ומדגיש הרגלים חוזרים אחרי כל סשן.',
+    aiLearningTitle: 'למידה חכמה',
+    aiLearningText:
+      'קבל המלצות על מיומנויות, נושאים והחלטות שכדאי לשפר בהמשך.',
+    aiChatTitle: 'מנטור AI',
+    aiChatStatus: 'סקירת סשן פעילה',
+    aiChatUser: 'שחקן',
+    aiChatAi: 'AI',
+    aiUserQuestionLoss: 'למה הפסדתי בעסקה הזאת?',
+    aiAnswerLoss:
+      'נכנסת אחרי מהלך עלייה חזק. הנפח ירד בזמן שהמומנטום נחלש. המתנה לאישור הייתה יכולה להפחית סיכון.',
+    aiUserQuestionImprove: 'מה כדאי לי לשפר?',
+    aiAnswerImprove:
+      'החולשה הגדולה שלך היום הייתה יציאה מוקדמת מדי מעסקאות רווחיות. סגרת 7 פוזיציות מנצחות לפני שהמגמה הסתיימה.',
+    aiUserQuestionRate: 'דרג את הביצועים שלי היום.',
+    aiAnswerRate:
+      'משמעת חזקה. ניהול סיכון טוב. יש לשפר את תזמון הכניסה.',
+    aiSafetyNote:
+      'AI מסביר ומלמד. הוא לא מבטיח רווח ולא מקבל החלטות במקומך.',
   },
   de: {
     brand: 'Handelsakademie',
@@ -396,6 +489,37 @@ const translations = {
     firstLessonList:
       'Bei den nächsten Trades musst du Nachrichten lesen, Firmen analysieren, Ereignisse beachten und selbst entscheiden.',
     firstLessonAction: 'Weiter lernen',
+    aiEyebrow: 'Lernen. Denken. Besser werden.',
+    aiTitle: 'Dein KI-Trading-Mentor',
+    aiSubtitle:
+      'Künstliche Intelligenz hilft dir, ein besserer Trader zu werden, nicht indem sie Entscheidungen für dich trifft, sondern indem sie bessere Entscheidungen lehrt.',
+    aiTradeAnalysisTitle: 'Trade-Analyse',
+    aiTradeAnalysisText:
+      'Nach jedem Trade erklärt die KI Timing, Risiko, Fehler und was gut funktioniert hat.',
+    aiMarketExplanationTitle: 'Markterklärung',
+    aiMarketExplanationText:
+      'Verstehe, warum Preise sich bewegt haben, welche Nachrichten wichtig waren und was sich heute geändert hat.',
+    aiCoachTitle: 'Persönlicher Coach',
+    aiCoachText:
+      'Die KI lernt deinen Handelsstil und zeigt wiederkehrende Gewohnheiten nach jeder Sitzung.',
+    aiLearningTitle: 'Smart Learning',
+    aiLearningText:
+      'Erhalte Empfehlungen zu Fähigkeiten, Themen und Entscheidungen, die du verbessern kannst.',
+    aiChatTitle: 'KI-Mentor',
+    aiChatStatus: 'Sitzungsanalyse aktiv',
+    aiChatUser: 'Nutzer',
+    aiChatAi: 'AI',
+    aiUserQuestionLoss: 'Warum habe ich diesen Trade verloren?',
+    aiAnswerLoss:
+      'Du bist nach einer starken Aufwärtsbewegung eingestiegen. Das Volumen sank, während das Momentum schwächer wurde. Auf Bestätigung zu warten hätte dein Risiko senken können.',
+    aiUserQuestionImprove: 'Was sollte ich verbessern?',
+    aiAnswerImprove:
+      'Deine größte Schwäche heute war, profitable Trades zu früh zu schließen. Du hast 7 Gewinnpositionen geschlossen, bevor der Trend abgeschlossen war.',
+    aiUserQuestionRate: 'Bewerte die heutige Leistung.',
+    aiAnswerRate:
+      'Starke Disziplin. Gutes Risikomanagement. Timing der Einstiege muss verbessert werden.',
+    aiSafetyNote:
+      'KI erklärt und lehrt. Sie verspricht keinen Gewinn und trifft keine Entscheidungen für dich.',
   },
   fr: {
     brand: 'Académie de trading',
@@ -492,6 +616,37 @@ const translations = {
     firstLessonList:
       'Les prochains trades demanderont de lire les infos, analyser les sociétés, suivre les événements et décider seul.',
     firstLessonAction: 'Continuer la formation',
+    aiEyebrow: 'Apprendre. Réfléchir. Progresser.',
+    aiTitle: 'Votre mentor de trading IA',
+    aiSubtitle:
+      'L’intelligence artificielle vous aide à devenir meilleur trader, non pas en décidant à votre place, mais en vous apprenant à mieux décider.',
+    aiTradeAnalysisTitle: 'Analyse des trades',
+    aiTradeAnalysisText:
+      'Après chaque trade, l’IA explique le timing, le risque, les erreurs et ce qui a bien fonctionné.',
+    aiMarketExplanationTitle: 'Explication du marché',
+    aiMarketExplanationText:
+      'Comprenez pourquoi les prix ont bougé, quelles nouvelles ont compté et ce qui a changé aujourd’hui.',
+    aiCoachTitle: 'Coach personnel',
+    aiCoachText:
+      'L’IA étudie votre style de trading et met en évidence les habitudes répétées après chaque session.',
+    aiLearningTitle: 'Apprentissage intelligent',
+    aiLearningText:
+      'Recevez des recommandations sur les compétences, sujets et décisions à améliorer.',
+    aiChatTitle: 'Mentor IA',
+    aiChatStatus: 'Analyse de session active',
+    aiChatUser: 'Utilisateur',
+    aiChatAi: 'IA',
+    aiUserQuestionLoss: 'Pourquoi ai-je perdu ce trade ?',
+    aiAnswerLoss:
+      'Vous êtes entré après une forte hausse. Le volume diminuait pendant que le momentum ralentissait. Attendre une confirmation aurait pu réduire le risque.',
+    aiUserQuestionImprove: 'Que dois-je améliorer ?',
+    aiAnswerImprove:
+      'Votre plus grande faiblesse aujourd’hui a été de sortir trop tôt des trades gagnants. Vous avez fermé 7 positions gagnantes avant la fin de la tendance.',
+    aiUserQuestionRate: 'Évalue la performance du jour.',
+    aiAnswerRate:
+      'Discipline solide. Bonne gestion du risque. Le timing des entrées doit s’améliorer.',
+    aiSafetyNote:
+      'L’IA explique et enseigne. Elle ne promet pas de profit et ne décide pas à votre place.',
   },
 };
 
