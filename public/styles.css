@@ -2860,6 +2860,27 @@ td {
     width: 100%;
   }
 
+  .market-home .ai-mentor-section {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .market-home .ai-copy,
+  .market-home .ai-chat-panel,
+  .market-home .ai-chat-head,
+  .market-home .ai-chat-stream,
+  .market-home .chat-message {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .market-home .ai-chat-head > div,
+  .market-home .chat-message p,
+  .market-home .ai-lead {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
   .market-panel,
   .trade-panel,
   .game-board,
