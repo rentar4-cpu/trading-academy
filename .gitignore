@@ -3,6 +3,7 @@
 node_modules/
 /build
 .next/
+mentavio-landing/out/
 
 # Logs
 logs

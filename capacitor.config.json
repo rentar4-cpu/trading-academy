@@ -1,6 +1,6 @@
 {
   "appId": "com.tradingacademy.market",
-  "appName": "Trading Academy",
+  "appName": "Mentavio",
   "webDir": "public",
   "android": {
     "allowMixedContent": true
@@ -12,6 +12,7 @@
   },
   "server": {
     "androidScheme": "http",
-    "cleartext": true
+    "cleartext": true,
+    "appStartPath": "/landing/index.html"
   }
 }

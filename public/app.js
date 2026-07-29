@@ -112,7 +112,8 @@ const translations = {
       'Next trades will ask you to read news, analyze companies, follow events, and decide for yourself.',
     firstLessonAction: 'Continue learning',
     aiEyebrow: 'Learn. Think. Improve.',
-    aiTitle: 'Meet Your AI Trading Mentor',
+    sophiaQuickText: 'Personal market analysis and learning',
+    aiTitle: 'AI Mentor Sophia',
     aiSubtitle:
       'Artificial Intelligence helps you become a better trader, not by making decisions for you, but by teaching you how to make better ones.',
     aiTradeAnalysisTitle: 'Trade Analysis',
@@ -127,10 +128,10 @@ const translations = {
     aiLearningTitle: 'Smart Learning',
     aiLearningText:
       'Get recommendations for skills, topics, and decisions to improve next.',
-    aiChatTitle: 'AI Mentor',
+    aiChatTitle: 'AI Mentor Sophia',
     aiChatStatus: 'Session review active',
     aiChatUser: 'User',
-    aiChatAi: 'AI',
+    aiChatAi: 'Sophia',
     aiUserQuestionLoss: 'Why did I lose this trade?',
     aiAnswerLoss:
       'You entered after a strong upward move. Volume was decreasing while momentum slowed. Waiting for confirmation could have reduced your risk.',
@@ -243,7 +244,8 @@ const translations = {
       'Дальше нужно читать новости, анализировать компании, учитывать события и решать самостоятельно.',
     firstLessonAction: 'Продолжить обучение',
     aiEyebrow: 'Учись. Думай. Улучшайся.',
-    aiTitle: 'Ваш AI-наставник по торговле',
+    sophiaQuickText: 'Персональный анализ рынка и обучение',
+    aiTitle: 'AI Mentor София',
     aiSubtitle:
       'Искусственный интеллект помогает становиться лучше не тем, что принимает решения за вас, а тем, что учит принимать их осознаннее.',
     aiTradeAnalysisTitle: 'Анализ сделок',
@@ -258,10 +260,10 @@ const translations = {
     aiLearningTitle: 'Умное обучение',
     aiLearningText:
       'Получайте рекомендации по навыкам, темам и решениям, которые стоит улучшить.',
-    aiChatTitle: 'AI-наставник',
+    aiChatTitle: 'AI Mentor София',
     aiChatStatus: 'Разбор сессии активен',
     aiChatUser: 'Игрок',
-    aiChatAi: 'AI',
+    aiChatAi: 'Sophia',
     aiUserQuestionLoss: 'Почему я потерял деньги в этой сделке?',
     aiAnswerLoss:
       'Вы вошли после сильного движения вверх. Объём снижался, а импульс замедлялся. Ожидание подтверждения могло снизить риск.',
@@ -371,7 +373,8 @@ const translations = {
       'בעסקאות הבאות תצטרך לקרוא חדשות, לנתח חברות, לעקוב אחרי אירועים ולהחליט לבד.',
     firstLessonAction: 'המשך ללמוד',
     aiEyebrow: 'למד. חשוב. השתפר.',
-    aiTitle: 'הכירו את מנטור המסחר ב-AI',
+    sophiaQuickText: 'ניתוח שוק אישי ולמידה',
+    aiTitle: 'AI Mentor Sophia',
     aiSubtitle:
       'בינה מלאכותית עוזרת לך להפוך לסוחר טוב יותר לא על ידי קבלת החלטות במקומך, אלא על ידי לימוד החלטות טובות יותר.',
     aiTradeAnalysisTitle: 'ניתוח עסקאות',
@@ -386,10 +389,10 @@ const translations = {
     aiLearningTitle: 'למידה חכמה',
     aiLearningText:
       'קבל המלצות על מיומנויות, נושאים והחלטות שכדאי לשפר בהמשך.',
-    aiChatTitle: 'מנטור AI',
+    aiChatTitle: 'AI Mentor Sophia',
     aiChatStatus: 'סקירת סשן פעילה',
     aiChatUser: 'שחקן',
-    aiChatAi: 'AI',
+    aiChatAi: 'Sophia',
     aiUserQuestionLoss: 'למה הפסדתי בעסקה הזאת?',
     aiAnswerLoss:
       'נכנסת אחרי מהלך עלייה חזק. הנפח ירד בזמן שהמומנטום נחלש. המתנה לאישור הייתה יכולה להפחית סיכון.',
@@ -504,7 +507,8 @@ const translations = {
       'Bei den nächsten Trades musst du Nachrichten lesen, Firmen analysieren, Ereignisse beachten und selbst entscheiden.',
     firstLessonAction: 'Weiter lernen',
     aiEyebrow: 'Lernen. Denken. Besser werden.',
-    aiTitle: 'Dein KI-Trading-Mentor',
+    sophiaQuickText: 'Persönliche Marktanalyse und Lernen',
+    aiTitle: 'AI Mentor Sophia',
     aiSubtitle:
       'Künstliche Intelligenz hilft dir, ein besserer Trader zu werden, nicht indem sie Entscheidungen für dich trifft, sondern indem sie bessere Entscheidungen lehrt.',
     aiTradeAnalysisTitle: 'Trade-Analyse',
@@ -519,10 +523,10 @@ const translations = {
     aiLearningTitle: 'Smart Learning',
     aiLearningText:
       'Erhalte Empfehlungen zu Fähigkeiten, Themen und Entscheidungen, die du verbessern kannst.',
-    aiChatTitle: 'KI-Mentor',
+    aiChatTitle: 'AI Mentor Sophia',
     aiChatStatus: 'Sitzungsanalyse aktiv',
     aiChatUser: 'Nutzer',
-    aiChatAi: 'AI',
+    aiChatAi: 'Sophia',
     aiUserQuestionLoss: 'Warum habe ich diesen Trade verloren?',
     aiAnswerLoss:
       'Du bist nach einer starken Aufwärtsbewegung eingestiegen. Das Volumen sank, während das Momentum schwächer wurde. Auf Bestätigung zu warten hätte dein Risiko senken können.',
@@ -634,7 +638,8 @@ const translations = {
       'Les prochains trades demanderont de lire les infos, analyser les sociétés, suivre les événements et décider seul.',
     firstLessonAction: 'Continuer la formation',
     aiEyebrow: 'Apprendre. Réfléchir. Progresser.',
-    aiTitle: 'Votre mentor de trading IA',
+    sophiaQuickText: 'Analyse personnalisée du marché et apprentissage',
+    aiTitle: 'AI Mentor Sophia',
     aiSubtitle:
       'L’intelligence artificielle vous aide à devenir meilleur trader, non pas en décidant à votre place, mais en vous apprenant à mieux décider.',
     aiTradeAnalysisTitle: 'Analyse des trades',
@@ -649,10 +654,10 @@ const translations = {
     aiLearningTitle: 'Apprentissage intelligent',
     aiLearningText:
       'Recevez des recommandations sur les compétences, sujets et décisions à améliorer.',
-    aiChatTitle: 'Mentor IA',
+    aiChatTitle: 'AI Mentor Sophia',
     aiChatStatus: 'Analyse de session active',
     aiChatUser: 'Utilisateur',
-    aiChatAi: 'IA',
+    aiChatAi: 'Sophia',
     aiUserQuestionLoss: 'Pourquoi ai-je perdu ce trade ?',
     aiAnswerLoss:
       'Vous êtes entré après une forte hausse. Le volume diminuait pendant que le momentum ralentissait. Attendre une confirmation aurait pu réduire le risque.',

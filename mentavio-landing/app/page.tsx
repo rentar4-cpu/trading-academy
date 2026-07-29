@@ -1,42 +1,40 @@
-const ecosystemModules = [
-  'Investing',
-  'AI',
-  'Learning',
-  'Chess',
-  'Backgammon',
-  'Checkers',
-  'Decision Support',
-  'Strategy',
-];
+'use client';
 
-const tradingAppUrl =
-  process.env.NEXT_PUBLIC_TRADING_APP_URL || 'http://localhost:3000/game/';
+import { useEffect, useState, type MouseEvent } from 'react';
+import {
+  landingCopy,
+  languageOptions,
+  type LandingLanguage,
+} from './landing-copy';
 
-const visionCards = [
-  {
-    title: 'Learn',
-    description: 'Continuous education powered by AI.',
-  },
-  {
-    title: 'Think',
-    description: 'Develop strategic thinking.',
-  },
-  {
-    title: 'Grow',
-    description: 'Become a better investor and decision maker.',
-  },
-];
+const ecosystemModuleKeys = [
+  'investing',
+  'ai',
+  'learning',
+  'chess',
+  'backgammon',
+  'checkers',
+  'decisionSupport',
+  'strategy',
+] as const;
 
-const sophiaCapabilities = [
-  'understand markets',
-  'learn investing',
-  'analyze decisions',
-  'improve strategic thinking',
-  'study chess',
-  'explore ideas',
-];
+const logoBoardUrl = './mentavio-logo-board.png';
 
-const logoBoardUrl = '/mentavio-logo-board.png';
+function openTradingApp(event: MouseEvent<HTMLAnchorElement>) {
+  event.preventDefault();
+
+  if (window.location.port === '3001') {
+    window.location.assign(`http://${window.location.hostname}:3000/game/`);
+    return;
+  }
+
+  if (window.location.port === '3000') {
+    window.location.assign('/game/');
+    return;
+  }
+
+  window.location.assign('/index.html');
+}
 
 function MentavioLogo({ large = false }: { large?: boolean }) {
   return (
@@ -85,7 +83,11 @@ function BrandWordmark() {
   );
 }
 
-function SophiaPanel() {
+function SophiaPanel({
+  copy,
+}: {
+  copy: (typeof landingCopy)[LandingLanguage];
+}) {
   return (
     <div className="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_24px_80px_rgba(15,23,42,0.08)] dark:border-white/10 dark:bg-white/[0.06]">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-emerald-400 to-transparent" />
@@ -99,34 +101,33 @@ function SophiaPanel() {
               Sophia
             </p>
             <p className="text-xs text-slate-500 dark:text-slate-400">
-              AI decision mentor
+              {copy.sophiaRole}
             </p>
           </div>
         </div>
         <span className="rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700 dark:border-emerald-400/20 dark:bg-emerald-400/10 dark:text-emerald-300">
-          Calm guidance
+          {copy.calmGuidance}
         </span>
       </div>
 
       <div className="mt-12 grid gap-4">
         <div className="max-w-[82%] rounded-2xl bg-slate-100 p-4 text-sm leading-6 text-slate-700 dark:bg-white/[0.08] dark:text-slate-200">
-          What should I pay attention to before making this decision?
+          {copy.chatQuestionOne}
         </div>
         <div className="ml-auto max-w-[88%] rounded-2xl bg-slate-950 p-4 text-sm leading-6 text-white dark:bg-white dark:text-slate-950">
-          Start with the evidence, then compare risk, timing, and alternatives.
-          A good decision is not a prediction. It is a disciplined process.
+          {copy.chatAnswerOne}
         </div>
         <div className="max-w-[78%] rounded-2xl bg-slate-100 p-4 text-sm leading-6 text-slate-700 dark:bg-white/[0.08] dark:text-slate-200">
-          Help me understand the tradeoff.
+          {copy.chatQuestionTwo}
         </div>
       </div>
 
       <div className="mt-10 rounded-2xl border border-slate-200 p-4 dark:border-white/10">
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
-          Sophia principle
+          {copy.sophiaPrinciple}
         </p>
         <p className="mt-3 text-lg font-medium leading-7 text-slate-950 dark:text-white">
-          Guidance over guesses. Clarity over noise.
+          {copy.sophiaPrincipleText}
         </p>
       </div>
     </div>
@@ -134,9 +135,35 @@ function SophiaPanel() {
 }
 
 export default function Home() {
+  const [language, setLanguage] = useState<LandingLanguage>('en');
+  const copy = landingCopy[language];
+
+  useEffect(() => {
+    const savedLanguage = window.localStorage.getItem('market_language');
+    const nextLanguage = languageOptions.some(
+      (option) => option.code === savedLanguage,
+    )
+      ? (savedLanguage as LandingLanguage)
+      : 'en';
+
+    setLanguage(nextLanguage);
+    document.documentElement.lang = nextLanguage;
+    document.documentElement.dir = landingCopy[nextLanguage].direction;
+  }, []);
+
+  function changeLanguage(nextLanguage: LandingLanguage) {
+    setLanguage(nextLanguage);
+    window.localStorage.setItem('market_language', nextLanguage);
+    document.documentElement.lang = nextLanguage;
+    document.documentElement.dir = landingCopy[nextLanguage].direction;
+  }
+
   return (
-    <main className="min-h-screen bg-white text-slate-950 antialiased dark:bg-[#07111f] dark:text-white">
-      <header className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-6 md:px-10">
+    <main
+      className="min-h-screen bg-white text-slate-950 antialiased dark:bg-[#07111f] dark:text-white"
+      dir={copy.direction}
+    >
+      <header className="mx-auto flex w-full max-w-7xl flex-wrap items-center justify-between gap-3 px-6 py-6 md:px-10">
         <a
           className="flex items-center gap-3"
           href="#top"
@@ -146,21 +173,41 @@ export default function Home() {
           <div>
             <p className="text-base font-semibold tracking-tight">Mentavio</p>
             <p className="text-xs text-slate-500 dark:text-slate-400">
-              Learn. Think. Grow.
+              {copy.tagline}
             </p>
           </div>
         </a>
         <nav className="hidden items-center gap-8 text-sm font-medium text-slate-600 dark:text-slate-300 md:flex">
           <a href="#sophia">Sophia</a>
-          <a href="#vision">Vision</a>
-          <a href="#ecosystem">Ecosystem</a>
+          <a href="#vision">{copy.navVision}</a>
+          <a href="#ecosystem">{copy.navEcosystem}</a>
         </nav>
-        <a
-          className="rounded-full bg-slate-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200"
-          href={tradingAppUrl}
-        >
-          Get Started
-        </a>
+        <div className="ml-auto flex items-center gap-2">
+          <label>
+            <span className="sr-only">{copy.language}</span>
+            <select
+              aria-label={copy.language}
+              className="h-10 rounded-full border border-slate-200 bg-white px-3 text-sm font-medium text-slate-700 outline-none transition focus:border-emerald-500 dark:border-white/10 dark:bg-white/[0.06] dark:text-white"
+              onChange={(event) =>
+                changeLanguage(event.target.value as LandingLanguage)
+              }
+              value={language}
+            >
+              {languageOptions.map((option) => (
+                <option key={option.code} value={option.code}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </label>
+          <a
+            className="rounded-full bg-slate-950 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200 sm:px-5"
+            href="/index.html"
+            onClick={openTradingApp}
+          >
+            {copy.getStarted}
+          </a>
+        </div>
       </header>
 
       <section
@@ -170,31 +217,31 @@ export default function Home() {
         <div>
           <MentavioLockup />
           <p className="mt-10 text-sm font-semibold uppercase tracking-[0.22em] text-emerald-600 dark:text-emerald-400">
-            Learn. Think. Grow.
+            {copy.tagline}
           </p>
           <h1 className="mt-5 max-w-4xl text-6xl font-semibold tracking-[-0.04em] text-slate-950 dark:text-white md:text-8xl">
             Mentavio
           </h1>
           <p className="mt-7 max-w-2xl text-xl leading-9 text-slate-600 dark:text-slate-300 md:text-2xl">
-            Build better decisions with AI.
+            {copy.heroLead}
           </p>
           <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600 dark:text-slate-300">
-            Mentavio combines investing, education, strategic thinking and
-            intelligent assistance into one platform.
+            {copy.heroDescription}
           </p>
           <div className="mt-10 flex flex-col gap-3 sm:flex-row">
             <a
               id="start"
               className="inline-flex items-center justify-center rounded-full bg-slate-950 px-7 py-4 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-slate-800 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200"
-              href={tradingAppUrl}
+              href="/index.html"
+              onClick={openTradingApp}
             >
-              Get Started
+              {copy.getStarted}
             </a>
             <a
               className="inline-flex items-center justify-center rounded-full border border-slate-200 px-7 py-4 text-sm font-semibold text-slate-800 transition hover:-translate-y-0.5 hover:border-slate-300 hover:bg-slate-50 dark:border-white/10 dark:text-white dark:hover:bg-white/[0.06]"
               href="#sophia"
             >
-              Meet Sophia
+              {copy.meetSophia}
             </a>
           </div>
         </div>
@@ -203,7 +250,7 @@ export default function Home() {
           <div className="mb-4 flex justify-end">
             <BrandWordmark />
           </div>
-          <SophiaPanel />
+          <SophiaPanel copy={copy} />
         </div>
       </section>
 
@@ -217,16 +264,14 @@ export default function Home() {
               Sophia
             </p>
             <h2 className="mt-4 text-4xl font-semibold tracking-[-0.03em] md:text-6xl">
-              Meet Sophia
+              {copy.meetSophia}
             </h2>
             <p className="mt-6 max-w-xl text-lg leading-8 text-slate-600 dark:text-slate-300">
-              Sophia is your intelligent companion. She is a knowledgeable guide
-              inside the Mentavio ecosystem, designed to help you understand,
-              compare, and improve decisions.
+              {copy.sophiaDescription}
             </p>
           </div>
           <div className="grid gap-3 sm:grid-cols-2">
-            {sophiaCapabilities.map((capability) => (
+            {copy.capabilities.map((capability) => (
               <div
                 className="rounded-2xl border border-slate-200 bg-white p-5 text-base font-medium text-slate-700 shadow-sm dark:border-white/10 dark:bg-white/[0.05] dark:text-slate-200"
                 key={capability}
@@ -244,14 +289,14 @@ export default function Home() {
       >
         <div className="max-w-3xl">
           <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-600 dark:text-emerald-400">
-            Why Mentavio?
+            {copy.whyMentavio}
           </p>
           <h2 className="mt-4 text-4xl font-semibold tracking-[-0.03em] md:text-6xl">
-            Better thinking becomes a platform.
+            {copy.visionTitle}
           </h2>
         </div>
         <div className="mt-12 grid gap-4 md:grid-cols-3">
-          {visionCards.map((card) => (
+          {copy.visionCards.map((card) => (
             <article
               className="rounded-[1.6rem] border border-slate-200 bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-xl dark:border-white/10 dark:bg-white/[0.05]"
               key={card.title}
@@ -273,29 +318,26 @@ export default function Home() {
           <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-400 dark:text-emerald-700">
-                Future ecosystem
+                {copy.futureEcosystem}
               </p>
               <h2 className="mt-4 text-4xl font-semibold tracking-[-0.03em] md:text-6xl">
-                Trading is one application. Thinking is the platform.
+                {copy.ecosystemTitle}
               </h2>
               <p className="mt-6 text-lg leading-8 text-slate-300 dark:text-slate-600">
-                Mentavio is designed to become an ecosystem for improving human
-                thinking across investing, learning, games, strategy, and AI
-                decision support.
+                {copy.ecosystemDescription}
               </p>
             </div>
             <div className="grid gap-3 sm:grid-cols-2">
-              {ecosystemModules.map((module) => (
+              {ecosystemModuleKeys.map((module) => (
                 <a
                   className="rounded-2xl border border-white/10 bg-white/[0.06] p-5 text-sm font-semibold dark:border-slate-200 dark:bg-slate-50"
-                  href={module === 'Investing' ? tradingAppUrl : '#ecosystem'}
+                  href={module === 'investing' ? '/index.html' : '#ecosystem'}
                   key={module}
+                  onClick={module === 'investing' ? openTradingApp : undefined}
                 >
-                  {module}
+                  {copy.modules[module]}
                   <span className="mt-2 block text-xs font-medium text-slate-400 dark:text-slate-500">
-                    {module === 'Investing'
-                      ? 'Open Trading Simulator'
-                      : 'Planned'}
+                    {module === 'investing' ? copy.openSimulator : copy.planned}
                   </span>
                 </a>
               ))}
@@ -310,14 +352,14 @@ export default function Home() {
             <p className="font-semibold text-slate-950 dark:text-white">
               Mentavio
             </p>
-            <p>Learn. Think. Grow.</p>
+            <p>{copy.tagline}</p>
           </div>
           <div className="flex gap-5">
-            <a href="#">Privacy</a>
-            <a href="#">Terms</a>
-            <a href="#">Contact</a>
+            <a href="#">{copy.privacy}</a>
+            <a href="#">{copy.terms}</a>
+            <a href="#">{copy.contact}</a>
           </div>
-          <p>Copyright © 2026 Mentavio.</p>
+          <p>{copy.copyright}</p>
         </div>
       </footer>
     </main>

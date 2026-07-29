@@ -15,6 +15,8 @@ async function bootstrap() {
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Request-Private-Network'],
   });
+  app.useStaticAssets(join(process.cwd(), 'public', '_next'), { prefix: '/_next/' });
+  app.useStaticAssets(join(process.cwd(), 'public', 'landing'), { prefix: '/landing/' });
   app.useStaticAssets(join(process.cwd(), 'public'), { prefix: '/game/' });
   await app.listen(process.env.PORT ?? 3000);
 }

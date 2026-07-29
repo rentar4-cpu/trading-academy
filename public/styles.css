@@ -157,6 +157,14 @@ h3 {
   text-transform: uppercase;
 }
 
+.page-brand .eyebrow {
+  margin-bottom: 5px;
+}
+
+.page-brand h1 {
+  max-width: 320px;
+}
+
 .player-strip {
   display: grid;
   grid-template-columns: auto minmax(160px, 220px) auto;
@@ -298,6 +306,10 @@ select {
   order: 1;
 }
 
+.market-home .sophia-mobile-link {
+  order: 2;
+}
+
 .market-home .ai-mentor-section {
   order: 2;
 }
@@ -312,6 +324,10 @@ select {
 
 .market-home .first-session-coach {
   order: 5;
+}
+
+.sophia-mobile-link {
+  display: none;
 }
 
 .ai-mentor-section {
@@ -2510,6 +2526,75 @@ td {
 
   .topbar .eyebrow {
     font-size: 10px;
+  }
+
+  .market-home .sophia-mobile-link {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 11px;
+    margin-top: 12px;
+    padding: 12px;
+    border: 1px solid rgba(16, 163, 127, 0.34);
+    border-radius: 10px;
+    background: rgba(16, 163, 127, 0.1);
+    color: var(--text);
+  }
+
+  .sophia-mobile-link strong,
+  .sophia-mobile-link small {
+    display: block;
+  }
+
+  .sophia-mobile-link small {
+    margin-top: 3px;
+    color: var(--muted);
+    font-size: 11px;
+  }
+
+  .sophia-mobile-avatar {
+    display: grid;
+    width: 36px;
+    height: 36px;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #07110f;
+    font-weight: 900;
+  }
+
+  .sophia-mobile-arrow {
+    color: var(--accent);
+    font-size: 20px;
+  }
+
+  .market-home .layout {
+    order: 3;
+  }
+
+  .market-home .ai-mentor-section {
+    order: 4;
+  }
+
+  .market-home .status-line {
+    order: 5;
+  }
+
+  .market-home .first-session-coach {
+    order: 6;
+  }
+
+  .first-session-coach {
+    position: static;
+    inset: auto;
+    width: 100%;
+    margin-top: 16px;
+  }
+
+  .mentavio-game-logo {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
   }
 
   .language-select,
