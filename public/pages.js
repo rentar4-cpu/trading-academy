@@ -607,6 +607,689 @@ const pageDataText = {
   },
 };
 
+const fixedPageTranslations = {
+  ru: {
+    language: 'Язык',
+    navMarket: 'Рынок',
+    navIntel: 'Аналитика',
+    navTrades: 'Сделки',
+    navNews: 'Новости',
+    navPortfolio: 'Портфель',
+    navStore: 'Магазин',
+    navAuth: 'Аккаунт',
+    brand: 'Торговая академия',
+    intelTitle: 'Аналитика рынка',
+    tradesTitle: 'Последние сделки',
+    portfolioTitle: 'Портфель',
+    storeTitle: 'Магазин',
+    signals: 'Сигналы',
+    tradingSignals: 'Торговые сигналы',
+    marketChart: 'График рынка',
+    priceMap: 'Карта цен',
+    chartChange: 'Изменение %',
+    marketOpen: 'Рынок открыт',
+    closesIn: 'Закрытие через',
+    tape: 'Лента',
+    tradeTape: 'Лента сделок',
+    noHistory: 'Сделок пока нет. Боты разогревают рынок.',
+    offers: 'Предложения',
+    currency: 'Токены',
+    customCash: 'Деньги сессии',
+    gameCash: 'Игровые деньги',
+    buyCash: 'Начать сессию',
+    customCashNote:
+      'Игровые деньги принадлежат только одной сессии и не продаются напрямую.',
+    cashPurchaseRecorded: 'Сессия начата с балансом: {amount}',
+    noPositions: 'Позиций пока нет',
+    noPlayer: 'Игрок не выбран',
+    createPlayerFirst: 'Сначала создайте игрока на странице рынка',
+    verifiedAccountRequired:
+      'Перед покупкой токенов зарегистрируйтесь и подтвердите email',
+    portfolioUpdated: 'Портфель обновлен',
+    marketIntelUpdated: 'Аналитика обновлена',
+    tradeTapeUpdated: 'Лента сделок обновлена',
+    storeLoaded: 'Магазин загружен',
+    purchaseRecorded: 'Токены добавлены: {amount}',
+    buyPressure: 'Давление покупок',
+    support: 'Поддержка',
+    companyProfile: 'Профиль компании',
+    sector: 'Сектор',
+    owner: 'Владелец',
+    workers: 'Работники',
+    opened: 'Открыта',
+    governmentSupport: 'Господдержка',
+    noSupport: 'Нет активной поддержки',
+    amount: 'Сумма',
+    tax: 'Налог',
+    loan: 'Кредит',
+    until: 'До',
+    risk: 'Риск',
+    tokens: 'токенов',
+    symbol: 'Тикер',
+    trader: 'Трейдер',
+    side: 'Сторона',
+    qty: 'Кол-во',
+    price: 'Цена',
+    value: 'Сумма',
+    avg: 'Средняя',
+    pnl: 'Приб./убыток',
+    cash: 'Кэш',
+    positions: 'Позиции',
+    credits: 'Токены',
+    netWorth: 'Капитал',
+    nextTick: 'След. тик',
+  },
+  he: {
+    language: 'שפה',
+    navMarket: 'שוק',
+    navIntel: 'מודיעין',
+    navTrades: 'עסקאות',
+    navNews: 'חדשות',
+    navPortfolio: 'תיק',
+    navStore: 'חנות',
+    navAuth: 'חשבון',
+    brand: 'אקדמיית מסחר',
+    intelTitle: 'מודיעין שוק',
+    tradesTitle: 'עסקאות אחרונות',
+    portfolioTitle: 'תיק',
+    storeTitle: 'חנות',
+    signals: 'אותות',
+    tradingSignals: 'אותות מסחר',
+    marketChart: 'גרף שוק',
+    priceMap: 'מפת מחירים',
+    chartChange: 'שינוי %',
+    marketOpen: 'השוק פתוח',
+    closesIn: 'נסגר בעוד',
+    tape: 'רצועה',
+    tradeTape: 'רצועת עסקאות',
+    noHistory: 'אין עדיין עסקאות. הבוטים מחממים את השוק.',
+    offers: 'הצעות',
+    currency: 'טוקנים',
+    customCash: 'כסף סשן',
+    gameCash: 'כסף משחק',
+    buyCash: 'התחל סשן',
+    customCashNote: 'כסף משחק שייך רק לסשן אחד ואינו נמכר ישירות.',
+    cashPurchaseRecorded: 'הסשן התחיל עם יתרה: {amount}',
+    noPositions: 'אין עדיין פוזיציות',
+    noPlayer: 'אין שחקן',
+    createPlayerFirst: 'צור קודם שחקן בעמוד השוק',
+    verifiedAccountRequired: 'יש להירשם ולאמת אימייל לפני קניית טוקנים',
+    portfolioUpdated: 'התיק עודכן',
+    marketIntelUpdated: 'מודיעין השוק עודכן',
+    tradeTapeUpdated: 'רצועת העסקאות עודכנה',
+    storeLoaded: 'החנות נטענה',
+    purchaseRecorded: 'נוספו טוקנים: {amount}',
+    buyPressure: 'לחץ קנייה',
+    support: 'תמיכה',
+    companyProfile: 'פרופיל חברה',
+    sector: 'סקטור',
+    owner: 'בעלים',
+    workers: 'עובדים',
+    opened: 'נפתחה',
+    governmentSupport: 'תמיכת מדינה',
+    noSupport: 'אין תמיכה פעילה',
+    amount: 'סכום',
+    tax: 'מס',
+    loan: 'הלוואה',
+    until: 'עד',
+    risk: 'סיכון',
+    tokens: 'טוקנים',
+    symbol: 'סימול',
+    trader: 'סוחר',
+    side: 'צד',
+    qty: 'כמות',
+    price: 'מחיר',
+    value: 'שווי',
+    avg: 'ממוצע',
+    pnl: 'רווח/הפסד',
+    cash: 'מזומן',
+    positions: 'פוזיציות',
+    credits: 'טוקנים',
+    netWorth: 'שווי כולל',
+    nextTick: 'טיק הבא',
+  },
+  de: {
+    language: 'Sprache',
+    navMarket: 'Markt',
+    navIntel: 'Analyse',
+    navTrades: 'Trades',
+    navNews: 'Nachrichten',
+    navPortfolio: 'Depot',
+    navStore: 'Shop',
+    navAuth: 'Konto',
+    brand: 'Handelsakademie',
+    intelTitle: 'Marktanalyse',
+    tradesTitle: 'Letzte Trades',
+    portfolioTitle: 'Depot',
+    storeTitle: 'Shop',
+    signals: 'Signale',
+    tradingSignals: 'Trading-Signale',
+    marketChart: 'Marktchart',
+    priceMap: 'Preiskarte',
+    chartChange: 'Änderung %',
+    marketOpen: 'Markt offen',
+    closesIn: 'Schließt in',
+    tape: 'Band',
+    tradeTape: 'Trade-Band',
+    noHistory: 'Noch keine Trades. Bots wärmen den Markt auf.',
+    offers: 'Angebote',
+    currency: 'Token',
+    customCash: 'Sitzungsgeld',
+    gameCash: 'Spielgeld',
+    buyCash: 'Sitzung starten',
+    customCashNote:
+      'Spielgeld gehört nur zu einer Sitzung und wird nicht direkt verkauft.',
+    cashPurchaseRecorded: 'Sitzung mit Bargeld gestartet: {amount}',
+    noPositions: 'Noch keine Positionen',
+    noPlayer: 'Kein Spieler',
+    createPlayerFirst: 'Erstelle zuerst einen Spieler auf der Marktseite',
+    verifiedAccountRequired:
+      'Registriere dich und bestätige die E-Mail, bevor du Token kaufst',
+    portfolioUpdated: 'Depot aktualisiert',
+    marketIntelUpdated: 'Marktanalyse aktualisiert',
+    tradeTapeUpdated: 'Trade-Band aktualisiert',
+    storeLoaded: 'Shop geladen',
+    purchaseRecorded: 'Token hinzugefügt: {amount}',
+    buyPressure: 'Kaufdruck',
+    support: 'Unterstützung',
+    companyProfile: 'Firmenprofil',
+    sector: 'Sektor',
+    owner: 'Eigentümer',
+    workers: 'Mitarbeiter',
+    opened: 'Gegründet',
+    governmentSupport: 'Staatliche Unterstützung',
+    noSupport: 'Keine aktive Unterstützung',
+    amount: 'Betrag',
+    tax: 'Steuer',
+    loan: 'Kredit',
+    until: 'Bis',
+    risk: 'Risiko',
+    tokens: 'Token',
+    symbol: 'Ticker',
+    trader: 'Trader',
+    side: 'Seite',
+    qty: 'Menge',
+    price: 'Preis',
+    value: 'Wert',
+    avg: 'Durchschn.',
+    pnl: 'Gewinn/Verlust',
+    cash: 'Bargeld',
+    positions: 'Positionen',
+    credits: 'Token',
+    netWorth: 'Nettovermögen',
+    nextTick: 'Nächster Tick',
+  },
+  fr: {
+    language: 'Langue',
+    navMarket: 'Marché',
+    navIntel: 'Analyse',
+    navTrades: 'Trades',
+    navNews: 'Infos',
+    navPortfolio: 'Portefeuille',
+    navStore: 'Boutique',
+    navAuth: 'Compte',
+    brand: 'Académie de trading',
+    intelTitle: 'Analyse du marché',
+    tradesTitle: 'Trades récents',
+    portfolioTitle: 'Portefeuille',
+    storeTitle: 'Boutique',
+    signals: 'Signaux',
+    tradingSignals: 'Signaux de trading',
+    marketChart: 'Graphique du marché',
+    priceMap: 'Carte des prix',
+    chartChange: 'Variation %',
+    marketOpen: 'Marché ouvert',
+    closesIn: 'Ferme dans',
+    tape: 'Ruban',
+    tradeTape: 'Ruban des trades',
+    noHistory: 'Aucun trade pour le moment. Les bots animent le marché.',
+    offers: 'Offres',
+    currency: 'Jetons',
+    customCash: 'Argent de session',
+    gameCash: 'Argent du jeu',
+    buyCash: 'Démarrer session',
+    customCashNote:
+      "L'argent du jeu appartient à une seule session et n'est pas vendu directement.",
+    cashPurchaseRecorded: 'Session démarrée avec : {amount}',
+    noPositions: 'Aucune position',
+    noPlayer: 'Aucun joueur',
+    createPlayerFirst: "Créez d'abord un joueur sur la page Marché",
+    verifiedAccountRequired:
+      "Inscrivez-vous et confirmez l'email avant d'acheter des jetons",
+    portfolioUpdated: 'Portefeuille mis à jour',
+    marketIntelUpdated: 'Analyse mise à jour',
+    tradeTapeUpdated: 'Ruban des trades mis à jour',
+    storeLoaded: 'Boutique chargée',
+    purchaseRecorded: 'Jetons ajoutés : {amount}',
+    buyPressure: 'Pression acheteuse',
+    support: 'Soutien',
+    companyProfile: 'Profil société',
+    sector: 'Secteur',
+    owner: 'Propriétaire',
+    workers: 'Employés',
+    opened: 'Créée',
+    governmentSupport: 'Soutien public',
+    noSupport: 'Aucun soutien actif',
+    amount: 'Montant',
+    tax: 'Impôt',
+    loan: 'Crédit',
+    until: "Jusqu'à",
+    risk: 'Risque',
+    tokens: 'jetons',
+    symbol: 'Symbole',
+    trader: 'Trader',
+    side: 'Côté',
+    qty: 'Qté',
+    price: 'Prix',
+    value: 'Valeur',
+    avg: 'Moy.',
+    pnl: 'Gain/perte',
+    cash: 'Liquidités',
+    positions: 'Positions',
+    credits: 'Jetons',
+    netWorth: 'Valeur nette',
+    nextTick: 'Prochain tick',
+  },
+};
+
+Object.entries(fixedPageTranslations).forEach(([language, values]) => {
+  Object.assign(pageTranslations[language], values);
+});
+
+const fixedPageDataText = {
+  signals: {
+    'Thin history': {
+      ru: 'Мало истории',
+      he: 'היסטוריה דקה',
+      de: 'Dünne Historie',
+      fr: 'Historique limité',
+    },
+    Momentum: { ru: 'Импульс', he: 'מומנטום', de: 'Momentum', fr: 'Momentum' },
+    Caution: { ru: 'Осторожно', he: 'זהירות', de: 'Vorsicht', fr: 'Prudence' },
+    Accumulation: {
+      ru: 'Накопление',
+      he: 'צבירה',
+      de: 'Akkumulation',
+      fr: 'Accumulation',
+    },
+    Distribution: {
+      ru: 'Распределение',
+      he: 'פיזור',
+      de: 'Distribution',
+      fr: 'Distribution',
+    },
+    Balanced: {
+      ru: 'Баланс',
+      he: 'מאוזן',
+      de: 'Ausgewogen',
+      fr: 'Équilibré',
+    },
+    'State-backed': {
+      ru: 'Поддержка государства',
+      he: 'נתמך מדינה',
+      de: 'Staatlich gestützt',
+      fr: "Soutenu par l'État",
+    },
+  },
+  offers: {
+    'Starter Pack': {
+      ru: 'Стартовый пакет',
+      he: 'חבילת התחלה',
+      de: 'Starter-Paket',
+      fr: 'Pack de départ',
+    },
+    'Adds 250 permanent tokens to the verified account.': {
+      ru: 'Добавляет 250 постоянных токенов на подтвержденный аккаунт.',
+      he: 'מוסיף 250 טוקנים קבועים לחשבון מאומת.',
+      de: 'Fügt dem bestätigten Konto 250 dauerhafte Token hinzu.',
+      fr: 'Ajoute 250 jetons permanents au compte vérifié.',
+    },
+    'Trader Pack': {
+      ru: 'Пакет трейдера',
+      he: 'חבילת סוחר',
+      de: 'Trader-Paket',
+      fr: 'Pack trader',
+    },
+    'Adds 800 permanent tokens for sessions, modes, and future features.': {
+      ru: 'Добавляет 800 постоянных токенов для сессий, режимов и будущих функций.',
+      he: 'מוסיף 800 טוקנים קבועים לסשנים, מצבים ופיצרים עתידיים.',
+      de: 'Fügt 800 dauerhafte Token für Sitzungen, Modi und künftige Funktionen hinzu.',
+      fr: 'Ajoute 800 jetons permanents pour les sessions, modes et futures fonctions.',
+    },
+    'Investor Pack': {
+      ru: 'Пакет инвестора',
+      he: 'חבילת משקיע',
+      de: 'Investor-Paket',
+      fr: 'Pack investisseur',
+    },
+    'Adds 2,200 permanent tokens for premium progression.': {
+      ru: 'Добавляет 2 200 постоянных токенов для премиального прогресса.',
+      he: 'מוסיף 2,200 טוקנים קבועים להתקדמות פרימיום.',
+      de: 'Fügt 2.200 dauerhafte Token für Premium-Fortschritt hinzu.',
+      fr: 'Ajoute 2 200 jetons permanents pour la progression premium.',
+    },
+  },
+  descriptions: {
+    'Makes inspection drones for ports, farms, and construction sites with long-range sensors.': {
+      ru: 'Производит инспекционные дроны с дальними сенсорами для портов, ферм и строительных объектов.',
+    },
+    'Builds driver-assistance software and fleet safety analytics.': {
+      ru: 'Разрабатывает ПО помощи водителю и аналитику безопасности автопарков.',
+    },
+    'Serves households and municipal projects with conservative lending.': {
+      ru: 'Обслуживает домохозяйства и муниципальные проекты через консервативное кредитование.',
+    },
+    'Operates a digital-first commercial bank for small companies.': {
+      ru: 'Управляет цифровым коммерческим банком для малых компаний.',
+    },
+    'Publishes competitive mobile games and live-service economies for esports fans.': {
+      ru: 'Выпускает соревновательные мобильные игры и live-service экономики для фанатов киберспорта.',
+    },
+    'Designs sensor chips for drones, vehicles, and factory robots.': {
+      ru: 'Проектирует сенсорные чипы для дронов, транспорта и заводских роботов.',
+    },
+    'Provides cloud hosting, data warehousing, and AI compute clusters.': {
+      ru: 'Предоставляет облачный хостинг, хранилища данных и вычислительные кластеры для AI.',
+    },
+    'Fabricates low-power processors for mobile devices and robots.': {
+      ru: 'Производит энергоэффективные процессоры для мобильных устройств и роботов.',
+    },
+    'Runs virtual trial recruitment and biomarker matching for clinics.': {
+      ru: 'Организует виртуальный набор в клинические испытания и подбор биомаркеров для клиник.',
+    },
+    'Protects small businesses with endpoint defense, password audits, and incident response.': {
+      ru: 'Защищает малый бизнес через endpoint-защиту, аудит паролей и реагирование на инциденты.',
+    },
+    'Secures enterprise backups and analytics workloads across regulated industries.': {
+      ru: 'Защищает корпоративные резервные копии и аналитические нагрузки в регулируемых отраслях.',
+    },
+    'Sells learning platforms, exams, and analytics dashboards to schools and bootcamps.': {
+      ru: 'Продает учебные платформы, экзамены и аналитические панели школам и буткемпам.',
+    },
+    'Runs vertical farms and crop analytics for supermarkets seeking local produce supply.': {
+      ru: 'Управляет вертикальными фермами и аналитикой урожая для супермаркетов с локальными поставками.',
+    },
+    'Provides simulated payment rails, fraud scoring, and merchant settlement tools.': {
+      ru: 'Предоставляет платежную инфраструктуру, скоринг мошенничества и расчеты для мерчантов.',
+    },
+    'Produces lightweight insulation panels and recyclable packaging materials.': {
+      ru: 'Производит легкие изоляционные панели и перерабатываемые упаковочные материалы.',
+    },
+    'Develops gene-screening platforms and targeted trial analytics.': {
+      ru: 'Разрабатывает платформы генетического скрининга и аналитику целевых испытаний.',
+    },
+    'Mines precious and industrial metals for electronics and energy storage.': {
+      ru: 'Добывает драгоценные и промышленные металлы для электроники и накопителей энергии.',
+    },
+    'Produces hydrogen fuel cells and storage modules for industrial sites.': {
+      ru: 'Производит водородные топливные элементы и модули хранения для промышленных объектов.',
+    },
+    'Sells smart home subscriptions, appliances, and lifestyle services.': {
+      ru: 'Продает подписки для умного дома, бытовую технику и lifestyle-сервисы.',
+    },
+    'Offers AI tutoring, certification exams, and workforce reskilling platforms.': {
+      ru: 'Предлагает AI-репетиторов, сертификационные экзамены и платформы переобучения сотрудников.',
+    },
+    'Runs premium lifestyle stores and a direct-to-consumer brand marketplace.': {
+      ru: 'Управляет премиальными lifestyle-магазинами и маркетплейсом брендов для покупателей.',
+    },
+    'Runs modular factories for medical devices, vehicles, and industrial parts.': {
+      ru: 'Управляет модульными фабриками для медицинских устройств, транспорта и промышленных деталей.',
+    },
+    'Manufactures industrial robot arms for factories and warehouses.': {
+      ru: 'Производит промышленные роботизированные манипуляторы для заводов и складов.',
+    },
+    'Develops diagnostic lab tools and AI-assisted screening kits for clinics.': {
+      ru: 'Разрабатывает диагностические лабораторные инструменты и AI-наборы скрининга для клиник.',
+    },
+    'Extracts industrial metals used in batteries, solar panels, and robotics.': {
+      ru: 'Добывает промышленные металлы для батарей, солнечных панелей и робототехники.',
+    },
+    'Builds reusable launch stages and lunar logistics simulation software.': {
+      ru: 'Создает многоразовые ракетные ступени и ПО симуляции лунной логистики.',
+    },
+    'Builds autonomous warehouse robots and machine-vision systems for logistics companies.': {
+      ru: 'Создает автономных складских роботов и системы машинного зрения для логистических компаний.',
+    },
+    'Coordinates container routes, port scheduling, and fuel optimization for regional fleets.': {
+      ru: 'Координирует контейнерные маршруты, расписание портов и оптимизацию топлива для региональных флотов.',
+    },
+    'Launches small satellites and leases orbital communication capacity.': {
+      ru: 'Запускает малые спутники и сдает в аренду орбитальные коммуникационные мощности.',
+    },
+    'Optimizes rail freight scheduling and warehouse transfers.': {
+      ru: 'Оптимизирует расписание железнодорожных грузов и складские перегрузки.',
+    },
+    'Provides instant settlement rails for global merchants and creators.': {
+      ru: 'Предоставляет мгновенные расчеты для глобальных мерчантов и авторов.',
+    },
+    'Creates cross-platform strategy games with collectible cosmetic markets.': {
+      ru: 'Создает кроссплатформенные стратегические игры с рынками коллекционной косметики.',
+    },
+    'Builds market simulation engines and enterprise forecasting tools.': {
+      ru: 'Создает движки рыночной симуляции и корпоративные инструменты прогнозирования.',
+    },
+    'Produces field robots for mines, farms, and disaster response teams.': {
+      ru: 'Производит полевых роботов для шахт, ферм и команд реагирования на катастрофы.',
+    },
+    'Develops climate-resistant seeds and farm planning software.': {
+      ru: 'Разрабатывает устойчивые к климату семена и ПО планирования ферм.',
+    },
+    'Monitors cloud identity, ransomware risk, and national infrastructure endpoints.': {
+      ru: 'Мониторит облачные идентичности, риск ransomware и endpoints национальной инфраструктуры.',
+    },
+    'Operates neighborhood commerce software and same-day delivery marketplaces.': {
+      ru: 'Управляет ПО локальной торговли и маркетплейсами доставки в тот же день.',
+    },
+    'Operates smart solar microgrids and battery balancing software for midsize cities.': {
+      ru: 'Управляет умными солнечными микросетями и ПО балансировки батарей для средних городов.',
+    },
+    'Runs regional fiber networks and private 5G infrastructure.': {
+      ru: 'Управляет региональными оптоволоконными сетями и частной 5G-инфраструктурой.',
+    },
+    'Builds compact electric delivery vehicles for urban fleets.': {
+      ru: 'Производит компактные электрические машины доставки для городских автопарков.',
+    },
+    'Builds emergency network towers and resilient wireless coverage.': {
+      ru: 'Строит аварийные сетевые вышки и устойчивое беспроводное покрытие.',
+    },
+  },
+  sides: {
+    buy: { en: 'BUY', ru: 'Купить', he: 'קנייה', de: 'Kauf', fr: 'Achat' },
+    sell: {
+      en: 'SELL',
+      ru: 'Продать',
+      he: 'מכירה',
+      de: 'Verkauf',
+      fr: 'Vente',
+    },
+  },
+  sectors: {
+    AI: { ru: 'ИИ', he: 'בינה מלאכותית', de: 'KI', fr: 'IA' },
+    Energy: { ru: 'Энергетика', he: 'אנרגיה', de: 'Energie', fr: 'Énergie' },
+    Healthcare: {
+      ru: 'Здравоохранение',
+      he: 'בריאות',
+      de: 'Gesundheit',
+      fr: 'Santé',
+    },
+    Gaming: { ru: 'Игры', he: 'משחקים', de: 'Gaming', fr: 'Jeux' },
+    Aerospace: {
+      ru: 'Аэрокосмос',
+      he: 'תעופה וחלל',
+      de: 'Luft- und Raumfahrt',
+      fr: 'Aérospatial',
+    },
+    Space: { ru: 'Космос', he: 'חלל', de: 'Weltraum', fr: 'Espace' },
+    Agriculture: {
+      ru: 'Сельское хозяйство',
+      he: 'חקלאות',
+      de: 'Landwirtschaft',
+      fr: 'Agriculture',
+    },
+    Fintech: { ru: 'Финтех', he: 'פינטק', de: 'Fintech', fr: 'Fintech' },
+    Education: { ru: 'Образование', he: 'חינוך', de: 'Bildung', fr: 'Éducation' },
+    Cybersecurity: {
+      ru: 'Кибербезопасность',
+      he: 'סייבר',
+      de: 'Cybersicherheit',
+      fr: 'Cybersécurité',
+    },
+    Logistics: { ru: 'Логистика', he: 'לוגיסטיקה', de: 'Logistik', fr: 'Logistique' },
+    Manufacturing: {
+      ru: 'Производство',
+      he: 'ייצור',
+      de: 'Produktion',
+      fr: 'Industrie',
+    },
+    Retail: { ru: 'Ритейл', he: 'קמעונאות', de: 'Einzelhandel', fr: 'Commerce' },
+    Consumer: {
+      ru: 'Потребительский сектор',
+      he: 'צרכנות',
+      de: 'Konsum',
+      fr: 'Consommation',
+    },
+    Robotics: { ru: 'Робототехника', he: 'רובוטיקה', de: 'Robotik', fr: 'Robotique' },
+    Banking: { ru: 'Банки', he: 'בנקאות', de: 'Banken', fr: 'Banque' },
+    Biotech: { ru: 'Биотех', he: 'ביוטק', de: 'Biotech', fr: 'Biotech' },
+    Semiconductor: {
+      ru: 'Полупроводники',
+      he: 'שבבים',
+      de: 'Halbleiter',
+      fr: 'Semi-conducteurs',
+    },
+    Automotive: { ru: 'Автомобили', he: 'רכב', de: 'Automobil', fr: 'Automobile' },
+    Telecom: { ru: 'Телеком', he: 'תקשורת', de: 'Telekom', fr: 'Télécom' },
+    Mining: { ru: 'Добыча', he: 'כרייה', de: 'Bergbau', fr: 'Mines' },
+    Cloud: { ru: 'Облако', he: 'ענן', de: 'Cloud', fr: 'Cloud' },
+  },
+  supportTypes: {
+    none: { ru: 'нет', he: 'אין', de: 'keine', fr: 'aucun' },
+    'R&D grant': {
+      ru: 'Грант на исследования',
+      he: 'מענק מו"פ',
+      de: 'Forschungszuschuss',
+      fr: 'Subvention R&D',
+    },
+    'Green energy tax credit': {
+      ru: 'Налоговая льгота на зеленую энергию',
+      he: 'זיכוי מס לאנרגיה ירוקה',
+      de: 'Steuergutschrift für grüne Energie',
+      fr: 'Crédit d’impôt énergie verte',
+    },
+    'Health innovation grant': {
+      ru: 'Грант на медицинские инновации',
+      he: 'מענק חדשנות בריאות',
+      de: 'Zuschuss für Gesundheitsinnovation',
+      fr: 'Subvention innovation santé',
+    },
+    'Defense supplier credit line': {
+      ru: 'Кредитная линия оборонного поставщика',
+      he: 'קו אשראי לספק ביטחוני',
+      de: 'Kreditlinie für Verteidigungslieferanten',
+      fr: 'Ligne de crédit fournisseur défense',
+    },
+    'Food security subsidy': {
+      ru: 'Субсидия продовольственной безопасности',
+      he: 'סבסוד ביטחון מזון',
+      de: 'Subvention für Ernährungssicherheit',
+      fr: 'Subvention sécurité alimentaire',
+    },
+    'Education modernization tender': {
+      ru: 'Тендер модернизации образования',
+      he: 'מכרז מודרניזציה לחינוך',
+      de: 'Ausschreibung Bildungsmodernisierung',
+      fr: 'Appel d’offres modernisation éducation',
+    },
+    'Critical infrastructure contract': {
+      ru: 'Контракт критической инфраструктуры',
+      he: 'חוזה תשתית קריטית',
+      de: 'Vertrag für kritische Infrastruktur',
+      fr: 'Contrat infrastructure critique',
+    },
+    'Port logistics loan': {
+      ru: 'Кредит на портовую логистику',
+      he: 'הלוואת לוגיסטיקת נמלים',
+      de: 'Kredit für Hafenlogistik',
+      fr: 'Prêt logistique portuaire',
+    },
+    'Manufacturing tax relief': {
+      ru: 'Налоговая льгота для производства',
+      he: 'הקלת מס לייצור',
+      de: 'Steuererleichterung Produktion',
+      fr: 'Allègement fiscal industriel',
+    },
+    'Road safety pilot': { ru: 'Пилот безопасности дорог' },
+    'Municipal lending guarantee': {
+      ru: 'Гарантия муниципального кредитования',
+    },
+    'Domestic chip subsidy': { ru: 'Субсидия на отечественные чипы' },
+    'Chip fabrication tax credit': {
+      ru: 'Налоговая льгота на производство чипов',
+    },
+    'Clinical data grant': { ru: 'Грант на клинические данные' },
+    'Critical data hosting contract': {
+      ru: 'Контракт хостинга критических данных',
+    },
+    'Biotech research grant': { ru: 'Грант на биотех-исследования' },
+    'Hydrogen transition subsidy': {
+      ru: 'Субсидия водородного перехода',
+    },
+    'Workforce reskilling tender': {
+      ru: 'Тендер на переобучение персонала',
+    },
+    'Factory resilience loan': {
+      ru: 'Кредит на устойчивость фабрик',
+    },
+    'Automation loan': { ru: 'Кредит на автоматизацию' },
+    'Strategic minerals permit': {
+      ru: 'Разрешение на стратегические минералы',
+    },
+    'Exploration milestone grant': {
+      ru: 'Грант на этап геологоразведки',
+    },
+    'Satellite security contract': {
+      ru: 'Контракт спутниковой безопасности',
+    },
+    'Freight corridor loan': {
+      ru: 'Кредит на грузовой коридор',
+    },
+    'AI safety grant': { ru: 'Грант на безопасность AI' },
+    'Disaster robotics grant': {
+      ru: 'Грант на робототехнику для катастроф',
+    },
+    'Climate agriculture grant': {
+      ru: 'Грант на климатическое сельское хозяйство',
+    },
+    'Infrastructure defense contract': {
+      ru: 'Контракт защиты инфраструктуры',
+    },
+    'Rural broadband grant': {
+      ru: 'Грант на сельский broadband',
+    },
+    'EV tax credit': { ru: 'Налоговая льгота на электромобили' },
+    'Emergency network support': {
+      ru: 'Поддержка аварийной сети',
+    },
+  },
+  risks: {
+    none: { ru: 'нет', he: 'אין', de: 'kein', fr: 'aucun' },
+    low: { ru: 'низкий', he: 'נמוך', de: 'niedrig', fr: 'faible' },
+    medium: { ru: 'средний', he: 'בינוני', de: 'mittel', fr: 'moyen' },
+    high: { ru: 'высокий', he: 'גבוה', de: 'hoch', fr: 'élevé' },
+  },
+};
+
+Object.entries(fixedPageDataText).forEach(([group, entries]) => {
+  pageDataText[group] = pageDataText[group] || {};
+  Object.entries(entries).forEach(([key, values]) => {
+    pageDataText[group][key] = {
+      ...(pageDataText[group][key] || {}),
+      ...values,
+    };
+  });
+});
+
 function dataText(group, key) {
   if (!key) return '';
   return pageDataText[group]?.[key]?.[currentLanguage] || key;
@@ -661,6 +1344,16 @@ function addLanguageSelect() {
   topbar.appendChild(label);
 
   const select = label.querySelector('select');
+  const optionLabels = {
+    en: 'English',
+    ru: 'Русский',
+    he: 'עברית',
+    de: 'Deutsch',
+    fr: 'Français',
+  };
+  select.querySelectorAll('option').forEach((option) => {
+    option.textContent = optionLabels[option.value] || option.textContent;
+  });
   select.value = currentLanguage;
   select.addEventListener('change', () => {
     currentLanguage = select.value;
@@ -733,6 +1426,7 @@ function translatePageLabels() {
       ['.page-panel .eyebrow', 'tape'],
       ['.page-panel h2', 'tradeTape'],
     ],
+    portfolio: [['.page-panel .eyebrow', 'portfolioTitle']],
     store: [
       ['.page-panel .eyebrow', 'navStore'],
       ['.page-panel h2', 'offers'],
@@ -1129,7 +1823,7 @@ function renderIntel(history) {
             </div>
             <b class="${change >= 0 ? 'gain' : 'loss'}">${change >= 0 ? '+' : ''}${change.toFixed(2)}%</b>
           </div>
-          <p class="intel-description">${item.description || ''}</p>
+          <p class="intel-description">${dataText('descriptions', item.description) || ''}</p>
           <div class="pressure-track" aria-label="Buy pressure">
             <i style="width: ${Math.max(0, Math.min(100, pressure))}%"></i>
           </div>
