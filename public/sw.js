@@ -1,4 +1,4 @@
-const CACHE_NAME = 'market-simulator-v41';
+const CACHE_NAME = 'market-simulator-v42';
 const APP_SHELL = [
   '/game/',
   '/game/index.html',
@@ -50,6 +50,27 @@ self.addEventListener('fetch', (event) => {
 
   if (url.pathname.startsWith('/market/')) {
     event.respondWith(fetch(event.request));
+    return;
+  }
+
+  const shouldRefresh =
+    event.request.mode === 'navigate' ||
+    ['document', 'script', 'style', 'worker'].includes(
+      event.request.destination,
+    );
+
+  if (shouldRefresh) {
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          const cachedResponse = response.clone();
+          caches
+            .open(CACHE_NAME)
+            .then((cache) => cache.put(event.request, cachedResponse));
+          return response;
+        })
+        .catch(() => caches.match(event.request)),
+    );
     return;
   }
 

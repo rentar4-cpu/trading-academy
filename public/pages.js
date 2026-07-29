@@ -1474,6 +1474,31 @@ function translateTables() {
     const netWorth = document.querySelector('.metric span');
     if (netWorth) netWorth.textContent = tr('netWorth');
   }
+
+  syncResponsiveTableLabels();
+}
+
+function syncResponsiveTableLabels() {
+  document.querySelectorAll('.page-panel table').forEach((table) => {
+    const labels = Array.from(table.querySelectorAll('thead th'), (header) =>
+      header.textContent.trim(),
+    );
+
+    table.querySelectorAll('tbody tr').forEach((row) => {
+      const cells = Array.from(row.querySelectorAll('td'));
+      const isEmptyState =
+        cells.length === 1 && cells[0].hasAttribute('colspan');
+
+      row.classList.toggle('mobile-table-empty', isEmptyState);
+      cells.forEach((cell, index) => {
+        if (isEmptyState) {
+          cell.removeAttribute('data-label');
+          return;
+        }
+        cell.dataset.label = labels[index] || '';
+      });
+    });
+  });
 }
 
 function numberValue(value) {
@@ -1908,6 +1933,7 @@ function renderTrades(history) {
   const root = document.querySelector('#recentTradesBody');
   if (!history.trades?.length) {
     root.innerHTML = `<tr><td colspan="6">${tr('noHistory')}</td></tr>`;
+    syncResponsiveTableLabels();
     return;
   }
 
@@ -1925,6 +1951,7 @@ function renderTrades(history) {
       `,
     )
     .join('');
+  syncResponsiveTableLabels();
 }
 
 function renderPortfolio(portfolio) {
@@ -1947,6 +1974,7 @@ function renderPortfolio(portfolio) {
   const body = document.querySelector('#positionsBody');
   if (!portfolio.positions.length) {
     body.innerHTML = `<tr><td colspan="5">${tr('noPositions')}</td></tr>`;
+    syncResponsiveTableLabels();
     return;
   }
 
@@ -1964,6 +1992,7 @@ function renderPortfolio(portfolio) {
       `;
     })
     .join('');
+  syncResponsiveTableLabels();
 }
 
 async function shareText(payload) {

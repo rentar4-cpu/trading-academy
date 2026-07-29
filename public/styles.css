@@ -2742,6 +2742,98 @@ td {
     display: none;
   }
 
+  body[data-page='trades'] .table-wrap,
+  body[data-page='portfolio'] .table-wrap {
+    display: block;
+    margin-top: 14px;
+    overflow: visible;
+    border: 0;
+    background: transparent;
+  }
+
+  body[data-page='trades'] .table-wrap table,
+  body[data-page='portfolio'] .table-wrap table {
+    display: block;
+    width: 100%;
+    min-width: 0;
+  }
+
+  body[data-page='trades'] .table-wrap thead,
+  body[data-page='portfolio'] .table-wrap thead {
+    display: none;
+  }
+
+  body[data-page='trades'] .table-wrap tbody,
+  body[data-page='portfolio'] .table-wrap tbody {
+    display: grid;
+    gap: 10px;
+    width: 100%;
+  }
+
+  body[data-page='trades'] .table-wrap tr,
+  body[data-page='portfolio'] .table-wrap tr {
+    display: grid;
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #11191a;
+  }
+
+  body[data-page='trades'] .table-wrap td,
+  body[data-page='portfolio'] .table-wrap td {
+    display: grid;
+    grid-template-columns: minmax(88px, 0.72fr) minmax(0, 1fr);
+    gap: 12px;
+    align-items: center;
+    min-width: 0;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    text-align: end;
+    overflow-wrap: anywhere;
+  }
+
+  body[data-page='trades'] .table-wrap td:last-child,
+  body[data-page='portfolio'] .table-wrap td:last-child {
+    border-bottom: 0;
+  }
+
+  body[data-page='trades'] .table-wrap td::before,
+  body[data-page='portfolio'] .table-wrap td::before {
+    content: attr(data-label);
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 900;
+    text-align: start;
+    text-transform: uppercase;
+  }
+
+  body[data-page='trades'] .table-wrap .symbol-cell,
+  body[data-page='portfolio'] .table-wrap .symbol-cell {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 900;
+  }
+
+  body[data-page='trades'] .table-wrap tr.mobile-table-empty,
+  body[data-page='portfolio'] .table-wrap tr.mobile-table-empty {
+    display: block;
+  }
+
+  body[data-page='trades'] .table-wrap tr.mobile-table-empty td,
+  body[data-page='portfolio'] .table-wrap tr.mobile-table-empty td {
+    display: block;
+    padding: 16px 4px;
+    border: 0;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  body[data-page='trades'] .table-wrap tr.mobile-table-empty td::before,
+  body[data-page='portfolio'] .table-wrap tr.mobile-table-empty td::before {
+    display: none;
+  }
+
   .trade-panel {
     position: static;
   }
