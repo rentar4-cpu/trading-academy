@@ -34,6 +34,9 @@ const translations = {
     exchangeFloor: 'Exchange Floor',
     autoMarket: 'Auto market',
     marketChart: 'Market Chart',
+    marketPulse: 'Market Pulse',
+    marketPulseHint: 'Selected company and the strongest market moves.',
+    openIntel: 'Open Intel',
     pulseNow: 'Pulse Now',
     liveSimulation: 'Live simulation',
     marketOpen: 'Market open',
@@ -162,6 +165,9 @@ const translations = {
     exchangeFloor: 'Биржевая площадка',
     autoMarket: 'Авторынок',
     marketChart: 'График рынка',
+    marketPulse: 'Пульс рынка',
+    marketPulseHint: 'Выбранная компания и самые сильные движения рынка.',
+    openIntel: 'Открыть аналитику',
     pulseNow: 'Тик сейчас',
     liveSimulation: 'Живая симуляция',
     marketOpen: 'Рынок открыт',
@@ -290,6 +296,9 @@ const translations = {
     exchangeFloor: 'זירת מסחר',
     autoMarket: 'שוק אוטומטי',
     marketChart: 'גרף שוק',
+    marketPulse: 'דופק השוק',
+    marketPulseHint: 'החברה שנבחרה והתנועות החזקות ביותר בשוק.',
+    openIntel: 'פתח מודיעין',
     pulseNow: 'פעימה עכשיו',
     liveSimulation: 'סימולציה חיה',
     marketOpen: 'השוק פתוח',
@@ -415,6 +424,9 @@ const translations = {
     exchangeFloor: 'Börsenfläche',
     autoMarket: 'Automarkt',
     marketChart: 'Marktchart',
+    marketPulse: 'Marktimpuls',
+    marketPulseHint: 'Ausgewählte Firma und die stärksten Marktbewegungen.',
+    openIntel: 'Analyse öffnen',
     pulseNow: 'Tick jetzt',
     liveSimulation: 'Live-Simulation',
     marketOpen: 'Markt offen',
@@ -545,6 +557,9 @@ const translations = {
     exchangeFloor: 'Salle de marché',
     autoMarket: 'Marché auto',
     marketChart: 'Graphique du marché',
+    marketPulse: 'Pouls du marché',
+    marketPulseHint: 'Société sélectionnée et mouvements les plus forts du marché.',
+    openIntel: 'Ouvrir l’analyse',
     pulseNow: 'Tick manuel',
     liveSimulation: 'Simulation en direct',
     marketOpen: 'Marché ouvert',
@@ -1320,28 +1335,73 @@ function drawMarket() {
 
   if (state.companies.length === 0) return;
 
-  const maxPrice = Math.max(
-    ...state.companies.map((company) => numberValue(company.price)),
+  const limit = width < 640 ? 6 : 10;
+  const selected = state.companies.find(
+    (company) => company.symbol === state.selectedSymbol,
   );
-  const barWidth = width / state.companies.length;
+  const movers = [...state.companies]
+    .sort(
+      (first, second) =>
+        Math.abs(changePercent(second)) - Math.abs(changePercent(first)),
+    )
+    .slice(0, limit);
+  const chartCompanies =
+    selected && !movers.some((company) => company.symbol === selected.symbol)
+      ? [selected, ...movers].slice(0, limit)
+      : movers;
+  const maxMove = Math.max(
+    1,
+    ...chartCompanies.map((company) => Math.abs(changePercent(company))),
+  );
+  const zeroY = Math.round(height * 0.5);
+  const chartTop = 28;
+  const chartBottom = height - 42;
+  const barSlot = width / chartCompanies.length;
+  const barWidth = Math.min(46, Math.max(28, barSlot * 0.46));
 
-  state.companies.forEach((company, index) => {
-    const price = numberValue(company.price);
-    const barHeight = Math.max(20, (price / maxPrice) * (height - 52));
-    const x = index * barWidth + 26;
-    const y = height - barHeight - 30;
-    const gradient = context.createLinearGradient(0, y, 0, height);
-    gradient.addColorStop(0, '#176b63');
-    gradient.addColorStop(1, '#d48a3d');
+  context.strokeStyle = 'rgba(220, 232, 227, 0.22)';
+  context.lineWidth = 1;
+  context.beginPath();
+  context.moveTo(18, zeroY);
+  context.lineTo(width - 18, zeroY);
+  context.stroke();
+
+  chartCompanies.forEach((company, index) => {
+    const change = changePercent(company);
+    const isGain = change >= 0;
+    const availableHeight = isGain ? zeroY - chartTop : chartBottom - zeroY;
+    const barHeight = Math.max(
+      8,
+      (Math.abs(change) / maxMove) * availableHeight,
+    );
+    const x = index * barSlot + (barSlot - barWidth) / 2;
+    const y = isGain ? zeroY - barHeight : zeroY;
+    const gradient = context.createLinearGradient(0, y, 0, y + barHeight);
+    gradient.addColorStop(0, isGain ? '#1fc49a' : '#ef5f63');
+    gradient.addColorStop(1, isGain ? 'rgba(31, 196, 154, 0.22)' : 'rgba(239, 95, 99, 0.24)');
     context.fillStyle = gradient;
-    context.fillRect(x, y, Math.max(34, barWidth - 52), barHeight);
+    context.fillRect(x, y, barWidth, barHeight);
+
+    if (company.symbol === state.selectedSymbol) {
+      context.strokeStyle = '#d48a3d';
+      context.lineWidth = 2;
+      context.strokeRect(x - 3, y - 3, barWidth + 6, barHeight + 6);
+    }
+
     context.fillStyle = '#dce8e3';
-    context.font = '700 15px system-ui';
-    context.fillText(company.symbol, x, height - 10);
-    context.fillStyle = 'rgba(220, 232, 227, 0.70)';
-    context.font = '12px system-ui';
-    context.fillText(money.format(price), x, y - 8);
+    context.font = '800 14px system-ui';
+    context.textAlign = 'center';
+    context.fillText(company.symbol, x + barWidth / 2, height - 17);
+    context.fillStyle = isGain ? '#34d399' : '#ff6b70';
+    context.font = '700 12px system-ui';
+    context.fillText(
+      `${isGain ? '+' : ''}${change.toFixed(2)}%`,
+      x + barWidth / 2,
+      isGain ? Math.max(16, y - 8) : Math.min(height - 28, y + barHeight + 16),
+    );
   });
+
+  context.textAlign = 'start';
 }
 
 async function loadCompanies() {
@@ -1568,7 +1628,9 @@ async function marketTick() {
   nodes.eventDescription.textContent = translateEventText(
     result.event.description,
   );
-  nodes.boardSignal.textContent = translateEventText(result.event.title);
+  if (nodes.boardSignal) {
+    nodes.boardSignal.textContent = translateEventText(result.event.title);
+  }
   setStatus(
     t('marketEvent', { title: translateEventText(result.event.title) }),
   );

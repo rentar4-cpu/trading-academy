@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <main class="shell">
+    <main class="shell market-home">
       <section class="topbar">
         <div>
           <p class="eyebrow" data-i18n="brand">Trading Academy</p>
@@ -72,11 +72,12 @@
           </div>
           <div class="market-chart-panel">
             <div class="chart-head">
-              <span data-i18n="marketChart">Market Chart</span>
-              <strong id="boardSignal" data-i18n="marketOpen"
-                >Market open</strong
-              >
+              <span data-i18n="marketPulse">Market Pulse</span>
+              <a href="./intel.html" data-i18n="openIntel">Open Intel</a>
             </div>
+            <p class="chart-hint" data-i18n="marketPulseHint">
+              Selected company and the strongest market moves.
+            </p>
             <canvas id="marketCanvas" width="880" height="220"></canvas>
           </div>
           <div class="table-wrap">

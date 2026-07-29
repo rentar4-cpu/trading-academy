@@ -255,6 +255,35 @@ select {
   margin-top: 16px;
 }
 
+.market-home {
+  display: flex;
+  flex-direction: column;
+}
+
+.market-home .topbar {
+  order: 0;
+}
+
+.market-home .ticker {
+  order: 1;
+}
+
+.market-home .ai-mentor-section {
+  order: 2;
+}
+
+.market-home .layout {
+  order: 3;
+}
+
+.market-home .status-line {
+  order: 4;
+}
+
+.market-home .first-session-coach {
+  order: 5;
+}
+
 .ai-mentor-section {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(360px, 0.78fr);
@@ -268,6 +297,47 @@ select {
     linear-gradient(145deg, rgba(10, 22, 24, 0.98), rgba(13, 31, 34, 0.96));
   box-shadow: 0 24px 70px rgba(17, 28, 32, 0.2);
   color: #edf7f3;
+}
+
+.market-home .ai-mentor-section {
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 0.68fr);
+  padding: 16px;
+}
+
+.market-home .ai-mentor-section h2 {
+  font-size: clamp(26px, 3vw, 38px);
+  line-height: 1.04;
+}
+
+.market-home .ai-lead {
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.market-home .ai-feature-card {
+  min-height: 118px;
+  padding: 12px;
+}
+
+.market-home .ai-feature-card h3 {
+  margin: 10px 0 5px;
+}
+
+.market-home .ai-feature-card p {
+  font-size: 13px;
+}
+
+.market-home .ai-chat-panel {
+  padding: 12px;
+}
+
+.market-home .chat-message {
+  padding: 9px 10px;
+}
+
+.market-home .chat-message p {
+  font-size: 13px;
+  line-height: 1.35;
 }
 
 .ai-copy {
@@ -761,10 +831,28 @@ select {
   font-size: 14px;
 }
 
+.chart-head a {
+  min-height: 30px;
+  padding: 7px 10px;
+  border: 1px solid rgba(16, 163, 127, 0.38);
+  border-radius: 7px;
+  color: #7be3c1;
+  font-size: 12px;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.chart-hint {
+  margin: -4px 0 10px;
+  color: rgba(220, 232, 227, 0.62);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
 .market-chart-panel canvas {
   display: block;
   width: 100%;
-  height: 220px;
+  height: 150px;
   border: 1px solid var(--line);
   border-radius: 8px;
   background:
@@ -2291,7 +2379,7 @@ h1 {
 }
 
 .market-chart-panel canvas {
-  height: 260px;
+  height: 150px;
 }
 
 .intel-chart-section {
@@ -2532,7 +2620,7 @@ td {
   }
 
   .market-chart-panel canvas {
-    height: 180px;
+    height: 130px;
   }
 
   .table-wrap {
