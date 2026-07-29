@@ -1,7 +1,7 @@
 {
-  "name": "Trading Academy Market Simulator",
-  "short_name": "Market Sim",
-  "description": "A fictional stock trading game with company tokens, market events, and portfolio play.",
+  "name": "Mentavio",
+  "short_name": "Mentavio",
+  "description": "An AI-driven decision intelligence platform with a trading simulator, learning tools, and strategic thinking experiences.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

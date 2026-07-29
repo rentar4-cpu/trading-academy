@@ -127,6 +127,36 @@ h3 {
   font-size: 16px;
 }
 
+.brand-heading {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 14px;
+}
+
+.mentavio-game-logo {
+  display: block;
+  width: 58px;
+  height: 58px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  background-color: #0b1220;
+  background-image: url('./mentavio-logo-board.png');
+  background-position: 3.4% 67%;
+  background-repeat: no-repeat;
+  background-size: 1260% auto;
+  box-shadow: 0 14px 30px rgba(11, 18, 32, 0.18);
+}
+
+.brand-tagline {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .player-strip {
   display: grid;
   grid-template-columns: auto minmax(160px, 220px) auto;

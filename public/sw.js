@@ -1,4 +1,4 @@
-const CACHE_NAME = 'market-simulator-v36';
+const CACHE_NAME = 'market-simulator-v37';
 const APP_SHELL = [
   '/game/',
   '/game/index.html',
@@ -19,6 +19,7 @@ const APP_SHELL = [
   '/game/news.js',
   '/game/auth.js',
   '/game/icon.svg',
+  '/game/mentavio-logo-board.png',
   '/game/manifest.webmanifest',
 ];
 

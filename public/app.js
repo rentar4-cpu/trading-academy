@@ -12,8 +12,8 @@ const state = {
 
 const translations = {
   en: {
-    brand: 'Trading Academy',
-    title: 'Market Simulator',
+    brand: 'Learn. Think. Grow.',
+    title: 'Mentavio',
     language: 'Language',
     navMarket: 'Market',
     navIntel: 'Intel',
@@ -144,8 +144,8 @@ const translations = {
       'AI explains and teaches. It does not promise profit or make decisions for you.',
   },
   ru: {
-    brand: 'Торговая академия',
-    title: 'Симулятор рынка',
+    brand: 'Учись. Думай. Расти.',
+    title: 'Mentavio',
     language: 'Язык',
     navMarket: 'Рынок',
     navIntel: 'Аналитика',
@@ -275,8 +275,8 @@ const translations = {
       'AI объясняет и обучает. Он не обещает прибыль и не принимает решения за вас.',
   },
   he: {
-    brand: 'אקדמיית מסחר',
-    title: 'סימולטור שוק',
+    brand: 'ללמוד. לחשוב. לצמוח.',
+    title: 'Mentavio',
     language: 'שפה',
     navMarket: 'שוק',
     navIntel: 'מודיעין',
@@ -403,8 +403,8 @@ const translations = {
       'AI מסביר ומלמד. הוא לא מבטיח רווח ולא מקבל החלטות במקומך.',
   },
   de: {
-    brand: 'Handelsakademie',
-    title: 'Marktsimulator',
+    brand: 'Lernen. Denken. Wachsen.',
+    title: 'Mentavio',
     language: 'Sprache',
     navMarket: 'Markt',
     navIntel: 'Analyse',
@@ -536,8 +536,8 @@ const translations = {
       'KI erklärt und lehrt. Sie verspricht keinen Gewinn und trifft keine Entscheidungen für dich.',
   },
   fr: {
-    brand: 'Académie de trading',
-    title: 'Simulateur de marché',
+    brand: 'Apprendre. Penser. Grandir.',
+    title: 'Mentavio',
     language: 'Langue',
     navMarket: 'Marché',
     navIntel: 'Analyse',

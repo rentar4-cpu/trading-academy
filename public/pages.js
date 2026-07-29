@@ -24,7 +24,7 @@ const pageTranslations = {
     navPortfolio: 'Portfolio',
     navStore: 'Store',
     navAuth: 'Account',
-    brand: 'Trading Academy',
+    brand: 'Mentavio',
     intelTitle: 'Market Intel',
     tradesTitle: 'Recent Trades',
     portfolioTitle: 'Portfolio',
@@ -94,7 +94,7 @@ const pageTranslations = {
     navPortfolio: 'ÐŸÐ¾Ñ€Ñ‚Ñ„ÐµÐ»ÑŒ',
     navStore: 'ÐœÐ°Ð³Ð°Ð·Ð¸Ð½',
     navAuth: 'ÐÐºÐºÐ°ÑƒÐ½Ñ‚',
-    brand: 'Ð¢Ð¾Ñ€Ð³Ð¾Ð²Ð°Ñ Ð°ÐºÐ°Ð´ÐµÐ¼Ð¸Ñ',
+    brand: 'Mentavio',
     intelTitle: 'ÐÐ½Ð°Ð»Ð¸Ñ‚Ð¸ÐºÐ° Ñ€Ñ‹Ð½ÐºÐ°',
     tradesTitle: 'ÐŸÐ¾ÑÐ»ÐµÐ´Ð½Ð¸Ðµ ÑÐ´ÐµÐ»ÐºÐ¸',
     portfolioTitle: 'ÐŸÐ¾Ñ€Ñ‚Ñ„ÐµÐ»ÑŒ',
@@ -167,7 +167,7 @@ const pageTranslations = {
     navPortfolio: '×ª×™×§',
     navStore: '×—× ×•×ª',
     navAuth: '×—×©×‘×•×Ÿ',
-    brand: '××§×“×ž×™×™×ª ×ž×¡×—×¨',
+    brand: 'Mentavio',
     intelTitle: '×ž×•×“×™×¢×™×Ÿ ×©×•×§',
     tradesTitle: '×¢×¡×§××•×ª ××—×¨×•× ×•×ª',
     portfolioTitle: '×ª×™×§',
@@ -239,7 +239,7 @@ const pageTranslations = {
     navPortfolio: 'Depot',
     navStore: 'Shop',
     navAuth: 'Konto',
-    brand: 'Handelsakademie',
+    brand: 'Mentavio',
     intelTitle: 'Marktanalyse',
     tradesTitle: 'Letzte Trades',
     portfolioTitle: 'Depot',
@@ -310,7 +310,7 @@ const pageTranslations = {
     navPortfolio: 'Portefeuille',
     navStore: 'Boutique',
     navAuth: 'Compte',
-    brand: 'AcadÃ©mie de trading',
+    brand: 'Mentavio',
     intelTitle: 'Analyse du marchÃ©',
     tradesTitle: 'Trades rÃ©cents',
     portfolioTitle: 'Portefeuille',
@@ -618,7 +618,7 @@ const fixedPageTranslations = {
     navPortfolio: 'Портфель',
     navStore: 'Магазин',
     navAuth: 'Аккаунт',
-    brand: 'Торговая академия',
+    brand: 'Mentavio',
     intelTitle: 'Аналитика рынка',
     tradesTitle: 'Последние сделки',
     portfolioTitle: 'Портфель',
@@ -689,7 +689,7 @@ const fixedPageTranslations = {
     navPortfolio: 'תיק',
     navStore: 'חנות',
     navAuth: 'חשבון',
-    brand: 'אקדמיית מסחר',
+    brand: 'Mentavio',
     intelTitle: 'מודיעין שוק',
     tradesTitle: 'עסקאות אחרונות',
     portfolioTitle: 'תיק',
@@ -758,7 +758,7 @@ const fixedPageTranslations = {
     navPortfolio: 'Depot',
     navStore: 'Shop',
     navAuth: 'Konto',
-    brand: 'Handelsakademie',
+    brand: 'Mentavio',
     intelTitle: 'Marktanalyse',
     tradesTitle: 'Letzte Trades',
     portfolioTitle: 'Depot',
@@ -829,7 +829,7 @@ const fixedPageTranslations = {
     navPortfolio: 'Portefeuille',
     navStore: 'Boutique',
     navAuth: 'Compte',
-    brand: 'Académie de trading',
+    brand: 'Mentavio',
     intelTitle: 'Analyse du marché',
     tradesTitle: 'Trades récents',
     portfolioTitle: 'Portefeuille',
@@ -1967,7 +1967,7 @@ function renderPortfolio(portfolio) {
 }
 
 async function shareText(payload) {
-  const title = payload.title || 'Trading Academy result';
+  const title = payload.title || 'Mentavio result';
   const text = payload.text || title;
   const url = new URL('./coming-soon.html', window.location.href).toString();
 
@@ -2009,7 +2009,7 @@ async function sharePortfolioResult() {
   await shareText({
     kind: 'portfolio',
     title: `${lastPortfolio.player.display_name} portfolio: ${netWorth}`,
-    text: `My Trading Academy portfolio is ${netWorth}. Open PnL: ${money.format(pnl)}.`,
+    text: `My Mentavio portfolio is ${netWorth}. Open PnL: ${money.format(pnl)}.`,
     net_worth: numberValue(lastPortfolio.net_worth),
     open_pnl: pnl,
   });

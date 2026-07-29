@@ -9,6 +9,9 @@ const ecosystemModules = [
   'Strategy',
 ];
 
+const tradingAppUrl =
+  process.env.NEXT_PUBLIC_TRADING_APP_URL || 'http://localhost:3000/game/';
+
 const visionCards = [
   {
     title: 'Learn',
@@ -154,7 +157,7 @@ export default function Home() {
         </nav>
         <a
           className="rounded-full bg-slate-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200"
-          href="#start"
+          href={tradingAppUrl}
         >
           Get Started
         </a>
@@ -183,7 +186,7 @@ export default function Home() {
             <a
               id="start"
               className="inline-flex items-center justify-center rounded-full bg-slate-950 px-7 py-4 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-slate-800 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200"
-              href="#ecosystem"
+              href={tradingAppUrl}
             >
               Get Started
             </a>
@@ -283,12 +286,18 @@ export default function Home() {
             </div>
             <div className="grid gap-3 sm:grid-cols-2">
               {ecosystemModules.map((module) => (
-                <div
+                <a
                   className="rounded-2xl border border-white/10 bg-white/[0.06] p-5 text-sm font-semibold dark:border-slate-200 dark:bg-slate-50"
+                  href={module === 'Investing' ? tradingAppUrl : '#ecosystem'}
                   key={module}
                 >
                   {module}
-                </div>
+                  <span className="mt-2 block text-xs font-medium text-slate-400 dark:text-slate-500">
+                    {module === 'Investing'
+                      ? 'Open Trading Simulator'
+                      : 'Planned'}
+                  </span>
+                </a>
               ))}
             </div>
           </div>

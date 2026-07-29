@@ -4,7 +4,7 @@ const authState = {
 
 const authText = {
   en: {
-    brand: 'Trading Academy',
+    brand: 'Mentavio',
     title: 'Account',
     language: 'Language',
     navMarket: 'Market',
@@ -57,7 +57,7 @@ const authText = {
     guest: 'Guest',
   },
   ru: {
-    brand: 'Торговая академия',
+    brand: 'Mentavio',
     title: 'Аккаунт',
     language: 'Язык',
     navMarket: 'Рынок',
@@ -110,7 +110,7 @@ const authText = {
     guest: 'Гость',
   },
   he: {
-    brand: 'אקדמיית מסחר',
+    brand: 'Mentavio',
     title: 'חשבון',
     language: 'שפה',
     navMarket: 'שוק',
@@ -162,7 +162,7 @@ const authText = {
     guest: 'אורח',
   },
   de: {
-    brand: 'Handelsakademie',
+    brand: 'Mentavio',
     title: 'Konto',
     language: 'Sprache',
     navMarket: 'Markt',
@@ -215,7 +215,7 @@ const authText = {
     guest: 'Gast',
   },
   fr: {
-    brand: 'Académie de trading',
+    brand: 'Mentavio',
     title: 'Compte',
     language: 'Langue',
     navMarket: 'Marché',
