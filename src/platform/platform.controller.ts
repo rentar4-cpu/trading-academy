@@ -1,5 +1,10 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import type { PlatformActivityDto } from './platform.service';
+import type {
+  EarlyAccessDto,
+  PlatformActivityDto,
+  ReferralInviteDto,
+  ShareDto,
+} from './platform.service';
 import { PlatformService } from './platform.service';
 
 @Controller('platform')
@@ -57,5 +62,35 @@ export class PlatformController {
   @Get('store/offers')
   getStoreOffers() {
     return this.platformService.getStoreOffers();
+  }
+
+  @Post('launch/early-access')
+  joinEarlyAccess(@Body() body: EarlyAccessDto) {
+    return this.platformService.joinEarlyAccess(body);
+  }
+
+  @Post('launch/referrals')
+  createReferralInvite(@Body() body: ReferralInviteDto) {
+    return this.platformService.createReferralInvite(body);
+  }
+
+  @Get('launch/referrals/:code')
+  getReferralInvite(@Param('code') code: string) {
+    return this.platformService.getReferralInvite(code);
+  }
+
+  @Get('devlog')
+  getDevLog() {
+    return this.platformService.getDevLog();
+  }
+
+  @Get('whats-new')
+  getWhatsNew() {
+    return this.platformService.getWhatsNew();
+  }
+
+  @Post('share')
+  recordShare(@Body() body: ShareDto) {
+    return this.platformService.recordShare(body);
   }
 }

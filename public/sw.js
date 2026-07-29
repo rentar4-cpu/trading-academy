@@ -1,4 +1,4 @@
-const CACHE_NAME = 'market-simulator-v35';
+const CACHE_NAME = 'market-simulator-v36';
 const APP_SHELL = [
   '/game/',
   '/game/index.html',
@@ -8,10 +8,14 @@ const APP_SHELL = [
   '/game/store.html',
   '/game/news.html',
   '/game/auth.html',
+  '/game/coming-soon.html',
+  '/game/devlog.html',
+  '/game/whats-new.html',
   '/game/styles.css',
   '/game/runtime-config.js',
   '/game/app.js',
   '/game/pages.js',
+  '/game/launch.js',
   '/game/news.js',
   '/game/auth.js',
   '/game/icon.svg',

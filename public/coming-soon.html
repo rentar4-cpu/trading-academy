@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#10191d" />
+    <title>Trading Academy - Coming Soon</title>
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body data-launch-page="coming-soon">
+    <main class="launch-shell">
+      <nav class="launch-nav" aria-label="Public navigation">
+        <strong>Trading Academy</strong>
+        <div>
+          <a href="./devlog.html">DevLog</a>
+          <a href="./whats-new.html">What's New</a>
+          <a href="./index.html">Play Demo</a>
+        </div>
+      </nav>
+
+      <section class="launch-hero">
+        <div class="launch-copy">
+          <p class="eyebrow">Public launch preparation</p>
+          <h1>Learn trading through a living market simulator.</h1>
+          <p>
+            Trading Academy is becoming a public product: AI coaching, market
+            events, bot traders, token rewards, achievements, and future
+            multi-game platform accounts.
+          </p>
+          <form class="early-access-form" id="earlyAccessForm">
+            <input
+              id="earlyAccessEmail"
+              type="email"
+              placeholder="Email for early access"
+              autocomplete="email"
+              required
+            />
+            <input
+              id="earlyAccessName"
+              type="text"
+              placeholder="Name optional"
+              autocomplete="name"
+            />
+            <button class="primary" type="submit">Join Early Access</button>
+          </form>
+          <p class="launch-status" id="launchStatus">Opening soon.</p>
+        </div>
+
+        <aside class="launch-card">
+          <span class="launch-live-dot"></span>
+          <p class="eyebrow">Coming Soon</p>
+          <h2>Private alpha is forming</h2>
+          <ul>
+            <li>Early testers receive referral codes.</li>
+            <li>Top inviters can receive launch tokens.</li>
+            <li>Every product update is published in DevLog.</li>
+          </ul>
+          <div class="referral-box hidden" id="referralBox">
+            <span>Your referral link</span>
+            <code id="referralLink"></code>
+            <button type="button" id="copyReferralButton">Copy Link</button>
+          </div>
+        </aside>
+      </section>
+
+      <section class="launch-grid">
+        <article>
+          <h3>Early Access</h3>
+          <p>Collect interested users before launch and build the first tester list.</p>
+        </article>
+        <article>
+          <h3>Referrals</h3>
+          <p>Give every invitee a referral code that can be rewarded later.</p>
+        </article>
+        <article>
+          <h3>DevLog</h3>
+          <p>Show transparent progress so the project feels alive and trustworthy.</p>
+        </article>
+        <article>
+          <h3>Sharing</h3>
+          <p>Players can share achievements and portfolio results with one action.</p>
+        </article>
+      </section>
+    </main>
+    <script src="./runtime-config.js"></script>
+    <script src="./launch.js"></script>
+  </body>
+</html>

@@ -12,6 +12,7 @@ let selectedIntelSymbol = localStorage.getItem('market_intel_symbol') || '';
 let selectedIntelRange = localStorage.getItem('market_intel_range') || '1D';
 let intelInteractionsBound = false;
 let isPageRefreshRunning = false;
+let lastPortfolio = null;
 
 const pageTranslations = {
   en: {
@@ -1927,6 +1928,7 @@ function renderTrades(history) {
 }
 
 function renderPortfolio(portfolio) {
+  lastPortfolio = portfolio;
   document.querySelector('#portfolioTitle').textContent =
     portfolio.player.display_name;
   document.querySelector('#netWorth').textContent = money.format(
@@ -1962,6 +1964,56 @@ function renderPortfolio(portfolio) {
       `;
     })
     .join('');
+}
+
+async function shareText(payload) {
+  const title = payload.title || 'Trading Academy result';
+  const text = payload.text || title;
+  const url = new URL('./coming-soon.html', window.location.href).toString();
+
+  await api('/platform/share', {
+    method: 'POST',
+    body: JSON.stringify({
+      player_id: Number(localStorage.getItem('market_player_id')) || undefined,
+      game_id: 'trading',
+      kind: payload.kind || 'result',
+      title,
+      payload,
+    }),
+  }).catch(() => undefined);
+
+  if (navigator.share) {
+    await navigator.share({ title, text, url });
+    return;
+  }
+
+  if (navigator.clipboard) {
+    await navigator.clipboard.writeText(`${text} ${url}`);
+    return;
+  }
+
+  setStatus(text);
+}
+
+async function sharePortfolioResult() {
+  if (!lastPortfolio) {
+    setStatus(tr('createPlayerFirst'));
+    return;
+  }
+
+  const netWorth = money.format(numberValue(lastPortfolio.net_worth));
+  const pnl = lastPortfolio.positions.reduce(
+    (total, position) => total + numberValue(position.unrealized_pnl),
+    0,
+  );
+  await shareText({
+    kind: 'portfolio',
+    title: `${lastPortfolio.player.display_name} portfolio: ${netWorth}`,
+    text: `My Trading Academy portfolio is ${netWorth}. Open PnL: ${money.format(pnl)}.`,
+    net_worth: numberValue(lastPortfolio.net_worth),
+    open_pnl: pnl,
+  });
+  setStatus('Share text ready.');
 }
 
 function renderOffers(offers) {
@@ -2067,6 +2119,11 @@ async function boot() {
   addLanguageSelect();
   applyLanguage();
   setupIntelInteractions();
+  document
+    .querySelector('#sharePortfolioButton')
+    ?.addEventListener('click', () =>
+      sharePortfolioResult().catch((error) => setStatus(error.message)),
+    );
   startClock();
   startLiveRefresh();
 

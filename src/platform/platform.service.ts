@@ -5,12 +5,19 @@ import { AchievementProgress } from '../market/entities/achievement-progress.ent
 import { MonetizationOffer } from '../market/entities/monetization-offer.entity';
 import { User } from '../users/user.entity';
 import { AchievementEvent } from './entities/achievement-event.entity';
+import { DevLogEntry } from './entities/dev-log-entry.entity';
+import { EarlyAccessSignup } from './entities/early-access-signup.entity';
 import { PlatformGame } from './entities/platform-game.entity';
+import { ProductUpdate } from './entities/product-update.entity';
+import { ReferralInvite } from './entities/referral-invite.entity';
+import { ShareEvent } from './entities/share-event.entity';
 import { UserFriend } from './entities/user-friend.entity';
 import { UserGameProfile } from './entities/user-game-profile.entity';
 import {
+  DEV_LOG_ENTRIES,
   GLOBAL_ACHIEVEMENT_DEFINITIONS,
   PLATFORM_GAMES,
+  PRODUCT_UPDATES,
 } from './platform.data';
 
 export type PlatformActivityDto = {
@@ -20,6 +27,28 @@ export type PlatformActivityDto = {
   wins?: number;
   losses?: number;
   draws?: number;
+};
+
+export type EarlyAccessDto = {
+  email: string;
+  display_name?: string;
+  referral_code?: string;
+  source?: string;
+  locale?: string;
+};
+
+export type ReferralInviteDto = {
+  inviter_user_id?: number;
+  inviter_email?: string;
+};
+
+export type ShareDto = {
+  user_id?: number;
+  player_id?: number;
+  game_id?: string;
+  kind?: string;
+  title: string;
+  payload?: Record<string, unknown>;
 };
 
 @Injectable()
@@ -39,10 +68,21 @@ export class PlatformService implements OnModuleInit {
     private readonly achievementEventsRepository: Repository<AchievementEvent>,
     @InjectRepository(MonetizationOffer)
     private readonly offersRepository: Repository<MonetizationOffer>,
+    @InjectRepository(EarlyAccessSignup)
+    private readonly earlyAccessRepository: Repository<EarlyAccessSignup>,
+    @InjectRepository(ReferralInvite)
+    private readonly referralsRepository: Repository<ReferralInvite>,
+    @InjectRepository(DevLogEntry)
+    private readonly devLogRepository: Repository<DevLogEntry>,
+    @InjectRepository(ProductUpdate)
+    private readonly updatesRepository: Repository<ProductUpdate>,
+    @InjectRepository(ShareEvent)
+    private readonly shareEventsRepository: Repository<ShareEvent>,
   ) {}
 
   async onModuleInit() {
     await this.seedGames();
+    await this.seedLaunchContent();
   }
 
   async seedGames() {
@@ -247,6 +287,132 @@ export class PlatformService implements OnModuleInit {
     });
   }
 
+  async joinEarlyAccess(dto: EarlyAccessDto) {
+    const email = this.normalizeEmail(dto.email);
+    const referralCode = this.normalizeOptionalCode(dto.referral_code);
+    const locale = dto.locale?.trim().slice(0, 8) || 'en';
+    const source = dto.source?.trim().slice(0, 40) || 'coming-soon';
+
+    let signup = await this.earlyAccessRepository.findOne({
+      where: { email },
+    });
+
+    if (!signup) {
+      signup = this.earlyAccessRepository.create({
+        email,
+        display_name: dto.display_name?.trim().slice(0, 80) || undefined,
+        referred_by_code: referralCode,
+        referral_code: this.makeReferralCode(email),
+        locale,
+        source,
+      });
+
+      if (referralCode) await this.incrementReferralUse(referralCode);
+    } else {
+      signup.display_name =
+        dto.display_name?.trim().slice(0, 80) || signup.display_name;
+      signup.locale = locale;
+      signup.source = source;
+      signup.referred_by_code = signup.referred_by_code || referralCode;
+    }
+
+    const saved = await this.earlyAccessRepository.save(signup);
+    const invite = await this.getOrCreateReferralInvite({
+      inviter_email: saved.email,
+    });
+
+    return {
+      signup: saved,
+      referral: {
+        code: invite.code,
+        reward_tokens: invite.reward_tokens,
+        uses: invite.uses,
+        max_uses: invite.max_uses,
+      },
+    };
+  }
+
+  async createReferralInvite(dto: ReferralInviteDto) {
+    return this.getOrCreateReferralInvite(dto);
+  }
+
+  async getReferralInvite(code: string) {
+    const invite = await this.referralsRepository.findOne({
+      where: { code: this.normalizeReferralCode(code) },
+    });
+    if (!invite) throw new BadRequestException('Referral code was not found');
+    return invite;
+  }
+
+  async getDevLog() {
+    const entries = await this.devLogRepository.find({
+      where: { is_published: true },
+      order: { published_at: 'DESC', created_at: 'DESC' },
+    });
+
+    return entries.map((entry) => ({
+      ...entry,
+      tags: this.parseJsonList(entry.tags_json),
+    }));
+  }
+
+  async getWhatsNew() {
+    const updates = await this.updatesRepository.find({
+      where: { is_active: true },
+      order: { created_at: 'DESC' },
+    });
+
+    return updates.map((update) => ({
+      ...update,
+      highlights: this.parseJsonList(update.highlights_json),
+    }));
+  }
+
+  async recordShare(dto: ShareDto) {
+    if (!dto.title?.trim()) {
+      throw new BadRequestException('Share title is required');
+    }
+
+    const event = await this.shareEventsRepository.save(
+      this.shareEventsRepository.create({
+        user_id: dto.user_id ? Number(dto.user_id) : undefined,
+        player_id: dto.player_id ? Number(dto.player_id) : undefined,
+        game_id: dto.game_id?.trim().toLowerCase() || 'trading',
+        kind: dto.kind?.trim().slice(0, 40) || 'result',
+        title: dto.title.trim().slice(0, 140),
+        payload_json: JSON.stringify(dto.payload || {}),
+      }),
+    );
+
+    return {
+      id: event.id,
+      title: event.title,
+      text: `${event.title} | Trading Academy`,
+      url: '/game/coming-soon.html',
+      created_at: event.created_at,
+    };
+  }
+
+  private async seedLaunchContent() {
+    for (const seed of DEV_LOG_ENTRIES) {
+      const existing = await this.devLogRepository.findOne({
+        where: { version: seed.version },
+      });
+      await this.devLogRepository.save(
+        existing ? { ...existing, ...seed } : this.devLogRepository.create(seed),
+      );
+    }
+
+    for (const seed of PRODUCT_UPDATES) {
+      const existing = await this.updatesRepository.findOne({
+        where: { version: seed.version },
+      });
+      await this.updatesRepository.save(
+        existing ? { ...existing, ...seed } : this.updatesRepository.create(seed),
+      );
+    }
+  }
+
   private async seedGlobalAchievementEvent(
     user: User,
     code: string,
@@ -348,6 +514,43 @@ export class PlatformService implements OnModuleInit {
     return user;
   }
 
+  private async getOrCreateReferralInvite(dto: ReferralInviteDto) {
+    if (dto.inviter_user_id) await this.findUser(Number(dto.inviter_user_id));
+    const inviterEmail = dto.inviter_email
+      ? this.normalizeEmail(dto.inviter_email)
+      : undefined;
+
+    const existing = await this.referralsRepository.findOne({
+      where: dto.inviter_user_id
+        ? { inviter_user_id: Number(dto.inviter_user_id) }
+        : { inviter_email: inviterEmail },
+    });
+    if (existing) return existing;
+
+    return this.referralsRepository.save(
+      this.referralsRepository.create({
+        inviter_user_id: dto.inviter_user_id
+          ? Number(dto.inviter_user_id)
+          : undefined,
+        inviter_email: inviterEmail,
+        code: this.makeReferralCode(
+          inviterEmail || `user-${dto.inviter_user_id || Date.now()}`,
+        ),
+      }),
+    );
+  }
+
+  private async incrementReferralUse(code: string) {
+    const invite = await this.referralsRepository.findOne({
+      where: { code: this.normalizeReferralCode(code) },
+    });
+    if (!invite || invite.status !== 'active') return;
+    if (invite.uses >= invite.max_uses) return;
+
+    invite.uses += 1;
+    await this.referralsRepository.save(invite);
+  }
+
   private async ensureGame(gameId: string) {
     const normalized = this.normalizeGameId(gameId);
     const game = await this.gamesRepository.findOne({
@@ -365,6 +568,41 @@ export class PlatformService implements OnModuleInit {
       throw new BadRequestException('game_id is required');
     }
     return normalized;
+  }
+
+  private normalizeEmail(email?: string) {
+    const normalized = email?.trim().toLowerCase();
+    if (!normalized || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalized)) {
+      throw new BadRequestException('Valid email is required');
+    }
+    return normalized;
+  }
+
+  private normalizeOptionalCode(code?: string) {
+    return code ? this.normalizeReferralCode(code) : undefined;
+  }
+
+  private normalizeReferralCode(code: string) {
+    const normalized = code.trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
+    if (!normalized) throw new BadRequestException('Referral code is required');
+    return normalized.slice(0, 16);
+  }
+
+  private makeReferralCode(seed: string) {
+    let hash = 0;
+    for (let index = 0; index < seed.length; index += 1) {
+      hash = (hash * 31 + seed.charCodeAt(index)) >>> 0;
+    }
+    return `TA${hash.toString(36).toUpperCase().slice(0, 8)}`;
+  }
+
+  private parseJsonList(value: string) {
+    try {
+      const parsed = JSON.parse(value || '[]');
+      return Array.isArray(parsed) ? parsed : [];
+    } catch {
+      return [];
+    }
   }
 
   private platformStats(user: User, profiles: UserGameProfile[]) {

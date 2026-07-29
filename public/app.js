@@ -6,6 +6,7 @@ const state = {
   selectedSymbol: null,
   history: [],
   portfolio: null,
+  firstSessionReward: null,
   language: localStorage.getItem('market_language') || 'en',
 };
 
@@ -102,6 +103,7 @@ const translations = {
       'Next: read the news signal and make a second trade tomorrow.',
     firstRewardContinue: 'Continue',
     firstRewardNews: 'Open News',
+    shareAchievement: 'Share Achievement',
     firstLessonTitle: 'What you just did',
     firstLessonIntro: 'Congratulations. You just made a profit.',
     firstLessonReality:
@@ -1484,6 +1486,7 @@ async function startFirstSessionTrade() {
 function showFirstSessionReward(firstSession) {
   if (!nodes.firstSessionCoach || !firstSession) return;
 
+  state.firstSessionReward = firstSession;
   localStorage.setItem('market_first_session_completed', '1');
   nodes.firstSessionCoach.classList.remove('hidden');
   nodes.firstSessionCoach.innerHTML = `
@@ -1498,9 +1501,39 @@ function showFirstSessionReward(firstSession) {
       <div class="coach-actions">
         <button class="primary" type="button" data-coach-action="lesson">${t('firstRewardContinue')}</button>
         <button type="button" data-coach-action="news">${t('firstRewardNews')}</button>
+        <button type="button" data-coach-action="share">${t('shareAchievement')}</button>
       </div>
     </section>
   `;
+}
+
+async function shareAchievement(firstSession) {
+  const title = t('firstRewardAchievement');
+  const text = `${title}. ${t('firstRewardTokens', { amount: firstSession?.reward_tokens || 0 })}`;
+  const url = new URL('./coming-soon.html', window.location.href).toString();
+
+  await api('/platform/share', {
+    method: 'POST',
+    body: JSON.stringify({
+      player_id: state.playerId || undefined,
+      game_id: 'trading',
+      kind: 'achievement',
+      title,
+      payload: {
+        reward_tokens: firstSession?.reward_tokens || 0,
+        achievement_code: firstSession?.achievement_code || 'first_trade',
+      },
+    }),
+  }).catch(() => undefined);
+
+  if (navigator.share) {
+    await navigator.share({ title, text, url });
+    return;
+  }
+
+  if (navigator.clipboard) {
+    await navigator.clipboard.writeText(`${text} ${url}`);
+  }
 }
 
 function showFirstSessionLesson() {
@@ -1695,6 +1728,10 @@ function bindEvents() {
 
     if (action === 'lesson') {
       showFirstSessionLesson();
+    }
+
+    if (action === 'share') {
+      shareAchievement(state.firstSessionReward).catch(showError);
     }
 
     if (action === 'dismiss') {
