@@ -48,6 +48,7 @@ const MIN_TOTAL_TRADE_COUNT = 72;
 const FIRST_SESSION_REWARD_TOKENS = 25;
 const FIRST_SESSION_GUIDED_GAIN_PERCENT = 6;
 const RETURN_WINDOW_MS = 20 * 60 * 60 * 1000;
+const TRADING_GAME_ID = 'trading';
 
 @Injectable()
 export class MarketService implements OnModuleInit, OnModuleDestroy {
@@ -232,6 +233,7 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
       if (!existing) {
         await this.playersRepository.save(
           this.playersRepository.create({
+            game_id: TRADING_GAME_ID,
             display_name: bot.name,
             cash_balance: bot.cash_balance,
             premium_credits: 0,
@@ -397,6 +399,7 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
 
     const player = this.playersRepository.create({
       user_id: dto.user_id,
+      game_id: dto.game_id || TRADING_GAME_ID,
       display_name: dto.display_name.trim(),
       cash_balance: 10000,
       premium_credits: 0,
@@ -914,11 +917,15 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
     user.account_tokens = this.roundMoney(
       Number(user.account_tokens) + Number(offer.token_reward),
     );
+    user.lifetime_tokens_earned = this.roundMoney(
+      Number(user.lifetime_tokens_earned || 0) + Number(offer.token_reward),
+    );
     await this.usersRepository.save(user);
 
     const purchase = await this.purchasesRepository.save(
       this.purchasesRepository.create({
         player_id: player.id,
+        game_id: dto.game_id || player.game_id || TRADING_GAME_ID,
         offer_id: offer.id,
         sku: offer.sku,
         price_usd: Number(offer.price_usd),
@@ -954,6 +961,9 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
     user.account_tokens = this.roundMoney(
       Number(user.account_tokens || 0) - starter.token_cost,
     );
+    user.lifetime_tokens_spent = this.roundMoney(
+      Number(user.lifetime_tokens_spent || 0) + starter.token_cost,
+    );
     player.cash_balance = starter.cash;
     player.premium_credits = 0;
     await this.holdingsRepository.delete({ player_id: player.id });
@@ -972,9 +982,11 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
     const user = await this.ensureVerifiedAccountPlayer(player);
     const today = this.todayKey();
     const [achievements, dailyQuests] = await Promise.all([
-      this.achievementsRepository.find({ where: { user_id: user.id } }),
+      this.achievementsRepository.find({
+        where: { user_id: user.id, game_id: TRADING_GAME_ID, scope: 'game' },
+      }),
       this.dailyQuestsRepository.find({
-        where: { user_id: user.id, quest_date: today },
+        where: { user_id: user.id, game_id: TRADING_GAME_ID, quest_date: today },
       }),
     ]);
 
@@ -1139,6 +1151,10 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
         user.account_tokens = this.roundMoney(
           Number(user.account_tokens || 0) + FIRST_SESSION_REWARD_TOKENS,
         );
+        user.lifetime_tokens_earned = this.roundMoney(
+          Number(user.lifetime_tokens_earned || 0) +
+            FIRST_SESSION_REWARD_TOKENS,
+        );
         await this.usersRepository.save(user);
       }
     }
@@ -1214,12 +1230,19 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
 
     for (const definition of definitions) {
       let progress = await this.achievementsRepository.findOne({
-        where: { user_id: user.id, code: definition.code },
+        where: {
+          user_id: user.id,
+          game_id: TRADING_GAME_ID,
+          scope: 'game',
+          code: definition.code,
+        },
       });
 
       if (!progress) {
         progress = this.achievementsRepository.create({
           user_id: user.id,
+          game_id: TRADING_GAME_ID,
+          scope: 'game',
           code: definition.code,
           progress: 0,
           completed: false,
@@ -1236,6 +1259,9 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
         progress.completed_at = new Date();
         user.account_tokens = this.roundMoney(
           Number(user.account_tokens || 0) + definition.token_reward,
+        );
+        user.lifetime_tokens_earned = this.roundMoney(
+          Number(user.lifetime_tokens_earned || 0) + definition.token_reward,
         );
         await this.usersRepository.save(user);
       }
@@ -1256,12 +1282,18 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
 
     for (const definition of definitions) {
       let progress = await this.dailyQuestsRepository.findOne({
-        where: { user_id: user.id, quest_date: today, code: definition.code },
+        where: {
+          user_id: user.id,
+          game_id: TRADING_GAME_ID,
+          quest_date: today,
+          code: definition.code,
+        },
       });
 
       if (!progress) {
         progress = this.dailyQuestsRepository.create({
           user_id: user.id,
+          game_id: TRADING_GAME_ID,
           quest_date: today,
           code: definition.code,
           progress: 0,
@@ -1279,6 +1311,9 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
         progress.completed_at = new Date();
         user.account_tokens = this.roundMoney(
           Number(user.account_tokens || 0) + definition.token_reward,
+        );
+        user.lifetime_tokens_earned = this.roundMoney(
+          Number(user.lifetime_tokens_earned || 0) + definition.token_reward,
         );
         await this.usersRepository.save(user);
       }

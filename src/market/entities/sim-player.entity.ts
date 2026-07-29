@@ -14,6 +14,9 @@ export class SimPlayer {
   @Column({ nullable: true })
   user_id?: number;
 
+  @Column({ default: 'trading' })
+  game_id: string;
+
   @Column()
   display_name: string;
 

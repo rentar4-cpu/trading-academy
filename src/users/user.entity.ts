@@ -17,6 +17,24 @@ export class User {
   @Column({ default: 'Trader' })
   display_name: string;
 
+  @Column({ default: 'ru' })
+  preferred_language: string;
+
+  @Column({ default: 1 })
+  account_level: number;
+
+  @Column({ type: 'numeric', precision: 14, scale: 2, default: 0 })
+  lifetime_tokens_earned: number;
+
+  @Column({ type: 'numeric', precision: 14, scale: 2, default: 0 })
+  lifetime_tokens_spent: number;
+
+  @Column({ default: 0 })
+  total_play_seconds: number;
+
+  @Column({ default: 0 })
+  activity_score: number;
+
   @Column()
   password_hash: string;
 

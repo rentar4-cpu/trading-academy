@@ -15,6 +15,7 @@ const ACCOUNT_STARTING_CASH = 0;
 const AD_TOKEN_REWARD = 150;
 const DAILY_LOGIN_TOKEN_REWARD = 25;
 const MAX_AD_REWARD_CLAIMS = 2;
+const TRADING_GAME_ID = 'trading';
 
 type AuthDto = {
   email: string;
@@ -57,6 +58,7 @@ export class UsersService {
         password_hash: this.hashPassword(password),
         email_verified: false,
         account_tokens: guestRewardTokens,
+        lifetime_tokens_earned: guestRewardTokens,
         email_verification_code: this.createVerificationCode(),
         email_verification_sent_at: new Date(),
       }),
@@ -87,6 +89,7 @@ export class UsersService {
       player = await this.playersRepository.save(
         this.playersRepository.create({
           user_id: user.id,
+          game_id: TRADING_GAME_ID,
           display_name: user.display_name,
           cash_balance: ACCOUNT_STARTING_CASH,
           premium_credits: 0,
@@ -121,6 +124,7 @@ export class UsersService {
       (await this.playersRepository.save(
         this.playersRepository.create({
           user_id: savedUser.id,
+          game_id: TRADING_GAME_ID,
           display_name: savedUser.display_name,
           cash_balance: ACCOUNT_STARTING_CASH,
           premium_credits: 0,
@@ -160,6 +164,8 @@ export class UsersService {
     player.ad_reward_claims += 1;
     const savedPlayer = await this.playersRepository.save(player);
     user.account_tokens = Number(user.account_tokens) + AD_TOKEN_REWARD;
+    user.lifetime_tokens_earned =
+      Number(user.lifetime_tokens_earned || 0) + AD_TOKEN_REWARD;
     const savedUser = await this.usersRepository.save(user);
 
     return {
@@ -176,6 +182,7 @@ export class UsersService {
   async createGuest(displayName?: string) {
     const player = await this.playersRepository.save(
       this.playersRepository.create({
+        game_id: TRADING_GAME_ID,
         display_name: this.normalizeDisplayName(displayName, 'Guest Trader'),
         cash_balance: GUEST_STARTING_CASH,
         premium_credits: 0,
@@ -198,6 +205,10 @@ export class UsersService {
         display_name: true,
         email_verified: true,
         account_tokens: true,
+        preferred_language: true,
+        account_level: true,
+        total_play_seconds: true,
+        activity_score: true,
         login_streak: true,
         created_at: true,
         updated_at: true,
@@ -222,6 +233,8 @@ export class UsersService {
         display_name: user.display_name,
         email_verified: false,
         account_tokens: Number(user.account_tokens || 0),
+        preferred_language: user.preferred_language || 'ru',
+        account_level: user.account_level || 1,
         login_streak: user.login_streak || 0,
       },
       message:
@@ -287,6 +300,8 @@ export class UsersService {
     user.last_daily_login_at = new Date();
     user.account_tokens =
       Number(user.account_tokens || 0) + DAILY_LOGIN_TOKEN_REWARD;
+    user.lifetime_tokens_earned =
+      Number(user.lifetime_tokens_earned || 0) + DAILY_LOGIN_TOKEN_REWARD;
     await this.usersRepository.save(user);
   }
 
@@ -297,6 +312,10 @@ export class UsersService {
       display_name: user.display_name,
       email_verified: user.email_verified,
       account_tokens: Number(user.account_tokens || 0),
+      preferred_language: user.preferred_language || 'ru',
+      account_level: user.account_level || 1,
+      total_play_seconds: user.total_play_seconds || 0,
+      activity_score: user.activity_score || 0,
       login_streak: user.login_streak || 0,
     };
   }

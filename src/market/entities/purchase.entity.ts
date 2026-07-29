@@ -8,6 +8,9 @@ export class Purchase {
   @Column()
   player_id: number;
 
+  @Column({ default: 'trading' })
+  game_id: string;
+
   @Column()
   offer_id: number;
 

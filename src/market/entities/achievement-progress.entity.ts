@@ -14,6 +14,12 @@ export class AchievementProgress {
   @Column()
   user_id: number;
 
+  @Column({ default: 'trading' })
+  game_id: string;
+
+  @Column({ default: 'game' })
+  scope: string;
+
   @Column()
   code: string;
 

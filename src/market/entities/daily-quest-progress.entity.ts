@@ -14,6 +14,9 @@ export class DailyQuestProgress {
   @Column()
   user_id: number;
 
+  @Column({ default: 'trading' })
+  game_id: string;
+
   @Column()
   quest_date: string;
 
