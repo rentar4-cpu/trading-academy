@@ -25,6 +25,12 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+## Mentavio Documentation
+
+- [Project History and Roadmap](./PROJECT_HISTORY.md)
+- [Early Retention Loop](./SPEC-021-EARLY-RETENTION-LOOP.md)
+- [GitHub Update Notes](./GITHUB_UPDATE_NOTES.md)
+
 ## Project setup
 
 ```bash
