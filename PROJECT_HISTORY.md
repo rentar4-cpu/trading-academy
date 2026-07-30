@@ -3,7 +3,7 @@
 This document is the official history and roadmap for the Mentavio platform and
 its first application, the Trading Simulator.
 
-Last updated: July 29, 2026
+Last updated: July 30, 2026
 
 ## Current Project Stage
 
@@ -22,14 +22,14 @@ and preparation for early users.
 
 | Specification | Product Area | Status |
 | --- | --- | --- |
-| SPEC-020 | Beginner Onboarding | Completed ✅ |
-| SPEC-021 | Platform Architecture | Completed ✅ |
-| SPEC-022 | AI Mentor Landing | Completed ✅ |
-| SPEC-023 | AI Identity | Planned 🟡 |
-| SPEC-024 | Brand Identity | Planned 🟡 |
-| SPEC-025 | Crowdfunding Landing | Planned 🟡 |
-| SPEC-026 | Public Roadmap | Planned 🟡 |
-| SPEC-027 | Community & Beta Program | Planned 🟡 |
+| SPEC-020 | Beginner Onboarding | Completed |
+| SPEC-021 | Platform Architecture | Completed |
+| SPEC-022 | AI Mentor Landing | Completed |
+| SPEC-023 | AI Identity | Planned |
+| SPEC-024 | Brand Identity | Planned |
+| SPEC-025 | Crowdfunding Landing | Planned |
+| SPEC-026 | Public Roadmap | Planned |
+| SPEC-027 | Community & Beta Program | Planned |
 
 ## Timeline at a Glance
 
@@ -45,6 +45,7 @@ and preparation for early users.
 | July 29, 2026 | Brand | Mentavio integration | Mentavio landing, logo, Sophia identity, localization, and game connection |
 | July 29, 2026 | Android | Mobile product integration | Localized landing and Trading Simulator embedded in the APK |
 | July 29, 2026 | Mobile Beta | Mobile reliability fixes | Sophia layout, trade tape, portfolio positions, and browser cache fixed |
+| July 30, 2026 | Product Flow | Navigation, news, portfolio, and store update | Complete landing return path, rotating market news, direct portfolio trading, and token-based session funding |
 
 ## Specification Audit Note
 
@@ -133,6 +134,25 @@ Prepare early-access registration, tester groups, feedback collection, referral
 invites, community communication, and beta participation rewards.
 
 ## Product Update History
+
+### July 30, 2026 - Product Flow and Android Reliability
+
+- Added a clear return path from every game page to the Mentavio landing page.
+- Removed the obsolete server-address and server-test controls from Account.
+- Reduced the visible news feed to four rotating signals and linked each signal
+  to the market event applied by the next market tick.
+- Added direct buy and sell controls to Portfolio, including live cash, price,
+  position quantity, and post-trade refresh.
+- Added an interactive two-stage Store flow for simulated token packages and
+  token-funded starting capital for a new game session.
+- Fixed the desktop Sophia presentation so its brand artwork no longer overlaps
+  or appears above the assistant panel.
+- Made the packaged Android application ignore obsolete saved server addresses
+  and use the current mobile data-server address automatically.
+- Rebuilt the Android APK and preserved a dated local archive copy.
+
+Commit:
+[9bbb05c](https://github.com/rentar4-cpu/trading-academy/commit/9bbb05c)
 
 ### July 29, 2026 - Mobile Reliability and Portfolio Visibility
 
