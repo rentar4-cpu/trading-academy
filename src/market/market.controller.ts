@@ -70,6 +70,11 @@ export class MarketController {
     return this.marketService.getMonetizationOffers();
   }
 
+  @Get('monetization/session-starters')
+  getSessionStarters() {
+    return this.marketService.getSessionStarters();
+  }
+
   @Post('monetization/purchases')
   purchaseOffer(@Body() body: PurchaseOfferDto) {
     return this.marketService.purchaseOffer(body);

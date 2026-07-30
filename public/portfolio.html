@@ -12,15 +12,16 @@
   <body data-page="portfolio">
     <main class="shell">
       <section class="topbar">
-        <div class="brand-heading page-brand">
+        <a class="brand-heading page-brand brand-home-link" href="../landing/index.html" aria-label="Mentavio home">
           <span class="mentavio-game-logo" aria-hidden="true"></span>
           <div>
             <p class="eyebrow">Mentavio</p>
             <h1>Portfolio</h1>
           </div>
-        </div>
+        </a>
         <nav class="app-nav" aria-label="Game navigation">
-          <a href="./index.html">Market</a><a href="./intel.html">Intel</a
+          <a class="landing-nav-link" href="../landing/index.html">Mentavio</a
+          ><a href="./index.html">Market</a><a href="./intel.html">Intel</a
           ><a href="./trades.html">Trades</a><a href="./news.html">News</a
           ><a class="active" href="./portfolio.html">Portfolio</a
           ><a href="./store.html">Store</a><a href="./auth.html">Account</a>
@@ -30,44 +31,84 @@
           <strong id="pageClock">--s</strong>
         </div>
       </section>
-      <section class="panel page-panel">
-        <div class="panel-head">
-          <div>
-            <p class="eyebrow">Portfolio</p>
-            <h2 id="portfolioTitle">No player</h2>
+      <div class="portfolio-layout">
+        <section class="panel page-panel">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Portfolio</p>
+              <h2 id="portfolioTitle">No player</h2>
+            </div>
+            <button class="share-button" id="sharePortfolioButton" type="button">
+              Share Result
+            </button>
+            <div class="metric">
+              <span>Net Worth</span><strong id="netWorth">$0.00</strong>
+            </div>
           </div>
-          <button class="share-button" id="sharePortfolioButton" type="button">
-            Share Result
-          </button>
-          <div class="metric">
-            <span>Net Worth</span><strong id="netWorth">$0.00</strong>
+          <div class="portfolio-stats">
+            <div><span>Cash</span><strong id="cashBalance">$0.00</strong></div>
+            <div>
+              <span>Positions</span><strong id="positionsValue">$0.00</strong>
+            </div>
+            <div><span>Tokens</span><strong id="creditsValue">0</strong></div>
           </div>
-        </div>
-        <div class="portfolio-stats">
-          <div><span>Cash</span><strong id="cashBalance">$0.00</strong></div>
-          <div>
-            <span>Positions</span><strong id="positionsValue">$0.00</strong>
+          <div class="table-wrap compact">
+            <table>
+              <thead>
+                <tr>
+                  <th>Symbol</th>
+                  <th>Qty</th>
+                  <th>Avg</th>
+                  <th>Value</th>
+                  <th>PnL</th>
+                </tr>
+              </thead>
+              <tbody id="positionsBody"></tbody>
+            </table>
           </div>
-          <div><span>Tokens</span><strong id="creditsValue">0</strong></div>
-        </div>
-        <div class="table-wrap compact">
-          <table>
-            <thead>
-              <tr>
-                <th>Symbol</th>
-                <th>Qty</th>
-                <th>Avg</th>
-                <th>Value</th>
-                <th>PnL</th>
-              </tr>
-            </thead>
-            <tbody id="positionsBody"></tbody>
-          </table>
-        </div>
-      </section>
+        </section>
+        <aside class="panel portfolio-order-panel">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow" id="portfolioTradeEyebrow">Quick Trade</p>
+              <h2 id="portfolioTradeTitle">Buy or Sell</h2>
+            </div>
+          </div>
+          <div class="portfolio-trade-wallet">
+            <span id="portfolioAvailableLabel">Available cash</span>
+            <strong id="portfolioTradeCash">$0.00</strong>
+          </div>
+          <div class="portfolio-selected-asset">
+            <div>
+              <strong id="portfolioTradeAsset">--</strong>
+              <span id="portfolioTradeCompany">Select a company</span>
+            </div>
+            <strong id="portfolioTradePrice">$0.00</strong>
+          </div>
+          <form id="portfolioTradeForm" class="portfolio-trade-form">
+            <label>
+              <span id="portfolioCompanyLabel">Company</span>
+              <select id="portfolioTradeSymbol" required></select>
+            </label>
+            <label>
+              <span id="portfolioQuantityLabel">Quantity</span>
+              <input id="portfolioTradeQuantity" type="number" min="0.01" step="0.01" value="1" required />
+            </label>
+            <div class="portfolio-side-switch" role="group" aria-label="Order side">
+              <button class="active" type="button" data-portfolio-side="buy">Buy</button>
+              <button type="button" data-portfolio-side="sell">Sell</button>
+            </div>
+            <div class="portfolio-position-line">
+              <span id="portfolioOwnedLabel">Owned</span>
+              <strong id="portfolioOwnedQuantity">0</strong>
+            </div>
+            <button class="primary" id="portfolioOrderButton" type="submit">Place Order</button>
+          </form>
+        </aside>
+      </div>
       <div class="status-line" id="pageStatus">Loading</div>
     </main>
     <script src="./runtime-config.js"></script>
-    <script src="./pages.js?v=20260729-mobile-lists"></script>
+    <script src="./pages.js?v=20260730-product-update"></script>
   </body>
 </html>

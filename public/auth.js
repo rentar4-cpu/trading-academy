@@ -45,6 +45,11 @@ const authText = {
     apiTesting: 'Testing server...',
     apiTestOk: 'Server connected: {count} companies loaded',
     apiTestFailed: 'Server test failed: {message}',
+    apiHtmlResponse:
+      'This address opens the app page, not the data server. Use {url}.',
+    apiUnreachable:
+      'Cannot reach {url}. Check that the server is running and the phone is on the same network.',
+    apiInvalidJson: 'The server returned invalid data. Check the server address.',
     guestTraderName: 'Guest Trader',
     pendingVerification: 'Verification code for {email}: {code}',
     verified: 'Email confirmed. Clean account created for {name}',
@@ -77,7 +82,7 @@ const authText = {
     loginTitle: 'Вход',
     newPlayer: 'Новый игрок',
     registerTitle: 'Регистрация',
-    email: 'Courriel',
+    email: 'Электронная почта',
     password: 'Пароль',
     displayName: 'Имя игрока',
     loginAction: 'Войти',
@@ -98,6 +103,12 @@ const authText = {
     apiTesting: 'Проверка сервера...',
     apiTestOk: 'Сервер подключён: компаний загружено {count}',
     apiTestFailed: 'Ошибка проверки сервера: {message}',
+    apiHtmlResponse:
+      'Этот адрес открывает страницу приложения, а не сервер данных. Используйте {url}.',
+    apiUnreachable:
+      'Не удаётся подключиться к {url}. Проверьте, что сервер запущен и телефон находится в той же сети.',
+    apiInvalidJson:
+      'Сервер вернул некорректные данные. Проверьте адрес сервера.',
     guestTraderName: 'Гость',
     pendingVerification: 'Код подтверждения для {email}: {code}',
     verified: 'Email подтверждён. Чистый аккаунт создан: {name}',
@@ -150,6 +161,11 @@ const authText = {
     apiTesting: 'בודק שרת...',
     apiTestOk: 'השרת מחובר: נטענו {count} חברות',
     apiTestFailed: 'בדיקת השרת נכשלה: {message}',
+    apiHtmlResponse:
+      'כתובת זו פותחת את דף האפליקציה במקום את שרת הנתונים. השתמשו ב-{url}.',
+    apiUnreachable:
+      'לא ניתן להתחבר אל {url}. ודאו שהשרת פועל ושהטלפון מחובר לאותה רשת.',
+    apiInvalidJson: 'השרת החזיר נתונים לא תקינים. בדקו את כתובת השרת.',
     guestTraderName: 'אורח',
     pendingVerification: 'קוד אימות עבור {email}: {code}',
     verified: 'האימייל אומת. נוצר חשבון נקי עבור {name}',
@@ -203,6 +219,12 @@ const authText = {
     apiTesting: 'Server wird getestet...',
     apiTestOk: 'Server verbunden: {count} Firmen geladen',
     apiTestFailed: 'Serverprüfung fehlgeschlagen: {message}',
+    apiHtmlResponse:
+      'Diese Adresse öffnet die App-Seite statt des Datenservers. Verwende {url}.',
+    apiUnreachable:
+      '{url} ist nicht erreichbar. Prüfe, ob der Server läuft und das Telefon im selben Netzwerk ist.',
+    apiInvalidJson:
+      'Der Server hat ungültige Daten geliefert. Prüfe die Serveradresse.',
     guestTraderName: 'Gast',
     pendingVerification: 'Bestätigungscode für {email}: {code}',
     verified: 'E-Mail bestätigt. Sauberes Konto erstellt für {name}',
@@ -256,6 +278,12 @@ const authText = {
     apiTesting: 'Test du serveur...',
     apiTestOk: 'Serveur connecté : {count} sociétés chargées',
     apiTestFailed: 'Échec du test serveur : {message}',
+    apiHtmlResponse:
+      "Cette adresse ouvre la page de l'application au lieu du serveur de données. Utilisez {url}.",
+    apiUnreachable:
+      "Impossible d'atteindre {url}. Vérifiez que le serveur fonctionne et que le téléphone utilise le même réseau.",
+    apiInvalidJson:
+      "Le serveur a renvoyé des données non valides. Vérifiez l'adresse du serveur.",
     guestTraderName: 'Invité',
     pendingVerification: 'Code de vérification pour {email} : {code}',
     verified: 'Email confirmé. Compte propre créé : {name}',
@@ -273,9 +301,6 @@ const nodes = {
   language: document.querySelector('#authLanguageSelect'),
   status: document.querySelector('#authStatus'),
   currentPlayerName: document.querySelector('#currentPlayerName'),
-  apiBaseInput: document.querySelector('#apiBaseInput'),
-  saveApiButton: document.querySelector('#saveApiButton'),
-  testApiButton: document.querySelector('#testApiButton'),
   guestButton: document.querySelector('#guestButton'),
   adRewardButton: document.querySelector('#adRewardButton'),
   loginForm: document.querySelector('#loginForm'),
@@ -293,6 +318,13 @@ function t(key, values = {}) {
 }
 
 async function api(path, options = {}) {
+  if (window.marketApiJson) {
+    return window.marketApiJson(path, {
+      headers: { 'Content-Type': 'application/json' },
+      ...options,
+    });
+  }
+
   const response = await fetch(
     window.marketApiUrl ? window.marketApiUrl(path) : path,
     {
@@ -321,7 +353,6 @@ function applyLanguage() {
     element.textContent = t(element.dataset.authI18n);
   });
   renderCurrentPlayer();
-  nodes.apiBaseInput.value = localStorage.getItem('market_api_base_url') || '';
 }
 
 function renderCurrentPlayer() {
@@ -463,14 +494,29 @@ async function claimAdReward() {
   renderCurrentPlayer();
 }
 
-async function testApiServer() {
-  setStatus(t('apiTesting'));
-  const companies = await api('/market/companies');
-  setStatus(t('apiTestOk', { count: companies.length }));
+function apiErrorMessage(error) {
+  const suggestedUrl =
+    window.DEFAULT_MARKET_API_BASE || 'http://192.168.1.108:3000';
+
+  if (error.code === 'MARKET_API_HTML_RESPONSE') {
+    return t('apiHtmlResponse', { url: suggestedUrl });
+  }
+
+  if (error.code === 'MARKET_API_UNREACHABLE') {
+    return t('apiUnreachable', {
+      url: window.MARKET_API_BASE || suggestedUrl,
+    });
+  }
+
+  if (error.code === 'MARKET_API_INVALID_JSON') {
+    return t('apiInvalidJson');
+  }
+
+  return error.message.replace(/[{}"]/g, '');
 }
 
 function showError(error) {
-  setStatus(error.message.replace(/[{}"]/g, ''));
+  setStatus(apiErrorMessage(error));
 }
 
 function bindEvents() {
@@ -481,20 +527,6 @@ function bindEvents() {
   });
   nodes.guestButton.addEventListener('click', () =>
     continueGuest().catch(showError),
-  );
-  nodes.saveApiButton.addEventListener('click', () => {
-    const value = nodes.apiBaseInput.value.trim().replace(/\/$/, '');
-    if (value) localStorage.setItem('market_api_base_url', value);
-    else localStorage.removeItem('market_api_base_url');
-    window.MARKET_API_BASE = value;
-    setStatus(t('apiSaved'));
-  });
-  nodes.testApiButton.addEventListener('click', () =>
-    testApiServer().catch((error) =>
-      setStatus(
-        t('apiTestFailed', { message: error.message.replace(/[{}"]/g, '') }),
-      ),
-    ),
   );
   nodes.adRewardButton.addEventListener('click', () =>
     claimAdReward().catch(showError),

@@ -15,14 +15,15 @@
   <body>
     <main class="shell">
       <section class="topbar">
-        <div class="brand-heading page-brand">
+        <a class="brand-heading page-brand brand-home-link" href="../landing/index.html" aria-label="Mentavio home">
           <span class="mentavio-game-logo" aria-hidden="true"></span>
           <div>
             <p class="eyebrow" data-auth-i18n="brand">Mentavio</p>
             <h1 data-auth-i18n="title">Account</h1>
           </div>
-        </div>
+        </a>
         <nav class="app-nav" aria-label="Game navigation">
+          <a class="landing-nav-link" href="../landing/index.html">Mentavio</a>
           <a href="./index.html" data-auth-i18n="navMarket">Market</a>
           <a href="./intel.html" data-auth-i18n="navIntel">Intel</a>
           <a href="./trades.html" data-auth-i18n="navTrades">Trades</a>
@@ -56,12 +57,6 @@
           <strong id="currentPlayerName">Guest</strong>
           <button id="guestButton" type="button" data-auth-i18n="continueGuest">Continue as Guest</button>
           <button id="adRewardButton" type="button" data-auth-i18n="adRewardAction">Watch Ad Bonus</button>
-          <label class="api-settings">
-            <span data-auth-i18n="apiServer">Server URL</span>
-            <input id="apiBaseInput" type="url" placeholder="http://192.168.1.25:3000" />
-          </label>
-          <button id="saveApiButton" type="button" data-auth-i18n="saveApiServer">Save Server</button>
-          <button id="testApiButton" type="button" data-auth-i18n="testApiServer">Test Server</button>
         </div>
       </section>
 

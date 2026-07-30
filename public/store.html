@@ -12,33 +12,62 @@
   <body data-page="store">
     <main class="shell">
       <section class="topbar">
-        <div class="brand-heading page-brand">
+        <a class="brand-heading page-brand brand-home-link" href="../landing/index.html" aria-label="Mentavio home">
           <span class="mentavio-game-logo" aria-hidden="true"></span>
           <div>
             <p class="eyebrow">Mentavio</p>
             <h1>Store</h1>
           </div>
-        </div>
+        </a>
         <nav class="app-nav" aria-label="Game navigation">
-          <a href="./index.html">Market</a><a href="./intel.html">Intel</a
+          <a class="landing-nav-link" href="../landing/index.html">Mentavio</a
+          ><a href="./index.html">Market</a><a href="./intel.html">Intel</a
           ><a href="./trades.html">Trades</a><a href="./news.html">News</a
           ><a href="./portfolio.html">Portfolio</a
           ><a class="active" href="./store.html">Store</a
           ><a href="./auth.html">Account</a>
         </nav>
       </section>
-      <section class="panel page-panel">
-        <div class="panel-head">
-          <div>
-            <p class="eyebrow">Store</p>
-            <h2>Offers</h2>
-          </div>
+      <section class="panel store-wallet-panel">
+        <div>
+          <p class="eyebrow" id="storeWalletEyebrow">Account Wallet</p>
+          <h2 id="storeWalletTitle">Permanent tokens</h2>
+          <p id="storeWalletCopy">Tokens stay with your account between all game sessions.</p>
         </div>
-        <div id="offersList" class="offers-list"></div>
+        <div class="store-token-balance">
+          <span id="storeTokenBalanceLabel">Token balance</span>
+          <strong id="storeTokenBalance">0</strong>
+        </div>
       </section>
+      <div class="store-grid">
+        <section class="panel page-panel">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Store</p>
+              <h2>Token Packs</h2>
+            </div>
+          </div>
+          <div id="offersList" class="offers-list"></div>
+          <p class="store-disclaimer" id="storePaymentNote">
+            Test purchases are simulated until secure payments are connected.
+          </p>
+        </section>
+        <section class="panel page-panel session-starter-panel">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow" id="sessionFundingEyebrow">Session Funding</p>
+              <h2 id="sessionFundingTitle">Use tokens for game cash</h2>
+            </div>
+          </div>
+          <div id="sessionStartersList" class="offers-list"></div>
+          <p class="store-disclaimer" id="sessionFundingNote">
+            Starting a new session replaces current cash and positions.
+          </p>
+        </section>
+      </div>
       <div class="status-line" id="pageStatus">Loading</div>
     </main>
     <script src="./runtime-config.js"></script>
-    <script src="./pages.js"></script>
+    <script src="./pages.js?v=20260730-product-update"></script>
   </body>
 </html>

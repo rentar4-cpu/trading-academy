@@ -3255,3 +3255,238 @@ body[data-launch-page] {
     flex-direction: column;
   }
 }
+
+/* Product update: landing return, portfolio trading, and two-step store. */
+.brand-home-link {
+  color: inherit;
+  min-width: 0;
+  text-decoration: none;
+}
+
+.brand-home-link:focus-visible {
+  border-radius: 7px;
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.landing-nav-link {
+  border-color: rgba(16, 163, 127, 0.38) !important;
+  color: #85e9cf !important;
+}
+
+.portfolio-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 360px);
+  gap: 14px;
+  align-items: start;
+}
+
+.portfolio-order-panel {
+  position: sticky;
+  top: 14px;
+}
+
+.portfolio-trade-wallet,
+.portfolio-selected-asset,
+.portfolio-position-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.portfolio-trade-wallet {
+  margin-bottom: 12px;
+  padding: 14px;
+  border: 1px solid rgba(16, 163, 127, 0.28);
+  border-radius: 7px;
+  background: rgba(16, 163, 127, 0.08);
+}
+
+.portfolio-trade-wallet span,
+.portfolio-selected-asset span,
+.portfolio-position-line span {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.portfolio-trade-wallet strong {
+  color: var(--gain);
+  font-size: 22px;
+}
+
+.portfolio-selected-asset {
+  min-height: 64px;
+  margin-bottom: 14px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.portfolio-selected-asset div {
+  display: grid;
+  gap: 4px;
+}
+
+.portfolio-selected-asset > strong {
+  font-size: 20px;
+}
+
+.portfolio-trade-form,
+.portfolio-trade-form label {
+  display: grid;
+  gap: 7px;
+}
+
+.portfolio-trade-form {
+  gap: 12px;
+}
+
+.portfolio-trade-form label > span {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.portfolio-trade-form select,
+.portfolio-trade-form input {
+  width: 100%;
+  min-height: 42px;
+}
+
+.portfolio-side-switch {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.portfolio-side-switch button {
+  min-height: 40px;
+  border-color: var(--line);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--muted);
+  font-weight: 900;
+}
+
+.portfolio-side-switch button.active[data-portfolio-side='buy'] {
+  border-color: rgba(16, 185, 129, 0.56);
+  background: rgba(16, 185, 129, 0.14);
+  color: var(--gain);
+}
+
+.portfolio-side-switch button.active[data-portfolio-side='sell'] {
+  border-color: rgba(248, 113, 113, 0.56);
+  background: rgba(248, 113, 113, 0.12);
+  color: var(--loss);
+}
+
+.portfolio-position-line {
+  min-height: 38px;
+  padding: 0 2px;
+}
+
+.position-trade-button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.position-trade-button:hover {
+  color: var(--gain);
+}
+
+.store-wallet-panel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 14px;
+}
+
+.store-wallet-panel h2 {
+  margin-top: 3px;
+}
+
+.store-wallet-panel p:last-child {
+  max-width: 660px;
+  margin: 8px 0 0;
+  color: var(--muted);
+}
+
+.store-token-balance {
+  display: grid;
+  min-width: 170px;
+  padding-left: 22px;
+  border-left: 1px solid var(--line);
+  text-align: right;
+}
+
+.store-token-balance span {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.store-token-balance strong {
+  margin-top: 5px;
+  color: var(--gain);
+  font-size: 30px;
+}
+
+.store-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.offer-reward,
+.session-cash-value {
+  display: block;
+  margin-top: 9px;
+  color: var(--gain);
+  font-size: 15px;
+}
+
+.session-cash-value {
+  font-size: 21px;
+}
+
+.store-disclaimer {
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+@media (max-width: 1020px) {
+  .portfolio-layout,
+  .store-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .portfolio-order-panel {
+    position: static;
+  }
+}
+
+@media (max-width: 760px) {
+  .store-wallet-panel {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .store-token-balance {
+    min-width: 0;
+    padding: 14px 0 0;
+    border-top: 1px solid var(--line);
+    border-left: 0;
+    text-align: left;
+  }
+}

@@ -2,6 +2,13 @@ const launchPage = document.body.dataset.launchPage;
 const launchStatus = document.querySelector('#launchStatus');
 
 function launchApi(path, options = {}) {
+  if (window.marketApiJson) {
+    return window.marketApiJson(path, {
+      headers: { 'Content-Type': 'application/json' },
+      ...options,
+    });
+  }
+
   return fetch(window.marketApiUrl ? window.marketApiUrl(path) : path, {
     headers: { 'Content-Type': 'application/json' },
     ...options,

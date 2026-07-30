@@ -68,21 +68,6 @@ function MentavioLockup() {
   );
 }
 
-function BrandWordmark() {
-  return (
-    <div
-      className="h-14 w-full max-w-[430px] overflow-hidden rounded-2xl border border-white/10 bg-[#0B1220]"
-      aria-label="Mentavio wordmark"
-      style={{
-        backgroundImage: `url(${logoBoardUrl})`,
-        backgroundPosition: '100% 0%',
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: '236% auto',
-      }}
-    ></div>
-  );
-}
-
 function SophiaPanel({
   copy,
 }: {
@@ -246,10 +231,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="rounded-[2.4rem] border border-slate-200 bg-slate-50 p-4 shadow-[0_30px_100px_rgba(15,23,42,0.08)] dark:border-white/10 dark:bg-white/[0.04]">
-          <div className="mb-4 flex justify-end">
-            <BrandWordmark />
-          </div>
+        <div className="lg:pt-2">
           <SophiaPanel copy={copy} />
         </div>
       </section>

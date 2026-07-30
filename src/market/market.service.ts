@@ -49,6 +49,7 @@ const FIRST_SESSION_REWARD_TOKENS = 25;
 const FIRST_SESSION_GUIDED_GAIN_PERCENT = 6;
 const RETURN_WINDOW_MS = 20 * 60 * 60 * 1000;
 const TRADING_GAME_ID = 'trading';
+const VISIBLE_NEWS_COUNT = 4;
 
 @Injectable()
 export class MarketService implements OnModuleInit, OnModuleDestroy {
@@ -59,6 +60,7 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
   private isAutoTickRunning = false;
   private lastAutoTickAt?: Date;
   private nextAutoTickAt?: Date;
+  private newsSequence = 0;
 
   constructor(
     @InjectRepository(SimCompany)
@@ -263,10 +265,39 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
     });
   }
 
-  getMarketNews() {
-    return this.newsRepository.find({
-      where: { status: 'scheduled' },
-      order: { scheduled_at: 'ASC' },
+  async getMarketNews() {
+    const newsSlugs = MARKET_NEWS_TEMPLATES.map((item) => item.slug);
+    const records = await this.newsRepository.find({
+      where: { slug: In(newsSlugs) },
+    });
+    const recordsBySlug = new Map(records.map((item) => [item.slug, item]));
+    const firstScheduledAt =
+      this.nextAutoTickAt?.getTime() ??
+      Date.now() + Math.max(this.autoTickIntervalMs, 1000);
+
+    return Array.from({ length: VISIBLE_NEWS_COUNT }, (_, offset) => {
+      const template =
+        MARKET_NEWS_TEMPLATES[
+          (this.newsSequence + offset) % MARKET_NEWS_TEMPLATES.length
+        ];
+      const record = recordsBySlug.get(template.slug);
+
+      return {
+        ...record,
+        slug: template.slug,
+        title: template.title,
+        summary: template.summary,
+        category: template.category,
+        target_sector: template.target_sector,
+        target_symbol: template.target_symbol,
+        expected_impact_percent: template.expected_impact_percent,
+        probability_percent: template.probability_percent,
+        severity: template.severity,
+        status: 'scheduled',
+        scheduled_at: new Date(
+          firstScheduledAt + offset * this.autoTickIntervalMs,
+        ),
+      };
     });
   }
 
@@ -586,7 +617,7 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
 
     const botTrades = await this.runBotTradingRound(companies);
     const demandTrades = await this.getRecentDemandTrades(botTrades);
-    const eventTemplate = this.pickEventTemplate();
+    const eventTemplate = this.pickScheduledEventTemplate();
     const { sector_impacts: sectorImpacts, ...eventPayload } = eventTemplate;
     const event = await this.eventsRepository.save(
       this.eventsRepository.create({
@@ -628,6 +659,8 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
     });
 
     await this.companiesRepository.save(updatedCompanies);
+    this.newsSequence =
+      (this.newsSequence + 1) % MARKET_NEWS_TEMPLATES.length;
 
     return {
       event,
@@ -895,6 +928,10 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
       where: { is_active: true },
       order: { price_usd: 'ASC' },
     });
+  }
+
+  getSessionStarters() {
+    return SESSION_STARTERS;
   }
 
   async purchaseOffer(dto: PurchaseOfferDto) {
@@ -1521,6 +1558,19 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
     return MARKET_EVENT_TEMPLATES[
       Math.floor(Math.random() * MARKET_EVENT_TEMPLATES.length)
     ];
+  }
+
+  private pickScheduledEventTemplate() {
+    const newsTemplate =
+      MARKET_NEWS_TEMPLATES[
+        this.newsSequence % MARKET_NEWS_TEMPLATES.length
+      ];
+
+    return (
+      MARKET_EVENT_TEMPLATES.find(
+        (event) => event.title === newsTemplate.linked_event_title,
+      ) || this.pickEventTemplate()
+    );
   }
 
   private getEventImpact(company: SimCompany, event: EconomicEvent) {

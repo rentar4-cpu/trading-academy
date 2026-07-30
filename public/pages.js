@@ -13,6 +13,11 @@ let selectedIntelRange = localStorage.getItem('market_intel_range') || '1D';
 let intelInteractionsBound = false;
 let isPageRefreshRunning = false;
 let lastPortfolio = null;
+let portfolioCompanies = [];
+let portfolioTradeSide = 'buy';
+let portfolioTradeInteractionsBound = false;
+let storeInteractionsBound = false;
+let storeSessionStarters = [];
 
 const pageTranslations = {
   en: {
@@ -84,6 +89,38 @@ const pageTranslations = {
     credits: 'Tokens',
     netWorth: 'Net Worth',
     nextTick: 'Next tick',
+    quickTrade: 'Quick Trade',
+    buyOrSell: 'Buy or Sell',
+    availableCash: 'Available cash',
+    selectCompany: 'Select a company',
+    company: 'Company',
+    quantity: 'Quantity',
+    buy: 'Buy',
+    sell: 'Sell',
+    owned: 'Owned',
+    placeOrder: 'Place Order',
+    orderPlaced: '{side} order completed: {quantity} {symbol}',
+    accountWallet: 'Account Wallet',
+    permanentTokens: 'Permanent tokens',
+    walletCopy: 'Tokens stay with your account between all game sessions.',
+    tokenBalance: 'Token balance',
+    tokenPacks: 'Token Packs',
+    buyTokens: 'Buy tokens',
+    paymentNote:
+      'Test purchases are simulated until secure payments are connected.',
+    sessionFunding: 'Session Funding',
+    useTokensForCash: 'Use tokens for game cash',
+    sessionFundingNote:
+      'Starting a new session replaces current cash and positions.',
+    free: 'Free',
+    startSession: 'Start session',
+    sessionConfirm:
+      'Start a new session with {amount}? Current cash and positions will be replaced.',
+    shareResult: 'Share Result',
+    shareReady: 'Share text ready.',
+    portfolioShareTitle: '{name} portfolio: {netWorth}',
+    portfolioShareText:
+      'My Mentavio portfolio is {netWorth}. Open PnL: {pnl}.',
   },
   ru: {
     language: 'Ð¯Ð·Ñ‹Ðº',
@@ -679,6 +716,38 @@ const fixedPageTranslations = {
     credits: 'Токены',
     netWorth: 'Капитал',
     nextTick: 'След. тик',
+    quickTrade: 'Быстрая сделка',
+    buyOrSell: 'Купить или продать',
+    availableCash: 'Доступные деньги',
+    selectCompany: 'Выберите компанию',
+    company: 'Компания',
+    quantity: 'Количество',
+    buy: 'Купить',
+    sell: 'Продать',
+    owned: 'В портфеле',
+    placeOrder: 'Разместить заявку',
+    orderPlaced: 'Заявка выполнена: {side} {quantity} {symbol}',
+    accountWallet: 'Кошелек аккаунта',
+    permanentTokens: 'Постоянные токены',
+    walletCopy: 'Токены сохраняются в аккаунте между всеми игровыми сессиями.',
+    tokenBalance: 'Баланс токенов',
+    tokenPacks: 'Пакеты токенов',
+    buyTokens: 'Купить токены',
+    paymentNote:
+      'Тестовые покупки имитируются до подключения безопасной оплаты.',
+    sessionFunding: 'Финансирование сессии',
+    useTokensForCash: 'Обменять токены на игровые деньги',
+    sessionFundingNote:
+      'Новая сессия заменяет текущие деньги и все позиции.',
+    free: 'Бесплатно',
+    startSession: 'Начать сессию',
+    sessionConfirm:
+      'Начать новую сессию с балансом {amount}? Текущие деньги и позиции будут заменены.',
+    shareResult: 'Поделиться результатом',
+    shareReady: 'Результат готов для отправки.',
+    portfolioShareTitle: 'Портфель {name}: {netWorth}',
+    portfolioShareText:
+      'Мой портфель Mentavio: {netWorth}. Открытая прибыль: {pnl}.',
   },
   he: {
     language: 'שפה',
@@ -748,6 +817,35 @@ const fixedPageTranslations = {
     credits: 'טוקנים',
     netWorth: 'שווי כולל',
     nextTick: 'טיק הבא',
+    quickTrade: 'מסחר מהיר',
+    buyOrSell: 'קנייה או מכירה',
+    availableCash: 'מזומן זמין',
+    selectCompany: 'בחרו חברה',
+    company: 'חברה',
+    quantity: 'כמות',
+    buy: 'קנייה',
+    sell: 'מכירה',
+    owned: 'בבעלות',
+    placeOrder: 'שליחת הוראה',
+    orderPlaced: 'ההוראה בוצעה: {side} {quantity} {symbol}',
+    accountWallet: 'ארנק החשבון',
+    permanentTokens: 'טוקנים קבועים',
+    walletCopy: 'הטוקנים נשמרים בחשבון בין כל סשני המשחק.',
+    tokenBalance: 'יתרת טוקנים',
+    tokenPacks: 'חבילות טוקנים',
+    buyTokens: 'קניית טוקנים',
+    paymentNote: 'רכישות בדיקה מדומות עד לחיבור תשלום מאובטח.',
+    sessionFunding: 'מימון סשן',
+    useTokensForCash: 'המרת טוקנים לכסף משחק',
+    sessionFundingNote: 'סשן חדש מחליף את המזומן ואת כל הפוזיציות.',
+    free: 'חינם',
+    startSession: 'התחלת סשן',
+    sessionConfirm:
+      'להתחיל סשן חדש עם {amount}? המזומן והפוזיציות הנוכחיים יוחלפו.',
+    shareResult: 'שיתוף תוצאה',
+    shareReady: 'התוצאה מוכנה לשיתוף.',
+    portfolioShareTitle: 'התיק של {name}: {netWorth}',
+    portfolioShareText: 'תיק Mentavio שלי: {netWorth}. רווח פתוח: {pnl}.',
   },
   de: {
     language: 'Sprache',
@@ -819,6 +917,38 @@ const fixedPageTranslations = {
     credits: 'Token',
     netWorth: 'Nettovermögen',
     nextTick: 'Nächster Tick',
+    quickTrade: 'Schnellhandel',
+    buyOrSell: 'Kaufen oder verkaufen',
+    availableCash: 'Verfügbares Bargeld',
+    selectCompany: 'Unternehmen wählen',
+    company: 'Unternehmen',
+    quantity: 'Menge',
+    buy: 'Kaufen',
+    sell: 'Verkaufen',
+    owned: 'Im Besitz',
+    placeOrder: 'Order platzieren',
+    orderPlaced: 'Order ausgeführt: {side} {quantity} {symbol}',
+    accountWallet: 'Konto-Wallet',
+    permanentTokens: 'Dauerhafte Token',
+    walletCopy: 'Token bleiben über alle Spielsitzungen im Konto erhalten.',
+    tokenBalance: 'Token-Guthaben',
+    tokenPacks: 'Token-Pakete',
+    buyTokens: 'Token kaufen',
+    paymentNote:
+      'Testkäufe werden simuliert, bis sichere Zahlungen verbunden sind.',
+    sessionFunding: 'Sitzungsfinanzierung',
+    useTokensForCash: 'Token gegen Spielgeld tauschen',
+    sessionFundingNote:
+      'Eine neue Sitzung ersetzt Bargeld und alle Positionen.',
+    free: 'Kostenlos',
+    startSession: 'Sitzung starten',
+    sessionConfirm:
+      'Neue Sitzung mit {amount} starten? Bargeld und Positionen werden ersetzt.',
+    shareResult: 'Ergebnis teilen',
+    shareReady: 'Das Ergebnis ist zum Teilen bereit.',
+    portfolioShareTitle: 'Depot von {name}: {netWorth}',
+    portfolioShareText:
+      'Mein Mentavio-Depot: {netWorth}. Offener Gewinn: {pnl}.',
   },
   fr: {
     language: 'Langue',
@@ -890,6 +1020,39 @@ const fixedPageTranslations = {
     credits: 'Jetons',
     netWorth: 'Valeur nette',
     nextTick: 'Prochain tick',
+    quickTrade: 'Trade rapide',
+    buyOrSell: 'Acheter ou vendre',
+    availableCash: 'Liquidités disponibles',
+    selectCompany: 'Choisissez une société',
+    company: 'Société',
+    quantity: 'Quantité',
+    buy: 'Acheter',
+    sell: 'Vendre',
+    owned: 'Détenu',
+    placeOrder: 'Placer l’ordre',
+    orderPlaced: 'Ordre exécuté : {side} {quantity} {symbol}',
+    accountWallet: 'Portefeuille du compte',
+    permanentTokens: 'Jetons permanents',
+    walletCopy:
+      'Les jetons restent dans votre compte entre toutes les sessions.',
+    tokenBalance: 'Solde de jetons',
+    tokenPacks: 'Packs de jetons',
+    buyTokens: 'Acheter des jetons',
+    paymentNote:
+      'Les achats de test sont simulés avant la connexion du paiement sécurisé.',
+    sessionFunding: 'Financement de session',
+    useTokensForCash: 'Échanger des jetons contre l’argent du jeu',
+    sessionFundingNote:
+      'Une nouvelle session remplace les liquidités et toutes les positions.',
+    free: 'Gratuit',
+    startSession: 'Démarrer la session',
+    sessionConfirm:
+      'Démarrer une nouvelle session avec {amount} ? Les liquidités et positions seront remplacées.',
+    shareResult: 'Partager le résultat',
+    shareReady: 'Le résultat est prêt à être partagé.',
+    portfolioShareTitle: 'Portefeuille de {name} : {netWorth}',
+    portfolioShareText:
+      'Mon portefeuille Mentavio : {netWorth}. Gain ouvert : {pnl}.',
   },
 };
 
@@ -968,6 +1131,30 @@ const fixedPageDataText = {
       he: 'מוסיף 2,200 טוקנים קבועים להתקדמות פרימיום.',
       de: 'Fügt 2.200 dauerhafte Token für Premium-Fortschritt hinzu.',
       fr: 'Ajoute 2 200 jetons permanents pour la progression premium.',
+    },
+    'Standard Session': {
+      ru: 'Стандартная сессия',
+      he: 'סשן רגיל',
+      de: 'Standard-Sitzung',
+      fr: 'Session standard',
+    },
+    'Funded Session': {
+      ru: 'Сессия с капиталом',
+      he: 'סשן ממומן',
+      de: 'Finanzierte Sitzung',
+      fr: 'Session financée',
+    },
+    'Pro Session': {
+      ru: 'Профессиональная сессия',
+      he: 'סשן מקצועי',
+      de: 'Profi-Sitzung',
+      fr: 'Session pro',
+    },
+    'Investor Session': {
+      ru: 'Сессия инвестора',
+      he: 'סשן משקיע',
+      de: 'Investor-Sitzung',
+      fr: 'Session investisseur',
     },
   },
   descriptions: {
@@ -1306,6 +1493,13 @@ function tr(key, values = {}) {
 }
 
 async function api(path, options = {}) {
+  if (window.marketApiJson) {
+    return window.marketApiJson(path, {
+      headers: { 'Content-Type': 'application/json' },
+      ...options,
+    });
+  }
+
   const response = await fetch(
     window.marketApiUrl ? window.marketApiUrl(path) : path,
     {
@@ -1430,12 +1624,15 @@ function translatePageLabels() {
     portfolio: [['.page-panel .eyebrow', 'portfolioTitle']],
     store: [
       ['.page-panel .eyebrow', 'navStore'],
-      ['.page-panel h2', 'offers'],
-      ['.custom-cash-panel .eyebrow', 'currency'],
-      ['.custom-cash-panel h2', 'customCash'],
-      ['.custom-cash-form span', 'gameCash'],
-      ['.custom-cash-form button', 'buyCash'],
-      ['#customCashNote', 'customCashNote'],
+      ['.page-panel h2', 'tokenPacks'],
+      ['#storeWalletEyebrow', 'accountWallet'],
+      ['#storeWalletTitle', 'permanentTokens'],
+      ['#storeWalletCopy', 'walletCopy'],
+      ['#storeTokenBalanceLabel', 'tokenBalance'],
+      ['#storePaymentNote', 'paymentNote'],
+      ['#sessionFundingEyebrow', 'sessionFunding'],
+      ['#sessionFundingTitle', 'useTokensForCash'],
+      ['#sessionFundingNote', 'sessionFundingNote'],
     ],
   };
 
@@ -1449,6 +1646,30 @@ function translatePageLabels() {
   });
 
   translateTables();
+
+  if (page === 'portfolio') {
+    const portfolioLabels = [
+      ['#portfolioTradeEyebrow', 'quickTrade'],
+      ['#portfolioTradeTitle', 'buyOrSell'],
+      ['#portfolioAvailableLabel', 'availableCash'],
+      ['#portfolioCompanyLabel', 'company'],
+      ['#portfolioQuantityLabel', 'quantity'],
+      ['#portfolioOwnedLabel', 'owned'],
+      ['#portfolioOrderButton', 'placeOrder'],
+      ['#sharePortfolioButton', 'shareResult'],
+    ];
+    for (const [selector, key] of portfolioLabels) {
+      const element = document.querySelector(selector);
+      if (element) element.textContent = tr(key);
+    }
+
+    document
+      .querySelectorAll('[data-portfolio-side]')
+      .forEach((button) => {
+        button.textContent = tr(button.dataset.portfolioSide);
+      });
+    syncPortfolioTradePanel();
+  }
 }
 
 function translateTables() {
@@ -1970,6 +2191,7 @@ function renderPortfolio(portfolio) {
   document.querySelector('#creditsValue').textContent = numberValue(
     portfolio.account_tokens,
   ).toFixed(0);
+  syncPortfolioTradePanel();
 
   const body = document.querySelector('#positionsBody');
   if (!portfolio.positions.length) {
@@ -1983,7 +2205,7 @@ function renderPortfolio(portfolio) {
       const pnl = numberValue(position.unrealized_pnl);
       return `
         <tr>
-          <td class="symbol-cell">${position.symbol}</td>
+          <td class="symbol-cell"><button class="position-trade-button" type="button" data-portfolio-symbol="${position.symbol}">${position.symbol}</button></td>
           <td>${numberValue(position.quantity).toFixed(2)}</td>
           <td>${money.format(numberValue(position.average_cost))}</td>
           <td>${money.format(numberValue(position.market_value))}</td>
@@ -1993,6 +2215,154 @@ function renderPortfolio(portfolio) {
     })
     .join('');
   syncResponsiveTableLabels();
+}
+
+function renderPortfolioTradeCompanies() {
+  const select = document.querySelector('#portfolioTradeSymbol');
+  if (!select) return;
+
+  const savedSymbol = localStorage.getItem('market_portfolio_trade_symbol');
+  const heldSymbol = lastPortfolio?.positions?.[0]?.symbol;
+  const selectedSymbol =
+    [select.value, savedSymbol, heldSymbol].find((symbol) =>
+      portfolioCompanies.some((company) => company.symbol === symbol),
+    ) || portfolioCompanies[0]?.symbol;
+
+  select.innerHTML = portfolioCompanies
+    .map(
+      (company) =>
+        `<option value="${company.symbol}">${company.symbol} - ${company.name}</option>`,
+    )
+    .join('');
+
+  if (selectedSymbol) select.value = selectedSymbol;
+  syncPortfolioTradePanel();
+}
+
+function syncPortfolioTradePanel() {
+  if (page !== 'portfolio') return;
+
+  const select = document.querySelector('#portfolioTradeSymbol');
+  const company = portfolioCompanies.find(
+    (item) => item.symbol === select?.value,
+  );
+  const position = lastPortfolio?.positions?.find(
+    (item) => item.symbol === company?.symbol,
+  );
+
+  const assetNode = document.querySelector('#portfolioTradeAsset');
+  const companyNode = document.querySelector('#portfolioTradeCompany');
+  const priceNode = document.querySelector('#portfolioTradePrice');
+  const cashNode = document.querySelector('#portfolioTradeCash');
+  const ownedNode = document.querySelector('#portfolioOwnedQuantity');
+
+  if (assetNode) assetNode.textContent = company?.symbol || '--';
+  if (companyNode) {
+    companyNode.textContent = company?.name || tr('selectCompany');
+  }
+  if (priceNode) {
+    priceNode.textContent = money.format(numberValue(company?.price));
+  }
+  if (cashNode) {
+    cashNode.textContent = money.format(
+      numberValue(lastPortfolio?.cash_balance),
+    );
+  }
+  if (ownedNode) {
+    ownedNode.textContent = numberValue(position?.quantity).toFixed(2);
+  }
+
+  document
+    .querySelectorAll('[data-portfolio-side]')
+    .forEach((button) => {
+      button.classList.toggle(
+        'active',
+        button.dataset.portfolioSide === portfolioTradeSide,
+      );
+    });
+}
+
+function setupPortfolioTradeInteractions() {
+  if (page !== 'portfolio' || portfolioTradeInteractionsBound) return;
+  portfolioTradeInteractionsBound = true;
+
+  document
+    .querySelector('#portfolioTradeSymbol')
+    ?.addEventListener('change', (event) => {
+      localStorage.setItem('market_portfolio_trade_symbol', event.target.value);
+      syncPortfolioTradePanel();
+    });
+
+  document
+    .querySelector('.portfolio-side-switch')
+    ?.addEventListener('click', (event) => {
+      const button = event.target.closest('[data-portfolio-side]');
+      if (!button) return;
+      portfolioTradeSide = button.dataset.portfolioSide;
+      syncPortfolioTradePanel();
+    });
+
+  document
+    .querySelector('#positionsBody')
+    ?.addEventListener('click', (event) => {
+      const button = event.target.closest('[data-portfolio-symbol]');
+      const select = document.querySelector('#portfolioTradeSymbol');
+      if (!button || !select) return;
+      select.value = button.dataset.portfolioSymbol;
+      localStorage.setItem(
+        'market_portfolio_trade_symbol',
+        button.dataset.portfolioSymbol,
+      );
+      syncPortfolioTradePanel();
+      document.querySelector('.portfolio-order-panel')?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    });
+
+  document
+    .querySelector('#portfolioTradeForm')
+    ?.addEventListener('submit', (event) => {
+      placePortfolioOrder(event).catch((error) => setStatus(error.message));
+    });
+}
+
+async function placePortfolioOrder(event) {
+  event.preventDefault();
+  const playerId = Number(localStorage.getItem('market_player_id'));
+  if (!playerId) {
+    setStatus(tr('createPlayerFirst'));
+    return;
+  }
+
+  const symbol = document.querySelector('#portfolioTradeSymbol').value;
+  const quantity = numberValue(
+    document.querySelector('#portfolioTradeQuantity').value,
+  );
+  const submitButton = document.querySelector('#portfolioOrderButton');
+  submitButton.disabled = true;
+
+  try {
+    const result = await api('/market/orders', {
+      method: 'POST',
+      body: JSON.stringify({
+        player_id: playerId,
+        symbol,
+        side: portfolioTradeSide,
+        quantity,
+      }),
+    });
+    renderPortfolio(result.portfolio);
+    setStatus(
+      tr('orderPlaced', {
+        side: tr(portfolioTradeSide),
+        quantity: quantity.toFixed(2),
+        symbol,
+      }),
+    );
+  } finally {
+    submitButton.disabled = false;
+  }
 }
 
 async function shareText(payload) {
@@ -2037,12 +2407,18 @@ async function sharePortfolioResult() {
   );
   await shareText({
     kind: 'portfolio',
-    title: `${lastPortfolio.player.display_name} portfolio: ${netWorth}`,
-    text: `My Mentavio portfolio is ${netWorth}. Open PnL: ${money.format(pnl)}.`,
+    title: tr('portfolioShareTitle', {
+      name: lastPortfolio.player.display_name,
+      netWorth,
+    }),
+    text: tr('portfolioShareText', {
+      netWorth,
+      pnl: money.format(pnl),
+    }),
     net_worth: numberValue(lastPortfolio.net_worth),
     open_pnl: pnl,
   });
-  setStatus('Share text ready.');
+  setStatus(tr('shareReady'));
 }
 
 function renderOffers(offers) {
@@ -2053,12 +2429,37 @@ function renderOffers(offers) {
           <div>
             <h3>${dataText('offers', offer.title)}</h3>
             <p>${dataText('offers', offer.description)}</p>
+            <strong class="offer-reward">+${numberValue(offer.token_reward).toFixed(0)} ${tr('tokens')}</strong>
           </div>
-          <button type="button" data-offer-id="${offer.id}">${money.format(numberValue(offer.price_usd))}</button>
+          <button type="button" data-offer-id="${offer.id}">${tr('buyTokens')} · ${money.format(numberValue(offer.price_usd))}</button>
         </article>
       `,
     )
     .join('');
+}
+
+function renderSessionStarters(starters) {
+  storeSessionStarters = starters;
+  document.querySelector('#sessionStartersList').innerHTML = starters
+    .map((starter) => {
+      const cost = numberValue(starter.token_cost);
+      return `
+        <article class="offer session-offer">
+          <div>
+            <h3>${dataText('offers', starter.title)}</h3>
+            <strong class="session-cash-value">${money.format(numberValue(starter.cash))}</strong>
+            <p>${cost ? `${cost.toFixed(0)} ${tr('tokens')}` : tr('free')}</p>
+          </div>
+          <button type="button" data-starter-sku="${starter.sku}">${tr('startSession')}</button>
+        </article>
+      `;
+    })
+    .join('');
+}
+
+function renderStoreTokenBalance(value) {
+  const node = document.querySelector('#storeTokenBalance');
+  if (node) node.textContent = numberValue(value).toFixed(0);
 }
 
 async function loadPortfolioPage() {
@@ -2070,7 +2471,13 @@ async function loadPortfolioPage() {
     return;
   }
 
-  renderPortfolio(await api(`/market/players/${playerId}/portfolio`));
+  const [portfolio, companies] = await Promise.all([
+    api(`/market/players/${playerId}/portfolio`),
+    api('/market/companies'),
+  ]);
+  portfolioCompanies = companies;
+  renderPortfolio(portfolio);
+  renderPortfolioTradeCompanies();
   setStatus(tr('portfolioUpdated'));
 }
 
@@ -2083,9 +2490,43 @@ async function purchaseOffer(offerId) {
   });
   if (result.user)
     localStorage.setItem('market_user', JSON.stringify(result.user));
+  renderStoreTokenBalance(result.user?.account_tokens);
   setStatus(
     tr('purchaseRecorded', {
       amount: numberValue(result.token_reward).toFixed(0),
+    }),
+  );
+}
+
+async function startFundedSession(starterSku) {
+  const playerId = await ensureStorePlayer();
+  const starter = storeSessionStarters.find(
+    (item) => item.sku === starterSku,
+  );
+  if (!starter) return;
+
+  const accepted = window.confirm(
+    tr('sessionConfirm', {
+      amount: money.format(numberValue(starter.cash)),
+    }),
+  );
+  if (!accepted) return;
+
+  const result = await api('/market/sessions/start', {
+    method: 'POST',
+    body: JSON.stringify({
+      player_id: playerId,
+      starter_sku: starterSku,
+    }),
+  });
+
+  if (result.user) {
+    localStorage.setItem('market_user', JSON.stringify(result.user));
+    renderStoreTokenBalance(result.user.account_tokens);
+  }
+  setStatus(
+    tr('cashPurchaseRecorded', {
+      amount: money.format(numberValue(result.portfolio.cash_balance)),
     }),
   );
 }
@@ -2110,6 +2551,31 @@ function registerAppShell() {
       .register('/game/sw.js', { scope: '/game/' })
       .catch(() => undefined);
   }
+}
+
+function setupStoreInteractions() {
+  if (page !== 'store' || storeInteractionsBound) return;
+  storeInteractionsBound = true;
+
+  document.querySelector('#offersList')?.addEventListener('click', (event) => {
+    const button = event.target.closest('[data-offer-id]');
+    if (button) {
+      purchaseOffer(button.dataset.offerId).catch((error) =>
+        setStatus(error.message),
+      );
+    }
+  });
+
+  document
+    .querySelector('#sessionStartersList')
+    ?.addEventListener('click', (event) => {
+      const button = event.target.closest('[data-starter-sku]');
+      if (button) {
+        startFundedSession(button.dataset.starterSku).catch((error) =>
+          setStatus(error.message),
+        );
+      }
+    });
 }
 
 async function loadClock() {
@@ -2148,6 +2614,8 @@ async function boot() {
   addLanguageSelect();
   applyLanguage();
   setupIntelInteractions();
+  setupPortfolioTradeInteractions();
+  setupStoreInteractions();
   document
     .querySelector('#sharePortfolioButton')
     ?.addEventListener('click', () =>
@@ -2179,16 +2647,23 @@ async function refreshPage(options = {}) {
     }
 
     if (page === 'store') {
-      renderOffers(await api('/market/monetization/offers'));
-      document
-        .querySelector('#offersList')
-        .addEventListener('click', (event) => {
-          const button = event.target.closest('[data-offer-id]');
-          if (button)
-            purchaseOffer(button.dataset.offerId).catch((error) =>
-              setStatus(error.message),
-            );
-        });
+      const [offers, starters] = await Promise.all([
+        api('/market/monetization/offers'),
+        api('/market/monetization/session-starters'),
+      ]);
+      renderOffers(offers);
+      renderSessionStarters(starters);
+
+      const playerId = Number(localStorage.getItem('market_player_id'));
+      const savedUser = readJson('market_user');
+      let tokenBalance = numberValue(savedUser?.account_tokens);
+      if (playerId) {
+        const portfolio = await api(
+          `/market/players/${playerId}/portfolio`,
+        ).catch(() => null);
+        if (portfolio) tokenBalance = numberValue(portfolio.account_tokens);
+      }
+      renderStoreTokenBalance(tokenBalance);
       setStatus(tr('storeLoaded'));
     }
   } finally {

@@ -1647,25 +1647,117 @@ export const DAILY_QUEST_DEFINITIONS = [
   },
 ];
 
-export const NEWS_TEMPLATES = EVENT_TEMPLATES.slice(0, 24).map(
-  (event, index) => ({
-    slug: event.title
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/^-|-$/g, ''),
-    title: event.title,
-    summary: event.description,
-    category: event.category,
-    target_sector: event.target_sector,
-    target_symbol: event.target_symbol,
-    expected_impact_percent: event.price_impact_percent,
-    probability_percent: Math.min(82, 48 + ((index * 7) % 35)),
-    severity:
-      Math.abs(event.price_impact_percent) >= 7
-        ? 'high'
-        : Math.abs(event.price_impact_percent) >= 4
-          ? 'medium'
-          : 'low',
-    days_from_now: (index % 7) + 1,
-  }),
-);
+export const NEWS_TEMPLATES = [
+  {
+    slug: 'border-war-risk',
+    title: 'Border war risk rises near energy corridor',
+    summary:
+      'Military tension around a key transit route could raise fuel costs and pressure logistics companies. Defense and cybersecurity names may attract defensive buying.',
+    category: 'War',
+    target_sector: 'Logistics',
+    target_symbol: undefined,
+    expected_impact_percent: -7,
+    probability_percent: 62,
+    severity: 'high',
+    days_from_now: 1,
+    linked_event_title: 'Border war risk rises',
+  },
+  {
+    slug: 'cyber-attack-wave',
+    title: 'Cyber attack wave prompts emergency security budgets',
+    summary:
+      'A series of fictional attacks on utilities may push companies toward endpoint protection and incident response vendors.',
+    category: 'Security',
+    target_sector: 'Cybersecurity',
+    target_symbol: undefined,
+    expected_impact_percent: 8,
+    probability_percent: 76,
+    severity: 'high',
+    days_from_now: 2,
+    linked_event_title: 'Cyber attack wave',
+  },
+  {
+    slug: 'chip-shortage',
+    title: 'Sensor chip shortage may delay robotics shipments',
+    summary:
+      'Component suppliers warn of limited machine-vision chip inventory. Robotics firms could face margin pressure if supply does not improve.',
+    category: 'Supply Chain',
+    target_sector: 'Robotics',
+    target_symbol: undefined,
+    expected_impact_percent: -5,
+    probability_percent: 55,
+    severity: 'medium',
+    days_from_now: 3,
+    linked_event_title: 'Chip shortage expands',
+  },
+  {
+    slug: 'regional-defense-alliance',
+    title: 'Regional defense alliance expected to sign drone procurement pact',
+    summary:
+      'Several governments are discussing a joint inspection-drone program. AeroVista Drones is seen as a likely supplier if the pact is signed.',
+    category: 'State Alliance',
+    target_sector: undefined,
+    target_symbol: 'AERO',
+    expected_impact_percent: 9,
+    probability_percent: 71,
+    severity: 'high',
+    days_from_now: 4,
+    linked_event_title: 'Regional defense alliance signed',
+  },
+  {
+    slug: 'drought-warning',
+    title: 'Drought warning threatens traditional agriculture supply',
+    summary:
+      'Weather agencies warn that a dry season may hurt open-field supply. Vertical farming companies could benefit while food costs rise.',
+    category: 'Drought',
+    target_sector: 'Agriculture',
+    target_symbol: undefined,
+    expected_impact_percent: 6,
+    probability_percent: 67,
+    severity: 'medium',
+    days_from_now: 5,
+    linked_event_title: 'Severe drought warning',
+  },
+  {
+    slug: 'education-tax-plan',
+    title: 'Education tax plan heads to committee vote',
+    summary:
+      'A proposed digital-learning tax credit may increase school software spending next quarter.',
+    category: 'Tax Policy',
+    target_sector: 'Education',
+    target_symbol: undefined,
+    expected_impact_percent: 5,
+    probability_percent: 58,
+    severity: 'medium',
+    days_from_now: 6,
+    linked_event_title: 'Education tax credit',
+  },
+  {
+    slug: 'green-subsidy-review',
+    title: 'Green subsidy review may extend solar credits',
+    summary:
+      'Lawmakers are reviewing a longer subsidy window for microgrid and battery projects. Solara Grid would benefit from longer support.',
+    category: 'Government Support',
+    target_sector: undefined,
+    target_symbol: 'SOLR',
+    expected_impact_percent: 7,
+    probability_percent: 64,
+    severity: 'medium',
+    days_from_now: 7,
+    linked_event_title: 'SOLR subsidy review',
+  },
+  {
+    slug: 'consumer-alliance',
+    title: 'Consumer brands form retail data alliance',
+    summary:
+      'A coalition of premium brands plans shared customer analytics. Retail marketplaces may gain better targeting and lower acquisition costs.',
+    category: 'Business Alliance',
+    target_sector: 'Consumer',
+    target_symbol: undefined,
+    expected_impact_percent: 4,
+    probability_percent: 52,
+    severity: 'low',
+    days_from_now: 8,
+    linked_event_title: 'Luxury demand surge',
+  },
+];

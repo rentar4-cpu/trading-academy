@@ -1125,6 +1125,13 @@ function applyLanguage() {
 }
 
 async function api(path, options = {}) {
+  if (window.marketApiJson) {
+    return window.marketApiJson(path, {
+      headers: { 'Content-Type': 'application/json' },
+      ...options,
+    });
+  }
+
   const response = await fetch(
     window.marketApiUrl ? window.marketApiUrl(path) : path,
     {

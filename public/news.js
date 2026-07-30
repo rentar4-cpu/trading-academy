@@ -173,6 +173,7 @@ const newsDataText = {
     Energy: { ru: 'Энергетика', he: 'אנרגיה', de: 'Energie', fr: 'Énergie' },
     Cybersecurity: { ru: 'Кибербезопасность', he: 'סייבר', de: 'Cybersicherheit', fr: 'Cybersécurité' },
     AI: { ru: 'ИИ', he: 'בינה מלאכותית', de: 'KI', fr: 'IA' },
+    Robotics: { ru: 'Робототехника', he: 'רובוטיקה', de: 'Robotik', fr: 'Robotique' },
     Agriculture: { ru: 'Сельское хозяйство', he: 'חקלאות', de: 'Landwirtschaft', fr: 'Agriculture' },
     Fintech: { ru: 'Финтех', he: 'פינטק', de: 'Fintech', fr: 'Fintech' },
     Manufacturing: { ru: 'Производство', he: 'ייצור', de: 'Produktion', fr: 'Industrie' },
@@ -236,6 +237,10 @@ function formatNewsDate(value) {
 }
 
 async function api(path) {
+  if (window.marketApiJson) {
+    return window.marketApiJson(path);
+  }
+
   const response = await fetch(window.marketApiUrl ? window.marketApiUrl(path) : path);
   if (!response.ok) {
     throw new Error(`Request failed: ${response.status}`);
