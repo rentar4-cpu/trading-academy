@@ -9,7 +9,7 @@ let currentLanguage = 'en';
 const newsTranslations = {
   en: {
     language: 'Language',
-    brand: 'Mentario',
+    brand: 'Mentavio',
     title: 'Market News',
     navMarket: 'Market',
     navIntel: 'Intel',
@@ -38,7 +38,7 @@ const newsTranslations = {
   },
   ru: {
     language: 'Язык',
-    brand: 'Mentario',
+    brand: 'Mentavio',
     title: 'Новости рынка',
     navMarket: 'Рынок',
     navIntel: 'Аналитика',
@@ -67,7 +67,7 @@ const newsTranslations = {
   },
   he: {
     language: 'שפה',
-    brand: 'Mentario',
+    brand: 'Mentavio',
     title: 'חדשות שוק',
     navMarket: 'שוק',
     navIntel: 'מודיעין',
@@ -96,7 +96,7 @@ const newsTranslations = {
   },
   de: {
     language: 'Sprache',
-    brand: 'Mentario',
+    brand: 'Mentavio',
     title: 'Marktnachrichten',
     navMarket: 'Markt',
     navIntel: 'Analyse',
@@ -125,7 +125,7 @@ const newsTranslations = {
   },
   fr: {
     language: 'Langue',
-    brand: 'Mentario',
+    brand: 'Mentavio',
     title: 'Infos marché',
     navMarket: 'Marché',
     navIntel: 'Analyse',

@@ -10,7 +10,7 @@ const nextAssetsTarget = join(publicRoot, '_next');
 const exportedNextAssets = join(exportRoot, '_next');
 
 if (!existsSync(join(exportRoot, 'index.html')) || !existsSync(exportedNextAssets)) {
-  throw new Error('Mentario landing export is incomplete.');
+  throw new Error('Mentavio landing export is incomplete.');
 }
 
 rmSync(landingTarget, { force: true, recursive: true });
@@ -23,4 +23,4 @@ cpSync(exportRoot, landingTarget, {
 });
 cpSync(exportedNextAssets, nextAssetsTarget, { recursive: true });
 
-console.log('Mentario landing copied into the web and Android application.');
+console.log('Mentavio landing copied into the web and Android application.');

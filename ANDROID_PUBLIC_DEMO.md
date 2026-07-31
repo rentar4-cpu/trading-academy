@@ -14,7 +14,7 @@ The APK reads `mobile-config.json` at startup. This allows the server address to
 
 ## Demo Flow
 
-1. Start the local Mentario backend.
+1. Start the local Mentavio backend.
 
    ```powershell
    cd "C:\Users\renta\OneDrive\Desktop\STOCK MARKET PROJECT\trading-academy-backend"
@@ -63,19 +63,19 @@ The APK reads `mobile-config.json` at startup. This allows the server address to
 Recommended file name:
 
 ```text
-Mentario-YYYY-MM-DD-public-demo-debug.apk
+Mentavio-YYYY-MM-DD-public-demo-debug.apk
 ```
 
 Example:
 
 ```text
-Mentario-2026-07-31-public-demo-debug.apk
+Mentavio-2026-07-31-public-demo-debug.apk
 ```
 
-Current MVP foundation build:
+Current name-fix build:
 
 ```text
-Mentario-2026-07-31-mvp-foundation-debug.apk
+Mentavio-2026-07-31-name-fix-debug.apk
 ```
 
 ## Creating a New GitHub APK Release
@@ -83,8 +83,8 @@ Mentario-2026-07-31-mvp-foundation-debug.apk
 Push a tag that starts with `android-v`.
 
 ```powershell
-git tag android-v2026-07-31-mvp-foundation
-git push origin android-v2026-07-31-mvp-foundation
+git tag android-v2026-07-31-mentavio-name-fix
+git push origin android-v2026-07-31-mentavio-name-fix
 ```
 
 GitHub Actions will build the APK and attach it to a GitHub Release automatically.

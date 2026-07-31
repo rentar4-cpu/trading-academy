@@ -23,7 +23,7 @@ const APP_SHELL = [
   '/game/news.js',
   '/game/auth.js',
   '/game/icon.svg',
-  '/game/mentario-logo-board.png',
+  '/game/mentavio-logo-board.png',
   '/game/manifest.webmanifest',
 ];
 

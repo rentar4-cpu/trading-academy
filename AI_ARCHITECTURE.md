@@ -1,10 +1,10 @@
-# Mentario Sophia AI Architecture
+# Mentavio Sophia AI Architecture
 
 Status: MVP foundation
 
 ## Role
 
-Sophia is the educational AI mentor inside Mentario. Sophia explains concepts, simulated events, decision-making, and risk awareness. Sophia must not promise profit, recommend real investments, execute actions, or present herself as a licensed financial adviser.
+Sophia is the educational AI mentor inside Mentavio. Sophia explains concepts, simulated events, decision-making, and risk awareness. Sophia must not promise profit, recommend real investments, execute actions, or present herself as a licensed financial adviser.
 
 ## Provider Abstraction
 

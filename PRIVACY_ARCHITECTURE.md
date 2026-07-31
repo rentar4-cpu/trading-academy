@@ -1,4 +1,4 @@
-# Mentario Privacy Architecture
+# Mentavio Privacy Architecture
 
 Status: MVP working draft
 

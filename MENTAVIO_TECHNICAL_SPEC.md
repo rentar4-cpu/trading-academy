@@ -1,8 +1,8 @@
-﻿# MENTARIO — MASTER TECHNICAL SPECIFICATION
+﻿# MENTAVIO — MASTER TECHNICAL SPECIFICATION
 
 **Версия:** 0.1
 **Статус:** рабочий проект технического задания
-**Назначение:** доработка существующего приложения Mentario
+**Назначение:** доработка существующего приложения Mentavio
 **Исполнитель:** Codex
 **Язык документа:** русский
 **Основной язык пользовательского интерфейса MVP:** английский
@@ -11,13 +11,13 @@
 
 ## 1. Общая задача
 
-Необходимо доработать существующее приложение Mentario и подготовить его к дальнейшему развитию как глобальной образовательной платформы с симуляцией финансового рынка и встроенным AI-наставником Sophia.
+Необходимо доработать существующее приложение Mentavio и подготовить его к дальнейшему развитию как глобальной образовательной платформы с симуляцией финансового рынка и встроенным AI-наставником Sophia.
 
 Приложение уже существует в рабочем, но незавершённом виде. Требуется не создавать новый проект с нуля, а внимательно изучить текущий репозиторий, сохранить работающую функциональность и внести описанные ниже изменения в существующую архитектуру.
 
 Основные цели текущего этапа:
 
-1. Зафиксировать назначение и позиционирование Mentario.
+1. Зафиксировать назначение и позиционирование Mentavio.
 2. Подготовить архитектуру для AI-агента Sophia.
 3. Оставить в MVP только английский язык.
 4. Чётко обозначить образовательный и игровой характер продукта.
@@ -29,13 +29,13 @@
 
 ---
 
-# 2. Название и концепция Mentario
+# 2. Название и концепция Mentavio
 
 ## 2.1. Название компании
 
-Название проекта и компании: **Mentario**.
+Название проекта и компании: **Mentavio**.
 
-Название Mentario объединяет идею наставничества, обучения, развития мышления и постепенного приобретения практических навыков.
+Название Mentavio объединяет идею наставничества, обучения, развития мышления и постепенного приобретения практических навыков.
 
 Название связано с такими понятиями, как:
 
@@ -46,17 +46,17 @@
 * personal development;
 * guided decision-making.
 
-Mentario — это пространство, в котором пользователь не получает обещание быстрого заработка, а учится понимать финансовые процессы, анализировать события, принимать решения и видеть последствия своих действий.
+Mentavio — это пространство, в котором пользователь не получает обещание быстрого заработка, а учится понимать финансовые процессы, анализировать события, принимать решения и видеть последствия своих действий.
 
 ## 2.2. Краткое описание бренда
 
 Использовать следующий текст как предварительное описание бренда:
 
-**Mentario is an educational simulation platform designed to help people understand financial markets, practise decision-making and learn from the consequences of their choices in a safe, fictional environment.**
+**Mentavio is an educational simulation platform designed to help people understand financial markets, practise decision-making and learn from the consequences of their choices in a safe, fictional environment.**
 
 Расширенная формулировка:
 
-**Mentario combines mentorship, interactive learning and simulated market scenarios. The platform helps users develop financial thinking, understand real market terminology and practise decision-making without risking real money.**
+**Mentavio combines mentorship, interactive learning and simulated market scenarios. The platform helps users develop financial thinking, understand real market terminology and practise decision-making without risking real money.**
 
 Этот текст пока не считается окончательным маркетинговым описанием. Он должен быть сохранён как основа для дальнейшего расширения миссии, истории компании и позиционирования продукта.
 
@@ -64,7 +64,7 @@ Mentario — это пространство, в котором пользова
 
 # 3. Назначение платформы
 
-Mentario является:
+Mentavio является:
 
 * образовательной платформой;
 * игровой финансовой симуляцией;
@@ -72,7 +72,7 @@ Mentario является:
 * системой обучения финансовой терминологии;
 * безопасной средой для практики без использования реальных денег.
 
-Mentario не является:
+Mentavio не является:
 
 * брокером;
 * биржей;
@@ -84,7 +84,7 @@ Mentario не является:
 * системой автоматической торговли;
 * сервисом, гарантирующим доходность.
 
-Главный принцип Mentario:
+Главный принцип Mentavio:
 
 **We do not provide a magic button for making money. We teach users how to think, analyse and make informed decisions.**
 
@@ -101,7 +101,7 @@ Mentario не является:
 
 Платформа не должна пытаться заинтересовать абсолютно всех людей.
 
-Mentario предназначен не для тех, кому финансовая тема в принципе неинтересна, а для пользователей, у которых уже существует интерес, вопрос, проблема или желание научиться.
+Mentavio предназначен не для тех, кому финансовая тема в принципе неинтересна, а для пользователей, у которых уже существует интерес, вопрос, проблема или желание научиться.
 
 ---
 
@@ -131,20 +131,20 @@ Mentario предназначен не для тех, кому финансов�
 
 Sophia должна объяснять эти термины простым языком, а затем при необходимости давать более профессиональное объяснение.
 
-Пользователь должен постепенно привыкать к реальным терминам, которые используются за пределами Mentario.
+Пользователь должен постепенно привыкать к реальным терминам, которые используются за пределами Mentavio.
 
 ## 5.2. Разделение игры и реального рынка
 
 Интерфейс и Sophia должны всегда честно разделять:
 
-* игровую механику Mentario;
+* игровую механику Mentavio;
 * реальные принципы финансового рынка.
 
 Нельзя создавать впечатление, что симуляция полностью повторяет настоящую биржу.
 
 Рекомендуемая формулировка Sophia:
 
-**In real markets, similar events may influence prices, but the reaction can vary depending on many factors. In Mentario, this situation is simplified for educational purposes.**
+**In real markets, similar events may influence prices, but the reaction can vary depending on many factors. In Mentavio, this situation is simplified for educational purposes.**
 
 ## 5.3. Существующие игровые события
 
@@ -170,7 +170,7 @@ Sophia должна объяснять эти термины простым яз
 
 ## 6.1. Роль Sophia
 
-Sophia — это имя встроенного AI-агента Mentario.
+Sophia — это имя встроенного AI-агента Mentavio.
 
 Sophia не является названием компании.
 
@@ -184,21 +184,21 @@ Sophia является персональным образовательным 
 * разбирать последствия принятых решений;
 * видеть собственные ошибки;
 * постепенно улучшать финансовое мышление;
-* ориентироваться в интерфейсе Mentario.
+* ориентироваться в интерфейсе Mentavio.
 
 ## 6.2. Функции первой версии
 
 Sophia должна поддерживать следующие функции:
 
 1. Чат внутри приложения.
-2. Ответы на вопросы о работе Mentario.
+2. Ответы на вопросы о работе Mentavio.
 3. Объяснение финансовых терминов.
 4. Объяснение игровых событий.
 5. Объяснение возможных причин изменения игровой цены.
 6. Разбор решений пользователя после завершения игрового действия.
 7. Объяснение ошибок простым и уважительным языком.
 8. Адаптация сложности ответа к уровню пользователя.
-9. Напоминание о том, что Mentario является симуляцией.
+9. Напоминание о том, что Mentavio является симуляцией.
 10. Отказ от обещаний прибыли и гарантированных результатов.
 
 ## 6.3. Что Sophia не должна делать
@@ -246,7 +246,7 @@ Sophia должна объяснять сложные вещи поэтапно.
 
 ## 7.1. Sophia не должна быть привязана к одной модели
 
-Sophia является продуктовым слоем Mentario, а не конкретной языковой моделью.
+Sophia является продуктовым слоем Mentavio, а не конкретной языковой моделью.
 
 Необходимо разделить:
 
@@ -268,11 +268,11 @@ Sophia является продуктовым слоем Mentario, а не ко
 
 * использование внешнего AI API;
 * вычисления выполняются на стороне выбранного AI-провайдера;
-* Mentario оплачивает фактическое использование API;
+* Mentavio оплачивает фактическое использование API;
 * приложение отправляет только минимально необходимый контекст;
 * API-ключи не должны находиться в клиентском приложении или APK.
 
-Все запросы к AI должны проходить через защищённый backend Mentario.
+Все запросы к AI должны проходить через защищённый backend Mentavio.
 
 Запрещается размещать секретный API-ключ непосредственно:
 
@@ -338,7 +338,7 @@ Sophia является продуктовым слоем Mentario, а не ко
 
 ## 8.1. Только английский язык
 
-В первой публичной версии Mentario должен использоваться только английский язык.
+В первой публичной версии Mentavio должен использоваться только английский язык.
 
 На текущий момент в проекте присутствуют:
 
@@ -376,7 +376,7 @@ Sophia является продуктовым слоем Mentario, а не ко
 
 # 9. Global-First
 
-Mentario с самого начала должен проектироваться как глобальный продукт.
+Mentavio с самого начала должен проектироваться как глобальный продукт.
 
 На первом этапе это не означает запуск всех функций во всех странах.
 
@@ -406,7 +406,7 @@ Mentario с самого начала должен проектироватьс�
 
 # 10. Игровые деньги, компании и события
 
-Все компании, деньги, активы, события, цены, новости и результаты внутри Mentario должны считаться вымышленными, если отдельно не указано обратное.
+Все компании, деньги, активы, события, цены, новости и результаты внутри Mentavio должны считаться вымышленными, если отдельно не указано обратное.
 
 Необходимо избегать использования реальных компаний и торговых марок без отдельного юридического анализа.
 
@@ -436,7 +436,7 @@ Mentario с самого начала должен проектироватьс�
 
 В нижней части сайта, приложения или другого постоянно доступного раздела необходимо разместить краткое уведомление:
 
-**Mentario is an educational simulation game. All companies, assets, money, market events, prices and results presented within the platform are fictional or simulated. Mentario does not provide brokerage, investment, gambling or financial advisory services. No virtual funds or simulated profits can be withdrawn or exchanged for real money.**
+**Mentavio is an educational simulation game. All companies, assets, money, market events, prices and results presented within the platform are fictional or simulated. Mentavio does not provide brokerage, investment, gambling or financial advisory services. No virtual funds or simulated profits can be withdrawn or exchanged for real money.**
 
 Текст может отображаться небольшим шрифтом, однако он должен:
 
@@ -452,27 +452,27 @@ Mentario с самого начала должен проектироватьс�
 
 ### Educational Simulation Disclaimer
 
-Mentario is an educational and entertainment platform that provides a fictional simulation of financial decision-making.
+Mentavio is an educational and entertainment platform that provides a fictional simulation of financial decision-making.
 
-All companies, assets, currencies, funds, prices, market events, news, scenarios, profits, losses and account balances displayed within Mentario are fictional, virtual or simulated unless explicitly stated otherwise.
+All companies, assets, currencies, funds, prices, market events, news, scenarios, profits, losses and account balances displayed within Mentavio are fictional, virtual or simulated unless explicitly stated otherwise.
 
-Mentario is not a stock exchange, broker, bank, investment company, financial institution, gambling service or licensed financial adviser.
+Mentavio is not a stock exchange, broker, bank, investment company, financial institution, gambling service or licensed financial adviser.
 
 The platform does not accept funds for investment and does not execute real financial transactions on behalf of users.
 
-Any payment made to Mentario is a payment for access to digital content, educational functionality, subscriptions or platform services. Such payments are not investments, deposits, wagers or contributions to a trading account.
+Any payment made to Mentavio is a payment for access to digital content, educational functionality, subscriptions or platform services. Such payments are not investments, deposits, wagers or contributions to a trading account.
 
 Virtual currency, virtual assets, simulated profits and other in-game values have no monetary value outside the platform. They cannot be withdrawn, transferred, redeemed or exchanged for real money.
 
-Performance achieved within the Mentario simulation does not indicate or guarantee equivalent performance in real financial markets.
+Performance achieved within the Mentavio simulation does not indicate or guarantee equivalent performance in real financial markets.
 
 Real financial markets involve substantial risk. Users may lose some or all of the money they choose to invest through independent third-party financial services.
 
-Mentario does not guarantee profits, financial success, investment performance or any specific educational outcome.
+Mentavio does not guarantee profits, financial success, investment performance or any specific educational outcome.
 
-Information provided by Mentario or by the Sophia AI assistant is intended solely for general educational and informational purposes. It must not be treated as personalised financial, investment, legal, tax or accounting advice.
+Information provided by Mentavio or by the Sophia AI assistant is intended solely for general educational and informational purposes. It must not be treated as personalised financial, investment, legal, tax or accounting advice.
 
-Users are solely responsible for any decisions they make outside the Mentario platform.
+Users are solely responsible for any decisions they make outside the Mentavio platform.
 
 ## 11.3. Подтверждение пользователя
 
@@ -480,7 +480,7 @@ Users are solely responsible for any decisions they make outside the Mentario pl
 
 Текст возле галочки:
 
-**I confirm that I am at least 18 years old and understand that Mentario is an educational simulation. I understand that all funds, companies, events and results within the platform are fictional or simulated, that payments provide access to the service and are not investments, and that no virtual funds or simulated profits can be withdrawn as real money. I agree to the Terms and Conditions and Privacy Policy.**
+**I confirm that I am at least 18 years old and understand that Mentavio is an educational simulation. I understand that all funds, companies, events and results within the platform are fictional or simulated, that payments provide access to the service and are not investments, and that no virtual funds or simulated profits can be withdrawn as real money. I agree to the Terms and Conditions and Privacy Policy.**
 
 Без установки галочки регистрация или активация платного доступа невозможна.
 
@@ -511,7 +511,7 @@ Users are solely responsible for any decisions they make outside the Mentario pl
 
 Предварительный текст:
 
-**Mentario is intended only for users aged 18 or older. By creating an account, you confirm that you meet the minimum age requirement applicable in your country.**
+**Mentavio is intended only for users aged 18 or older. By creating an account, you confirm that you meet the minimum age requirement applicable in your country.**
 
 ---
 
@@ -549,7 +549,7 @@ Users are solely responsible for any decisions they make outside the Mentario pl
 
 ## 14.1. Основной принцип
 
-Mentario не продаёт персональные данные пользователей третьим лицам.
+Mentavio не продаёт персональные данные пользователей третьим лицам.
 
 Данные должны собираться только в объёме, необходимом для:
 
@@ -596,9 +596,9 @@ Mentario не продаёт персональные данные пользо�
 
 Пользовательские данные могут храниться у надёжного облачного провайдера.
 
-На текущем этапе Mentario не требуется собственный дата-центр.
+На текущем этапе Mentavio не требуется собственный дата-центр.
 
-Облачный провайдер предоставляет инфраструктуру хранения, но это не означает, что Mentario продаёт ему пользовательские данные.
+Облачный провайдер предоставляет инфраструктуру хранения, но это не означает, что Mentavio продаёт ему пользовательские данные.
 
 Необходимо использовать архитектуру, позволяющую в будущем сменить облачного провайдера.
 
@@ -662,7 +662,7 @@ Mentario не продаёт персональные данные пользо�
 * подписки;
 * цифрового контента;
 * образовательных функций;
-* дополнительных возможностей Mentario.
+* дополнительных возможностей Mentavio.
 
 Платежи не являются:
 
@@ -670,10 +670,10 @@ Mentario не продаёт персональные данные пользо�
 * депозитами;
 * ставками;
 * торговым капиталом;
-* средствами под управлением Mentario;
+* средствами под управлением Mentavio;
 * деньгами, которые можно вывести после игры.
 
-Платёжные данные банковских карт не должны храниться непосредственно Mentario, если для этого нет отдельной сертифицированной инфраструктуры.
+Платёжные данные банковских карт не должны храниться непосредственно Mentavio, если для этого нет отдельной сертифицированной инфраструктуры.
 
 Для обработки платежей в будущем следует использовать специализированного платёжного провайдера.
 
@@ -700,11 +700,11 @@ Mentario не продаёт персональные данные пользо�
 3. Для чего данные используются.
 4. Где они хранятся.
 5. Каким категориям поставщиков они могут передаваться.
-6. Что Mentario не продаёт персональные данные.
+6. Что Mentavio не продаёт персональные данные.
 7. Как используются AI-провайдеры.
 8. Как используются cookies и аналитика.
 9. Как пользователь может запросить удаление аккаунта.
-10. Как связаться с Mentario.
+10. Как связаться с Mentavio.
 11. Как обновляется политика.
 12. Дату вступления документа в силу.
 
@@ -765,7 +765,7 @@ Mentario не продаёт персональные данные пользо�
 
 # 21. Человеческий контроль
 
-Mentario должен использовать принцип Human-in-the-Loop.
+Mentavio должен использовать принцип Human-in-the-Loop.
 
 Это означает:
 
@@ -810,7 +810,7 @@ Mentario должен использовать принцип Human-in-the-Loop.
 
 Пример сообщения:
 
-**Sophia is temporarily unavailable. You can continue using the Mentario simulation and try again later.**
+**Sophia is temporarily unavailable. You can continue using the Mentavio simulation and try again later.**
 
 ---
 
@@ -1010,13 +1010,13 @@ Footer должен отображаться корректно на desktop и 
 
 ### Sophia System Instruction — Draft
 
-You are Sophia, the educational AI mentor inside Mentario.
+You are Sophia, the educational AI mentor inside Mentavio.
 
 Your role is to help users understand financial terminology, simulated market events, decision-making and the consequences of their choices.
 
-Mentario is an educational simulation. All companies, assets, balances, events, prices, profits and losses within the platform are fictional or simulated.
+Mentavio is an educational simulation. All companies, assets, balances, events, prices, profits and losses within the platform are fictional or simulated.
 
-You must clearly distinguish between Mentario’s simplified simulation and real financial markets.
+You must clearly distinguish between Mentavio’s simplified simulation and real financial markets.
 
 Explain concepts in plain English first. Introduce professional terminology gradually and adapt the depth of your explanation to the user’s apparent level.
 
@@ -1093,11 +1093,11 @@ Maintain a calm, respectful, clear and professional tone.
 
 Обновить README или создать отдельный документ:
 
-`MENTARIO_TECHNICAL_SPEC.md`
+`MENTAVIO_TECHNICAL_SPEC.md`
 
 В документе зафиксировать:
 
-* назначение Mentario;
+* назначение Mentavio;
 * роль Sophia;
 * правило English-only для MVP;
 * архитектуру AI;
@@ -1239,5 +1239,5 @@ Codex должен воспринимать этот документ как е�
 
 Не следует создавать множество несвязанных реализаций или повторно переделывать один и тот же компонент для каждой отдельной задачи.
 
-Цель спринта — получить одну стабильную, протестированную версию Mentario, один итоговый APK и один понятный результат в GitHub.
+Цель спринта — получить одну стабильную, протестированную версию Mentavio, один итоговый APK и один понятный результат в GitHub.
 

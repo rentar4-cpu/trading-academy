@@ -1,4 +1,4 @@
-# Mentario Security Audit Notes
+# Mentavio Security Audit Notes
 
 Status: MVP working audit
 

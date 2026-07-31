@@ -134,14 +134,14 @@ h3 {
   gap: 14px;
 }
 
-.mentario-game-logo {
+.mentavio-game-logo {
   display: block;
   width: 58px;
   height: 58px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 14px;
   background-color: #0b1220;
-  background-image: url('./mentario-logo-board.png');
+  background-image: url('./mentavio-logo-board.png');
   background-position: 3.4% 67%;
   background-repeat: no-repeat;
   background-size: 1260% auto;
@@ -2591,7 +2591,7 @@ td {
     margin-top: 16px;
   }
 
-  .mentario-game-logo {
+  .mentavio-game-logo {
     width: 48px;
     height: 48px;
     border-radius: 12px;
@@ -3491,7 +3491,7 @@ body[data-launch-page] {
   }
 }
 
-/* Legal and compliance surfaces for the Mentario MVP. */
+/* Legal and compliance surfaces for the Mentavio MVP. */
 .legal-footer {
   display: flex;
   align-items: center;

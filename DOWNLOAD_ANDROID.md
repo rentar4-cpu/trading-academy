@@ -1,4 +1,4 @@
-# Download Mentario for Android
+# Download Mentavio for Android
 
 The latest public demo APK is published through GitHub Releases:
 
@@ -11,13 +11,13 @@ Open the latest release and download the `.apk` file.
 ## Current Local Build
 
 ```text
-releases/android/Mentario-2026-07-31-mvp-foundation-debug.apk
+releases/android/Mentavio-2026-07-31-name-fix-debug.apk
 ```
 
 SHA256:
 
 ```text
-5F51033988A0B4C61AA9C53F92B78E4838270374B65D668F721048B9EE1C5E27
+D0117A51AADCD60ECBCB106421E34933FDEF19DAC24D27458D8700E1BBEDC488
 ```
 
 ## How the APK Finds the Server

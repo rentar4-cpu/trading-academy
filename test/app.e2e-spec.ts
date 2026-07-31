@@ -20,7 +20,7 @@ describe('AppController (e2e)', () => {
     await app.close();
   });
 
-  it('/ redirects to the Mentario landing page', () => {
+  it('/ redirects to the Mentavio landing page', () => {
     return request(app.getHttpServer())
       .get('/')
       .expect(302)

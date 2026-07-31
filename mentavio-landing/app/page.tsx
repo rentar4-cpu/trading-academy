@@ -14,7 +14,7 @@ const ecosystemModuleKeys = [
   'strategy',
 ] as const;
 
-const logoBoardUrl = './mentario-logo-board.png';
+const logoBoardUrl = './mentavio-logo-board.png';
 
 function openTradingApp(event: MouseEvent<HTMLAnchorElement>) {
   event.preventDefault();
@@ -32,13 +32,13 @@ function openTradingApp(event: MouseEvent<HTMLAnchorElement>) {
   window.location.assign('/index.html');
 }
 
-function MentarioLogo({ large = false }: { large?: boolean }) {
+function MentavioLogo({ large = false }: { large?: boolean }) {
   return (
     <div
       className={`relative overflow-hidden rounded-[1.4rem] border border-white/10 bg-[#0B1220] shadow-sm ${
         large ? 'h-28 w-28 md:h-36 md:w-36' : 'h-12 w-12'
       }`}
-      aria-label="Mentario logo"
+      aria-label="Mentavio logo"
       style={{
         backgroundImage: `url(${logoBoardUrl})`,
         backgroundPosition: '3.4% 67%',
@@ -49,11 +49,11 @@ function MentarioLogo({ large = false }: { large?: boolean }) {
   );
 }
 
-function MentarioLockup() {
+function MentavioLockup() {
   return (
     <div
       className="aspect-[1.62/1] w-full overflow-hidden rounded-[2rem] border border-white/10 bg-[#0B1220] shadow-[0_30px_100px_rgba(11,18,32,0.22)]"
-      aria-label="Mentario full logo"
+      aria-label="Mentavio full logo"
       style={{
         backgroundImage: `url(${logoBoardUrl})`,
         backgroundPosition: '0% 0%',
@@ -133,11 +133,11 @@ export default function Home() {
         <a
           className="flex items-center gap-3"
           href="#top"
-          aria-label="Mentario home"
+          aria-label="Mentavio home"
         >
-          <MentarioLogo />
+          <MentavioLogo />
           <div>
-            <p className="text-base font-semibold tracking-tight">Mentario</p>
+            <p className="text-base font-semibold tracking-tight">Mentavio</p>
             <p className="text-xs text-slate-500 dark:text-slate-400">
               {copy.tagline}
             </p>
@@ -164,12 +164,12 @@ export default function Home() {
         className="mx-auto grid w-full max-w-7xl gap-14 px-6 pb-24 pt-14 md:px-10 md:pb-32 lg:grid-cols-[1.04fr_0.96fr] lg:items-center"
       >
         <div>
-          <MentarioLockup />
+          <MentavioLockup />
           <p className="mt-10 text-sm font-semibold uppercase tracking-[0.22em] text-emerald-600 dark:text-emerald-400">
             {copy.tagline}
           </p>
           <h1 className="mt-5 max-w-4xl text-6xl font-semibold tracking-[-0.04em] text-slate-950 dark:text-white md:text-8xl">
-            Mentario
+            Mentavio
           </h1>
           <p className="mt-7 max-w-2xl text-xl leading-9 text-slate-600 dark:text-slate-300 md:text-2xl">
             {copy.heroLead}
@@ -235,7 +235,7 @@ export default function Home() {
       >
         <div className="max-w-3xl">
           <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-600 dark:text-emerald-400">
-            {copy.whyMentario}
+            {copy.whyMentavio}
           </p>
           <h2 className="mt-4 text-4xl font-semibold tracking-[-0.03em] md:text-6xl">
             {copy.visionTitle}
@@ -296,7 +296,7 @@ export default function Home() {
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 text-sm text-slate-500 dark:text-slate-400 md:flex-row md:items-center md:justify-between">
           <div>
             <p className="font-semibold text-slate-950 dark:text-white">
-              Mentario
+              Mentavio
             </p>
             <p>{copy.tagline}</p>
           </div>

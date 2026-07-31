@@ -4,7 +4,7 @@ const authState = {
 
 const authText = {
   en: {
-    brand: 'Mentario',
+    brand: 'Mentavio',
     title: 'Account',
     language: 'Language',
     navMarket: 'Market',
@@ -64,7 +64,7 @@ const authText = {
     guest: 'Guest',
   },
   ru: {
-    brand: 'Mentario',
+    brand: 'Mentavio',
     title: 'Аккаунт',
     language: 'Язык',
     navMarket: 'Рынок',
@@ -123,7 +123,7 @@ const authText = {
     guest: 'Гость',
   },
   he: {
-    brand: 'Mentario',
+    brand: 'Mentavio',
     title: 'חשבון',
     language: 'שפה',
     navMarket: 'שוק',
@@ -180,7 +180,7 @@ const authText = {
     guest: 'אורח',
   },
   de: {
-    brand: 'Mentario',
+    brand: 'Mentavio',
     title: 'Konto',
     language: 'Sprache',
     navMarket: 'Markt',
@@ -239,7 +239,7 @@ const authText = {
     guest: 'Gast',
   },
   fr: {
-    brand: 'Mentario',
+    brand: 'Mentavio',
     title: 'Compte',
     language: 'Langue',
     navMarket: 'Marché',

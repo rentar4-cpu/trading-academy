@@ -387,7 +387,7 @@ export class PlatformService implements OnModuleInit {
     return {
       id: event.id,
       title: event.title,
-      text: `${event.title} | Mentario`,
+      text: `${event.title} | Mentavio`,
       url: '/game/coming-soon.html',
       created_at: event.created_at,
     };

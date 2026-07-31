@@ -21,7 +21,7 @@ export const landingCopy = {
     getStarted: 'Get Started',
     heroLead: 'Build better decisions with AI.',
     heroDescription:
-      'Mentario combines investing, education, strategic thinking and intelligent assistance into one platform.',
+      'Mentavio combines investing, education, strategic thinking and intelligent assistance into one platform.',
     meetSophia: 'Meet Sophia',
     sophiaRole: 'AI decision mentor',
     calmGuidance: 'Calm guidance',
@@ -33,7 +33,7 @@ export const landingCopy = {
     sophiaPrinciple: 'Sophia principle',
     sophiaPrincipleText: 'Guidance over guesses. Clarity over noise.',
     sophiaDescription:
-      'Sophia is your intelligent companion. She is a knowledgeable guide inside the Mentario ecosystem, designed to help you understand, compare, and improve decisions.',
+      'Sophia is your intelligent companion. She is a knowledgeable guide inside the Mentavio ecosystem, designed to help you understand, compare, and improve decisions.',
     capabilities: [
       'Understand markets',
       'Learn investing',
@@ -42,7 +42,7 @@ export const landingCopy = {
       'Study chess',
       'Explore ideas',
     ],
-    whyMentario: 'Why Mentario?',
+    whyMentavio: 'Why Mentavio?',
     visionTitle: 'Better thinking becomes a platform.',
     visionCards: [
       {
@@ -61,7 +61,7 @@ export const landingCopy = {
     futureEcosystem: 'Future ecosystem',
     ecosystemTitle: 'Trading is one application. Thinking is the platform.',
     ecosystemDescription:
-      'Mentario is designed to become an ecosystem for improving human thinking across investing, learning, games, strategy, and AI decision support.',
+      'Mentavio is designed to become an ecosystem for improving human thinking across investing, learning, games, strategy, and AI decision support.',
     modules: {
       investing: 'Investing',
       ai: 'AI',
@@ -77,7 +77,7 @@ export const landingCopy = {
     privacy: 'Privacy',
     terms: 'Terms',
     contact: 'Contact',
-    copyright: 'Copyright © 2026 Mentario.',
+    copyright: 'Copyright © 2026 Mentavio.',
   },
   ru: {
     direction: 'ltr',
@@ -88,7 +88,7 @@ export const landingCopy = {
     getStarted: 'Начать',
     heroLead: 'Принимайте более взвешенные решения с AI.',
     heroDescription:
-      'Mentario объединяет инвестиции, образование, стратегическое мышление и интеллектуальную поддержку на одной платформе.',
+      'Mentavio объединяет инвестиции, образование, стратегическое мышление и интеллектуальную поддержку на одной платформе.',
     meetSophia: 'Познакомиться с Sophia',
     sophiaRole: 'AI-наставник по принятию решений',
     calmGuidance: 'Спокойная поддержка',
@@ -100,7 +100,7 @@ export const landingCopy = {
     sophiaPrinciple: 'Принцип Sophia',
     sophiaPrincipleText: 'Советы вместо догадок. Ясность вместо шума.',
     sophiaDescription:
-      'Sophia — ваш интеллектуальный помощник. Она помогает понимать, сравнивать и улучшать решения во всей экосистеме Mentario.',
+      'Sophia — ваш интеллектуальный помощник. Она помогает понимать, сравнивать и улучшать решения во всей экосистеме Mentavio.',
     capabilities: [
       'Понимать рынки',
       'Изучать инвестиции',
@@ -109,7 +109,7 @@ export const landingCopy = {
       'Изучать шахматы',
       'Исследовать идеи',
     ],
-    whyMentario: 'Почему Mentario?',
+    whyMentavio: 'Почему Mentavio?',
     visionTitle: 'Лучшее мышление становится платформой.',
     visionCards: [
       {
@@ -129,7 +129,7 @@ export const landingCopy = {
     futureEcosystem: 'Будущая экосистема',
     ecosystemTitle: 'Торговля — одно приложение. Мышление — целая платформа.',
     ecosystemDescription:
-      'Mentario создаётся как экосистема для развития мышления в инвестициях, обучении, играх, стратегии и поддержке решений с AI.',
+      'Mentavio создаётся как экосистема для развития мышления в инвестициях, обучении, играх, стратегии и поддержке решений с AI.',
     modules: {
       investing: 'Инвестиции',
       ai: 'AI',
@@ -145,7 +145,7 @@ export const landingCopy = {
     privacy: 'Конфиденциальность',
     terms: 'Условия',
     contact: 'Контакты',
-    copyright: '© 2026 Mentario. Все права защищены.',
+    copyright: '© 2026 Mentavio. Все права защищены.',
   },
   he: {
     direction: 'rtl',
@@ -156,7 +156,7 @@ export const landingCopy = {
     getStarted: 'התחלה',
     heroLead: 'קבל החלטות טובות יותר בעזרת AI.',
     heroDescription:
-      'Mentario משלבת השקעות, למידה, חשיבה אסטרטגית וסיוע חכם בפלטפורמה אחת.',
+      'Mentavio משלבת השקעות, למידה, חשיבה אסטרטגית וסיוע חכם בפלטפורמה אחת.',
     meetSophia: 'הכירו את Sophia',
     sophiaRole: 'מנטורית AI לקבלת החלטות',
     calmGuidance: 'הכוונה רגועה',
@@ -167,7 +167,7 @@ export const landingCopy = {
     sophiaPrinciple: 'העיקרון של Sophia',
     sophiaPrincipleText: 'הכוונה במקום ניחושים. בהירות במקום רעש.',
     sophiaDescription:
-      'Sophia היא המלווה החכמה שלך. היא עוזרת להבין, להשוות ולשפר החלטות בכל מערכת Mentario.',
+      'Sophia היא המלווה החכמה שלך. היא עוזרת להבין, להשוות ולשפר החלטות בכל מערכת Mentavio.',
     capabilities: [
       'להבין שווקים',
       'ללמוד השקעות',
@@ -176,7 +176,7 @@ export const landingCopy = {
       'ללמוד שחמט',
       'לחקור רעיונות',
     ],
-    whyMentario: 'למה Mentario?',
+    whyMentavio: 'למה Mentavio?',
     visionTitle: 'חשיבה טובה יותר הופכת לפלטפורמה.',
     visionCards: [
       {
@@ -195,7 +195,7 @@ export const landingCopy = {
     futureEcosystem: 'המערכת העתידית',
     ecosystemTitle: 'מסחר הוא יישום אחד. חשיבה היא הפלטפורמה.',
     ecosystemDescription:
-      'Mentario נועדה להפוך למערכת לפיתוח החשיבה בהשקעות, למידה, משחקים, אסטרטגיה ותמיכה בהחלטות בעזרת AI.',
+      'Mentavio נועדה להפוך למערכת לפיתוח החשיבה בהשקעות, למידה, משחקים, אסטרטגיה ותמיכה בהחלטות בעזרת AI.',
     modules: {
       investing: 'השקעות',
       ai: 'AI',
@@ -211,7 +211,7 @@ export const landingCopy = {
     privacy: 'פרטיות',
     terms: 'תנאים',
     contact: 'יצירת קשר',
-    copyright: '© 2026 Mentario. כל הזכויות שמורות.',
+    copyright: '© 2026 Mentavio. כל הזכויות שמורות.',
   },
   de: {
     direction: 'ltr',
@@ -222,7 +222,7 @@ export const landingCopy = {
     getStarted: 'Loslegen',
     heroLead: 'Bessere Entscheidungen mit AI treffen.',
     heroDescription:
-      'Mentario vereint Investieren, Bildung, strategisches Denken und intelligente Unterstützung auf einer Plattform.',
+      'Mentavio vereint Investieren, Bildung, strategisches Denken und intelligente Unterstützung auf einer Plattform.',
     meetSophia: 'Sophia kennenlernen',
     sophiaRole: 'AI-Mentorin für Entscheidungen',
     calmGuidance: 'Ruhige Begleitung',
@@ -233,7 +233,7 @@ export const landingCopy = {
     sophiaPrinciple: 'Sophias Prinzip',
     sophiaPrincipleText: 'Orientierung statt Raten. Klarheit statt Lärm.',
     sophiaDescription:
-      'Sophia ist deine intelligente Begleiterin. Sie hilft dir, Entscheidungen im gesamten Mentario-Ökosystem zu verstehen, zu vergleichen und zu verbessern.',
+      'Sophia ist deine intelligente Begleiterin. Sie hilft dir, Entscheidungen im gesamten Mentavio-Ökosystem zu verstehen, zu vergleichen und zu verbessern.',
     capabilities: [
       'Märkte verstehen',
       'Investieren lernen',
@@ -242,7 +242,7 @@ export const landingCopy = {
       'Schach lernen',
       'Ideen erkunden',
     ],
-    whyMentario: 'Warum Mentario?',
+    whyMentavio: 'Warum Mentavio?',
     visionTitle: 'Besseres Denken wird zur Plattform.',
     visionCards: [
       {
@@ -261,7 +261,7 @@ export const landingCopy = {
     futureEcosystem: 'Zukünftiges Ökosystem',
     ecosystemTitle: 'Trading ist eine Anwendung. Denken ist die Plattform.',
     ecosystemDescription:
-      'Mentario wird zu einem Ökosystem für besseres Denken beim Investieren, Lernen, Spielen, in der Strategie und bei AI-gestützten Entscheidungen.',
+      'Mentavio wird zu einem Ökosystem für besseres Denken beim Investieren, Lernen, Spielen, in der Strategie und bei AI-gestützten Entscheidungen.',
     modules: {
       investing: 'Investieren',
       ai: 'AI',
@@ -277,7 +277,7 @@ export const landingCopy = {
     privacy: 'Datenschutz',
     terms: 'Bedingungen',
     contact: 'Kontakt',
-    copyright: '© 2026 Mentario. Alle Rechte vorbehalten.',
+    copyright: '© 2026 Mentavio. Alle Rechte vorbehalten.',
   },
   fr: {
     direction: 'ltr',
@@ -288,7 +288,7 @@ export const landingCopy = {
     getStarted: 'Commencer',
     heroLead: 'Prenez de meilleures décisions avec l’AI.',
     heroDescription:
-      'Mentario réunit investissement, formation, réflexion stratégique et assistance intelligente sur une seule plateforme.',
+      'Mentavio réunit investissement, formation, réflexion stratégique et assistance intelligente sur une seule plateforme.',
     meetSophia: 'Découvrir Sophia',
     sophiaRole: 'Mentor AI pour la prise de décision',
     calmGuidance: 'Conseils sereins',
@@ -301,7 +301,7 @@ export const landingCopy = {
     sophiaPrincipleText:
       'Des conseils plutôt que des suppositions. De la clarté plutôt que du bruit.',
     sophiaDescription:
-      'Sophia est votre accompagnatrice intelligente. Elle vous aide à comprendre, comparer et améliorer vos décisions dans tout l’écosystème Mentario.',
+      'Sophia est votre accompagnatrice intelligente. Elle vous aide à comprendre, comparer et améliorer vos décisions dans tout l’écosystème Mentavio.',
     capabilities: [
       'Comprendre les marchés',
       'Apprendre à investir',
@@ -310,7 +310,7 @@ export const landingCopy = {
       'Étudier les échecs',
       'Explorer des idées',
     ],
-    whyMentario: 'Pourquoi Mentario ?',
+    whyMentavio: 'Pourquoi Mentavio ?',
     visionTitle: 'Une meilleure réflexion devient une plateforme.',
     visionCards: [
       {
@@ -331,7 +331,7 @@ export const landingCopy = {
     ecosystemTitle:
       'Le trading est une application. La réflexion est la plateforme.',
     ecosystemDescription:
-      'Mentario est conçu comme un écosystème pour améliorer la réflexion dans l’investissement, l’apprentissage, les jeux, la stratégie et l’aide à la décision par AI.',
+      'Mentavio est conçu comme un écosystème pour améliorer la réflexion dans l’investissement, l’apprentissage, les jeux, la stratégie et l’aide à la décision par AI.',
     modules: {
       investing: 'Investissement',
       ai: 'AI',
@@ -347,6 +347,6 @@ export const landingCopy = {
     privacy: 'Confidentialité',
     terms: 'Conditions',
     contact: 'Contact',
-    copyright: '© 2026 Mentario. Tous droits réservés.',
+    copyright: '© 2026 Mentavio. Tous droits réservés.',
   },
 } as const;

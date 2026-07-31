@@ -13,7 +13,7 @@ const state = {
 const translations = {
   en: {
     brand: 'Learn. Think. Grow.',
-    title: 'Mentario',
+    title: 'Mentavio',
     language: 'Language',
     navMarket: 'Market',
     navIntel: 'Intel',
@@ -146,7 +146,7 @@ const translations = {
   },
   ru: {
     brand: 'Учись. Думай. Расти.',
-    title: 'Mentario',
+    title: 'Mentavio',
     language: 'Язык',
     navMarket: 'Рынок',
     navIntel: 'Аналитика',
@@ -278,7 +278,7 @@ const translations = {
   },
   he: {
     brand: 'ללמוד. לחשוב. לצמוח.',
-    title: 'Mentario',
+    title: 'Mentavio',
     language: 'שפה',
     navMarket: 'שוק',
     navIntel: 'מודיעין',
@@ -407,7 +407,7 @@ const translations = {
   },
   de: {
     brand: 'Lernen. Denken. Wachsen.',
-    title: 'Mentario',
+    title: 'Mentavio',
     language: 'Sprache',
     navMarket: 'Markt',
     navIntel: 'Analyse',
@@ -541,7 +541,7 @@ const translations = {
   },
   fr: {
     brand: 'Apprendre. Penser. Grandir.',
-    title: 'Mentario',
+    title: 'Mentavio',
     language: 'Langue',
     navMarket: 'Marché',
     navIntel: 'Analyse',

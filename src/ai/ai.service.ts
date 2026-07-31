@@ -56,9 +56,9 @@ export class AiService {
   private mockEducationalResponse(message: string) {
     const cleanMessage = message.trim();
     if (!cleanMessage) {
-      return 'Ask me about a simulated trade, a market term, or a Mentario event, and I will explain the learning principle.';
+      return 'Ask me about a simulated trade, a market term, or a Mentavio event, and I will explain the learning principle.';
     }
 
-    return `In Mentario, this should be treated as a simulated learning situation. Start by identifying the asset, the event, the risk, and the reason for the decision. In real markets, similar events may influence prices, but the reaction can vary depending on many factors.`;
+    return `In Mentavio, this should be treated as a simulated learning situation. Start by identifying the asset, the event, the risk, and the reason for the decision. In real markets, similar events may influence prices, but the reaction can vary depending on many factors.`;
   }
 }

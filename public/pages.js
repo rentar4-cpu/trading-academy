@@ -29,7 +29,7 @@ const pageTranslations = {
     navPortfolio: 'Portfolio',
     navStore: 'Store',
     navAuth: 'Account',
-    brand: 'Mentario',
+    brand: 'Mentavio',
     intelTitle: 'Market Intel',
     tradesTitle: 'Recent Trades',
     portfolioTitle: 'Portfolio',
@@ -120,7 +120,7 @@ const pageTranslations = {
     shareReady: 'Share text ready.',
     portfolioShareTitle: '{name} portfolio: {netWorth}',
     portfolioShareText:
-      'My Mentario portfolio is {netWorth}. Open PnL: {pnl}.',
+      'My Mentavio portfolio is {netWorth}. Open PnL: {pnl}.',
   },
   ru: {
     language: 'Ð¯Ð·Ñ‹Ðº',
@@ -131,7 +131,7 @@ const pageTranslations = {
     navPortfolio: 'ÐŸÐ¾Ñ€Ñ‚Ñ„ÐµÐ»ÑŒ',
     navStore: 'ÐœÐ°Ð³Ð°Ð·Ð¸Ð½',
     navAuth: 'ÐÐºÐºÐ°ÑƒÐ½Ñ‚',
-    brand: 'Mentario',
+    brand: 'Mentavio',
     intelTitle: 'ÐÐ½Ð°Ð»Ð¸Ñ‚Ð¸ÐºÐ° Ñ€Ñ‹Ð½ÐºÐ°',
     tradesTitle: 'ÐŸÐ¾ÑÐ»ÐµÐ´Ð½Ð¸Ðµ ÑÐ´ÐµÐ»ÐºÐ¸',
     portfolioTitle: 'ÐŸÐ¾Ñ€Ñ‚Ñ„ÐµÐ»ÑŒ',
@@ -204,7 +204,7 @@ const pageTranslations = {
     navPortfolio: '×ª×™×§',
     navStore: '×—× ×•×ª',
     navAuth: '×—×©×‘×•×Ÿ',
-    brand: 'Mentario',
+    brand: 'Mentavio',
     intelTitle: '×ž×•×“×™×¢×™×Ÿ ×©×•×§',
     tradesTitle: '×¢×¡×§××•×ª ××—×¨×•× ×•×ª',
     portfolioTitle: '×ª×™×§',
@@ -276,7 +276,7 @@ const pageTranslations = {
     navPortfolio: 'Depot',
     navStore: 'Shop',
     navAuth: 'Konto',
-    brand: 'Mentario',
+    brand: 'Mentavio',
     intelTitle: 'Marktanalyse',
     tradesTitle: 'Letzte Trades',
     portfolioTitle: 'Depot',
@@ -347,7 +347,7 @@ const pageTranslations = {
     navPortfolio: 'Portefeuille',
     navStore: 'Boutique',
     navAuth: 'Compte',
-    brand: 'Mentario',
+    brand: 'Mentavio',
     intelTitle: 'Analyse du marchÃ©',
     tradesTitle: 'Trades rÃ©cents',
     portfolioTitle: 'Portefeuille',
@@ -655,7 +655,7 @@ const fixedPageTranslations = {
     navPortfolio: 'Портфель',
     navStore: 'Магазин',
     navAuth: 'Аккаунт',
-    brand: 'Mentario',
+    brand: 'Mentavio',
     intelTitle: 'Аналитика рынка',
     tradesTitle: 'Последние сделки',
     portfolioTitle: 'Портфель',
@@ -747,7 +747,7 @@ const fixedPageTranslations = {
     shareReady: 'Результат готов для отправки.',
     portfolioShareTitle: 'Портфель {name}: {netWorth}',
     portfolioShareText:
-      'Мой портфель Mentario: {netWorth}. Открытая прибыль: {pnl}.',
+      'Мой портфель Mentavio: {netWorth}. Открытая прибыль: {pnl}.',
   },
   he: {
     language: 'שפה',
@@ -758,7 +758,7 @@ const fixedPageTranslations = {
     navPortfolio: 'תיק',
     navStore: 'חנות',
     navAuth: 'חשבון',
-    brand: 'Mentario',
+    brand: 'Mentavio',
     intelTitle: 'מודיעין שוק',
     tradesTitle: 'עסקאות אחרונות',
     portfolioTitle: 'תיק',
@@ -845,7 +845,7 @@ const fixedPageTranslations = {
     shareResult: 'שיתוף תוצאה',
     shareReady: 'התוצאה מוכנה לשיתוף.',
     portfolioShareTitle: 'התיק של {name}: {netWorth}',
-    portfolioShareText: 'תיק Mentario שלי: {netWorth}. רווח פתוח: {pnl}.',
+    portfolioShareText: 'תיק Mentavio שלי: {netWorth}. רווח פתוח: {pnl}.',
   },
   de: {
     language: 'Sprache',
@@ -856,7 +856,7 @@ const fixedPageTranslations = {
     navPortfolio: 'Depot',
     navStore: 'Shop',
     navAuth: 'Konto',
-    brand: 'Mentario',
+    brand: 'Mentavio',
     intelTitle: 'Marktanalyse',
     tradesTitle: 'Letzte Trades',
     portfolioTitle: 'Depot',
@@ -948,7 +948,7 @@ const fixedPageTranslations = {
     shareReady: 'Das Ergebnis ist zum Teilen bereit.',
     portfolioShareTitle: 'Depot von {name}: {netWorth}',
     portfolioShareText:
-      'Mein Mentario-Depot: {netWorth}. Offener Gewinn: {pnl}.',
+      'Mein Mentavio-Depot: {netWorth}. Offener Gewinn: {pnl}.',
   },
   fr: {
     language: 'Langue',
@@ -959,7 +959,7 @@ const fixedPageTranslations = {
     navPortfolio: 'Portefeuille',
     navStore: 'Boutique',
     navAuth: 'Compte',
-    brand: 'Mentario',
+    brand: 'Mentavio',
     intelTitle: 'Analyse du marché',
     tradesTitle: 'Trades récents',
     portfolioTitle: 'Portefeuille',
@@ -1052,7 +1052,7 @@ const fixedPageTranslations = {
     shareReady: 'Le résultat est prêt à être partagé.',
     portfolioShareTitle: 'Portefeuille de {name} : {netWorth}',
     portfolioShareText:
-      'Mon portefeuille Mentario : {netWorth}. Gain ouvert : {pnl}.',
+      'Mon portefeuille Mentavio : {netWorth}. Gain ouvert : {pnl}.',
   },
 };
 
@@ -2331,7 +2331,7 @@ async function placePortfolioOrder(event) {
 }
 
 async function shareText(payload) {
-  const title = payload.title || 'Mentario result';
+  const title = payload.title || 'Mentavio result';
   const text = payload.text || title;
   const url = new URL('./coming-soon.html', window.location.href).toString();
 

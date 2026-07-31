@@ -25,9 +25,9 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Mentario Documentation
+## Mentavio Documentation
 
-- [Master Technical Specification](./MENTARIO_TECHNICAL_SPEC.md)
+- [Master Technical Specification](./MENTAVIO_TECHNICAL_SPEC.md)
 - [AI Architecture](./AI_ARCHITECTURE.md)
 - [Privacy Architecture](./PRIVACY_ARCHITECTURE.md)
 - [Security Audit Notes](./SECURITY_AUDIT.md)
