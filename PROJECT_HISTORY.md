@@ -46,6 +46,7 @@ and preparation for early users.
 | July 29, 2026 | Android | Mobile product integration | Localized landing and Trading Simulator embedded in the APK |
 | July 29, 2026 | Mobile Beta | Mobile reliability fixes | Sophia layout, trade tape, portfolio positions, and browser cache fixed |
 | July 30, 2026 | Product Flow | Navigation, news, portfolio, and store update | Complete landing return path, rotating market news, direct portfolio trading, and token-based session funding |
+| July 31, 2026 | Android Distribution | Public demo APK preparation | Added remote Android server config so APK builds can connect to a public tunnel without rebuilding |
 
 ## Specification Audit Note
 

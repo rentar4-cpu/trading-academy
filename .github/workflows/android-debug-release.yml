@@ -1,0 +1,59 @@
+name: Android Debug Release
+
+on:
+  push:
+    tags:
+      - 'android-v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build-release-apk:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Install root dependencies
+        run: npm ci
+
+      - name: Install landing dependencies
+        run: npm --prefix mentavio-landing ci
+
+      - name: Sync Android assets
+        run: npm run android:sync
+
+      - name: Build debug APK
+        run: |
+          chmod +x android/gradlew
+          cd android
+          ./gradlew assembleDebug
+
+      - name: Prepare release asset
+        run: |
+          mkdir -p release-upload
+          cp android/app/build/outputs/apk/debug/app-debug.apk "release-upload/Mentavio-${GITHUB_REF_NAME}-debug.apk"
+
+      - name: Publish GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${GITHUB_REF_NAME}" \
+            "release-upload/Mentavio-${GITHUB_REF_NAME}-debug.apk" \
+            --title "Mentavio ${GITHUB_REF_NAME}" \
+            --notes "Android debug APK for Mentavio public demo builds. The app reads the live backend URL from public/mobile-config.json."
+

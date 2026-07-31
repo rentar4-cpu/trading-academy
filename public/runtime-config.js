@@ -1,4 +1,7 @@
 const DEFAULT_ANDROID_API_BASE = 'http://192.168.1.108:3000';
+const REMOTE_ANDROID_CONFIG_URL =
+  'https://raw.githubusercontent.com/rentar4-cpu/trading-academy/master/public/mobile-config.json';
+const REMOTE_ANDROID_CONFIG_TIMEOUT_MS = 2500;
 
 function normalizeMarketApiBase(value) {
   const input = String(value || '').trim();
@@ -41,16 +44,72 @@ if (packagedApp) {
 }
 
 window.DEFAULT_MARKET_API_BASE = DEFAULT_ANDROID_API_BASE;
+window.REMOTE_ANDROID_CONFIG_URL = REMOTE_ANDROID_CONFIG_URL;
 window.MARKET_API_BASE =
   (packagedApp ? DEFAULT_ANDROID_API_BASE : '') ||
   savedApiBase ||
   configuredApiBase;
+window.MARKET_API_SOURCE = packagedApp ? 'android-default' : 'browser';
 
 window.normalizeMarketApiBase = normalizeMarketApiBase;
 
+function applyMarketApiBase(value, source) {
+  const normalized = normalizeMarketApiBase(value);
+  if (!normalized) return '';
+
+  window.MARKET_API_BASE = normalized;
+  window.MARKET_API_SOURCE = source;
+  return normalized;
+}
+
+function fetchJsonWithTimeout(url, timeoutMs) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), timeoutMs);
+
+  return fetch(url, {
+    cache: 'no-store',
+    signal: controller.signal,
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Remote config failed: ${response.status}`);
+      }
+      return response.json();
+    })
+    .finally(() => clearTimeout(timeout));
+}
+
+async function loadRemoteAndroidConfig() {
+  if (!packagedApp) return window.MARKET_API_BASE;
+
+  try {
+    const cacheBuster = `t=${Date.now()}`;
+    const separator = REMOTE_ANDROID_CONFIG_URL.includes('?') ? '&' : '?';
+    const config = await fetchJsonWithTimeout(
+      `${REMOTE_ANDROID_CONFIG_URL}${separator}${cacheBuster}`,
+      REMOTE_ANDROID_CONFIG_TIMEOUT_MS,
+    );
+
+    if (config?.enabled === false) return window.MARKET_API_BASE;
+
+    const remoteBase = applyMarketApiBase(
+      config?.apiBase || config?.api_base || config?.serverUrl,
+      'android-remote-config',
+    );
+
+    if (remoteBase) return remoteBase;
+  } catch (error) {
+    window.MARKET_API_CONFIG_ERROR = error?.message || String(error);
+  }
+
+  return window.MARKET_API_BASE;
+}
+
+window.marketRuntimeReady = loadRemoteAndroidConfig();
+
 window.setMarketApiBase = function setMarketApiBase(value) {
   if (packagedApp) {
-    window.MARKET_API_BASE = DEFAULT_ANDROID_API_BASE;
+    applyMarketApiBase(DEFAULT_ANDROID_API_BASE, 'android-default');
     return window.MARKET_API_BASE;
   }
 
@@ -63,6 +122,7 @@ window.setMarketApiBase = function setMarketApiBase(value) {
   }
 
   window.MARKET_API_BASE = normalized;
+  window.MARKET_API_SOURCE = normalized ? 'browser-saved' : 'browser';
   return window.MARKET_API_BASE;
 };
 
@@ -73,6 +133,10 @@ window.marketApiUrl = function marketApiUrl(path) {
 };
 
 window.marketApiJson = async function marketApiJson(path, options = {}) {
+  if (window.marketRuntimeReady) {
+    await window.marketRuntimeReady;
+  }
+
   const requestUrl = window.marketApiUrl(path);
   let response;
 
