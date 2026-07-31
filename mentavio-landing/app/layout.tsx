@@ -2,9 +2,9 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Mentavio | Learn. Think. Grow.',
+  title: 'Mentario | Learn. Think. Grow.',
   description:
-    'Mentavio is an AI-driven decision intelligence platform for investing, learning, strategy, and better thinking.',
+    'Mentario is an AI-driven decision intelligence platform for investing, learning, strategy, and better thinking.',
 };
 
 export const viewport: Viewport = {

@@ -62,7 +62,7 @@ export const DEV_LOG_ENTRIES = [
     title: 'Public launch infrastructure',
     summary:
       'Added early access, referral invites, DevLog, What\'s New, and one-click sharing foundations.',
-    body: 'Trading Academy now has the public launch layer needed before a wider release. Players can join the early access list, invite friends, read product updates, and share achievements or portfolio results.',
+    body: 'Mentario now has the public launch layer needed before a wider release. Players can join the early access list, invite friends, read product updates, and share achievements or portfolio results.',
     tags_json: JSON.stringify([
       'launch',
       'early access',

@@ -1,11 +1,7 @@
 'use client';
 
-import { useEffect, useState, type MouseEvent } from 'react';
-import {
-  landingCopy,
-  languageOptions,
-  type LandingLanguage,
-} from './landing-copy';
+import { useEffect, type MouseEvent } from 'react';
+import { landingCopy, type LandingLanguage } from './landing-copy';
 
 const ecosystemModuleKeys = [
   'investing',
@@ -18,7 +14,7 @@ const ecosystemModuleKeys = [
   'strategy',
 ] as const;
 
-const logoBoardUrl = './mentavio-logo-board.png';
+const logoBoardUrl = './mentario-logo-board.png';
 
 function openTradingApp(event: MouseEvent<HTMLAnchorElement>) {
   event.preventDefault();
@@ -36,13 +32,13 @@ function openTradingApp(event: MouseEvent<HTMLAnchorElement>) {
   window.location.assign('/index.html');
 }
 
-function MentavioLogo({ large = false }: { large?: boolean }) {
+function MentarioLogo({ large = false }: { large?: boolean }) {
   return (
     <div
       className={`relative overflow-hidden rounded-[1.4rem] border border-white/10 bg-[#0B1220] shadow-sm ${
         large ? 'h-28 w-28 md:h-36 md:w-36' : 'h-12 w-12'
       }`}
-      aria-label="Mentavio logo"
+      aria-label="Mentario logo"
       style={{
         backgroundImage: `url(${logoBoardUrl})`,
         backgroundPosition: '3.4% 67%',
@@ -53,11 +49,11 @@ function MentavioLogo({ large = false }: { large?: boolean }) {
   );
 }
 
-function MentavioLockup() {
+function MentarioLockup() {
   return (
     <div
       className="aspect-[1.62/1] w-full overflow-hidden rounded-[2rem] border border-white/10 bg-[#0B1220] shadow-[0_30px_100px_rgba(11,18,32,0.22)]"
-      aria-label="Mentavio full logo"
+      aria-label="Mentario full logo"
       style={{
         backgroundImage: `url(${logoBoardUrl})`,
         backgroundPosition: '0% 0%',
@@ -120,28 +116,13 @@ function SophiaPanel({
 }
 
 export default function Home() {
-  const [language, setLanguage] = useState<LandingLanguage>('en');
-  const copy = landingCopy[language];
+  const copy = landingCopy.en;
 
   useEffect(() => {
-    const savedLanguage = window.localStorage.getItem('market_language');
-    const nextLanguage = languageOptions.some(
-      (option) => option.code === savedLanguage,
-    )
-      ? (savedLanguage as LandingLanguage)
-      : 'en';
-
-    setLanguage(nextLanguage);
-    document.documentElement.lang = nextLanguage;
-    document.documentElement.dir = landingCopy[nextLanguage].direction;
+    window.localStorage.setItem('market_language', 'en');
+    document.documentElement.lang = 'en';
+    document.documentElement.dir = 'ltr';
   }, []);
-
-  function changeLanguage(nextLanguage: LandingLanguage) {
-    setLanguage(nextLanguage);
-    window.localStorage.setItem('market_language', nextLanguage);
-    document.documentElement.lang = nextLanguage;
-    document.documentElement.dir = landingCopy[nextLanguage].direction;
-  }
 
   return (
     <main
@@ -152,11 +133,11 @@ export default function Home() {
         <a
           className="flex items-center gap-3"
           href="#top"
-          aria-label="Mentavio home"
+          aria-label="Mentario home"
         >
-          <MentavioLogo />
+          <MentarioLogo />
           <div>
-            <p className="text-base font-semibold tracking-tight">Mentavio</p>
+            <p className="text-base font-semibold tracking-tight">Mentario</p>
             <p className="text-xs text-slate-500 dark:text-slate-400">
               {copy.tagline}
             </p>
@@ -168,23 +149,6 @@ export default function Home() {
           <a href="#ecosystem">{copy.navEcosystem}</a>
         </nav>
         <div className="ml-auto flex items-center gap-2">
-          <label>
-            <span className="sr-only">{copy.language}</span>
-            <select
-              aria-label={copy.language}
-              className="h-10 rounded-full border border-slate-200 bg-white px-3 text-sm font-medium text-slate-700 outline-none transition focus:border-emerald-500 dark:border-white/10 dark:bg-white/[0.06] dark:text-white"
-              onChange={(event) =>
-                changeLanguage(event.target.value as LandingLanguage)
-              }
-              value={language}
-            >
-              {languageOptions.map((option) => (
-                <option key={option.code} value={option.code}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </label>
           <a
             className="rounded-full bg-slate-950 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200 sm:px-5"
             href="/index.html"
@@ -200,12 +164,12 @@ export default function Home() {
         className="mx-auto grid w-full max-w-7xl gap-14 px-6 pb-24 pt-14 md:px-10 md:pb-32 lg:grid-cols-[1.04fr_0.96fr] lg:items-center"
       >
         <div>
-          <MentavioLockup />
+          <MentarioLockup />
           <p className="mt-10 text-sm font-semibold uppercase tracking-[0.22em] text-emerald-600 dark:text-emerald-400">
             {copy.tagline}
           </p>
           <h1 className="mt-5 max-w-4xl text-6xl font-semibold tracking-[-0.04em] text-slate-950 dark:text-white md:text-8xl">
-            Mentavio
+            Mentario
           </h1>
           <p className="mt-7 max-w-2xl text-xl leading-9 text-slate-600 dark:text-slate-300 md:text-2xl">
             {copy.heroLead}
@@ -271,7 +235,7 @@ export default function Home() {
       >
         <div className="max-w-3xl">
           <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-600 dark:text-emerald-400">
-            {copy.whyMentavio}
+            {copy.whyMentario}
           </p>
           <h2 className="mt-4 text-4xl font-semibold tracking-[-0.03em] md:text-6xl">
             {copy.visionTitle}
@@ -332,13 +296,14 @@ export default function Home() {
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 text-sm text-slate-500 dark:text-slate-400 md:flex-row md:items-center md:justify-between">
           <div>
             <p className="font-semibold text-slate-950 dark:text-white">
-              Mentavio
+              Mentario
             </p>
             <p>{copy.tagline}</p>
           </div>
           <div className="flex gap-5">
-            <a href="#">{copy.privacy}</a>
-            <a href="#">{copy.terms}</a>
+            <a href="/game/privacy.html">{copy.privacy}</a>
+            <a href="/game/terms.html">{copy.terms}</a>
+            <a href="/game/disclaimer.html">Disclaimer</a>
             <a href="#">{copy.contact}</a>
           </div>
           <p>{copy.copyright}</p>

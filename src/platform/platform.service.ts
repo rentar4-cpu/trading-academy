@@ -387,7 +387,7 @@ export class PlatformService implements OnModuleInit {
     return {
       id: event.id,
       title: event.title,
-      text: `${event.title} | Trading Academy`,
+      text: `${event.title} | Mentario`,
       url: '/game/coming-soon.html',
       created_at: event.created_at,
     };
@@ -638,7 +638,7 @@ export class PlatformService implements OnModuleInit {
       id: user.id,
       email: user.email,
       display_name: user.display_name,
-      preferred_language: user.preferred_language || 'ru',
+      preferred_language: user.preferred_language || 'en',
       account_level: user.account_level || 1,
       email_verified: user.email_verified,
       login_streak: user.login_streak || 0,

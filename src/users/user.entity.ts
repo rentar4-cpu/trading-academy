@@ -17,7 +17,7 @@ export class User {
   @Column({ default: 'Trader' })
   display_name: string;
 
-  @Column({ default: 'ru' })
+  @Column({ default: 'en' })
   preferred_language: string;
 
   @Column({ default: 1 })

@@ -7,13 +7,13 @@ const state = {
   history: [],
   portfolio: null,
   firstSessionReward: null,
-  language: localStorage.getItem('market_language') || 'en',
+  language: 'en',
 };
 
 const translations = {
   en: {
     brand: 'Learn. Think. Grow.',
-    title: 'Mentavio',
+    title: 'Mentario',
     language: 'Language',
     navMarket: 'Market',
     navIntel: 'Intel',
@@ -146,7 +146,7 @@ const translations = {
   },
   ru: {
     brand: 'Учись. Думай. Расти.',
-    title: 'Mentavio',
+    title: 'Mentario',
     language: 'Язык',
     navMarket: 'Рынок',
     navIntel: 'Аналитика',
@@ -278,7 +278,7 @@ const translations = {
   },
   he: {
     brand: 'ללמוד. לחשוב. לצמוח.',
-    title: 'Mentavio',
+    title: 'Mentario',
     language: 'שפה',
     navMarket: 'שוק',
     navIntel: 'מודיעין',
@@ -407,7 +407,7 @@ const translations = {
   },
   de: {
     brand: 'Lernen. Denken. Wachsen.',
-    title: 'Mentavio',
+    title: 'Mentario',
     language: 'Sprache',
     navMarket: 'Markt',
     navIntel: 'Analyse',
@@ -541,7 +541,7 @@ const translations = {
   },
   fr: {
     brand: 'Apprendre. Penser. Grandir.',
-    title: 'Mentavio',
+    title: 'Mentario',
     language: 'Langue',
     navMarket: 'Marché',
     navIntel: 'Analyse',
@@ -1086,7 +1086,6 @@ const nodes = {
   createPlayerButton: document.querySelector('#createPlayerButton'),
   accountStatus: document.querySelector('#accountStatus'),
   logoutButton: document.querySelector('#logoutButton'),
-  languageSelect: document.querySelector('#languageSelect'),
   tickButton: document.querySelector('#tickButton'),
   eventTitle: document.querySelector('#eventTitle'),
   eventDescription: document.querySelector('#eventDescription'),
@@ -1111,10 +1110,10 @@ function t(key, values = {}) {
 }
 
 function applyLanguage() {
-  document.documentElement.lang = state.language;
-  document.documentElement.dir = state.language === 'he' ? 'rtl' : 'ltr';
-  nodes.languageSelect.value = state.language;
-
+  state.language = 'en';
+  localStorage.setItem('market_language', 'en');
+  document.documentElement.lang = 'en';
+  document.documentElement.dir = 'ltr';
   document.querySelectorAll('[data-i18n]').forEach((element) => {
     element.textContent = t(element.dataset.i18n);
   });
@@ -1717,12 +1716,6 @@ function bindEvents() {
     state.selectedSymbol = nodes.orderSymbol.value;
     renderCompanyBoard();
     renderSelectedAsset();
-  });
-  nodes.languageSelect.addEventListener('change', () => {
-    state.language = nodes.languageSelect.value;
-    localStorage.setItem('market_language', state.language);
-    applyLanguage();
-    renderFirstSessionCoach();
   });
 
   nodes.firstSessionCoach?.addEventListener('click', (event) => {

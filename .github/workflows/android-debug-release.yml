@@ -32,7 +32,7 @@ jobs:
         run: npm ci
 
       - name: Install landing dependencies
-        run: npm --prefix mentavio-landing ci
+        run: npm --prefix mentario-landing ci
 
       - name: Sync Android assets
         run: npm run android:sync
@@ -46,14 +46,14 @@ jobs:
       - name: Prepare release asset
         run: |
           mkdir -p release-upload
-          cp android/app/build/outputs/apk/debug/app-debug.apk "release-upload/Mentavio-${GITHUB_REF_NAME}-debug.apk"
+          cp android/app/build/outputs/apk/debug/app-debug.apk "release-upload/Mentario-${GITHUB_REF_NAME}-debug.apk"
 
       - name: Publish GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release create "${GITHUB_REF_NAME}" \
-            "release-upload/Mentavio-${GITHUB_REF_NAME}-debug.apk" \
-            --title "Mentavio ${GITHUB_REF_NAME}" \
-            --notes "Android debug APK for Mentavio public demo builds. The app reads the live backend URL from public/mobile-config.json."
+            "release-upload/Mentario-${GITHUB_REF_NAME}-debug.apk" \
+            --title "Mentario ${GITHUB_REF_NAME}" \
+            --notes "Android debug APK for Mentario public demo builds. The app reads the live backend URL from public/mobile-config.json."
 

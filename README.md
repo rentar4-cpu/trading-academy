@@ -25,7 +25,14 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Mentavio Documentation
+## Mentario Documentation
+
+- [Master Technical Specification](./MENTARIO_TECHNICAL_SPEC.md)
+- [AI Architecture](./AI_ARCHITECTURE.md)
+- [Privacy Architecture](./PRIVACY_ARCHITECTURE.md)
+- [Security Audit Notes](./SECURITY_AUDIT.md)
+- [Android Public Demo](./ANDROID_PUBLIC_DEMO.md)
+- [Download Android](./DOWNLOAD_ANDROID.md)
 
 - [Project History and Roadmap](./PROJECT_HISTORY.md)
 - [Early Retention Loop](./SPEC-021-EARLY-RETENTION-LOOP.md)

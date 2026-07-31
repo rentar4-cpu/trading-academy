@@ -4,12 +4,12 @@ const nodes = {
   newsStatus: document.querySelector('#newsStatus'),
   newsClock: document.querySelector('#newsClock'),
 };
-let currentLanguage = localStorage.getItem('market_language') || 'en';
+let currentLanguage = 'en';
 
 const newsTranslations = {
   en: {
     language: 'Language',
-    brand: 'Mentavio',
+    brand: 'Mentario',
     title: 'Market News',
     navMarket: 'Market',
     navIntel: 'Intel',
@@ -38,7 +38,7 @@ const newsTranslations = {
   },
   ru: {
     language: 'Язык',
-    brand: 'Mentavio',
+    brand: 'Mentario',
     title: 'Новости рынка',
     navMarket: 'Рынок',
     navIntel: 'Аналитика',
@@ -67,7 +67,7 @@ const newsTranslations = {
   },
   he: {
     language: 'שפה',
-    brand: 'Mentavio',
+    brand: 'Mentario',
     title: 'חדשות שוק',
     navMarket: 'שוק',
     navIntel: 'מודיעין',
@@ -96,7 +96,7 @@ const newsTranslations = {
   },
   de: {
     language: 'Sprache',
-    brand: 'Mentavio',
+    brand: 'Mentario',
     title: 'Marktnachrichten',
     navMarket: 'Markt',
     navIntel: 'Analyse',
@@ -125,7 +125,7 @@ const newsTranslations = {
   },
   fr: {
     language: 'Langue',
-    brand: 'Mentavio',
+    brand: 'Mentario',
     title: 'Infos marché',
     navMarket: 'Marché',
     navIntel: 'Analyse',
@@ -253,39 +253,14 @@ function impactClass(value) {
 }
 
 function addLanguageSelect() {
-  const topbar = document.querySelector('.topbar');
-  if (!topbar || document.querySelector('#newsLanguageSelect')) return;
-
-  const label = document.createElement('label');
-  label.className = 'language-select';
-  label.innerHTML = `
-    <span>${tr('language')}</span>
-    <select id="newsLanguageSelect" aria-label="Language">
-      <option value="en">English</option>
-      <option value="ru">Русский</option>
-      <option value="he">עברית</option>
-      <option value="de">Deutsch</option>
-      <option value="fr">Français</option>
-    </select>
-  `;
-  topbar.appendChild(label);
-
-  const select = label.querySelector('select');
-  select.value = currentLanguage;
-  select.addEventListener('change', () => {
-    currentLanguage = select.value;
-    localStorage.setItem('market_language', currentLanguage);
-    applyLanguage();
-    void loadNews();
-  });
+  document.querySelector('#newsLanguageSelect')?.closest('label')?.remove();
 }
 
 function applyLanguage() {
-  document.documentElement.lang = currentLanguage;
-  document.documentElement.dir = currentLanguage === 'he' ? 'rtl' : 'ltr';
-
-  const select = document.querySelector('#newsLanguageSelect');
-  if (select) select.value = currentLanguage;
+  currentLanguage = 'en';
+  localStorage.setItem('market_language', 'en');
+  document.documentElement.lang = 'en';
+  document.documentElement.dir = 'ltr';
 
   const navLabels = {
     '/game/': 'navMarket',

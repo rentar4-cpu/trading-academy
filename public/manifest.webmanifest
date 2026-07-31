@@ -1,6 +1,6 @@
 {
-  "name": "Mentavio",
-  "short_name": "Mentavio",
+  "name": "Mentario",
+  "short_name": "Mentario",
   "description": "An AI-driven decision intelligence platform with a trading simulator, learning tools, and strategic thinking experiences.",
   "start_url": "./index.html",
   "scope": "./",

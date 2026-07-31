@@ -13,6 +13,10 @@ export class UsersController {
       password: string;
       display_name?: string;
       guest_player_id?: number;
+      accepted_terms?: boolean;
+      confirmed_age_18?: boolean;
+      legal_locale?: string;
+      legal_source?: string;
     },
   ) {
     return this.usersService.register(body);

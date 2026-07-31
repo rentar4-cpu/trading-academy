@@ -5,6 +5,7 @@ import { MarketModule } from './market/market.module';
 import { PlatformModule } from './platform/platform.module';
 import { UsersModule } from './users/users.module';
 import { AppController } from './app.controller';
+import { AiModule } from './ai/ai.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { AppController } from './app.controller';
     UsersModule,
     MarketModule,
     PlatformModule,
+    AiModule,
   ],
   controllers: [AppController],
 })

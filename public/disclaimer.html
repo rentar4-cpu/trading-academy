@@ -4,22 +4,19 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#111c20" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-title" content="Mentario" />
-    <title>Mentario - Market News</title>
+    <title>Mentario - Educational Disclaimer</title>
     <link rel="manifest" href="./manifest.webmanifest" />
     <link rel="icon" href="./icon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <main class="shell">
+    <main class="shell legal-document">
       <section class="topbar">
         <a class="brand-heading page-brand brand-home-link" href="../landing/index.html" aria-label="Mentario home">
           <span class="mentario-game-logo" aria-hidden="true"></span>
           <div>
             <p class="eyebrow">Mentario</p>
-            <h1>Market News</h1>
+            <h1>Educational Disclaimer</h1>
           </div>
         </a>
         <nav class="app-nav" aria-label="Game navigation">
@@ -27,49 +24,36 @@
           <a href="./index.html">Market</a>
           <a href="./intel.html">Intel</a>
           <a href="./trades.html">Trades</a>
-          <a class="active" href="./news.html">News</a>
+          <a href="./news.html">News</a>
           <a href="./portfolio.html">Portfolio</a>
           <a href="./store.html">Store</a>
           <a href="./auth.html">Account</a>
         </nav>
       </section>
 
-      <section class="news-hero">
-        <div>
-          <p class="eyebrow">Forward Signals</p>
-          <h2>Events That May Move Prices</h2>
-          <p class="news-hero-copy">
-            Read scheduled macro events before they hit the market. Each item shows probability,
-            affected sector or company, expected impact, and risk level.
-          </p>
-        </div>
-        <div class="news-clock">
-          <span>Auto market</span>
-          <strong id="newsClock">--s</strong>
-        </div>
-      </section>
-
-      <section class="news-layout">
-        <section class="panel">
-          <div class="panel-head">
-            <div>
-              <p class="eyebrow">Calendar</p>
-              <h2>Upcoming News</h2>
-            </div>
-          </div>
-          <div id="newsList" class="news-list"></div>
-        </section>
-
-        <aside class="panel">
-          <div class="panel-head">
-            <div>
-              <p class="eyebrow">Impact Map</p>
-              <h2>Watchlist</h2>
-            </div>
-          </div>
-          <div id="impactMap" class="impact-map"></div>
-        </aside>
-      </section>
+      <article class="panel legal-panel">
+        <p class="eyebrow">Important</p>
+        <h2>Mentario is not real trading</h2>
+        <p>
+          Mentario is an educational simulation. It is designed to help users
+          understand financial terminology, simulated market events, risk,
+          diversification, and decision-making in a safe fictional environment.
+        </p>
+        <p>
+          Mentario is not a broker, exchange, investment adviser, financial
+          adviser, gambling platform, automated trading system, or system for
+          paying winnings.
+        </p>
+        <p>
+          Performance in Mentario does not predict real-market results. Real
+          markets can behave differently and involve risk of real financial
+          loss.
+        </p>
+        <p>
+          Sophia can provide general educational explanations, but she must not
+          be treated as a licensed professional adviser.
+        </p>
+      </article>
       <footer class="legal-footer">
         <p>Mentario is an educational simulation. It is not a broker, exchange, gambling product, or financial adviser.</p>
         <nav aria-label="Legal links">
@@ -78,10 +62,7 @@
           <a href="./disclaimer.html">Educational Disclaimer</a>
         </nav>
       </footer>
-
-      <div class="status-line" id="newsStatus">Loading news</div>
     </main>
     <script src="./runtime-config.js"></script>
-    <script src="./news.js"></script>
   </body>
 </html>

@@ -8,6 +8,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { randomBytes, pbkdf2Sync, timingSafeEqual } from 'crypto';
 import { Repository } from 'typeorm';
 import { SimPlayer } from '../market/entities/sim-player.entity';
+import { UserConsent } from './user-consent.entity';
 import { User } from './user.entity';
 
 const GUEST_STARTING_CASH = 1000;
@@ -16,12 +17,17 @@ const AD_TOKEN_REWARD = 150;
 const DAILY_LOGIN_TOKEN_REWARD = 25;
 const MAX_AD_REWARD_CLAIMS = 2;
 const TRADING_GAME_ID = 'trading';
+const LEGAL_DOCUMENT_VERSION = '2026-07-31-mvp';
 
 type AuthDto = {
   email: string;
   password: string;
   display_name?: string;
   guest_player_id?: number;
+  accepted_terms?: boolean;
+  confirmed_age_18?: boolean;
+  legal_locale?: string;
+  legal_source?: string;
 };
 
 type VerifyEmailDto = {
@@ -36,9 +42,12 @@ export class UsersService {
     private usersRepository: Repository<User>,
     @InjectRepository(SimPlayer)
     private playersRepository: Repository<SimPlayer>,
+    @InjectRepository(UserConsent)
+    private userConsentsRepository: Repository<UserConsent>,
   ) {}
 
   async register(dto: AuthDto) {
+    this.validateLegalConsent(dto);
     const email = this.normalizeEmail(dto.email);
     const password = this.validatePassword(dto.password);
     const displayName = this.normalizeDisplayName(dto.display_name, email);
@@ -55,6 +64,7 @@ export class UsersService {
       this.usersRepository.create({
         email,
         display_name: displayName,
+        preferred_language: 'en',
         password_hash: this.hashPassword(password),
         email_verified: false,
         account_tokens: guestRewardTokens,
@@ -63,6 +73,8 @@ export class UsersService {
         email_verification_sent_at: new Date(),
       }),
     );
+
+    await this.recordRegistrationConsents(user.id, dto);
 
     return this.pendingVerificationResponse(user);
   }
@@ -233,7 +245,7 @@ export class UsersService {
         display_name: user.display_name,
         email_verified: false,
         account_tokens: Number(user.account_tokens || 0),
-        preferred_language: user.preferred_language || 'ru',
+        preferred_language: user.preferred_language || 'en',
         account_level: user.account_level || 1,
         login_streak: user.login_streak || 0,
       },
@@ -312,12 +324,57 @@ export class UsersService {
       display_name: user.display_name,
       email_verified: user.email_verified,
       account_tokens: Number(user.account_tokens || 0),
-      preferred_language: user.preferred_language || 'ru',
+      preferred_language: user.preferred_language || 'en',
       account_level: user.account_level || 1,
       total_play_seconds: user.total_play_seconds || 0,
       activity_score: user.activity_score || 0,
       login_streak: user.login_streak || 0,
     };
+  }
+
+  private validateLegalConsent(dto: AuthDto) {
+    if (!dto.accepted_terms || !dto.confirmed_age_18) {
+      throw new BadRequestException(
+        'Terms, privacy policy, educational disclaimer, and 18+ confirmation are required',
+      );
+    }
+  }
+
+  private async recordRegistrationConsents(userId: number, dto: AuthDto) {
+    const locale = this.normalizeConsentLocale(dto.legal_locale);
+    const source = this.normalizeConsentSource(dto.legal_source);
+    const documentTypes = [
+      'terms',
+      'privacy_policy',
+      'educational_disclaimer',
+      'age_18_confirmation',
+    ];
+
+    await this.userConsentsRepository.save(
+      documentTypes.map((documentType) =>
+        this.userConsentsRepository.create({
+          user_id: userId,
+          document_type: documentType,
+          document_version: LEGAL_DOCUMENT_VERSION,
+          locale,
+          source,
+        }),
+      ),
+    );
+  }
+
+  private normalizeConsentLocale(locale?: string) {
+    return (locale || 'en').trim().toLowerCase().slice(0, 12) || 'en';
+  }
+
+  private normalizeConsentSource(source?: string) {
+    return (
+      (source || 'account-registration')
+        .trim()
+        .toLowerCase()
+        .replace(/[^a-z0-9_-]/g, '-')
+        .slice(0, 48) || 'account-registration'
+    );
   }
 
   private hashPassword(password: string) {

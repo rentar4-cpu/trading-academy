@@ -1,6 +1,6 @@
-# Mentavio Project History
+# Mentario Project History
 
-This document is the official history and roadmap for the Mentavio platform and
+This document is the official history and roadmap for the Mentario platform and
 its first application, the Trading Simulator.
 
 Last updated: July 30, 2026
@@ -9,7 +9,7 @@ Last updated: July 30, 2026
 
 **Stage:** Mobile beta and public-launch preparation
 
-**Current product:** Mentavio Trading Simulator with a scalable market,
+**Current product:** Mentario Trading Simulator with a scalable market,
 multilingual browser experience, Android application, AI Mentor Sophia, shared
 platform architecture, and beginner onboarding.
 
@@ -42,11 +42,12 @@ and preparation for early users.
 | July 29, 2026 | Product Quality | Market interface improvements | Better chart, AI placement, translations, and frontend refresh |
 | July 29, 2026 | Platform | SPEC-021 Platform Architecture | Shared account, wallet, achievements, statistics, and Game ID foundation |
 | July 29, 2026 | Public Launch | Launch infrastructure | Coming Soon, early access, referrals, DevLog, What's New, and sharing |
-| July 29, 2026 | Brand | Mentavio integration | Mentavio landing, logo, Sophia identity, localization, and game connection |
+| July 29, 2026 | Brand | Mentario integration | Mentario landing, logo, Sophia identity, localization, and game connection |
 | July 29, 2026 | Android | Mobile product integration | Localized landing and Trading Simulator embedded in the APK |
 | July 29, 2026 | Mobile Beta | Mobile reliability fixes | Sophia layout, trade tape, portfolio positions, and browser cache fixed |
 | July 30, 2026 | Product Flow | Navigation, news, portfolio, and store update | Complete landing return path, rotating market news, direct portfolio trading, and token-based session funding |
 | July 31, 2026 | Android Distribution | Public demo APK preparation | Added remote Android server config so APK builds can connect to a public tunnel without rebuilding |
+| July 31, 2026 | MVP Foundation | Mentario legal, privacy, and Sophia architecture | Renamed visible product identity to Mentario, moved MVP UI to English-only, added legal consent flow, and prepared Sophia backend abstraction |
 
 ## Specification Audit Note
 
@@ -70,7 +71,7 @@ numbered specifications:
 - Android and Capacitor application delivery.
 - Five-language localization.
 - Mobile interface and browser reliability work.
-- Mentavio brand and logo integration.
+- Mentario brand and logo integration.
 
 These items must be reviewed before the next specification number is assigned,
 so no previous requirement or completed feature disappears from the roadmap.
@@ -88,7 +89,7 @@ so no previous requirement or completed feature disappears from the roadmap.
 
 ### SPEC-021 - Platform Architecture
 
-- Prepared one account system for multiple future Mentavio applications.
+- Prepared one account system for multiple future Mentario applications.
 - Added a shared token wallet and game identifiers.
 - Added global and game-specific achievement foundations.
 - Added shared profile, progression, statistics, store, and notification
@@ -98,7 +99,7 @@ so no previous requirement or completed feature disappears from the roadmap.
 
 ### SPEC-022 - AI Mentor Landing
 
-- Created the premium Mentavio landing page.
+- Created the premium Mentario landing page.
 - Introduced Sophia as the AI decision mentor.
 - Positioned trading as one application inside a broader decision-intelligence
   ecosystem.
@@ -112,11 +113,11 @@ so no previous requirement or completed feature disappears from the roadmap.
 ### SPEC-023 - AI Identity
 
 Define Sophia's permanent identity, voice, behavior rules, safety boundaries,
-visual presentation, and role across all Mentavio applications.
+visual presentation, and role across all Mentario applications.
 
 ### SPEC-024 - Brand Identity
 
-Create the complete Mentavio brand system: logo rules, typography, color
+Create the complete Mentario brand system: logo rules, typography, color
 system, product naming, brand voice, and usage standards.
 
 ### SPEC-025 - Crowdfunding Landing
@@ -138,7 +139,7 @@ invites, community communication, and beta participation rewards.
 
 ### July 30, 2026 - Product Flow and Android Reliability
 
-- Added a clear return path from every game page to the Mentavio landing page.
+- Added a clear return path from every game page to the Mentario landing page.
 - Removed the obsolete server-address and server-test controls from Account.
 - Reduced the visible news feed to four rotating signals and linked each signal
   to the market event applied by the next market tick.
@@ -171,10 +172,10 @@ Commits:
 [df65f4d](https://github.com/rentar4-cpu/trading-academy/commit/df65f4d),
 [3a9d9ba](https://github.com/rentar4-cpu/trading-academy/commit/3a9d9ba)
 
-### July 29, 2026 - Mentavio Product Integration
+### July 29, 2026 - Mentario Product Integration
 
-- Applied the Mentavio logo and company identity throughout the game.
-- Added the localized Mentavio landing page.
+- Applied the Mentario logo and company identity throughout the game.
+- Added the localized Mentario landing page.
 - Connected the landing page and Trading Simulator.
 - Embedded the landing experience in the Android application.
 - Named the in-game assistant AI Mentor Sophia.
@@ -197,7 +198,7 @@ Commit:
 
 ### July 29, 2026 - Multi-App Platform Foundation
 
-- Added the architectural foundation for multiple Mentavio applications.
+- Added the architectural foundation for multiple Mentario applications.
 - Added shared account, wallet, achievement, and statistics concepts.
 - Added Game ID support for platform-owned data.
 

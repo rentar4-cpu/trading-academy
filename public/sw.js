@@ -1,4 +1,4 @@
-const CACHE_NAME = 'market-simulator-v45';
+const CACHE_NAME = 'market-simulator-v46';
 const APP_SHELL = [
   '/game/',
   '/game/index.html',
@@ -8,6 +8,9 @@ const APP_SHELL = [
   '/game/store.html',
   '/game/news.html',
   '/game/auth.html',
+  '/game/terms.html',
+  '/game/privacy.html',
+  '/game/disclaimer.html',
   '/game/coming-soon.html',
   '/game/devlog.html',
   '/game/whats-new.html',
@@ -20,7 +23,7 @@ const APP_SHELL = [
   '/game/news.js',
   '/game/auth.js',
   '/game/icon.svg',
-  '/game/mentavio-logo-board.png',
+  '/game/mentario-logo-board.png',
   '/game/manifest.webmanifest',
 ];
 

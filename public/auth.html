@@ -6,8 +6,8 @@
     <meta name="theme-color" content="#111c20" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-title" content="Mentavio" />
-    <title>Mentavio - Account</title>
+    <meta name="apple-mobile-web-app-title" content="Mentario" />
+    <title>Mentario - Account</title>
     <link rel="manifest" href="./manifest.webmanifest" />
     <link rel="icon" href="./icon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="./styles.css" />
@@ -15,15 +15,15 @@
   <body>
     <main class="shell">
       <section class="topbar">
-        <a class="brand-heading page-brand brand-home-link" href="../landing/index.html" aria-label="Mentavio home">
-          <span class="mentavio-game-logo" aria-hidden="true"></span>
+        <a class="brand-heading page-brand brand-home-link" href="../landing/index.html" aria-label="Mentario home">
+          <span class="mentario-game-logo" aria-hidden="true"></span>
           <div>
-            <p class="eyebrow" data-auth-i18n="brand">Mentavio</p>
+            <p class="eyebrow" data-auth-i18n="brand">Mentario</p>
             <h1 data-auth-i18n="title">Account</h1>
           </div>
         </a>
         <nav class="app-nav" aria-label="Game navigation">
-          <a class="landing-nav-link" href="../landing/index.html">Mentavio</a>
+          <a class="landing-nav-link" href="../landing/index.html">Mentario</a>
           <a href="./index.html" data-auth-i18n="navMarket">Market</a>
           <a href="./intel.html" data-auth-i18n="navIntel">Intel</a>
           <a href="./trades.html" data-auth-i18n="navTrades">Trades</a>
@@ -32,16 +32,6 @@
           <a href="./store.html" data-auth-i18n="navStore">Store</a>
           <a class="active" href="./auth.html" data-auth-i18n="navAuth">Account</a>
         </nav>
-        <label class="language-select">
-          <span data-auth-i18n="language">Language</span>
-          <select id="authLanguageSelect" aria-label="Language">
-            <option value="en">English</option>
-            <option value="ru">Русский</option>
-            <option value="he">עברית</option>
-            <option value="de">Deutsch</option>
-            <option value="fr">Français</option>
-          </select>
-        </label>
       </section>
 
       <section class="auth-hero">
@@ -98,6 +88,20 @@
             <span data-auth-i18n="password">Password</span>
             <input id="registerPassword" type="password" autocomplete="new-password" minlength="6" required />
           </label>
+          <div class="auth-consent">
+            <label class="auth-check">
+              <input id="acceptLegal" type="checkbox" required />
+              <span>
+                I agree to the <a href="./terms.html" target="_blank" rel="noreferrer">Terms</a>,
+                <a href="./privacy.html" target="_blank" rel="noreferrer">Privacy Policy</a>,
+                and <a href="./disclaimer.html" target="_blank" rel="noreferrer">Educational Disclaimer</a>.
+              </span>
+            </label>
+            <label class="auth-check">
+              <input id="confirmAge" type="checkbox" required />
+              <span>I confirm that I am at least 18 years old.</span>
+            </label>
+          </div>
           <button class="primary" type="submit" data-auth-i18n="registerAction">Create Account</button>
           <p class="auth-note" data-auth-i18n="registerNote">
             Guest progress stays separate. A new verified account starts clean.
@@ -125,6 +129,14 @@
           </p>
         </form>
       </section>
+      <footer class="legal-footer">
+        <p>Mentario is an educational simulation. It is not a broker, exchange, gambling product, or financial adviser.</p>
+        <nav aria-label="Legal links">
+          <a href="./terms.html">Terms</a>
+          <a href="./privacy.html">Privacy Policy</a>
+          <a href="./disclaimer.html">Educational Disclaimer</a>
+        </nav>
+      </footer>
 
       <div class="status-line" id="authStatus" data-auth-i18n="ready">Ready</div>
     </main>

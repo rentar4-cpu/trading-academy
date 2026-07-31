@@ -66,7 +66,7 @@ function bootComingSoon() {
           email: document.querySelector('#earlyAccessEmail').value,
           display_name: document.querySelector('#earlyAccessName').value,
           referral_code: referralFromUrl(),
-          locale: localStorage.getItem('market_language') || 'en',
+          locale: 'en',
           source: 'coming-soon',
         }),
       });

@@ -1,10 +1,10 @@
 const authState = {
-  language: localStorage.getItem('market_language') || 'en',
+  language: 'en',
 };
 
 const authText = {
   en: {
-    brand: 'Mentavio',
+    brand: 'Mentario',
     title: 'Account',
     language: 'Language',
     navMarket: 'Market',
@@ -31,6 +31,8 @@ const authText = {
     registerAction: 'Create Account',
     registerNote:
       'Guest progress stays separate. A new verified account starts clean.',
+    legalConsentRequired:
+      'Accept the terms, privacy policy, disclaimer, and 18+ confirmation before registering.',
     verifyEyebrow: 'Email Check',
     verifyTitle: 'Confirm Email',
     verificationCode: 'Verification code',
@@ -62,7 +64,7 @@ const authText = {
     guest: 'Guest',
   },
   ru: {
-    brand: 'Mentavio',
+    brand: 'Mentario',
     title: 'Аккаунт',
     language: 'Язык',
     navMarket: 'Рынок',
@@ -121,7 +123,7 @@ const authText = {
     guest: 'Гость',
   },
   he: {
-    brand: 'Mentavio',
+    brand: 'Mentario',
     title: 'חשבון',
     language: 'שפה',
     navMarket: 'שוק',
@@ -178,7 +180,7 @@ const authText = {
     guest: 'אורח',
   },
   de: {
-    brand: 'Mentavio',
+    brand: 'Mentario',
     title: 'Konto',
     language: 'Sprache',
     navMarket: 'Markt',
@@ -237,7 +239,7 @@ const authText = {
     guest: 'Gast',
   },
   fr: {
-    brand: 'Mentavio',
+    brand: 'Mentario',
     title: 'Compte',
     language: 'Langue',
     navMarket: 'Marché',
@@ -346,9 +348,11 @@ function setStatus(message) {
 }
 
 function applyLanguage() {
-  document.documentElement.lang = authState.language;
-  document.documentElement.dir = authState.language === 'he' ? 'rtl' : 'ltr';
-  nodes.language.value = authState.language;
+  authState.language = 'en';
+  localStorage.setItem('market_language', 'en');
+  document.documentElement.lang = 'en';
+  document.documentElement.dir = 'ltr';
+  if (nodes.language) nodes.language.value = 'en';
   document.querySelectorAll('[data-auth-i18n]').forEach((element) => {
     element.textContent = t(element.dataset.authI18n);
   });
@@ -438,12 +442,22 @@ async function login(event) {
 
 async function register(event) {
   event.preventDefault();
+  const acceptLegal = document.querySelector('#acceptLegal')?.checked;
+  const confirmAge = document.querySelector('#confirmAge')?.checked;
+  if (!acceptLegal || !confirmAge) {
+    setStatus(t('legalConsentRequired'));
+    return;
+  }
   const result = await api('/users/register', {
     method: 'POST',
     body: JSON.stringify({
       display_name: document.querySelector('#registerName').value,
       email: document.querySelector('#registerEmail').value,
       password: document.querySelector('#registerPassword').value,
+      accepted_terms: acceptLegal,
+      confirmed_age_18: confirmAge,
+      legal_locale: 'en',
+      legal_source: 'account-registration',
       guest_player_id:
         Number(localStorage.getItem('market_player_id')) || undefined,
     }),
@@ -520,11 +534,6 @@ function showError(error) {
 }
 
 function bindEvents() {
-  nodes.language.addEventListener('change', () => {
-    authState.language = nodes.language.value;
-    localStorage.setItem('market_language', authState.language);
-    applyLanguage();
-  });
   nodes.guestButton.addEventListener('click', () =>
     continueGuest().catch(showError),
   );

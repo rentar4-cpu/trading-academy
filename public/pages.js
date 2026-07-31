@@ -6,7 +6,7 @@ const money = new Intl.NumberFormat('en-US', {
 const page = document.body.dataset.page;
 const statusNode = document.querySelector('#pageStatus');
 const clockNode = document.querySelector('#pageClock');
-let currentLanguage = localStorage.getItem('market_language') || 'en';
+let currentLanguage = 'en';
 let lastIntelInsights = [];
 let selectedIntelSymbol = localStorage.getItem('market_intel_symbol') || '';
 let selectedIntelRange = localStorage.getItem('market_intel_range') || '1D';
@@ -29,7 +29,7 @@ const pageTranslations = {
     navPortfolio: 'Portfolio',
     navStore: 'Store',
     navAuth: 'Account',
-    brand: 'Mentavio',
+    brand: 'Mentario',
     intelTitle: 'Market Intel',
     tradesTitle: 'Recent Trades',
     portfolioTitle: 'Portfolio',
@@ -120,7 +120,7 @@ const pageTranslations = {
     shareReady: 'Share text ready.',
     portfolioShareTitle: '{name} portfolio: {netWorth}',
     portfolioShareText:
-      'My Mentavio portfolio is {netWorth}. Open PnL: {pnl}.',
+      'My Mentario portfolio is {netWorth}. Open PnL: {pnl}.',
   },
   ru: {
     language: 'Ð¯Ð·Ñ‹Ðº',
@@ -131,7 +131,7 @@ const pageTranslations = {
     navPortfolio: 'ÐŸÐ¾Ñ€Ñ‚Ñ„ÐµÐ»ÑŒ',
     navStore: 'ÐœÐ°Ð³Ð°Ð·Ð¸Ð½',
     navAuth: 'ÐÐºÐºÐ°ÑƒÐ½Ñ‚',
-    brand: 'Mentavio',
+    brand: 'Mentario',
     intelTitle: 'ÐÐ½Ð°Ð»Ð¸Ñ‚Ð¸ÐºÐ° Ñ€Ñ‹Ð½ÐºÐ°',
     tradesTitle: 'ÐŸÐ¾ÑÐ»ÐµÐ´Ð½Ð¸Ðµ ÑÐ´ÐµÐ»ÐºÐ¸',
     portfolioTitle: 'ÐŸÐ¾Ñ€Ñ‚Ñ„ÐµÐ»ÑŒ',
@@ -204,7 +204,7 @@ const pageTranslations = {
     navPortfolio: '×ª×™×§',
     navStore: '×—× ×•×ª',
     navAuth: '×—×©×‘×•×Ÿ',
-    brand: 'Mentavio',
+    brand: 'Mentario',
     intelTitle: '×ž×•×“×™×¢×™×Ÿ ×©×•×§',
     tradesTitle: '×¢×¡×§××•×ª ××—×¨×•× ×•×ª',
     portfolioTitle: '×ª×™×§',
@@ -276,7 +276,7 @@ const pageTranslations = {
     navPortfolio: 'Depot',
     navStore: 'Shop',
     navAuth: 'Konto',
-    brand: 'Mentavio',
+    brand: 'Mentario',
     intelTitle: 'Marktanalyse',
     tradesTitle: 'Letzte Trades',
     portfolioTitle: 'Depot',
@@ -347,7 +347,7 @@ const pageTranslations = {
     navPortfolio: 'Portefeuille',
     navStore: 'Boutique',
     navAuth: 'Compte',
-    brand: 'Mentavio',
+    brand: 'Mentario',
     intelTitle: 'Analyse du marchÃ©',
     tradesTitle: 'Trades rÃ©cents',
     portfolioTitle: 'Portefeuille',
@@ -655,7 +655,7 @@ const fixedPageTranslations = {
     navPortfolio: 'Портфель',
     navStore: 'Магазин',
     navAuth: 'Аккаунт',
-    brand: 'Mentavio',
+    brand: 'Mentario',
     intelTitle: 'Аналитика рынка',
     tradesTitle: 'Последние сделки',
     portfolioTitle: 'Портфель',
@@ -747,7 +747,7 @@ const fixedPageTranslations = {
     shareReady: 'Результат готов для отправки.',
     portfolioShareTitle: 'Портфель {name}: {netWorth}',
     portfolioShareText:
-      'Мой портфель Mentavio: {netWorth}. Открытая прибыль: {pnl}.',
+      'Мой портфель Mentario: {netWorth}. Открытая прибыль: {pnl}.',
   },
   he: {
     language: 'שפה',
@@ -758,7 +758,7 @@ const fixedPageTranslations = {
     navPortfolio: 'תיק',
     navStore: 'חנות',
     navAuth: 'חשבון',
-    brand: 'Mentavio',
+    brand: 'Mentario',
     intelTitle: 'מודיעין שוק',
     tradesTitle: 'עסקאות אחרונות',
     portfolioTitle: 'תיק',
@@ -845,7 +845,7 @@ const fixedPageTranslations = {
     shareResult: 'שיתוף תוצאה',
     shareReady: 'התוצאה מוכנה לשיתוף.',
     portfolioShareTitle: 'התיק של {name}: {netWorth}',
-    portfolioShareText: 'תיק Mentavio שלי: {netWorth}. רווח פתוח: {pnl}.',
+    portfolioShareText: 'תיק Mentario שלי: {netWorth}. רווח פתוח: {pnl}.',
   },
   de: {
     language: 'Sprache',
@@ -856,7 +856,7 @@ const fixedPageTranslations = {
     navPortfolio: 'Depot',
     navStore: 'Shop',
     navAuth: 'Konto',
-    brand: 'Mentavio',
+    brand: 'Mentario',
     intelTitle: 'Marktanalyse',
     tradesTitle: 'Letzte Trades',
     portfolioTitle: 'Depot',
@@ -948,7 +948,7 @@ const fixedPageTranslations = {
     shareReady: 'Das Ergebnis ist zum Teilen bereit.',
     portfolioShareTitle: 'Depot von {name}: {netWorth}',
     portfolioShareText:
-      'Mein Mentavio-Depot: {netWorth}. Offener Gewinn: {pnl}.',
+      'Mein Mentario-Depot: {netWorth}. Offener Gewinn: {pnl}.',
   },
   fr: {
     language: 'Langue',
@@ -959,7 +959,7 @@ const fixedPageTranslations = {
     navPortfolio: 'Portefeuille',
     navStore: 'Boutique',
     navAuth: 'Compte',
-    brand: 'Mentavio',
+    brand: 'Mentario',
     intelTitle: 'Analyse du marché',
     tradesTitle: 'Trades récents',
     portfolioTitle: 'Portefeuille',
@@ -1052,7 +1052,7 @@ const fixedPageTranslations = {
     shareReady: 'Le résultat est prêt à être partagé.',
     portfolioShareTitle: 'Portefeuille de {name} : {netWorth}',
     portfolioShareText:
-      'Mon portefeuille Mentavio : {netWorth}. Gain ouvert : {pnl}.',
+      'Mon portefeuille Mentario : {netWorth}. Gain ouvert : {pnl}.',
   },
 };
 
@@ -1521,49 +1521,14 @@ function setStatus(message) {
 }
 
 function addLanguageSelect() {
-  const topbar = document.querySelector('.topbar');
-  if (!topbar || document.querySelector('#pageLanguageSelect')) return;
-
-  const label = document.createElement('label');
-  label.className = 'language-select';
-  label.innerHTML = `
-    <span>${tr('language')}</span>
-    <select id="pageLanguageSelect" aria-label="Language">
-      <option value="en">English</option>
-      <option value="ru">Ð ÑƒÑÑÐºÐ¸Ð¹</option>
-      <option value="he">×¢×‘×¨×™×ª</option>
-      <option value="de">Deutsch</option>
-      <option value="fr">FranÃ§ais</option>
-    </select>
-  `;
-  topbar.appendChild(label);
-
-  const select = label.querySelector('select');
-  const optionLabels = {
-    en: 'English',
-    ru: 'Русский',
-    he: 'עברית',
-    de: 'Deutsch',
-    fr: 'Français',
-  };
-  select.querySelectorAll('option').forEach((option) => {
-    option.textContent = optionLabels[option.value] || option.textContent;
-  });
-  select.value = currentLanguage;
-  select.addEventListener('change', () => {
-    currentLanguage = select.value;
-    localStorage.setItem('market_language', currentLanguage);
-    applyLanguage();
-    void refreshPage();
-  });
+  document.querySelector('#pageLanguageSelect')?.closest('label')?.remove();
 }
 
 function applyLanguage() {
-  document.documentElement.lang = currentLanguage;
-  document.documentElement.dir = currentLanguage === 'he' ? 'rtl' : 'ltr';
-
-  const select = document.querySelector('#pageLanguageSelect');
-  if (select) select.value = currentLanguage;
+  currentLanguage = 'en';
+  localStorage.setItem('market_language', 'en');
+  document.documentElement.lang = 'en';
+  document.documentElement.dir = 'ltr';
 
   const navLabels = {
     '/game/': 'navMarket',
@@ -2366,7 +2331,7 @@ async function placePortfolioOrder(event) {
 }
 
 async function shareText(payload) {
-  const title = payload.title || 'Mentavio result';
+  const title = payload.title || 'Mentario result';
   const text = payload.text || title;
   const url = new URL('./coming-soon.html', window.location.href).toString();
 

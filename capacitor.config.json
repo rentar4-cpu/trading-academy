@@ -1,6 +1,6 @@
 {
   "appId": "com.tradingacademy.market",
-  "appName": "Mentavio",
+  "appName": "Mentario",
   "webDir": "public",
   "android": {
     "allowMixedContent": true
