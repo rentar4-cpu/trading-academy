@@ -1,4 +1,4 @@
-const DEFAULT_ANDROID_API_BASE = 'http://192.168.1.108:3000';
+const DEFAULT_ANDROID_API_BASE = 'https://shaped-cookie-dangerous-wal.trycloudflare.com';
 const REMOTE_ANDROID_CONFIG_URL =
   'https://raw.githubusercontent.com/rentar4-cpu/trading-academy/master/public/mobile-config.json';
 const REMOTE_ANDROID_CONFIG_TIMEOUT_MS = 2500;
