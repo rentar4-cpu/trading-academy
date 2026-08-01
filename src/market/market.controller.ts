@@ -82,7 +82,7 @@ export class MarketController {
 
   @Post('sessions/start')
   startSession(@Body() body: { player_id: number; starter_sku?: string }) {
-    return this.marketService.startSessionWithTokens(body);
+    return this.marketService.addSessionCashWithTokens(body);
   }
 
   @Get('players/:id/progression')

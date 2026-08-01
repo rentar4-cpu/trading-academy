@@ -558,6 +558,38 @@ select {
   line-height: 1.45;
 }
 
+.sophia-live-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sophia-live-form label {
+  display: grid;
+  gap: 6px;
+}
+
+.sophia-live-form span {
+  color: rgba(142, 224, 202, 0.8);
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.sophia-live-form input {
+  border-color: rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.sophia-live-form button {
+  align-self: end;
+  min-width: 78px;
+}
+
 @keyframes chatReveal {
   from {
     opacity: 0;
@@ -1928,6 +1960,10 @@ td {
 
   .chat-message {
     width: 100%;
+  }
+
+  .sophia-live-form {
+    grid-template-columns: 1fr;
   }
 
   .app-nav {
@@ -3419,6 +3455,13 @@ body[data-launch-page] {
   color: var(--muted);
 }
 
+.store-balance-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(150px, auto));
+  gap: 12px;
+  align-items: stretch;
+}
+
 .store-token-balance {
   display: grid;
   min-width: 170px;
@@ -3438,6 +3481,41 @@ body[data-launch-page] {
   margin-top: 5px;
   color: var(--gain);
   font-size: 30px;
+}
+
+.global-account-status {
+  display: grid;
+  gap: 3px;
+  min-width: 170px;
+  max-width: 280px;
+  margin-left: auto;
+  border: 1px solid rgba(23, 107, 99, 0.22);
+  border-radius: 8px;
+  background: #fbfcf8;
+  color: var(--ink);
+  padding: 9px 11px;
+  text-decoration: none;
+}
+
+.global-account-status span,
+.global-account-status small {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.global-account-status strong {
+  overflow: hidden;
+  color: var(--accent-strong);
+  font-size: 14px;
+  line-height: 1.15;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .store-grid {
@@ -3482,12 +3560,22 @@ body[data-launch-page] {
     flex-direction: column;
   }
 
+  .store-balance-grid {
+    grid-template-columns: 1fr;
+  }
+
   .store-token-balance {
     min-width: 0;
     padding: 14px 0 0;
     border-top: 1px solid var(--line);
     border-left: 0;
     text-align: left;
+  }
+
+  .global-account-status {
+    width: 100%;
+    max-width: none;
+    margin-left: 0;
   }
 }
 

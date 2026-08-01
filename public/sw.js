@@ -1,4 +1,4 @@
-const CACHE_NAME = 'market-simulator-v46';
+const CACHE_NAME = 'market-simulator-v47-sophia-local-ai';
 const APP_SHELL = [
   '/game/',
   '/game/index.html',
@@ -52,7 +52,7 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
 
-  if (url.pathname.startsWith('/market/')) {
+  if (url.pathname.startsWith('/market/') || url.pathname.startsWith('/ai/')) {
     event.respondWith(fetch(event.request));
     return;
   }

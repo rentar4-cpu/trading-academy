@@ -48,10 +48,10 @@ const pageTranslations = {
     currency: 'Tokens',
     customCash: 'Session cash',
     gameCash: 'Game cash',
-    buyCash: 'Start session',
+    buyCash: 'Add cash',
     customCashNote:
       'Game cash belongs only to one session and is not sold directly.',
-    cashPurchaseRecorded: 'Session started with cash: {amount}',
+    cashPurchaseRecorded: 'Game cash added: {amount}',
     noPositions: 'No positions yet',
     noPlayer: 'No player',
     createPlayerFirst: 'Create a player on the Market page first',
@@ -104,6 +104,10 @@ const pageTranslations = {
     permanentTokens: 'Permanent tokens',
     walletCopy: 'Tokens stay with your account between all game sessions.',
     tokenBalance: 'Token balance',
+    connectedAs: 'Connected as',
+    accountMode: 'Account',
+    guestMode: 'Guest',
+    playerId: 'Player ID',
     tokenPacks: 'Token Packs',
     buyTokens: 'Buy tokens',
     paymentNote:
@@ -111,11 +115,11 @@ const pageTranslations = {
     sessionFunding: 'Session Funding',
     useTokensForCash: 'Use tokens for game cash',
     sessionFundingNote:
-      'Starting a new session replaces current cash and positions.',
+      'Game cash is added to the current session. Existing shares and history stay in place.',
     free: 'Free',
-    startSession: 'Start session',
+    startSession: 'Add cash',
     sessionConfirm:
-      'Start a new session with {amount}? Current cash and positions will be replaced.',
+      'Add {amount} to the current session? Existing shares and history will stay in place.',
     shareResult: 'Share Result',
     shareReady: 'Share text ready.',
     portfolioShareTitle: '{name} portfolio: {netWorth}',
@@ -1520,6 +1524,46 @@ function setStatus(message) {
   if (statusNode) statusNode.textContent = message;
 }
 
+function currentAccountSummary() {
+  const user = readJson('market_user');
+  const playerId = localStorage.getItem('market_player_id');
+  const playerName = localStorage.getItem('market_player_name');
+  const mode = localStorage.getItem('market_auth_mode');
+  const isAccount = mode === 'account' && user?.email_verified;
+
+  return {
+    name: user?.display_name || playerName || tr('noPlayer'),
+    mode: isAccount ? tr('accountMode') : tr('guestMode'),
+    playerId,
+    verified: Boolean(user?.email_verified),
+  };
+}
+
+function renderGlobalAccountStatus(portfolio) {
+  const topbar = document.querySelector('.topbar');
+  if (!topbar) return;
+
+  let node = document.querySelector('#globalAccountStatus');
+  if (!node) {
+    node = document.createElement('a');
+    node.id = 'globalAccountStatus';
+    node.className = 'global-account-status';
+    node.href = './auth.html';
+    topbar.appendChild(node);
+  }
+
+  const summary = currentAccountSummary();
+  const cash =
+    portfolio?.cash_balance !== undefined
+      ? money.format(numberValue(portfolio.cash_balance))
+      : '--';
+  node.innerHTML = `
+    <span>${tr('connectedAs')}</span>
+    <strong>${summary.name}</strong>
+    <small>${summary.mode}${summary.playerId ? ` / ${tr('playerId')} ${summary.playerId}` : ''} / ${tr('cash')} ${cash}</small>
+  `;
+}
+
 function addLanguageSelect() {
   document.querySelector('#pageLanguageSelect')?.closest('label')?.remove();
 }
@@ -1594,6 +1638,7 @@ function translatePageLabels() {
       ['#storeWalletTitle', 'permanentTokens'],
       ['#storeWalletCopy', 'walletCopy'],
       ['#storeTokenBalanceLabel', 'tokenBalance'],
+      ['#storeCashBalanceLabel', 'gameCash'],
       ['#storePaymentNote', 'paymentNote'],
       ['#sessionFundingEyebrow', 'sessionFunding'],
       ['#sessionFundingTitle', 'useTokensForCash'],
@@ -2427,11 +2472,17 @@ function renderStoreTokenBalance(value) {
   if (node) node.textContent = numberValue(value).toFixed(0);
 }
 
+function renderStoreCashBalance(value) {
+  const node = document.querySelector('#storeCashBalance');
+  if (node) node.textContent = money.format(numberValue(value));
+}
+
 async function loadPortfolioPage() {
   const playerId = Number(localStorage.getItem('market_player_id'));
   if (!playerId) {
     const title = document.querySelector('#portfolioTitle');
     if (title) title.textContent = tr('noPlayer');
+    renderGlobalAccountStatus();
     setStatus(tr('createPlayerFirst'));
     return;
   }
@@ -2443,6 +2494,7 @@ async function loadPortfolioPage() {
   portfolioCompanies = companies;
   renderPortfolio(portfolio);
   renderPortfolioTradeCompanies();
+  renderGlobalAccountStatus(portfolio);
   setStatus(tr('portfolioUpdated'));
 }
 
@@ -2489,9 +2541,11 @@ async function startFundedSession(starterSku) {
     localStorage.setItem('market_user', JSON.stringify(result.user));
     renderStoreTokenBalance(result.user.account_tokens);
   }
+  renderStoreCashBalance(result.portfolio?.cash_balance);
+  renderGlobalAccountStatus(result.portfolio);
   setStatus(
     tr('cashPurchaseRecorded', {
-      amount: money.format(numberValue(result.portfolio.cash_balance)),
+      amount: money.format(numberValue(result.added_cash)),
     }),
   );
 }
@@ -2578,6 +2632,7 @@ async function boot() {
   registerAppShell();
   addLanguageSelect();
   applyLanguage();
+  renderGlobalAccountStatus();
   setupIntelInteractions();
   setupPortfolioTradeInteractions();
   setupStoreInteractions();
@@ -2622,13 +2677,20 @@ async function refreshPage(options = {}) {
       const playerId = Number(localStorage.getItem('market_player_id'));
       const savedUser = readJson('market_user');
       let tokenBalance = numberValue(savedUser?.account_tokens);
+      let cashBalance = 0;
+      let portfolio = null;
       if (playerId) {
-        const portfolio = await api(
-          `/market/players/${playerId}/portfolio`,
-        ).catch(() => null);
-        if (portfolio) tokenBalance = numberValue(portfolio.account_tokens);
+        portfolio = await api(`/market/players/${playerId}/portfolio`).catch(
+          () => null,
+        );
+        if (portfolio) {
+          tokenBalance = numberValue(portfolio.account_tokens);
+          cashBalance = numberValue(portfolio.cash_balance);
+        }
       }
       renderStoreTokenBalance(tokenBalance);
+      renderStoreCashBalance(cashBalance);
+      renderGlobalAccountStatus(portfolio);
       setStatus(tr('storeLoaded'));
     }
   } finally {

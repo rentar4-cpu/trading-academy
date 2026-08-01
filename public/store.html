@@ -7,7 +7,7 @@
     <title>Mentavio - Store</title>
     <link rel="manifest" href="./manifest.webmanifest" />
     <link rel="icon" href="./icon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./styles.css?v=20260801-sophia-local-ai" />
   </head>
   <body data-page="store">
     <main class="shell">
@@ -34,9 +34,15 @@
           <h2 id="storeWalletTitle">Permanent tokens</h2>
           <p id="storeWalletCopy">Tokens stay with your account between all game sessions.</p>
         </div>
-        <div class="store-token-balance">
-          <span id="storeTokenBalanceLabel">Token balance</span>
-          <strong id="storeTokenBalance">0</strong>
+        <div class="store-balance-grid">
+          <div class="store-token-balance">
+            <span id="storeTokenBalanceLabel">Token balance</span>
+            <strong id="storeTokenBalance">0</strong>
+          </div>
+          <div class="store-token-balance">
+            <span id="storeCashBalanceLabel">Game cash</span>
+            <strong id="storeCashBalance">$0.00</strong>
+          </div>
         </div>
       </section>
       <div class="store-grid">
@@ -61,7 +67,7 @@
           </div>
           <div id="sessionStartersList" class="offers-list"></div>
           <p class="store-disclaimer" id="sessionFundingNote">
-            Starting a new session replaces current cash and positions.
+            Game cash is added to the current session. Existing shares and history stay in place.
           </p>
         </section>
       </div>
@@ -77,6 +83,6 @@
       <div class="status-line" id="pageStatus">Loading</div>
     </main>
     <script src="./runtime-config.js"></script>
-    <script src="./pages.js?v=20260730-product-update"></script>
+    <script src="./pages.js?v=20260801-sophia-local-ai"></script>
   </body>
 </html>

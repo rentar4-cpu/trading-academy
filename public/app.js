@@ -26,6 +26,9 @@ const translations = {
     create: 'Create',
     playGuest: 'Play as Guest',
     guestMode: 'Guest mode',
+    connectedAs: 'Connected as',
+    accountMode: 'Account',
+    playerId: 'Player ID',
     guestTraderName: 'Guest Trader',
     loginRegister: 'Login / Register',
     logout: 'Log out',
@@ -143,6 +146,10 @@ const translations = {
       'Strong discipline. Good risk management. Needs improvement in trade timing.',
     aiSafetyNote:
       'AI explains and teaches. It does not promise profit or make decisions for you.',
+    aiAskLabel: 'Ask Sophia',
+    aiAskPlaceholder: 'Ask why a simulated price moved...',
+    aiAskAction: 'Send',
+    aiThinking: 'Sophia is thinking...',
   },
   ru: {
     brand: 'Учись. Думай. Расти.',
@@ -1098,6 +1105,10 @@ const nodes = {
   statusLine: document.querySelector('#statusLine'),
   canvas: document.querySelector('#marketCanvas'),
   firstSessionCoach: document.querySelector('#firstSessionCoach'),
+  sophiaChatForm: document.querySelector('#sophiaChatForm'),
+  sophiaChatInput: document.querySelector('#sophiaChatInput'),
+  sophiaChatButton: document.querySelector('#sophiaChatButton'),
+  sophiaChatStream: document.querySelector('.ai-chat-stream'),
 };
 
 function t(key, values = {}) {
@@ -1116,6 +1127,9 @@ function applyLanguage() {
   document.documentElement.dir = 'ltr';
   document.querySelectorAll('[data-i18n]').forEach((element) => {
     element.textContent = t(element.dataset.i18n);
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach((element) => {
+    element.setAttribute('placeholder', t(element.dataset.i18nPlaceholder));
   });
 
   renderSelectedAsset();
@@ -1441,6 +1455,7 @@ function renderWallet() {
   const cash = state.portfolio ? numberValue(state.portfolio.cash_balance) : 0;
   nodes.walletBalance.textContent = money.format(cash);
   nodes.walletBox.classList.toggle('empty', !state.playerId);
+  renderGlobalAccountStatus();
 }
 
 function shouldShowFirstSessionCoach() {
@@ -1619,6 +1634,36 @@ function renderAccountStatus() {
       ? t('accountReady', { name })
       : t('guestMode');
   }
+  renderGlobalAccountStatus();
+}
+
+function renderGlobalAccountStatus() {
+  const topbar = document.querySelector('.topbar');
+  if (!topbar) return;
+
+  let node = document.querySelector('#globalAccountStatus');
+  if (!node) {
+    node = document.createElement('a');
+    node.id = 'globalAccountStatus';
+    node.className = 'global-account-status';
+    node.href = './auth.html';
+    topbar.appendChild(node);
+  }
+
+  const user = readJson('market_user');
+  const playerName = localStorage.getItem('market_player_name');
+  const playerId = localStorage.getItem('market_player_id');
+  const mode = localStorage.getItem('market_auth_mode');
+  const isAccount = mode === 'account' && user?.email_verified;
+  const cash = state.portfolio
+    ? money.format(numberValue(state.portfolio.cash_balance))
+    : '--';
+
+  node.innerHTML = `
+    <span>${t('connectedAs')}</span>
+    <strong>${user?.display_name || playerName || t('guestMode')}</strong>
+    <small>${isAccount ? t('accountMode') : t('guestMode')}${playerId ? ` / ${t('playerId')} ${playerId}` : ''} / ${t('walletBalance')} ${cash}</small>
+  `;
 }
 
 function readJson(key) {
@@ -1700,6 +1745,9 @@ function bindEvents() {
   nodes.orderForm.addEventListener('submit', (event) =>
     placeOrder(event).catch(showError),
   );
+  nodes.sophiaChatForm?.addEventListener('submit', (event) =>
+    askSophia(event).catch(showError),
+  );
   nodes.tickButton.addEventListener('click', () =>
     marketTick().catch(showError),
   );
@@ -1754,6 +1802,63 @@ function bindEvents() {
   });
 }
 
+function appendSophiaMessage(role, label, message) {
+  if (!nodes.sophiaChatStream) return;
+  const wrapper = document.createElement('div');
+  wrapper.className = `chat-message ${role}`;
+  wrapper.innerHTML = `<span>${label}</span><p></p>`;
+  wrapper.querySelector('p').textContent = message;
+  nodes.sophiaChatStream.appendChild(wrapper);
+  nodes.sophiaChatStream.scrollTop = nodes.sophiaChatStream.scrollHeight;
+}
+
+async function askSophia(event) {
+  event.preventDefault();
+  const message = nodes.sophiaChatInput?.value.trim();
+  if (!message) return;
+
+  appendSophiaMessage('user', t('aiChatUser'), message);
+  nodes.sophiaChatInput.value = '';
+  nodes.sophiaChatButton.disabled = true;
+  setStatus(t('aiThinking'));
+
+  try {
+    const selectedCompany = state.companies.find(
+      (company) => company.symbol === state.selectedSymbol,
+    );
+    const response = await api('/ai/sophia/chat', {
+      method: 'POST',
+      body: JSON.stringify({
+        player_id: state.playerId || undefined,
+        message,
+        context: {
+          language: state.language,
+          page: 'market',
+          selected_symbol: state.selectedSymbol,
+          selected_company: selectedCompany
+            ? {
+                symbol: selectedCompany.symbol,
+                sector: selectedCompany.sector,
+                price: selectedCompany.price,
+              }
+            : undefined,
+          cash_balance: state.portfolio?.cash_balance,
+          net_worth: state.portfolio?.net_worth,
+          positions_count: state.portfolio?.positions?.length || 0,
+        },
+      }),
+    });
+    appendSophiaMessage(
+      response.available ? 'assistant' : 'assistant unavailable',
+      t('aiChatAi'),
+      response.message,
+    );
+    setStatus(response.available ? t('ready') : response.message);
+  } finally {
+    nodes.sophiaChatButton.disabled = false;
+  }
+}
+
 function showError(error) {
   setStatus(error.message.replace(/[{}"]/g, ''));
 }
@@ -1762,6 +1867,7 @@ async function boot() {
   registerAppShell();
   bindEvents();
   applyLanguage();
+  renderGlobalAccountStatus();
   await loadCompanies();
   await loadMarketHistory();
   await loadMarketClock();

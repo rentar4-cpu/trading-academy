@@ -659,8 +659,7 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
     });
 
     await this.companiesRepository.save(updatedCompanies);
-    this.newsSequence =
-      (this.newsSequence + 1) % MARKET_NEWS_TEMPLATES.length;
+    this.newsSequence = (this.newsSequence + 1) % MARKET_NEWS_TEMPLATES.length;
 
     return {
       event,
@@ -979,7 +978,7 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
     };
   }
 
-  async startSessionWithTokens(dto: {
+  async addSessionCashWithTokens(dto: {
     player_id: number;
     starter_sku?: string;
   }) {
@@ -1001,15 +1000,16 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
     user.lifetime_tokens_spent = this.roundMoney(
       Number(user.lifetime_tokens_spent || 0) + starter.token_cost,
     );
-    player.cash_balance = starter.cash;
-    player.premium_credits = 0;
-    await this.holdingsRepository.delete({ player_id: player.id });
+    player.cash_balance = this.roundMoney(
+      Number(player.cash_balance || 0) + starter.cash,
+    );
     await this.usersRepository.save(user);
     await this.playersRepository.save(player);
 
     return {
       starter,
       user: this.publicUser(user),
+      added_cash: starter.cash,
       portfolio: await this.getPortfolio(player.id),
     };
   }
@@ -1023,7 +1023,11 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
         where: { user_id: user.id, game_id: TRADING_GAME_ID, scope: 'game' },
       }),
       this.dailyQuestsRepository.find({
-        where: { user_id: user.id, game_id: TRADING_GAME_ID, quest_date: today },
+        where: {
+          user_id: user.id,
+          game_id: TRADING_GAME_ID,
+          quest_date: today,
+        },
       }),
     ]);
 
@@ -1562,9 +1566,7 @@ export class MarketService implements OnModuleInit, OnModuleDestroy {
 
   private pickScheduledEventTemplate() {
     const newsTemplate =
-      MARKET_NEWS_TEMPLATES[
-        this.newsSequence % MARKET_NEWS_TEMPLATES.length
-      ];
+      MARKET_NEWS_TEMPLATES[this.newsSequence % MARKET_NEWS_TEMPLATES.length];
 
     return (
       MARKET_EVENT_TEMPLATES.find(

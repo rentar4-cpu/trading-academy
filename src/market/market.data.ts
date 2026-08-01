@@ -1518,29 +1518,29 @@ export const EVENT_TEMPLATES: EventTemplateSeed[] = [
 
 export const STARTER_OFFERS = [
   {
-    sku: 'starter_tokens_250',
+    sku: 'starter_tokens_120',
     title: 'Starter Pack',
-    description: 'Adds 250 permanent tokens to the verified account.',
+    description: 'Adds 120 permanent tokens to the verified account.',
     type: 'token_pack' as const,
     price_usd: 1.99,
-    token_reward: 250,
+    token_reward: 120,
   },
   {
-    sku: 'trader_tokens_800',
+    sku: 'trader_tokens_300',
     title: 'Trader Pack',
     description:
-      'Adds 800 permanent tokens for sessions, modes, and future features.',
+      'Adds 300 permanent tokens for sessions, modes, and future features.',
     type: 'token_pack' as const,
     price_usd: 4.99,
-    token_reward: 800,
+    token_reward: 300,
   },
   {
-    sku: 'investor_tokens_2200',
+    sku: 'investor_tokens_850',
     title: 'Investor Pack',
-    description: 'Adds 2,200 permanent tokens for premium progression.',
+    description: 'Adds 850 permanent tokens for premium progression.',
     type: 'token_pack' as const,
     price_usd: 9.99,
-    token_reward: 2200,
+    token_reward: 850,
   },
 ];
 

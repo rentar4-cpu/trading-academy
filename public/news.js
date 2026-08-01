@@ -35,6 +35,10 @@ const newsTranslations = {
     upcomingEvents: 'upcoming events',
     loadingNews: 'Loading news',
     loaded: '{count} future events loaded',
+    connectedAs: 'Connected as',
+    accountMode: 'Account',
+    guestMode: 'Guest',
+    playerId: 'Player ID',
   },
   ru: {
     language: 'Язык',
@@ -256,6 +260,39 @@ function addLanguageSelect() {
   document.querySelector('#newsLanguageSelect')?.closest('label')?.remove();
 }
 
+function readJson(key) {
+  try {
+    return JSON.parse(localStorage.getItem(key) || 'null');
+  } catch {
+    return null;
+  }
+}
+
+function renderGlobalAccountStatus() {
+  const topbar = document.querySelector('.topbar');
+  if (!topbar) return;
+
+  let node = document.querySelector('#globalAccountStatus');
+  if (!node) {
+    node = document.createElement('a');
+    node.id = 'globalAccountStatus';
+    node.className = 'global-account-status';
+    node.href = './auth.html';
+    topbar.appendChild(node);
+  }
+
+  const user = readJson('market_user');
+  const playerName = localStorage.getItem('market_player_name');
+  const playerId = localStorage.getItem('market_player_id');
+  const mode = localStorage.getItem('market_auth_mode');
+  const isAccount = mode === 'account' && user?.email_verified;
+  node.innerHTML = `
+    <span>${tr('connectedAs')}</span>
+    <strong>${user?.display_name || playerName || tr('guestMode')}</strong>
+    <small>${isAccount ? tr('accountMode') : tr('guestMode')}${playerId ? ` / ${tr('playerId')} ${playerId}` : ''}</small>
+  `;
+}
+
 function applyLanguage() {
   currentLanguage = 'en';
   localStorage.setItem('market_language', 'en');
@@ -310,6 +347,7 @@ function applyLanguage() {
   if (nodes.newsStatus.textContent === 'Loading news') {
     nodes.newsStatus.textContent = tr('loadingNews');
   }
+  renderGlobalAccountStatus();
 }
 
 function renderNews(news) {

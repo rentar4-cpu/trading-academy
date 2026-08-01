@@ -11,13 +11,13 @@ Open the latest release and download the `.apk` file.
 ## Current Local Build
 
 ```text
-releases/android/Mentavio-2026-08-01-landing-start-fix-debug.apk
+releases/android/Mentavio-2026-08-01-sophia-local-ai-debug.apk
 ```
 
 SHA256:
 
 ```text
-F3F8C4003B58CD5067C747E000DBA0771F363B15E703B53E02C32F5C2549D74B
+6FB0C447082F1F30D05E308373230D0B75BFF3F67CECBADA35DC18704C81746D
 ```
 
 ## How the APK Finds the Server

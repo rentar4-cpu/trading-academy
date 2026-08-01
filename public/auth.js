@@ -19,6 +19,12 @@ const authText = {
     heroText:
       'Start as a guest with $1,000, try a few trades, then register for a clean verified account.',
     currentPlayer: 'Current player',
+    connectedAs: 'Connected as',
+    accountMode: 'Account',
+    guestMode: 'Guest',
+    pendingMode: 'Email not confirmed',
+    playerId: 'Player ID',
+    emailVerified: 'Email verified',
     continueGuest: 'Continue as Guest',
     returning: 'Returning Player',
     loginTitle: 'Login',
@@ -362,8 +368,40 @@ function applyLanguage() {
 function renderCurrentPlayer() {
   const user = readJson('market_user');
   const playerName = localStorage.getItem('market_player_name');
+  const playerId = localStorage.getItem('market_player_id');
+  const mode = localStorage.getItem('market_auth_mode');
   nodes.currentPlayerName.textContent =
     user?.display_name || playerName || t('guest');
+  renderGlobalAccountStatus(user, playerName, playerId, mode);
+}
+
+function renderGlobalAccountStatus(user, playerName, playerId, mode) {
+  const topbar = document.querySelector('.topbar');
+  if (!topbar) return;
+
+  let node = document.querySelector('#globalAccountStatus');
+  if (!node) {
+    node = document.createElement('a');
+    node.id = 'globalAccountStatus';
+    node.className = 'global-account-status';
+    node.href = './auth.html';
+    topbar.appendChild(node);
+  }
+
+  const isAccount = mode === 'account' && user?.email_verified;
+  const status = user?.email_verified
+    ? t('emailVerified')
+    : user
+      ? t('pendingMode')
+      : isAccount
+        ? t('accountMode')
+        : t('guestMode');
+
+  node.innerHTML = `
+    <span>${t('connectedAs')}</span>
+    <strong>${user?.display_name || playerName || t('guest')}</strong>
+    <small>${isAccount ? t('accountMode') : status}${playerId ? ` / ${t('playerId')} ${playerId}` : ''}${user?.email ? ` / ${user.email}` : ''}</small>
+  `;
 }
 
 function readJson(key) {

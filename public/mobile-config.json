@@ -1,6 +1,6 @@
 {
   "enabled": true,
   "apiBase": "https://shaped-cookie-dangerous-wal.trycloudflare.com",
-  "updatedAt": "2026-07-31",
+  "updatedAt": "2026-08-01",
   "description": "Android APK reads this file from GitHub to find the current Mentavio data server. Replace apiBase with a public HTTPS tunnel URL for remote demos."
 }

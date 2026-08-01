@@ -3,7 +3,7 @@
 This document is the official history and roadmap for the Mentavio platform and
 its first application, the Trading Simulator.
 
-Last updated: July 31, 2026
+Last updated: August 1, 2026
 
 ## Current Project Stage
 
@@ -50,6 +50,7 @@ and preparation for early users.
 | July 31, 2026 | MVP Foundation | Mentavio legal, privacy, and Sophia architecture | Renamed visible product identity to Mentavio, moved MVP UI to English-only, added legal consent flow, and prepared Sophia backend abstraction |
 | July 31, 2026 | Brand Correction | Mentavio name fix | Corrected the temporary misspelling back to Mentavio across the app, docs, landing page, Android name, and release workflow |
 | August 1, 2026 | Public Alpha Fix | Landing start button | Changed the landing page Get Started fallback from `/index.html` to `/game/` so browser users can enter the simulator even before JavaScript hydration |
+| August 1, 2026 | Sophia Local AI | Ollama-backed AI mentor and account/store clarity | Added local Ollama provider support, safe Sophia fallback, visible account status across game pages, token-pack rebalance, and cash funding without portfolio reset |
 
 ## Specification Audit Note
 

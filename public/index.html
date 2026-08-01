@@ -10,7 +10,7 @@
     <title>Mentavio</title>
     <link rel="manifest" href="./manifest.webmanifest" />
     <link rel="icon" href="./icon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="./styles.css?v=20260729-sophia-mobile" />
+    <link rel="stylesheet" href="./styles.css?v=20260801-sophia-local-ai" />
   </head>
   <body>
     <main class="shell market-home">
@@ -272,6 +272,21 @@
             AI explains and teaches. It does not promise profit or make
             decisions for you.
           </p>
+          <form class="sophia-live-form" id="sophiaChatForm">
+            <label>
+              <span data-i18n="aiAskLabel">Ask Sophia</span>
+              <input
+                id="sophiaChatInput"
+                type="text"
+                maxlength="4000"
+                data-i18n-placeholder="aiAskPlaceholder"
+                placeholder="Ask why a simulated price moved..."
+              />
+            </label>
+            <button class="primary" id="sophiaChatButton" type="submit" data-i18n="aiAskAction">
+              Send
+            </button>
+          </form>
         </div>
       </section>
       <footer class="legal-footer">
@@ -291,6 +306,6 @@
       ></div>
     </main>
     <script src="./runtime-config.js"></script>
-    <script src="./app.js"></script>
+    <script src="./app.js?v=20260801-sophia-local-ai"></script>
   </body>
 </html>
