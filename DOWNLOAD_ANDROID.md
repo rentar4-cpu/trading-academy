@@ -1,12 +1,24 @@
 # Download Mentavio for Android
 
-The latest public demo APK is published through GitHub Releases:
+The latest public demo APK is published through GitHub Releases.
+
+Recommended stable download page:
 
 ```text
 https://github.com/rentar4-cpu/trading-academy/releases/latest
 ```
 
 Open the latest release and download the `.apk` file.
+
+Recommended stable direct APK link:
+
+```text
+https://github.com/rentar4-cpu/trading-academy/releases/latest/download/Mentavio-android-debug.apk
+```
+
+Do not share temporary browser links from `release-assets.githubusercontent.com`.
+Those links can expire. Share the GitHub Release page or the stable direct APK
+link above.
 
 ## Current Local Build
 

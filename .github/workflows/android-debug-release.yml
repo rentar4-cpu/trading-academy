@@ -46,6 +46,7 @@ jobs:
       - name: Prepare release asset
         run: |
           mkdir -p release-upload
+          cp android/app/build/outputs/apk/debug/app-debug.apk "release-upload/Mentavio-android-debug.apk"
           cp android/app/build/outputs/apk/debug/app-debug.apk "release-upload/Mentavio-${GITHUB_REF_NAME}-debug.apk"
 
       - name: Publish GitHub Release
@@ -53,6 +54,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release create "${GITHUB_REF_NAME}" \
+            "release-upload/Mentavio-android-debug.apk" \
             "release-upload/Mentavio-${GITHUB_REF_NAME}-debug.apk" \
             --title "Mentavio ${GITHUB_REF_NAME}" \
             --notes "Android debug APK for Mentavio public demo builds. The app reads the live backend URL from public/mobile-config.json."

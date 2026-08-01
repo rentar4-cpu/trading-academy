@@ -47,6 +47,12 @@ The APK reads `mobile-config.json` at startup. This allows the server address to
    https://github.com/rentar4-cpu/trading-academy/releases/latest
    ```
 
+   Stable direct APK link:
+
+   ```text
+   https://github.com/rentar4-cpu/trading-academy/releases/latest/download/Mentavio-android-debug.apk
+   ```
+
 7. Open the app. It will read the current server address from GitHub and connect to the public tunnel.
 
 ## Important Notes
@@ -60,16 +66,16 @@ The APK reads `mobile-config.json` at startup. This allows the server address to
 
 ## APK Release Naming
 
-Recommended file name:
+Recommended public file name:
 
 ```text
-Mentavio-YYYY-MM-DD-public-demo-debug.apk
+Mentavio-android-debug.apk
 ```
 
-Example:
+Versioned files may also be attached for history, for example:
 
 ```text
-Mentavio-2026-07-31-public-demo-debug.apk
+Mentavio-android-v2026-08-01-sophia-response-fix-debug.apk
 ```
 
 Current Sophia local AI build:
