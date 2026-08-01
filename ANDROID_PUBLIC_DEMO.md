@@ -72,10 +72,10 @@ Example:
 Mentavio-2026-07-31-public-demo-debug.apk
 ```
 
-Current name-fix build:
+Current landing start fix build:
 
 ```text
-Mentavio-2026-07-31-name-fix-debug.apk
+Mentavio-2026-08-01-landing-start-fix-debug.apk
 ```
 
 ## Creating a New GitHub APK Release
@@ -83,8 +83,8 @@ Mentavio-2026-07-31-name-fix-debug.apk
 Push a tag that starts with `android-v`.
 
 ```powershell
-git tag android-v2026-07-31-mentavio-name-fix
-git push origin android-v2026-07-31-mentavio-name-fix
+git tag android-v2026-08-01-landing-start-fix
+git push origin android-v2026-08-01-landing-start-fix
 ```
 
 GitHub Actions will build the APK and attach it to a GitHub Release automatically.

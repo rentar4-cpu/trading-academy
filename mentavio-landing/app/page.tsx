@@ -29,7 +29,7 @@ function openTradingApp(event: MouseEvent<HTMLAnchorElement>) {
     return;
   }
 
-  window.location.assign('/index.html');
+  window.location.assign('/game/');
 }
 
 function MentavioLogo({ large = false }: { large?: boolean }) {
@@ -151,7 +151,7 @@ export default function Home() {
         <div className="ml-auto flex items-center gap-2">
           <a
             className="rounded-full bg-slate-950 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200 sm:px-5"
-            href="/index.html"
+            href="/game/"
             onClick={openTradingApp}
           >
             {copy.getStarted}
@@ -181,7 +181,7 @@ export default function Home() {
             <a
               id="start"
               className="inline-flex items-center justify-center rounded-full bg-slate-950 px-7 py-4 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-slate-800 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200"
-              href="/index.html"
+              href="/game/"
               onClick={openTradingApp}
             >
               {copy.getStarted}
@@ -277,7 +277,7 @@ export default function Home() {
               {ecosystemModuleKeys.map((module) => (
                 <a
                   className="rounded-2xl border border-white/10 bg-white/[0.06] p-5 text-sm font-semibold dark:border-slate-200 dark:bg-slate-50"
-                  href={module === 'investing' ? '/index.html' : '#ecosystem'}
+                  href={module === 'investing' ? '/game/' : '#ecosystem'}
                   key={module}
                   onClick={module === 'investing' ? openTradingApp : undefined}
                 >

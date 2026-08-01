@@ -49,6 +49,7 @@ and preparation for early users.
 | July 31, 2026 | Android Distribution | Public demo APK preparation | Added remote Android server config so APK builds can connect to a public tunnel without rebuilding |
 | July 31, 2026 | MVP Foundation | Mentavio legal, privacy, and Sophia architecture | Renamed visible product identity to Mentavio, moved MVP UI to English-only, added legal consent flow, and prepared Sophia backend abstraction |
 | July 31, 2026 | Brand Correction | Mentavio name fix | Corrected the temporary misspelling back to Mentavio across the app, docs, landing page, Android name, and release workflow |
+| August 1, 2026 | Public Alpha Fix | Landing start button | Changed the landing page Get Started fallback from `/index.html` to `/game/` so browser users can enter the simulator even before JavaScript hydration |
 
 ## Specification Audit Note
 
