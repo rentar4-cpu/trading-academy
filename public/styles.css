@@ -527,6 +527,10 @@ select {
   border-color: rgba(16, 163, 127, 0.24);
 }
 
+.chat-message.thinking {
+  opacity: 0.78;
+}
+
 .chat-message span {
   display: block;
   margin-bottom: 5px;
@@ -540,6 +544,10 @@ select {
   margin: 0;
   color: rgba(237, 247, 243, 0.78);
   line-height: 1.45;
+}
+
+.chat-message.thinking p {
+  font-style: italic;
 }
 
 .chat-message.score strong {

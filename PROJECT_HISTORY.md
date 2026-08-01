@@ -51,6 +51,7 @@ and preparation for early users.
 | July 31, 2026 | Brand Correction | Mentavio name fix | Corrected the temporary misspelling back to Mentavio across the app, docs, landing page, Android name, and release workflow |
 | August 1, 2026 | Public Alpha Fix | Landing start button | Changed the landing page Get Started fallback from `/index.html` to `/game/` so browser users can enter the simulator even before JavaScript hydration |
 | August 1, 2026 | Sophia Local AI | Ollama-backed AI mentor and account/store clarity | Added local Ollama provider support, safe Sophia fallback, visible account status across game pages, token-pack rebalance, and cash funding without portfolio reset |
+| August 1, 2026 | Sophia Response Fix | Local Qwen response cleanup | Filtered model reasoning traces, improved fallback explanations, and made Sophia's waiting state visible in the market chat |
 
 ## Specification Audit Note
 

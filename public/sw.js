@@ -1,4 +1,4 @@
-const CACHE_NAME = 'market-simulator-v47-sophia-local-ai';
+const CACHE_NAME = 'market-simulator-v48-sophia-response-fix';
 const APP_SHELL = [
   '/game/',
   '/game/index.html',

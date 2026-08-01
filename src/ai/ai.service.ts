@@ -82,7 +82,7 @@ export class AiService {
       provider: this.providerName(),
       model: this.modelName(),
       available: true,
-      message: this.mockEducationalResponse(message),
+      message: this.mockEducationalResponse(message, dto.context),
       safety: this.safetyNote(),
     };
   }
@@ -216,6 +216,7 @@ export class AiService {
         body: JSON.stringify({
           model: this.modelName(),
           stream: false,
+          think: false,
           options: {
             num_predict: this.maxOutputTokens(),
             temperature: 0.35,
@@ -232,16 +233,18 @@ export class AiService {
         message?: { content?: string };
         response?: string;
       };
-      const content = String(payload.message?.content || payload.response || '')
-        .trim()
-        .slice(0, 8000);
+      const content = this.cleanModelOutput(
+        String(payload.message?.content || payload.response || ''),
+      );
 
       return {
         assistant: 'Sophia',
         provider: 'ollama',
         model: this.modelName(),
         available: true,
-        message: content || this.mockEducationalResponse(message),
+        message: this.isUsableFinalAnswer(content)
+          ? content
+          : this.mockEducationalResponse(message, dto.context),
         safety: this.safetyNote(),
       };
     } finally {
@@ -287,6 +290,8 @@ export class AiService {
       'positions_count',
       'last_trade',
       'latest_event',
+      'price_change_percent',
+      'buy_pressure_percent',
     ];
     const safe: Record<string, unknown> = {};
     for (const key of allowedKeys) {
@@ -307,14 +312,73 @@ export class AiService {
     };
   }
 
+  private cleanModelOutput(content: string) {
+    const trimmed = content.trim();
+    const closingThinkTag = '</think>';
+    const closingIndex = trimmed.lastIndexOf(closingThinkTag);
+    const withoutThinking =
+      closingIndex >= 0
+        ? trimmed.slice(closingIndex + closingThinkTag.length)
+        : trimmed.replace(/<think>[\s\S]*?<\/think>/gi, '');
+
+    return withoutThinking
+      .replace(/<think>/gi, '')
+      .replace(/<\/think>/gi, '')
+      .trim()
+      .slice(0, 1800);
+  }
+
   private safetyNote() {
     return 'Sophia provides general educational explanations about the Mentavio simulation. Sophia does not provide personalised financial advice.';
   }
 
-  private mockEducationalResponse(message: string) {
+  private isUsableFinalAnswer(content: string) {
+    if (content.length < 40) return false;
+    const lower = content.toLowerCase();
+    return ![
+      'okay, the user',
+      'the user is asking',
+      'i need to',
+      'i should',
+      'game context provided',
+      'structure the answer',
+      'key points to cover',
+    ].some((pattern) => lower.includes(pattern));
+  }
+
+  private mockEducationalResponse(
+    message: string,
+    context?: Record<string, unknown>,
+  ) {
     const cleanMessage = message.trim();
     if (!cleanMessage) {
       return 'Ask me about a simulated trade, a market term, or a Mentavio event, and I will explain the learning principle.';
+    }
+
+    const mentionsPriceMove = /why|price|went|up|down|rose|fell|grew|drop/i.test(
+      cleanMessage,
+    );
+    if (mentionsPriceMove) {
+      const selectedCompany =
+        context &&
+        typeof context.selected_company === 'object' &&
+        context.selected_company
+          ? (context.selected_company as Record<string, unknown>)
+          : undefined;
+      const symbol = String(
+        context?.selected_symbol || selectedCompany?.symbol || 'the company',
+      );
+      const sector = selectedCompany?.sector
+        ? ` in the ${String(selectedCompany.sector)} sector`
+        : '';
+      const change = context?.price_change_percent
+        ? ` The visible move is about ${String(context.price_change_percent)}%.`
+        : '';
+      const buyPressure = context?.buy_pressure_percent
+        ? ` Buy pressure is ${String(context.buy_pressure_percent)}%, which means the simulation is showing more buying interest than selling pressure.`
+        : '';
+
+      return `In Mentavio, ${symbol}${sector} most likely went up because the simulation detected stronger demand than supply.${buyPressure}${change} The learning point is simple: when many simulated traders buy the same asset, the game can push the fictional price higher, but that does not guarantee the move will continue.`;
     }
 
     return `In Mentavio, this should be treated as a simulated learning situation. Start by identifying the asset, the event, the risk, and the reason for the decision. In real markets, similar events may influence prices, but the reaction can vary depending on many factors.`;

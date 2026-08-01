@@ -150,6 +150,8 @@ const translations = {
     aiAskPlaceholder: 'Ask why a simulated price moved...',
     aiAskAction: 'Send',
     aiThinking: 'Sophia is thinking...',
+    aiRequestFailed:
+      'Sophia did not answer in time. Check that the server and Ollama are still running, then try again.',
   },
   ru: {
     brand: 'Учись. Думай. Расти.',
@@ -1810,6 +1812,7 @@ function appendSophiaMessage(role, label, message) {
   wrapper.querySelector('p').textContent = message;
   nodes.sophiaChatStream.appendChild(wrapper);
   nodes.sophiaChatStream.scrollTop = nodes.sophiaChatStream.scrollHeight;
+  return wrapper;
 }
 
 async function askSophia(event) {
@@ -1818,6 +1821,11 @@ async function askSophia(event) {
   if (!message) return;
 
   appendSophiaMessage('user', t('aiChatUser'), message);
+  const pendingMessage = appendSophiaMessage(
+    'assistant thinking',
+    t('aiChatAi'),
+    t('aiThinking'),
+  );
   nodes.sophiaChatInput.value = '';
   nodes.sophiaChatButton.disabled = true;
   setStatus(t('aiThinking'));
@@ -1840,7 +1848,14 @@ async function askSophia(event) {
                 symbol: selectedCompany.symbol,
                 sector: selectedCompany.sector,
                 price: selectedCompany.price,
+                previous_price: selectedCompany.previous_price,
               }
+            : undefined,
+          price_change_percent: selectedCompany
+            ? changePercent(selectedCompany).toFixed(2)
+            : undefined,
+          buy_pressure_percent: selectedCompany
+            ? selectedCompany.buy_pressure_percent
             : undefined,
           cash_balance: state.portfolio?.cash_balance,
           net_worth: state.portfolio?.net_worth,
@@ -1848,12 +1863,23 @@ async function askSophia(event) {
         },
       }),
     });
-    appendSophiaMessage(
-      response.available ? 'assistant' : 'assistant unavailable',
-      t('aiChatAi'),
-      response.message,
-    );
+    if (pendingMessage) {
+      pendingMessage.className = `chat-message ${response.available ? 'assistant' : 'assistant unavailable'}`;
+      pendingMessage.querySelector('p').textContent = response.message;
+    } else {
+      appendSophiaMessage(
+        response.available ? 'assistant' : 'assistant unavailable',
+        t('aiChatAi'),
+        response.message,
+      );
+    }
     setStatus(response.available ? t('ready') : response.message);
+  } catch (error) {
+    if (pendingMessage) {
+      pendingMessage.className = 'chat-message assistant unavailable';
+      pendingMessage.querySelector('p').textContent = t('aiRequestFailed');
+    }
+    throw error;
   } finally {
     nodes.sophiaChatButton.disabled = false;
   }
