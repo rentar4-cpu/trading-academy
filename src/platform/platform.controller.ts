@@ -4,6 +4,7 @@ import type {
   PlatformActivityDto,
   ReferralInviteDto,
   ShareDto,
+  TesterFeedbackDto,
 } from './platform.service';
 import { PlatformService } from './platform.service';
 
@@ -92,5 +93,10 @@ export class PlatformController {
   @Post('share')
   recordShare(@Body() body: ShareDto) {
     return this.platformService.recordShare(body);
+  }
+
+  @Post('launch/tester-feedback')
+  recordTesterFeedback(@Body() body: TesterFeedbackDto) {
+    return this.platformService.recordTesterFeedback(body);
   }
 }

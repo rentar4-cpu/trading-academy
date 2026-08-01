@@ -10,6 +10,7 @@ import { PlatformGame } from './entities/platform-game.entity';
 import { ProductUpdate } from './entities/product-update.entity';
 import { ReferralInvite } from './entities/referral-invite.entity';
 import { ShareEvent } from './entities/share-event.entity';
+import { TesterFeedback } from './entities/tester-feedback.entity';
 import { UserFriend } from './entities/user-friend.entity';
 import { UserGameProfile } from './entities/user-game-profile.entity';
 import { PlatformController } from './platform.controller';
@@ -27,6 +28,7 @@ import { PlatformService } from './platform.service';
       ProductUpdate,
       ReferralInvite,
       ShareEvent,
+      TesterFeedback,
       User,
       UserFriend,
       UserGameProfile,

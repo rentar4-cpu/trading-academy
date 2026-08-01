@@ -11,6 +11,7 @@ import { PlatformGame } from './entities/platform-game.entity';
 import { ProductUpdate } from './entities/product-update.entity';
 import { ReferralInvite } from './entities/referral-invite.entity';
 import { ShareEvent } from './entities/share-event.entity';
+import { TesterFeedback } from './entities/tester-feedback.entity';
 import { UserFriend } from './entities/user-friend.entity';
 import { UserGameProfile } from './entities/user-game-profile.entity';
 import {
@@ -51,6 +52,20 @@ export type ShareDto = {
   payload?: Record<string, unknown>;
 };
 
+export type TesterFeedbackDto = {
+  name?: string;
+  email?: string;
+  device?: string;
+  tested_version?: string;
+  answers?: Record<string, string>;
+  confusion_comment?: string;
+  interesting_feature?: string;
+  clarity_rating?: number;
+  first_improvement?: string;
+  additional_comments?: string;
+  source?: string;
+};
+
 @Injectable()
 export class PlatformService implements OnModuleInit {
   constructor(
@@ -78,6 +93,8 @@ export class PlatformService implements OnModuleInit {
     private readonly updatesRepository: Repository<ProductUpdate>,
     @InjectRepository(ShareEvent)
     private readonly shareEventsRepository: Repository<ShareEvent>,
+    @InjectRepository(TesterFeedback)
+    private readonly testerFeedbackRepository: Repository<TesterFeedback>,
   ) {}
 
   async onModuleInit() {
@@ -390,6 +407,56 @@ export class PlatformService implements OnModuleInit {
       text: `${event.title} | Mentavio`,
       url: '/game/coming-soon.html',
       created_at: event.created_at,
+    };
+  }
+
+  async recordTesterFeedback(dto: TesterFeedbackDto) {
+    const answers = dto.answers || {};
+    const hasUsefulFeedback =
+      Object.values(answers).some((value) => String(value || '').trim()) ||
+      dto.confusion_comment?.trim() ||
+      dto.interesting_feature?.trim() ||
+      dto.first_improvement?.trim() ||
+      dto.additional_comments?.trim();
+
+    if (!hasUsefulFeedback) {
+      throw new BadRequestException('Feedback is empty');
+    }
+
+    const email = dto.email?.trim()
+      ? this.normalizeEmail(dto.email)
+      : undefined;
+    const rating = Number(dto.clarity_rating || 0);
+
+    const feedback = await this.testerFeedbackRepository.save(
+      this.testerFeedbackRepository.create({
+        name: dto.name?.trim().slice(0, 120) || undefined,
+        email,
+        device: dto.device?.trim().slice(0, 160) || undefined,
+        tested_version:
+          dto.tested_version?.trim().slice(0, 120) || undefined,
+        answers_json: JSON.stringify(answers),
+        confusion_comment:
+          dto.confusion_comment?.trim().slice(0, 4000) || undefined,
+        interesting_feature:
+          dto.interesting_feature?.trim().slice(0, 4000) || undefined,
+        clarity_rating:
+          Number.isFinite(rating) && rating >= 1 && rating <= 5
+            ? rating
+            : undefined,
+        first_improvement:
+          dto.first_improvement?.trim().slice(0, 4000) || undefined,
+        additional_comments:
+          dto.additional_comments?.trim().slice(0, 4000) || undefined,
+        source: dto.source?.trim().slice(0, 60) || 'web-checklist',
+      }),
+    );
+
+    return {
+      id: feedback.id,
+      status: 'received',
+      message: 'Thank you. Your feedback was saved.',
+      created_at: feedback.created_at,
     };
   }
 

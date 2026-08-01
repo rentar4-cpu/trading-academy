@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#10191d" />
+    <title>Mentavio - Early Tester Checklist</title>
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css?v=20260802-tester-feedback" />
+  </head>
+  <body data-feedback-page="tester-checklist">
+    <main class="launch-shell feedback-shell">
+      <nav class="launch-nav" aria-label="Public navigation">
+        <strong>Mentavio</strong>
+        <div>
+          <a href="./docs/Mentavio-Early-Tester-Guide.pdf">Guide PDF</a>
+          <a href="./docs/Mentavio-Early-Tester-Checklist.pdf">Checklist PDF</a>
+          <a href="./index.html">Play Demo</a>
+        </div>
+      </nav>
+
+      <section class="feedback-hero">
+        <p class="eyebrow">Early Alpha Feedback</p>
+        <h1>Mentavio Early Tester Checklist</h1>
+        <p>
+          Please answer each item clearly. Honest feedback is more useful than
+          compliments.
+        </p>
+      </section>
+
+      <form class="feedback-form" id="testerFeedbackForm">
+        <section class="feedback-card">
+          <h2>Test Details</h2>
+          <div class="feedback-grid">
+            <label>
+              <span>Name</span>
+              <input name="name" type="text" autocomplete="name" />
+            </label>
+            <label>
+              <span>Email optional</span>
+              <input name="email" type="email" autocomplete="email" />
+            </label>
+            <label>
+              <span>Device</span>
+              <input name="device" type="text" placeholder="Android, Chrome, Windows..." />
+            </label>
+            <label>
+              <span>Tested version</span>
+              <input name="tested_version" type="text" placeholder="Browser / Android APK" />
+            </label>
+          </div>
+        </section>
+
+        <section class="feedback-card">
+          <h2>Checklist</h2>
+          <div class="feedback-question" data-question="browser_opened">
+            <strong>Did the browser link open successfully?</strong>
+            <div class="feedback-options">
+              <label><input type="radio" name="browser_opened" value="yes" /> Yes</label>
+              <label><input type="radio" name="browser_opened" value="partly" /> Partly</label>
+              <label><input type="radio" name="browser_opened" value="no" /> No</label>
+            </div>
+          </div>
+          <div class="feedback-question" data-question="apk_installed">
+            <strong>Did the APK install successfully?</strong>
+            <div class="feedback-options">
+              <label><input type="radio" name="apk_installed" value="yes" /> Yes</label>
+              <label><input type="radio" name="apk_installed" value="partly" /> Partly</label>
+              <label><input type="radio" name="apk_installed" value="no" /> No</label>
+            </div>
+          </div>
+          <div class="feedback-question" data-question="product_clear">
+            <strong>Was it clear what Mentavio is?</strong>
+            <div class="feedback-options">
+              <label><input type="radio" name="product_clear" value="yes" /> Yes</label>
+              <label><input type="radio" name="product_clear" value="partly" /> Partly</label>
+              <label><input type="radio" name="product_clear" value="no" /> No</label>
+            </div>
+          </div>
+          <div class="feedback-question" data-question="first_click_clear">
+            <strong>Was it clear where to click first?</strong>
+            <div class="feedback-options">
+              <label><input type="radio" name="first_click_clear" value="yes" /> Yes</label>
+              <label><input type="radio" name="first_click_clear" value="partly" /> Partly</label>
+              <label><input type="radio" name="first_click_clear" value="no" /> No</label>
+            </div>
+          </div>
+          <div class="feedback-question" data-question="game_started">
+            <strong>Were you able to start the game?</strong>
+            <div class="feedback-options">
+              <label><input type="radio" name="game_started" value="yes" /> Yes</label>
+              <label><input type="radio" name="game_started" value="partly" /> Partly</label>
+              <label><input type="radio" name="game_started" value="no" /> No</label>
+            </div>
+          </div>
+          <label class="feedback-textarea">
+            <span>Where did you stop or get confused?</span>
+            <textarea name="confusion_comment" rows="4"></textarea>
+          </label>
+          <label class="feedback-textarea">
+            <span>Which feature seemed interesting?</span>
+            <textarea name="interesting_feature" rows="4"></textarea>
+          </label>
+          <div class="feedback-question" data-question="would_return">
+            <strong>Would you use the app again?</strong>
+            <div class="feedback-options">
+              <label><input type="radio" name="would_return" value="yes" /> Yes</label>
+              <label><input type="radio" name="would_return" value="partly" /> Partly</label>
+              <label><input type="radio" name="would_return" value="no" /> No</label>
+            </div>
+          </div>
+        </section>
+
+        <section class="feedback-card">
+          <h2>Final Notes</h2>
+          <fieldset class="feedback-rating">
+            <legend>How clear was the first experience?</legend>
+            <label><input type="radio" name="clarity_rating" value="1" /> 1</label>
+            <label><input type="radio" name="clarity_rating" value="2" /> 2</label>
+            <label><input type="radio" name="clarity_rating" value="3" /> 3</label>
+            <label><input type="radio" name="clarity_rating" value="4" /> 4</label>
+            <label><input type="radio" name="clarity_rating" value="5" /> 5</label>
+          </fieldset>
+          <label class="feedback-textarea">
+            <span>What should be improved first?</span>
+            <textarea name="first_improvement" rows="5"></textarea>
+          </label>
+          <label class="feedback-textarea">
+            <span>Additional comments</span>
+            <textarea name="additional_comments" rows="5"></textarea>
+          </label>
+        </section>
+
+        <section class="feedback-card feedback-links">
+          <h2>Test Links</h2>
+          <a href="../landing/">Browser version</a>
+          <a href="https://github.com/rentar4-cpu/trading-academy/releases/latest/download/Mentavio-android-debug.apk">
+            Android APK
+          </a>
+          <a href="./docs/Mentavio-Early-Tester-Guide.pdf">Early Tester Guide PDF</a>
+          <a href="./docs/Mentavio-Early-Tester-Checklist.pdf">Early Tester Checklist PDF</a>
+        </section>
+
+        <div class="feedback-actions">
+          <button class="primary" type="submit">Submit Feedback</button>
+          <p class="launch-status" id="feedbackStatus">Ready.</p>
+        </div>
+      </form>
+    </main>
+    <script src="./runtime-config.js?v=20260802-tester-feedback"></script>
+    <script src="./tester-checklist.js?v=20260802-tester-feedback"></script>
+  </body>
+</html>

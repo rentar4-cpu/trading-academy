@@ -1,4 +1,4 @@
-const CACHE_NAME = 'market-simulator-v48-sophia-response-fix';
+const CACHE_NAME = 'market-simulator-v49-tester-feedback';
 const APP_SHELL = [
   '/game/',
   '/game/index.html',
@@ -12,6 +12,7 @@ const APP_SHELL = [
   '/game/privacy.html',
   '/game/disclaimer.html',
   '/game/coming-soon.html',
+  '/game/tester-checklist.html',
   '/game/devlog.html',
   '/game/whats-new.html',
   '/game/styles.css',
@@ -22,6 +23,7 @@ const APP_SHELL = [
   '/game/launch.js',
   '/game/news.js',
   '/game/auth.js',
+  '/game/tester-checklist.js',
   '/game/icon.svg',
   '/game/mentavio-logo-board.png',
   '/game/manifest.webmanifest',
