@@ -19,6 +19,61 @@ let portfolioTradeInteractionsBound = false;
 let storeInteractionsBound = false;
 let storeSessionStarters = [];
 
+const FALLBACK_STORE_OFFERS = [
+  {
+    id: 1,
+    sku: 'starter_tokens_120',
+    title: 'Starter Pack',
+    description: 'Adds 120 permanent tokens to the verified account.',
+    price_usd: 1.99,
+    token_reward: 120,
+  },
+  {
+    id: 2,
+    sku: 'trader_tokens_300',
+    title: 'Trader Pack',
+    description:
+      'Adds 300 permanent tokens for sessions, modes, and future features.',
+    price_usd: 4.99,
+    token_reward: 300,
+  },
+  {
+    id: 3,
+    sku: 'investor_tokens_850',
+    title: 'Investor Pack',
+    description: 'Adds 850 permanent tokens for premium progression.',
+    price_usd: 9.99,
+    token_reward: 850,
+  },
+];
+
+const FALLBACK_SESSION_STARTERS = [
+  {
+    sku: 'session_cash_1000',
+    title: 'Standard Session',
+    cash: 1000,
+    token_cost: 0,
+  },
+  {
+    sku: 'session_cash_5000',
+    title: 'Funded Session',
+    cash: 5000,
+    token_cost: 120,
+  },
+  {
+    sku: 'session_cash_15000',
+    title: 'Pro Session',
+    cash: 15000,
+    token_cost: 300,
+  },
+  {
+    sku: 'session_cash_50000',
+    title: 'Investor Session',
+    cash: 50000,
+    token_cost: 850,
+  },
+];
+
 const pageTranslations = {
   en: {
     language: 'Language',
@@ -2667,9 +2722,19 @@ async function refreshPage(options = {}) {
     }
 
     if (page === 'store') {
+      renderOffers(FALLBACK_STORE_OFFERS);
+      renderSessionStarters(FALLBACK_SESSION_STARTERS);
+
+      let storeLoadWarning = '';
       const [offers, starters] = await Promise.all([
-        api('/market/monetization/offers'),
-        api('/market/monetization/session-starters'),
+        api('/market/monetization/offers').catch((error) => {
+          storeLoadWarning = error.message;
+          return FALLBACK_STORE_OFFERS;
+        }),
+        api('/market/monetization/session-starters').catch((error) => {
+          storeLoadWarning = error.message;
+          return FALLBACK_SESSION_STARTERS;
+        }),
       ]);
       renderOffers(offers);
       renderSessionStarters(starters);
@@ -2691,7 +2756,7 @@ async function refreshPage(options = {}) {
       renderStoreTokenBalance(tokenBalance);
       renderStoreCashBalance(cashBalance);
       renderGlobalAccountStatus(portfolio);
-      setStatus(tr('storeLoaded'));
+      setStatus(storeLoadWarning || tr('storeLoaded'));
     }
   } finally {
     isPageRefreshRunning = false;
