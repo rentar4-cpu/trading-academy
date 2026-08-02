@@ -37,9 +37,18 @@ const authText = {
     registerAction: 'Create Account',
     registerNote:
       'Guest progress stays separate. A new verified account starts clean.',
+    accountStatusEyebrow: 'Account Status',
+    accountStatusTitle: 'Current session',
+    accountStatusText:
+      'Your active player, account mode, email status, and token balance are shown here.',
+    accountStatusName: 'Player',
+    accountStatusMode: 'Mode',
+    accountStatusEmail: 'Email',
+    accountStatusTokens: 'Tokens',
+    notConnected: 'Not connected',
     legalConsentRequired:
       'Accept the terms, privacy policy, disclaimer, and 18+ confirmation before registering.',
-    verifyEyebrow: 'Email Check',
+    verifyEyebrow: 'Email Confirmation',
     verifyTitle: 'Confirm Email',
     verificationCode: 'Verification code',
     verifyAction: 'Confirm Email',
@@ -314,6 +323,11 @@ const nodes = {
   loginForm: document.querySelector('#loginForm'),
   registerForm: document.querySelector('#registerForm'),
   verifyForm: document.querySelector('#verifyForm'),
+  accountSummaryPanel: document.querySelector('#accountSummaryPanel'),
+  accountSummaryName: document.querySelector('#accountSummaryName'),
+  accountSummaryMode: document.querySelector('#accountSummaryMode'),
+  accountSummaryEmail: document.querySelector('#accountSummaryEmail'),
+  accountSummaryTokens: document.querySelector('#accountSummaryTokens'),
 };
 
 function t(key, values = {}) {
@@ -373,6 +387,38 @@ function renderCurrentPlayer() {
   nodes.currentPlayerName.textContent =
     user?.display_name || playerName || t('guest');
   renderGlobalAccountStatus(user, playerName, playerId, mode);
+  renderAccountSummary(user, playerName, mode);
+  renderVerificationPanel();
+}
+
+function renderAccountSummary(user, playerName, mode) {
+  if (!nodes.accountSummaryPanel) return;
+
+  const isAccount = mode === 'account' && user?.email_verified;
+  const pendingEmail = localStorage.getItem('market_pending_email');
+  const status = isAccount
+    ? t('accountMode')
+    : pendingEmail || user
+      ? t('pendingMode')
+      : t('guestMode');
+
+  nodes.accountSummaryName.textContent =
+    user?.display_name || playerName || t('guest');
+  nodes.accountSummaryMode.textContent = status;
+  nodes.accountSummaryEmail.textContent =
+    user?.email || pendingEmail || t('notConnected');
+  nodes.accountSummaryTokens.textContent = String(
+    Number(user?.account_tokens || 0).toFixed(0),
+  );
+}
+
+function renderVerificationPanel() {
+  if (!nodes.verifyForm || !nodes.accountSummaryPanel) return;
+
+  const pendingEmail = localStorage.getItem('market_pending_email');
+  const shouldVerify = Boolean(pendingEmail);
+  nodes.verifyForm.classList.toggle('hidden', !shouldVerify);
+  nodes.accountSummaryPanel.classList.toggle('hidden', shouldVerify);
 }
 
 function renderGlobalAccountStatus(user, playerName, playerId, mode) {
@@ -428,6 +474,8 @@ function saveAuth(result) {
 
 function savePendingVerification(result) {
   localStorage.setItem('market_pending_email', result.user.email);
+  localStorage.setItem('market_auth_mode', result.mode);
+  localStorage.setItem('market_user', JSON.stringify(result.user));
   if (result.dev_verification_code) {
     localStorage.setItem(
       'market_dev_verification_code',
@@ -443,6 +491,7 @@ function savePendingVerification(result) {
       code: result.dev_verification_code || '------',
     }),
   );
+  renderCurrentPlayer();
 }
 
 async function continueGuest() {
@@ -520,6 +569,7 @@ async function verifyEmail(event) {
   saveAuth(result);
   setStatus(t('verified', { name: result.user.display_name }));
   renderCurrentPlayer();
+  window.location.href = './index.html';
 }
 
 async function claimAdReward() {
@@ -584,7 +634,7 @@ function bindEvents() {
   nodes.registerForm.addEventListener('submit', (event) =>
     register(event).catch(showError),
   );
-  nodes.verifyForm.addEventListener('submit', (event) =>
+  nodes.verifyForm?.addEventListener('submit', (event) =>
     verifyEmail(event).catch(showError),
   );
 }
@@ -605,3 +655,4 @@ const pendingEmail = localStorage.getItem('market_pending_email');
 const pendingCode = localStorage.getItem('market_dev_verification_code');
 if (pendingEmail) document.querySelector('#verifyEmail').value = pendingEmail;
 if (pendingCode) document.querySelector('#verifyCode').value = pendingCode;
+renderCurrentPlayer();

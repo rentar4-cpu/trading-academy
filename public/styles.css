@@ -719,6 +719,45 @@ select {
   line-height: 1.5;
 }
 
+.account-summary-panel {
+  background:
+    linear-gradient(145deg, rgba(34, 197, 94, 0.1), transparent 42%),
+    rgba(255, 255, 255, 0.94);
+}
+
+.account-summary-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+}
+
+.account-summary-list div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  border: 1px solid rgba(183, 197, 188, 0.28);
+  border-radius: 8px;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.62);
+}
+
+.account-summary-list dt {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.account-summary-list dd {
+  margin: 0;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 900;
+  overflow-wrap: anywhere;
+  text-align: right;
+}
+
 .market-clock span {
   color: var(--muted);
   font-size: 12px;

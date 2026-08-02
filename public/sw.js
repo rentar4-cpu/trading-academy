@@ -1,4 +1,4 @@
-const CACHE_NAME = 'market-simulator-v49-tester-feedback';
+const CACHE_NAME = 'market-simulator-v50-account-status';
 const APP_SHELL = [
   '/game/',
   '/game/index.html',

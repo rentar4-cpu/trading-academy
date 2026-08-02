@@ -10,7 +10,7 @@
     <title>Mentavio - Account</title>
     <link rel="manifest" href="./manifest.webmanifest" />
     <link rel="icon" href="./icon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="./styles.css?v=20260801-sophia-response-fix" />
+    <link rel="stylesheet" href="./styles.css?v=20260802-account-status" />
   </head>
   <body>
     <main class="shell">
@@ -108,10 +108,40 @@
           </p>
         </form>
 
-        <form id="verifyForm" class="panel auth-panel">
+        <article id="accountSummaryPanel" class="panel auth-panel account-summary-panel">
           <div class="panel-head">
             <div>
-              <p class="eyebrow" data-auth-i18n="verifyEyebrow">Email Check</p>
+              <p class="eyebrow" data-auth-i18n="accountStatusEyebrow">Account Status</p>
+              <h2 data-auth-i18n="accountStatusTitle">Current session</h2>
+            </div>
+          </div>
+          <p class="auth-note" data-auth-i18n="accountStatusText">
+            Your active player, account mode, email status, and token balance are shown here.
+          </p>
+          <dl class="account-summary-list">
+            <div>
+              <dt data-auth-i18n="accountStatusName">Player</dt>
+              <dd id="accountSummaryName">Guest</dd>
+            </div>
+            <div>
+              <dt data-auth-i18n="accountStatusMode">Mode</dt>
+              <dd id="accountSummaryMode">Guest</dd>
+            </div>
+            <div>
+              <dt data-auth-i18n="accountStatusEmail">Email</dt>
+              <dd id="accountSummaryEmail">Not connected</dd>
+            </div>
+            <div>
+              <dt data-auth-i18n="accountStatusTokens">Tokens</dt>
+              <dd id="accountSummaryTokens">0</dd>
+            </div>
+          </dl>
+        </article>
+
+        <form id="verifyForm" class="panel auth-panel hidden">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow" data-auth-i18n="verifyEyebrow">Email Confirmation</p>
               <h2 data-auth-i18n="verifyTitle">Confirm Email</h2>
             </div>
           </div>
@@ -141,6 +171,6 @@
       <div class="status-line" id="authStatus" data-auth-i18n="ready">Ready</div>
     </main>
     <script src="./runtime-config.js"></script>
-    <script src="./auth.js?v=20260801-sophia-response-fix"></script>
+    <script src="./auth.js?v=20260802-account-status"></script>
   </body>
 </html>
