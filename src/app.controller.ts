@@ -13,4 +13,10 @@ export class AppController {
   openGame() {
     return;
   }
+
+  @Get('index.html')
+  @Redirect('/game/index.html', 302)
+  openGameIndex() {
+    return;
+  }
 }

@@ -16,5 +16,9 @@ describe('AppController', () => {
     it('should expose the landing route', () => {
       expect(appController.openLanding()).toBeUndefined();
     });
+
+    it('should expose the Android-safe game route', () => {
+      expect(appController.openGameIndex()).toBeUndefined();
+    });
   });
 });

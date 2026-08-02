@@ -19,6 +19,24 @@ const logoBoardUrl = './mentavio-logo-board.png';
 function openTradingApp(event: MouseEvent<HTMLAnchorElement>) {
   event.preventDefault();
 
+  const nativeBridge = (
+    window as Window & {
+      Capacitor?: {
+        getPlatform?: () => string;
+        isNativePlatform?: () => boolean;
+      };
+    }
+  ).Capacitor;
+  const isAndroidShell =
+    nativeBridge?.isNativePlatform?.() ||
+    nativeBridge?.getPlatform?.() === 'android' ||
+    (window.location.hostname === 'localhost' && window.location.port === '');
+
+  if (isAndroidShell) {
+    window.location.assign('/index.html');
+    return;
+  }
+
   if (window.location.port === '3001') {
     window.location.assign(`http://${window.location.hostname}:3000/game/`);
     return;
@@ -151,7 +169,7 @@ export default function Home() {
         <div className="ml-auto flex items-center gap-2">
           <a
             className="rounded-full bg-slate-950 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200 sm:px-5"
-            href="/game/"
+            href="/index.html"
             onClick={openTradingApp}
           >
             {copy.getStarted}
@@ -181,7 +199,7 @@ export default function Home() {
             <a
               id="start"
               className="inline-flex items-center justify-center rounded-full bg-slate-950 px-7 py-4 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-slate-800 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200"
-              href="/game/"
+              href="/index.html"
               onClick={openTradingApp}
             >
               {copy.getStarted}
@@ -277,7 +295,7 @@ export default function Home() {
               {ecosystemModuleKeys.map((module) => (
                 <a
                   className="rounded-2xl border border-white/10 bg-white/[0.06] p-5 text-sm font-semibold dark:border-slate-200 dark:bg-slate-50"
-                  href={module === 'investing' ? '/game/' : '#ecosystem'}
+                  href={module === 'investing' ? '/index.html' : '#ecosystem'}
                   key={module}
                   onClick={module === 'investing' ? openTradingApp : undefined}
                 >
